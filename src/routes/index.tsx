@@ -101,43 +101,38 @@ function Index() {
       {/* Main */}
       <main className="relative z-10 flex flex-1 items-center py-16">
         <div className="grid w-full grid-cols-12 items-start gap-8">
-          <div className="col-span-12 lg:col-span-8 lg:col-start-2">
+          <div className="col-span-12 lg:col-span-11 lg:col-start-2">
+            {/* Brand tagline */}
+            <div className="mb-12 fade-up delay-1">
+              <p
+                className="text-balance text-4xl leading-tight tracking-tight md:text-6xl lg:text-7xl"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                It&apos;s not intelligence
+                <br />
+                <em className="italic">it's intuition.</em>
+              </p>
+            </div>
+
             <blockquote className="relative">
               <h1
-                className="fade-up delay-1 text-balance text-4xl leading-[1.1] tracking-tight md:text-6xl lg:text-7xl"
+                className="fade-up delay-2 text-balance text-2xl leading-[1.15] tracking-tight md:text-4xl lg:text-[2.75rem]"
                 style={{ fontFamily: "var(--font-display)" }}
               >
                 &ldquo;The intellect has little to do on the road to discovery. There comes a{" "}
                 <em className="italic">leap in consciousness</em>, call it{" "}
-                <a href="https://en.wikipedia.org/wiki/Intuition" target="_blank" rel="noopener noreferrer"><em className="italic underline decoration-foreground decoration-[4px] underline-offset-4 md:decoration-[6px]">intuition</em></a> or what you will, and the solution
+                <a href="https://en.wikipedia.org/wiki/Intuition" target="_blank" rel="noopener noreferrer"><em className="italic underline decoration-foreground decoration-[3px] underline-offset-4">intuition</em></a> or what you will, and the solution
                 comes to you.&rdquo;
               </h1>
-              <footer className="mt-8 flex items-center gap-4 fade-up delay-3">
-                <div className="h-px w-12 bg-foreground/20" />
-                <cite className="text-sm font-light uppercase not-italic tracking-wide text-muted-foreground">
+              <footer className="mt-6 flex items-center gap-4 fade-up delay-3">
+                <div className="h-px w-8 bg-foreground/20" />
+                <cite className="text-xs font-light uppercase not-italic tracking-wide text-muted-foreground">
                   Albert Einstein
                 </cite>
               </footer>
             </blockquote>
           </div>
 
-          {/* Technical metadata sidebar */}
-          <aside className="hidden pt-4 lg:col-span-2 lg:col-start-11 lg:block">
-            <div className="flex flex-col gap-12 text-xs uppercase tracking-widest text-muted-foreground fade-up delay-3">
-              <div className="space-y-2">
-                <p className="text-sm font-medium text-foreground">Observation</p>
-                <p className="text-[11px]">It&apos;s not intelligence but intuition.</p>
-              </div>
-              <div className="space-y-2">
-                <p className="text-sm font-medium text-foreground">Coordinates</p>
-                <p className="text-[11px]">
-                  46.2330° N
-                  <br />
-                  6.0557° E
-                </p>
-              </div>
-            </div>
-          </aside>
         </div>
       </main>
 
@@ -151,6 +146,10 @@ function Index() {
           <div className="flex flex-col gap-1">
             <span className="text-muted-foreground">Classification</span>
             <span>AI / Physics Research</span>
+          </div>
+          <div className="hidden flex-col gap-1 md:flex">
+            <span className="text-muted-foreground">Coordinates</span>
+            <span>46.2330&deg; N, 6.0557&deg; E</span>
           </div>
           <button
             type="button"
