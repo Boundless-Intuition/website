@@ -164,8 +164,23 @@ function Index() {
 
         <div className="flex items-end gap-6 md:flex-col md:items-end">
           <ParticleControls settings={particleSettings} onChange={setParticleSettings} />
-          <div className="space-y-1 md:text-right">
-            <p className="text-[10px] uppercase tracking-widest">Founded by CERN Researchers</p>
+          <div className="flex flex-col items-end gap-1.5">
+            <div className="flex items-center gap-3">
+              <p className="text-[9px] uppercase tracking-widest text-muted-foreground">
+                Founded by CERN Researchers
+              </p>
+              <div className="h-3 w-px bg-foreground/20" />
+              <img
+                src="/cern-logo-blue.svg"
+                alt="CERN"
+                className="h-5 w-auto opacity-75 dark:hidden"
+              />
+              <img
+                src="/cern-logo-white.svg"
+                alt="CERN"
+                className="hidden h-5 w-auto opacity-60 dark:block"
+              />
+            </div>
             <a
               href="mailto:research@boundlessintuition.com"
               className="text-[10px] uppercase tracking-widest underline decoration-foreground/20 underline-offset-4 transition-colors hover:text-muted-foreground"
