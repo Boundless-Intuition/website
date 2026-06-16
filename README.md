@@ -2,7 +2,7 @@
 
 > *It's not intelligence, it's intuition.*
 
-Landing page for [Boundless Intuition](https://boundlessintuition.com), an AI physics research lab founded by CERN researchers.
+Landing page for [Boundless Intuition](https://boundlessintuition.com), an AI /physics research lab.
 
 ## Stack
 
