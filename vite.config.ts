@@ -32,6 +32,11 @@ export default defineConfig(async ({ command }) => {
 
   return {
     plugins,
+    // react-markdown (and its unified/remark/micromark deps) are ESM-only and
+    // trip Vite's SSR externalization resolver. Bundle them through Vite instead.
+    ssr: {
+      noExternal: ["react-markdown", "remark-gfm"],
+    },
     resolve: {
       alias: {
         "@": `${process.cwd()}/src`,

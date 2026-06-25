@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   ParticleField,
@@ -6,6 +6,7 @@ import {
   defaultSettings,
   type ParticleSettings,
 } from "@/components/ParticleField";
+import { useTheme } from "@/hooks/use-theme";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,7 +33,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const { theme, setTheme } = useTheme();
   const [particleSettings, setParticleSettings] = useState<ParticleSettings>(defaultSettings);
   const [crosshair, setCrosshair] = useState<{ x: number; y: number }>(() => ({
     x: typeof window !== "undefined" ? window.innerWidth / 2 : 0,
@@ -46,22 +47,6 @@ function Index() {
     window.addEventListener("pointermove", onMove);
     return () => window.removeEventListener("pointermove", onMove);
   }, []);
-
-  useEffect(() => {
-    const stored = (typeof window !== "undefined" && localStorage.getItem("bi-theme")) as
-      | "light"
-      | "dark"
-      | null;
-    const initial: "light" | "dark" =
-      stored ?? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    setTheme(initial);
-  }, []);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    root.classList.toggle("dark", theme === "dark");
-    localStorage.setItem("bi-theme", theme);
-  }, [theme]);
 
   return (
     <div
@@ -90,12 +75,15 @@ function Index() {
             Boundless Intuition
           </h2>
         </div>
-        <a
-          href="mailto:research@boundlessintuition.com"
-          className="shrink-0 rounded-full border border-border px-3 py-1 text-[10px] uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground fade-up delay-1"
+        <Link
+          to="/blog"
+          className="group shrink-0 rounded-full border border-border px-4 py-1.5 text-[10px] uppercase tracking-widest text-muted-foreground transition-colors hover:border-foreground/40 hover:text-foreground fade-up delay-1"
         >
-          Coming Soon
-        </a>
+          Blog
+          <span aria-hidden className="ml-1.5 inline-block transition-transform group-hover:translate-x-0.5">
+            &rarr;
+          </span>
+        </Link>
       </header>
 
       {/* Main */}
