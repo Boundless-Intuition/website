@@ -34,3 +34,5 @@ Open [http://localhost:3000](http://localhost:3000).
 ## Contact
 
 [research@boundlessintuition.com](mailto:research@boundlessintuition.com)
+
+Boundless Intuition Labs © 2026
