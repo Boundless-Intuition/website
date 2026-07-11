@@ -1,3 +1,5 @@
+import { MethodStepFigure } from "./MethodStepFigures";
+
 const STEPS = [
   {
     n: "01",
@@ -262,11 +264,17 @@ export function VerificationMethod() {
 
         {/* Step breakdown */}
         <div className="grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-5">
-          {STEPS.map((s) => (
+          {STEPS.map((s, i) => (
             <div
               key={s.n}
               className="flex flex-col gap-4 bg-background p-6 lg:p-7"
             >
+              <div
+                className="h-20 border-b border-border/60 pb-1 text-foreground"
+                aria-hidden
+              >
+                <MethodStepFigure index={i} />
+              </div>
               <span className="font-mono text-[11px] tracking-[0.14em] text-foreground/50">
                 {s.n}
               </span>

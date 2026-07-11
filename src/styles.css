@@ -493,6 +493,166 @@
   }
 }
 
+/* --- Method step figures (01–05) --- */
+@keyframes mb-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  55%,
+  100% {
+    opacity: 0.15;
+  }
+}
+.mb-blink {
+  animation: mb-blink 1s steps(1) infinite;
+}
+@keyframes mb-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.09);
+  }
+  45% {
+    transform: scale(1);
+  }
+  82% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+.mb-pop {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: mb-pop 3.6s ease-in-out infinite;
+}
+@keyframes mb-ship {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(130px);
+    opacity: 0;
+  }
+}
+.mb-ship {
+  animation: mb-ship 3.2s ease-in-out infinite;
+}
+@keyframes mb-bounce {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(46px);
+  }
+  55% {
+    transform: translateX(40px);
+  }
+}
+.mb-bounce {
+  animation: mb-bounce 3.2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mb-blink {
+    opacity: 1;
+    animation: none;
+  }
+  .mb-pop {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .mb-ship {
+    opacity: 0;
+    animation: none;
+  }
+  .mb-bounce {
+    transform: none;
+    animation: none;
+  }
+}
+/* equalizer bars — the model "speaking" */
+@keyframes mb-eq {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+.mb-eq {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: mb-eq 1.2s ease-in-out infinite;
+}
+/* concentric ripples radiating from a core */
+@keyframes mb-ripple {
+  0% {
+    transform: scale(0.35);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+.mb-ripple {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: mb-ripple 2.4s ease-out infinite;
+}
+/* a compile scanline sweeping across */
+@keyframes mb-scan {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120px);
+    opacity: 0;
+  }
+}
+.mb-scan {
+  animation: mb-scan 3.2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mb-eq {
+    transform: scaleY(0.7);
+    animation: none;
+  }
+  .mb-ripple {
+    opacity: 0;
+    animation: none;
+  }
+  .mb-scan {
+    opacity: 0;
+    animation: none;
+  }
+}
+
 /* --- Paper grain / material texture (D) --- */
 @utility paper-grain {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
