@@ -1,4 +1,7 @@
 import { Link } from "@tanstack/react-router";
+import { DomainFigure } from "./DomainFigures";
+
+const ACCENT = "text-[oklch(0.48_0.09_220)] dark:text-[oklch(0.78_0.09_220)]";
 
 const DOMAINS = [
   {
@@ -69,7 +72,7 @@ export function DomainGrid() {
 
       <div className="mx-auto max-w-7xl border-t border-border">
         <div className="grid grid-cols-1 border-l border-border md:grid-cols-2 lg:grid-cols-4">
-          {DOMAINS.map((d) => (
+          {DOMAINS.map((d, i) => (
             <Link
               key={d.n}
               to="/engage"
@@ -85,6 +88,12 @@ export function DomainGrid() {
                 >
                   ↗
                 </span>
+              </div>
+              <div
+                className={`h-16 opacity-80 transition-opacity group-hover:opacity-100 ${ACCENT}`}
+                aria-hidden
+              >
+                <DomainFigure index={i} />
               </div>
               <h3 className="font-display text-[19px] font-medium leading-[1.2] tracking-tight text-foreground">
                 {d.title}

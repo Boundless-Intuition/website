@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ProcessFlow } from "./ProcessFlow";
 
 const STEPS = [
   {
@@ -220,6 +221,13 @@ export function EngagePage() {
             <h2 className="max-w-[16ch] font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]">
               How it works.
             </h2>
+          </div>
+
+          {/* Animated pipeline — the four steps as one continuous run */}
+          <div className="mb-14 overflow-x-auto rounded-sm border border-border bg-muted/20 p-6">
+            <div className="mx-auto h-44 min-w-[680px] max-w-5xl">
+              <ProcessFlow />
+            </div>
           </div>
 
           <div className="grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-4">

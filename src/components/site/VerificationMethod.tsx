@@ -26,6 +26,8 @@ const STEPS = [
   },
 ];
 
+const ACC = "oklch(0.72 0.09 220)";
+
 function Node({
   tag,
   title,
@@ -48,14 +50,21 @@ function Node({
       }`}
     >
       <div
-        className={`font-mono text-[9.5px] uppercase tracking-[0.18em] ${
+        className={`flex items-center gap-2 font-mono text-[9.5px] uppercase tracking-[0.18em] ${
           engine ? "text-white/40" : "text-muted-foreground"
         }`}
       >
+        {engine && (
+          <span
+            aria-hidden
+            className="vg-pulse inline-block size-1.5 shrink-0 rounded-full"
+            style={{ background: ACC }}
+          />
+        )}
         {tag}
       </div>
       <div
-        className={`font-display text-[15px] font-medium tracking-tight ${
+        className={`flex items-center gap-1.5 font-display text-[15px] font-medium tracking-tight ${
           engine
             ? "text-white"
             : verdict
@@ -63,6 +72,11 @@ function Node({
               : "text-foreground"
         }`}
       >
+        {verdict && (
+          <span className="vg-check" aria-hidden>
+            ✓
+          </span>
+        )}
         {title}
       </div>
       <div
@@ -76,15 +90,80 @@ function Node({
   );
 }
 
-function Arrow({ vertical = false }: { vertical?: boolean }) {
+function Arrow({
+  vertical = false,
+  delay = 0,
+}: {
+  vertical?: boolean;
+  delay?: number;
+}) {
+  const style = { animationDelay: `${delay}s` };
+  if (vertical) {
+    return (
+      <div
+        aria-hidden
+        className="flex h-8 w-full shrink-0 items-center justify-center text-foreground/40"
+      >
+        <svg viewBox="0 0 14 44" className="h-8 w-3.5">
+          <line
+            x1="7"
+            y1="3"
+            x2="7"
+            y2="33"
+            stroke="currentColor"
+            strokeOpacity="0.4"
+            strokeWidth="1.2"
+          />
+          <path
+            d="M3 32 l4 7 4 -7"
+            fill="none"
+            stroke="currentColor"
+            strokeOpacity="0.55"
+            strokeWidth="1.2"
+          />
+          <circle
+            className="mf-dot-y pf-glow"
+            cx="7"
+            cy="3"
+            r="2.6"
+            fill={ACC}
+            style={style}
+          />
+        </svg>
+      </div>
+    );
+  }
   return (
     <div
       aria-hidden
-      className={`flex shrink-0 items-center justify-center text-foreground/40 ${
-        vertical ? "h-6 w-full" : "w-6"
-      }`}
+      className="flex w-10 shrink-0 items-center justify-center text-foreground/40"
     >
-      {vertical ? "↓" : "→"}
+      <svg viewBox="0 0 44 14" className="h-3.5 w-10">
+        <line
+          x1="2"
+          y1="7"
+          x2="34"
+          y2="7"
+          stroke="currentColor"
+          strokeOpacity="0.4"
+          strokeWidth="1.2"
+        />
+        <path
+          d="M33 3 l7 4 -7 4"
+          fill="none"
+          stroke="currentColor"
+          strokeOpacity="0.55"
+          strokeWidth="1.2"
+        />
+        <circle
+          className="mf-dot-x pf-glow"
+          cx="2"
+          cy="7"
+          r="2.6"
+          fill={ACC}
+          style={style}
+        />
+      </svg>
     </div>
   );
 }
@@ -142,7 +221,7 @@ export function VerificationMethod() {
               sub="checks claim ⊨ rules"
               variant="engine"
             />
-            <Arrow />
+            <Arrow delay={1.3} />
             <Node
               tag="Result"
               title="Verified · certified"
@@ -164,14 +243,14 @@ export function VerificationMethod() {
               title="The rules"
               sub="compiled, machine-checkable"
             />
-            <Arrow vertical />
+            <Arrow vertical delay={0.9} />
             <Node
               tag="Proof engine"
               title="Theorem prover"
               sub="checks claim ⊨ rules"
               variant="engine"
             />
-            <Arrow vertical />
+            <Arrow vertical delay={1.8} />
             <Node
               tag="Result"
               title="Verified · certified"

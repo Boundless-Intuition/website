@@ -1,3 +1,5 @@
+import { ProductivityFigure } from "./ProductivityFigures";
+
 const PENALTIES = [
   {
     figure: "€20M · 4%",
@@ -213,11 +215,17 @@ export function VerificationValue() {
         <div>
           <Divider label="And it makes teams faster" />
           <div className="grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
-            {PRODUCTIVITY.map((p) => (
+            {PRODUCTIVITY.map((p, idx) => (
               <div
                 key={p.n}
                 className="flex flex-col gap-4 bg-background p-6 lg:p-7"
               >
+                <div
+                  className={`h-[70px] border-b border-border/60 pb-2 ${ACCENT}`}
+                  aria-hidden
+                >
+                  <ProductivityFigure index={idx} />
+                </div>
                 <span className="font-mono text-[11px] tracking-[0.14em] text-foreground/50">
                   {p.n}
                 </span>

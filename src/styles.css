@@ -236,6 +236,263 @@
   animation: pl-drift-b 27s ease-in-out infinite alternate;
 }
 
+/* --- Value-box demonstration figures --- */
+/* 01 · a token racing the CI pipeline */
+@keyframes vg-travel {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(150px);
+    opacity: 0;
+  }
+}
+.vg-token {
+  animation: vg-travel 2.6s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+@keyframes vg-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.vg-pulse {
+  animation: vg-pulse 2.6s ease-in-out infinite;
+}
+/* 02 · cases filling with checks, forever */
+@keyframes vg-cell {
+  0% {
+    opacity: 0;
+  }
+  14% {
+    opacity: 1;
+  }
+  72% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.vg-cell {
+  opacity: 0;
+  animation: vg-cell 4s ease-in-out infinite;
+}
+/* 03 · an audit bar that fills instantly */
+@keyframes vg-bar {
+  0% {
+    transform: scaleX(0);
+  }
+  38% {
+    transform: scaleX(1);
+  }
+  82% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+  }
+}
+.vg-barfill {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: vg-bar 3.2s ease-in-out infinite;
+}
+/* shared · a check/flag resolving */
+@keyframes vg-check {
+  0%,
+  34% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  54% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  86% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.vg-check {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: vg-check 3.2s ease-in-out infinite;
+}
+/* 04 · a risk gauge settling into the safe zone */
+@keyframes vg-needle {
+  0% {
+    transform: rotate(-70deg);
+  }
+  44% {
+    transform: rotate(52deg);
+  }
+  66% {
+    transform: rotate(46deg);
+  }
+  100% {
+    transform: rotate(-70deg);
+  }
+}
+.vg-needle {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: vg-needle 3.6s ease-in-out infinite;
+}
+/* domains · bars rising under a limit */
+@keyframes vg-rise {
+  0% {
+    transform: scaleY(0);
+  }
+  40% {
+    transform: scaleY(1);
+  }
+  82% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0);
+  }
+}
+.vg-barrise {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: vg-rise 3.4s ease-in-out infinite;
+}
+/* domains · scales settling level */
+@keyframes vg-balance {
+  0% {
+    transform: rotate(0deg);
+  }
+  22% {
+    transform: rotate(11deg);
+  }
+  50% {
+    transform: rotate(-9deg);
+  }
+  74% {
+    transform: rotate(4deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+.vg-balance {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vg-balance 4.2s ease-in-out infinite;
+}
+
+/* --- Engage "how it works" process flow --- */
+@keyframes pf-travel {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(720px);
+    opacity: 0;
+  }
+}
+.pf-packet {
+  animation: pf-travel 6.4s linear infinite;
+}
+@keyframes pf-flash {
+  0%,
+  100% {
+    opacity: 0.14;
+  }
+  6% {
+    opacity: 1;
+  }
+  24% {
+    opacity: 0.14;
+  }
+}
+.pf-flash {
+  opacity: 0.14;
+  animation: pf-flash 6.4s ease-in-out infinite;
+}
+.pf-glow {
+  filter: drop-shadow(0 0 5px oklch(0.72 0.09 220 / 0.65));
+}
+@media (prefers-reduced-motion: reduce) {
+  .pf-packet {
+    opacity: 0;
+    animation: none;
+  }
+  .pf-flash {
+    opacity: 0.7;
+    animation: none;
+  }
+}
+
+/* --- Method pipeline · the model answer flowing through --- */
+@keyframes mf-flow-x {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+}
+@keyframes mf-flow-y {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+}
+.mf-dot-x {
+  animation: mf-flow-x 2.6s ease-in-out infinite;
+}
+.mf-dot-y {
+  animation: mf-flow-y 2.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mf-dot-x,
+  .mf-dot-y {
+    opacity: 0;
+    animation: none;
+  }
+}
+
 /* --- Paper grain / material texture (D) --- */
 @utility paper-grain {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -275,6 +532,39 @@
   }
   .pl-drift-a,
   .pl-drift-b {
+    animation: none;
+  }
+  .vg-token {
+    opacity: 0;
+    animation: none;
+  }
+  .vg-pulse {
+    opacity: 0.7;
+    animation: none;
+  }
+  .vg-cell {
+    opacity: 1;
+    animation: none;
+  }
+  .vg-barfill {
+    transform: scaleX(1);
+    animation: none;
+  }
+  .vg-check {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .vg-needle {
+    transform: rotate(48deg);
+    animation: none;
+  }
+  .vg-barrise {
+    transform: scaleY(1);
+    animation: none;
+  }
+  .vg-balance {
+    transform: rotate(0deg);
     animation: none;
   }
 }
