@@ -2,8 +2,23 @@ const LINEAGE = [
   { k: "Lineage", v: "CERN" },
   { k: "Discipline", v: "Formal verification" },
   { k: "Standard", v: "Proof, not test" },
-  { k: "Seat", v: "Meyrin · Geneva" },
+  { k: "Seat", v: "Geneva" },
 ];
+
+function SwissFlag({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 32 32"
+      className={className}
+      role="img"
+      aria-label="Switzerland"
+    >
+      <rect width="32" height="32" rx="4" fill="#D52B1E" />
+      <rect x="13" y="7" width="6" height="18" fill="#fff" />
+      <rect x="7" y="13" width="18" height="6" fill="#fff" />
+    </svg>
+  );
+}
 
 export function Origin() {
   return (
@@ -21,17 +36,16 @@ export function Origin() {
           </h2>
           <div className="max-w-[56ch] space-y-5 text-[16px] leading-[1.65] text-foreground/80">
             <p>
-              Founded in 2026 by research software and computing engineers
-              - where systems must be correct, not just tested. We bring
+              Founded in 2026 by research software and computing engineers at
+              CERN - where systems must be correct, not just tested. We bring
               the engineering discipline of building mission-critical research
-              infrastructure to artificial intelligence: no result without a check,
-              no claim without a derivation.
+              infrastructure to artificial intelligence: no result without a
+              check, no claim without a derivation.
             </p>
             <p className="text-muted-foreground">
-              The lab operates from Meyrin, on the western edge of Geneva,
-              within the gravitational field of the world's largest research
-              computing infrastructure. We build tools that hold AI to the same
-              standard we hold our own systems.
+              The lab operates from Geneva, within the gravitational field of
+              the world's largest research computing infrastructure. We build
+              tools that hold AI to the same standard we hold our own systems.
             </p>
           </div>
         </div>
@@ -42,7 +56,6 @@ export function Origin() {
               ["Founded", "2026"],
               ["Lineage", "CERN · Geneva"],
               ["Coordinates", "46.2330° N · 6.0557° E"],
-              ["Address", "Route de Meyrin\n1217 Meyrin, Switzerland"],
             ].map(([k, v]) => (
               <div
                 key={k}
@@ -77,9 +90,31 @@ export function Origin() {
       {/* Research lineage - a quiet trust signal, not a logo wall */}
       <div className="mx-auto max-w-7xl px-6 pb-24">
         <div className="flex flex-col gap-6 border-t border-border pt-8 md:flex-row md:items-center md:justify-between">
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-            Research lineage
-          </span>
+          <div className="flex flex-col gap-4">
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+              Research lineage
+            </span>
+            <div className="flex items-center gap-5">
+              <SwissFlag className="h-6 w-6 rounded-[3px]" />
+              <span className="h-5 w-px bg-border" aria-hidden />
+              {/* CERN mark, masked so it takes the theme colour (works in light + dark) */}
+              <span
+                role="img"
+                aria-label="CERN"
+                className="inline-block h-6 w-6 bg-foreground/90"
+                style={{
+                  WebkitMaskImage: "url(/CERN_logo_badge.svg)",
+                  maskImage: "url(/CERN_logo_badge.svg)",
+                  WebkitMaskSize: "contain",
+                  maskSize: "contain",
+                  WebkitMaskRepeat: "no-repeat",
+                  maskRepeat: "no-repeat",
+                  WebkitMaskPosition: "center",
+                  maskPosition: "center",
+                }}
+              />
+            </div>
+          </div>
           <div className="grid grid-cols-2 gap-x-10 gap-y-4 sm:grid-cols-4">
             {LINEAGE.map((item) => (
               <div key={item.k} className="flex flex-col gap-1">

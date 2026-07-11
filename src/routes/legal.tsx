@@ -93,7 +93,7 @@ function LegalRoute() {
               ))}
             </div>
             <p className="mt-10 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-              Last updated · 2026 · Meyrin, Geneva
+              Last updated · 2026 · Geneva
             </p>
           </div>
         </section>

@@ -1,37 +1,87 @@
 import { Link } from "@tanstack/react-router";
-import { TrustPanel } from "./TrustPanel";
-import { ProofField } from "./ProofField";
 
 export function Hero() {
   return (
     <section
       id="doctrine"
-      className="relative overflow-hidden border-b border-border"
+      className="relative -mt-16 overflow-hidden border-b border-border"
     >
-      <div className="blueprint-grid absolute inset-0 opacity-70" aria-hidden />
-      {/* Material texture — grain over the vellum */}
+      {/* Full-bleed plate — the sum of human knowledge, engraved and checkable
+          (CERN, "Wandering the Immeasurable", Meyrin) */}
+      <div className="absolute inset-0" aria-hidden>
+        <picture>
+          <source
+            media="(max-width: 768px)"
+            srcSet="/artifact-hero-mobile.webp"
+          />
+          <img
+            src="/artifact-hero.webp"
+            alt=""
+            className="h-full w-full object-cover object-[62%_center] opacity-100 saturate-[0.92] contrast-[1.02] dark:opacity-[0.72] dark:saturate-[0.78]"
+          />
+        </picture>
+        {/* Navy wash to fuse the photograph into the vellum plate */}
+        <div className="absolute inset-0 bg-accent/5 mix-blend-multiply dark:bg-background/25 dark:mix-blend-normal" />
+        {/* Vertical scrim — carries readability on mobile / narrow viewports */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/35 to-background/85 lg:from-background/40 lg:via-transparent lg:to-background/55" />
+        {/* Horizontal reading scrim — anchors the copy column on wide screens */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/78 to-background/5 lg:via-background/55 lg:to-transparent" />
+      </div>
+
+      {/* Blueprint construction lines drawn over the plate */}
+      <svg
+        aria-hidden
+        className="pointer-events-none absolute inset-0 h-full w-full text-foreground"
+        viewBox="0 0 1200 800"
+        preserveAspectRatio="xMidYMid slice"
+        fill="none"
+        stroke="currentColor"
+        vectorEffect="non-scaling-stroke"
+      >
+        {/* concentric survey rings over the mechanism */}
+        <g opacity="0.22" strokeWidth="1">
+          <circle cx="815" cy="430" r="118" />
+          <circle cx="815" cy="430" r="196" strokeDasharray="2 6" />
+          <circle cx="815" cy="430" r="286" opacity="0.6" />
+        </g>
+        {/* crosshair + registration ticks */}
+        <g opacity="0.28" strokeWidth="1">
+          <path d="M815 250 V610 M665 430 H965" />
+          <path d="M803 430 h24 M815 418 v24" opacity="0.8" />
+          <circle cx="815" cy="430" r="5" opacity="0.9" />
+        </g>
+        {/* construction diagonals + golden section */}
+        <g opacity="0.16" strokeWidth="1">
+          <path d="M0 120 L1200 690" />
+          <path d="M120 800 L1050 0" strokeDasharray="3 7" />
+          <rect x="612" y="272" width="406" height="316" />
+          <path d="M612 430 H1018" opacity="0.7" />
+        </g>
+        {/* dimension line with arrow ticks along the base */}
+        <g opacity="0.3" strokeWidth="1">
+          <path d="M612 720 H1018" />
+          <path d="M612 712 v16 M1018 712 v16" />
+          <path d="M612 720 l10 -5 M612 720 l10 5 M1018 720 l-10 -5 M1018 720 l-10 5" />
+        </g>
+      </svg>
+
+      {/* Blueprint grid + grain, kept faint over the plate */}
+      <div className="blueprint-grid absolute inset-0 opacity-40" aria-hidden />
       <div
         className="paper-grain pointer-events-none absolute inset-0"
         aria-hidden
       />
-      {/* Living background: a field of proofs drawing themselves, resolving to ∎ */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 hidden text-foreground opacity-[0.2] md:block"
-      >
-        <ProofField className="h-full w-full" />
-      </div>
 
       {/* Drafting registration marks */}
       <span
         aria-hidden
-        className="pointer-events-none absolute left-6 top-6 hidden font-mono text-[10px] tracking-[0.2em] text-foreground/30 lg:block"
+        className="pointer-events-none absolute left-6 top-20 hidden font-mono text-[10px] tracking-[0.2em] text-foreground/40 lg:block"
       >
         ⌐ BI—001
       </span>
       <span
         aria-hidden
-        className="pointer-events-none absolute bottom-6 right-6 hidden font-mono text-[10px] tracking-[0.2em] text-foreground/30 lg:block"
+        className="pointer-events-none absolute bottom-6 right-6 hidden font-mono text-[10px] tracking-[0.2em] text-foreground/40 lg:block"
       >
         SHEET 1 / 6 ¬
       </span>
@@ -90,8 +140,18 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="lg:pt-4">
-          <TrustPanel />
+        {/* Frosted caption plate, floated over the mechanism in the photograph */}
+        <div className="relative hidden lg:block">
+          <div className="absolute bottom-2 right-0 max-w-[74%] rounded-sm border border-border bg-background/55 px-5 py-4 shadow-[0_20px_50px_-30px_oklch(0.22_0.03_250/0.55)] backdrop-blur-md">
+            <div className="mb-1.5 flex items-center gap-2 font-mono text-[9.5px] uppercase tracking-[0.2em] text-muted-foreground">
+              <span>Plate · fig. I</span>
+              <span className="text-muted-foreground/40">·</span>
+              <span>46.2330° N &nbsp;6.0557° E</span>
+            </div>
+            <div className="font-display text-[15.5px] font-medium leading-snug tracking-tight text-foreground">
+              Every input. One proof.
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { TopBar } from "@/components/site/TopBar";
 import { Hero } from "@/components/site/Hero";
 import { VerificationMethod } from "@/components/site/VerificationMethod";
+import { CoverageBand } from "@/components/site/CoverageBand";
 import { VerificationValue } from "@/components/site/VerificationValue";
 import { VerifyWidget } from "@/components/site/VerifyWidget";
 import { DomainGrid } from "@/components/site/DomainGrid";
@@ -20,6 +21,7 @@ function Index() {
       <main>
         <Hero />
         <VerificationMethod />
+        <CoverageBand />
         <VerifyWidget />
         <DomainGrid />
         <VerificationValue />

@@ -1,4 +1,5 @@
 import { ProductivityFigure } from "./ProductivityFigures";
+import { MeasuredFigure } from "./MeasuredFigure";
 
 const PENALTIES = [
   {
@@ -94,13 +95,51 @@ const PRODUCTIVITY = [
 
 const ACCENT = "text-[oklch(0.48_0.09_220)] dark:text-[oklch(0.78_0.09_220)]";
 
+// A sine wave that flatlines beside the label, then resolves into oscillation.
+// Computed once; preserveAspectRatio="none" + non-scaling-stroke keeps it a crisp
+// 1px line at any width. Physics-textbook energy, zero runtime cost.
+const WAVE_PATH = (() => {
+  const W = 300;
+  const mid = 8;
+  const amp = 5;
+  const k = 0.14;
+  const steps = 160;
+  let d = "";
+  for (let i = 0; i <= steps; i++) {
+    const x = (i / steps) * W;
+    const env = Math.min(1, Math.max(0, (x - 84) / 150)); // flat, then ramps in
+    const y = mid + amp * env * Math.sin(k * x);
+    d += `${i === 0 ? "M" : "L"}${x.toFixed(2)} ${y.toFixed(2)}`;
+  }
+  return d;
+})();
+
+function WaveDivider({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 300 16"
+      preserveAspectRatio="none"
+      className={className}
+      aria-hidden
+    >
+      <path
+        d={WAVE_PATH}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1"
+        vectorEffect="non-scaling-stroke"
+      />
+    </svg>
+  );
+}
+
 function Divider({ label }: { label: string }) {
   return (
     <div className="mb-8 flex items-center gap-4">
       <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
         {label}
       </span>
-      <span className="h-px flex-1 bg-border" />
+      <WaveDivider className="h-4 flex-1 text-foreground/30" />
     </div>
   );
 }
@@ -145,9 +184,7 @@ export function VerificationValue() {
                 key={p.label}
                 className="flex flex-col gap-3 bg-background p-6 lg:p-7"
               >
-                <span className="font-display text-[26px] font-light leading-none tracking-tight text-foreground md:text-[30px]">
-                  {p.figure}
-                </span>
+                <MeasuredFigure value={p.figure} />
                 <span
                   className={`font-mono text-[10px] uppercase tracking-[0.18em] ${ACCENT}`}
                 >

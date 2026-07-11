@@ -14,6 +14,7 @@ const SECTIONS = [
 
 export function TopBar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   // Lock body scroll while the mobile drawer is open.
   useEffect(() => {
@@ -24,8 +25,26 @@ export function TopBar() {
     };
   }, [open]);
 
+  // Transparent over the hero; solidify once the page scrolls beneath it.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Drawer open forces the solid treatment so the menu stays legible.
+  const solid = scrolled || open;
+
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-border bg-background/85 backdrop-blur-md">
+    <nav
+      className={`sticky top-0 z-50 w-full transition-[background-color,border-color,backdrop-filter] duration-300 ${
+        solid
+          ? "border-b border-border bg-background/85 backdrop-blur-md"
+          : "border-b border-transparent bg-gradient-to-b from-background/55 via-background/15 to-transparent backdrop-blur-[2px]"
+      }`}
+    >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <div className="flex items-center gap-12">
           <Link

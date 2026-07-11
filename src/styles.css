@@ -729,6 +729,35 @@
   }
 }
 
+/* --- Antikythera gear train (hero centerpiece) --- */
+@keyframes gear-cw {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes gear-ccw {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+.gear-cw,
+.gear-ccw {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.gear-cw {
+  animation: gear-cw var(--dur, 30s) linear infinite;
+}
+.gear-ccw {
+  animation: gear-ccw var(--dur, 30s) linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gear-cw,
+  .gear-ccw {
+    animation: none;
+  }
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
