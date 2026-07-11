@@ -5,21 +5,34 @@ const PENALTIES = [
     figure: "€20M · 4%",
     label: "GDPR",
     body: "The maximum fine is €20 million or 4% of global annual turnover - whichever is greater. A single unlawful data flow, or one hallucinated disclosure of personal data, is enough to trigger it.",
+    source: { cite: "Art. 83 GDPR", href: "https://gdpr-info.eu/art-83-gdpr/" },
   },
   {
     figure: "$2M / yr",
     label: "HIPAA",
     body: "Per-violation annual caps on mishandled health data - before the mandatory breach notifications, the OCR investigation, and the class action that follows a leak.",
+    source: {
+      cite: "HHS OCR enforcement",
+      href: "https://www.hhs.gov/hipaa/for-professionals/compliance-enforcement/index.html",
+    },
   },
   {
     figure: "Personal",
     label: "SOX · SEC",
     body: "Executives personally attest to their controls. A materially wrong AI-generated disclosure is not just a corporate fine - it is individual, criminal-adjacent liability.",
+    source: {
+      cite: "18 U.S.C. § 1350",
+      href: "https://www.law.cornell.edu/uscode/text/18/1350",
+    },
   },
   {
     figure: "Precedent",
     label: "Litigation",
     body: "A fabricated citation, an unsafe instruction, a discriminatory decision - once a wrong answer reaches a customer, the cost is discovery, settlement, and case law written against you.",
+    source: {
+      cite: "Mata v. Avianca",
+      href: "https://www.law.berkeley.edu/wp-content/uploads/archive/2025/12/Mata-v-Avianca-Inc.pdf",
+    },
   },
 ];
 
@@ -143,6 +156,23 @@ export function VerificationValue() {
                 <p className="text-[13px] leading-relaxed text-muted-foreground">
                   {p.body}
                 </p>
+                <a
+                  href={p.source.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group mt-auto inline-flex items-center gap-1.5 border-t border-border/60 pt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  <span className="text-muted-foreground/60">Source</span>
+                  <span className="text-foreground/70 transition-colors group-hover:text-foreground">
+                    {p.source.cite}
+                  </span>
+                  <span
+                    aria-hidden
+                    className="transition-transform group-hover:translate-x-0.5"
+                  >
+                    ↗
+                  </span>
+                </a>
               </div>
             ))}
           </div>
