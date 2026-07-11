@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { TrustPanel } from "./TrustPanel";
-import { Astrolabe } from "./Astrolabe";
+import { ProofField } from "./ProofField";
 
 export function Hero() {
   return (
@@ -8,16 +8,33 @@ export function Hero() {
       id="doctrine"
       className="relative overflow-hidden border-b border-border"
     >
+      <div className="blueprint-grid absolute inset-0 opacity-70" aria-hidden />
+      {/* Material texture — grain over the vellum */}
       <div
-        className="blueprint-grid absolute inset-0 opacity-100"
+        className="paper-grain pointer-events-none absolute inset-0"
         aria-hidden
       />
+      {/* Living background: a field of proofs drawing themselves, resolving to ∎ */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-56 -top-40 hidden text-foreground opacity-[0.14] lg:block"
+        className="pointer-events-none absolute inset-0 hidden text-foreground opacity-[0.2] md:block"
       >
-        <Astrolabe className="h-[720px] w-[720px]" />
+        <ProofField className="h-full w-full" />
       </div>
+
+      {/* Drafting registration marks */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute left-6 top-6 hidden font-mono text-[10px] tracking-[0.2em] text-foreground/30 lg:block"
+      >
+        ⌐ BI—001
+      </span>
+      <span
+        aria-hidden
+        className="pointer-events-none absolute bottom-6 right-6 hidden font-mono text-[10px] tracking-[0.2em] text-foreground/30 lg:block"
+      >
+        SHEET 1 / 6 ¬
+      </span>
 
       <div className="relative mx-auto grid max-w-7xl gap-16 px-6 pt-24 pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:pt-32">
         <div>

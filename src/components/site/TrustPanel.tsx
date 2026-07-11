@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ProofMark } from "./ProofMark";
 
 type Check = { label: string; detail: string; state: "pass" | "pending" };
 type Case = {
@@ -218,20 +219,24 @@ export function TrustPanel() {
 
       {/* Verdict */}
       <div
-        className={`border-t border-white/10 px-5 py-4 transition-opacity duration-500 ${
+        className={`flex items-center justify-between gap-4 border-t border-white/10 px-5 py-4 transition-opacity duration-500 ${
           phase === 2 ? "opacity-100" : "opacity-0"
         }`}
       >
-        <div className="mb-1 flex items-center justify-between">
-          <div className="flex items-center gap-2 font-mono text-[11px] text-[oklch(0.72_0.09_220)]">
-            <span aria-hidden>✓</span>
-            <span>verified</span>
+        <div className="min-w-0">
+          <div className="mb-1 flex items-center gap-2 font-mono text-[11px] text-[oklch(0.72_0.09_220)]">
+            <span>proven</span>
+            <span className="text-white/25">·</span>
+            <span className="tabular-nums text-white/35">{c.hash}</span>
           </div>
-          <span className="font-mono text-[10px] tabular-nums text-white/35">
-            {c.hash}
-          </span>
+          <p className="text-[13px] text-white/65">{c.verdict}</p>
         </div>
-        <p className="text-[13px] text-white/65">{c.verdict}</p>
+        {phase === 2 && (
+          <ProofMark
+            key={i}
+            className="seal-stamp h-9 w-9 shrink-0 text-[oklch(0.72_0.09_220)]"
+          />
+        )}
       </div>
     </div>
   );

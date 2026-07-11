@@ -29,17 +29,17 @@
 :root {
   --radius: 0.25rem;
   /* Blueprint Vellum palette */
-  --background: oklch(0.945 0.012 90);        /* #efece2 pale vellum */
-  --foreground: oklch(0.22 0.03 250);         /* deep prussian navy */
+  --background: oklch(0.945 0.012 90); /* #efece2 pale vellum */
+  --foreground: oklch(0.22 0.03 250); /* deep prussian navy */
   --card: oklch(0.965 0.008 90);
   --card-foreground: oklch(0.22 0.03 250);
-  --muted: oklch(0.88 0.015 90);              /* #d9d4c3 secondary vellum */
+  --muted: oklch(0.88 0.015 90); /* #d9d4c3 secondary vellum */
   --muted-foreground: oklch(0.42 0.02 250);
-  --accent: oklch(0.28 0.06 250);             /* prussian navy accent */
+  --accent: oklch(0.28 0.06 250); /* prussian navy accent */
   --accent-foreground: oklch(0.945 0.012 90);
   --border: oklch(0.22 0.03 250 / 0.14);
   --ring: oklch(0.28 0.06 250);
-  --ink: oklch(0.12 0.02 250);                /* graphite ink */
+  --ink: oklch(0.12 0.02 250); /* graphite ink */
   --ink-foreground: oklch(0.94 0.012 90);
   --graphite: oklch(0.14 0.005 250);
 }
@@ -87,23 +87,204 @@
 }
 
 @keyframes slow-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 @keyframes rev-spin {
-  from { transform: rotate(360deg); }
-  to { transform: rotate(0deg); }
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
 }
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Proof seal stamp (C) --- */
+@keyframes stamp-in {
+  0% {
+    opacity: 0;
+    transform: scale(1.55) rotate(-11deg);
+  }
+  55% {
+    opacity: 1;
+  }
+  70% {
+    transform: scale(0.965) rotate(-3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-4deg);
+  }
+}
+.seal-stamp {
+  animation: stamp-in 0.62s cubic-bezier(0.2, 0.9, 0.25, 1) both;
+}
+
+/* --- Self-drawing proof lattice (A) --- */
+@keyframes pl-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes pl-fade {
+  to {
+    opacity: 1;
+  }
+}
+.pl-edge {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: pl-draw 1.5s ease forwards;
+}
+.pl-node {
+  opacity: 0;
+  animation: pl-fade 0.7s ease forwards;
+}
+
+/* --- Living proof-lattice field (hero background) --- */
+/* Edges continuously "prove": draw in, hold, fade, repeat. */
+@keyframes pl-prove {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  18% {
+    opacity: 1;
+  }
+  46% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  74% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+.pl-prove {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  animation: pl-prove 9s ease-in-out infinite;
+}
+@keyframes pl-twinkle {
+  0%,
+  100% {
+    opacity: 0.32;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+.pl-dot {
+  animation: pl-twinkle 6s ease-in-out infinite;
+}
+@keyframes pl-qed {
+  0%,
+  100% {
+    opacity: 0.18;
+    transform: scale(0.6);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+}
+.pl-qed {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pl-qed 7s ease-in-out infinite;
+}
+/* Two parallax layers drift gently in opposite directions. */
+@keyframes pl-drift-a {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-24px, 16px);
+  }
+}
+@keyframes pl-drift-b {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(20px, -14px);
+  }
+}
+.pl-drift-a {
+  animation: pl-drift-a 34s ease-in-out infinite alternate;
+}
+.pl-drift-b {
+  animation: pl-drift-b 27s ease-in-out infinite alternate;
+}
+
+/* --- Paper grain / material texture (D) --- */
+@utility paper-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+}
+.dark .paper-grain {
+  opacity: 0.5;
+  mix-blend-mode: screen;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-edge {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+  .pl-node {
+    opacity: 1;
+    animation: none;
+  }
+  .seal-stamp {
+    animation: none;
+  }
+  .pl-prove {
+    stroke-dashoffset: 0;
+    opacity: 0.4;
+    animation: none;
+  }
+  .pl-dot {
+    opacity: 0.55;
+    animation: none;
+  }
+  .pl-qed {
+    opacity: 0.6;
+    transform: none;
+    animation: none;
+  }
+  .pl-drift-a,
+  .pl-drift-b {
+    animation: none;
+  }
 }
 
 @layer base {
   * {
     border-color: var(--color-border);
   }
-  html, body {
+  html,
+  body {
     background-color: var(--color-background);
     color: var(--color-foreground);
   }

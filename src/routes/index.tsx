@@ -3,6 +3,7 @@ import { TopBar } from "@/components/site/TopBar";
 import { Hero } from "@/components/site/Hero";
 import { VerificationMethod } from "@/components/site/VerificationMethod";
 import { VerificationValue } from "@/components/site/VerificationValue";
+import { VerifyWidget } from "@/components/site/VerifyWidget";
 import { DomainGrid } from "@/components/site/DomainGrid";
 import { ProofWalkthrough } from "@/components/site/ProofWalkthrough";
 import { Origin } from "@/components/site/Origin";
@@ -19,6 +20,7 @@ function Index() {
       <main>
         <Hero />
         <VerificationMethod />
+        <VerifyWidget />
         <DomainGrid />
         <VerificationValue />
         <ProofWalkthrough />

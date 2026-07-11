@@ -5,6 +5,7 @@ import { ThemeToggle } from "./ThemeToggle";
 const SECTIONS = [
   { href: "/#doctrine", label: "Doctrine" },
   { href: "/#method", label: "Method" },
+  { href: "/#try", label: "Demonstration" },
   { href: "/#domains", label: "Domains" },
   { href: "/#value", label: "Value" },
   { href: "/#walkthrough", label: "Walkthrough" },
