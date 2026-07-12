@@ -1,7 +1,7 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-BMl7thHh.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/engage-C5XxD9IQ.js
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-BGrJXls8.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/engage-DyrwA10Y.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -339,7 +339,7 @@ function EngagePage() {
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
 		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
-			className: "relative overflow-hidden border-b border-border",
+			className: "relative -mt-16 overflow-hidden border-b border-border",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				className: "blueprint-grid absolute inset-0 opacity-100",
 				"aria-hidden": true

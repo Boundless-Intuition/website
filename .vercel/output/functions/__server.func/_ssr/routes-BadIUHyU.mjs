@@ -1,8 +1,8 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-BMl7thHh.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-DuNq8-Gy.js
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-BGrJXls8.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-BadIUHyU.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function Hero() {
@@ -3504,59 +3504,11 @@ function ProofWalkthrough() {
 		})]
 	});
 }
-var LINEAGE = [
-	{
-		k: "Lineage",
-		v: "CERN"
-	},
-	{
-		k: "Discipline",
-		v: "Formal verification"
-	},
-	{
-		k: "Standard",
-		v: "Proof, not test"
-	},
-	{
-		k: "Seat",
-		v: "Geneva"
-	}
-];
-function SwissFlag({ className = "" }) {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
-		viewBox: "0 0 32 32",
-		className,
-		role: "img",
-		"aria-label": "Switzerland",
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", {
-				width: "32",
-				height: "32",
-				rx: "4",
-				fill: "#D52B1E"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", {
-				x: "13",
-				y: "7",
-				width: "6",
-				height: "18",
-				fill: "#fff"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", {
-				x: "7",
-				y: "13",
-				width: "18",
-				height: "6",
-				fill: "#fff"
-			})
-		]
-	});
-}
 function Origin() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		id: "lab",
 		className: "border-b border-border bg-background",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "mx-auto grid max-w-7xl gap-16 px-6 pt-28 pb-20 lg:grid-cols-[1.1fr_1fr]",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -3616,55 +3568,7 @@ function Origin() {
 					})
 				})]
 			})]
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "mx-auto max-w-7xl px-6 pb-24",
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "flex flex-col gap-6 border-t border-border pt-8 md:flex-row md:items-center md:justify-between",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex flex-col gap-4",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-						className: "font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground",
-						children: "Research lineage"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "flex items-center gap-5",
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SwissFlag, { className: "h-6 w-6 rounded-[3px]" }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "h-5 w-px bg-border",
-								"aria-hidden": true
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								role: "img",
-								"aria-label": "CERN",
-								className: "inline-block h-6 w-6 bg-foreground/90",
-								style: {
-									WebkitMaskImage: "url(/CERN_logo_badge.svg)",
-									maskImage: "url(/CERN_logo_badge.svg)",
-									WebkitMaskSize: "contain",
-									maskSize: "contain",
-									WebkitMaskRepeat: "no-repeat",
-									maskRepeat: "no-repeat",
-									WebkitMaskPosition: "center",
-									maskPosition: "center"
-								}
-							})
-						]
-					})]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "grid grid-cols-2 gap-x-10 gap-y-4 sm:grid-cols-4",
-					children: LINEAGE.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "flex flex-col gap-1",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "font-mono text-[9.5px] uppercase tracking-[0.18em] text-muted-foreground/70",
-							children: item.k
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "font-display text-[13px] font-medium tracking-tight text-foreground",
-							children: item.v
-						})]
-					}, item.k))
-				})]
-			})
-		})]
+		})
 	});
 }
 function Index() {

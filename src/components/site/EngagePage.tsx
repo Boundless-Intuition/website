@@ -81,8 +81,9 @@ export function EngagePage() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="relative overflow-hidden border-b border-border">
+      {/* Hero — pulled under the transparent sticky header, matching the
+          landing page overlay (pt-24/pt-32 keeps copy clear of the bar). */}
+      <section className="relative -mt-16 overflow-hidden border-b border-border">
         <div
           className="blueprint-grid absolute inset-0 opacity-100"
           aria-hidden

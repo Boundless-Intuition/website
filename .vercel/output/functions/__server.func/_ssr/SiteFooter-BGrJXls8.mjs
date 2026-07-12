@@ -1,7 +1,7 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-BMl7thHh.js
+//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-BGrJXls8.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function apply(theme) {
@@ -159,6 +159,36 @@ function TopBar() {
 		})]
 	});
 }
+function SwissFlag({ className = "" }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
+		viewBox: "0 0 32 32",
+		className,
+		role: "img",
+		"aria-label": "Switzerland",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", {
+				width: "32",
+				height: "32",
+				rx: "4",
+				fill: "#D52B1E"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", {
+				x: "13",
+				y: "7",
+				width: "6",
+				height: "18",
+				fill: "#fff"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", {
+				x: "7",
+				y: "13",
+				width: "18",
+				height: "6",
+				fill: "#fff"
+			})
+		]
+	});
+}
 var SECTION_LINKS = [
 	["/#doctrine", "Doctrine"],
 	["/#method", "Method"],
@@ -168,55 +198,97 @@ var SECTION_LINKS = [
 	["/#lab", "Lab"]
 ];
 function SiteFooter() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("footer", {
-		className: "bg-background",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "mx-auto max-w-7xl px-6 py-14",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "flex flex-col items-start justify-between gap-10 md:flex-row md:items-end",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "font-display text-[15px] font-medium tracking-tight text-foreground",
-					children: "Boundless Intuition"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "mt-3 max-w-sm text-[14.5px] leading-relaxed text-muted-foreground",
-					children: "The trust layer for artificial intelligence."
-				})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "grid grid-cols-2 gap-x-14 gap-y-3 font-display text-[12px] font-medium text-muted-foreground sm:grid-cols-3",
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("footer", {
+		className: "relative overflow-hidden bg-background",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "relative z-10 mx-auto max-w-7xl px-6 py-14",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "flex flex-col items-start justify-between gap-10 md:flex-row md:items-end",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "font-display text-[15px] font-medium tracking-tight text-foreground",
+						children: "Boundless Intuition"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "mt-3 max-w-sm text-[14.5px] leading-relaxed text-muted-foreground",
+						children: "The trust layer for artificial intelligence."
+					})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "grid grid-cols-2 gap-x-14 gap-y-3 font-display text-[12px] font-medium text-muted-foreground sm:grid-cols-3",
+						children: [
+							SECTION_LINKS.map(([href, label]) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+								href,
+								className: "hover:text-foreground",
+								children: label
+							}, label)),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+								to: "/engage",
+								className: "hover:text-foreground",
+								children: "Engage"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+								href: "mailto:research@boundlessintuition.com",
+								className: "hover:text-foreground",
+								children: "Contact"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+								to: "/legal",
+								className: "hover:text-foreground",
+								children: "Legal"
+							})
+						]
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mt-14 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground md:flex-row md:items-center",
 					children: [
-						SECTION_LINKS.map(([href, label]) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-							href,
-							className: "hover:text-foreground",
-							children: label
-						}, label)),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-							to: "/engage",
-							className: "hover:text-foreground",
-							children: "Engage"
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center gap-4",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									role: "img",
+									"aria-label": "CERN",
+									className: "inline-block h-[18px] w-[18px] bg-foreground/70",
+									style: {
+										WebkitMaskImage: "url(/CERN_logo_badge.svg)",
+										maskImage: "url(/CERN_logo_badge.svg)",
+										WebkitMaskSize: "contain",
+										maskSize: "contain",
+										WebkitMaskRepeat: "no-repeat",
+										maskRepeat: "no-repeat",
+										WebkitMaskPosition: "center",
+										maskPosition: "center"
+									}
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SwissFlag, { className: "h-[15px] w-[15px] rounded-[3px]" }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "h-3 w-px bg-border",
+									"aria-hidden": true
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "© 2026 Boundless Intuition" })
+							]
 						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-							href: "mailto:research@boundlessintuition.com",
-							className: "hover:text-foreground",
-							children: "Contact"
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "tabular-nums text-foreground/70",
+							children: "46.2330° N · 6.0557° E"
 						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-							to: "/legal",
-							className: "hover:text-foreground",
-							children: "Legal"
-						})
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "All results verifiable" })
 					]
 				})]
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "mt-14 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground md:flex-row md:items-center",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "© 2026 Boundless Intuition" }),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-						className: "tabular-nums text-foreground/70",
-						children: "46.2330° N · 6.0557° E"
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "All results verifiable" })
-				]
-			})]
-		})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				"aria-hidden": true,
+				className: "pointer-events-none absolute inset-x-0 bottom-0 h-[62%] select-none blueprint-grid-fine [mask-image:linear-gradient(to_top,black_55%,transparent)]"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				"aria-hidden": true,
+				className: "pointer-events-none absolute inset-x-0 bottom-0 select-none",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "flex translate-y-[26%] justify-center",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "whitespace-nowrap font-display text-[19vw] font-light leading-none tracking-[-0.045em] text-foreground/[0.07]",
+						children: "Boundless Intuition"
+					})
+				})
+			})
+		]
 	});
 }
 //#endregion

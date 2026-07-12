@@ -1,6 +1,6 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-BMl7thHh.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/legal-Bn6hnG4j.js
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-BGrJXls8.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/legal-CmJrexru.js
 var import_jsx_runtime = require_jsx_runtime();
 var SECTIONS = [
 	{
@@ -35,7 +35,7 @@ function LegalRoute() {
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TopBar, {}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
-				className: "relative overflow-hidden border-b border-border",
+				className: "relative -mt-16 overflow-hidden border-b border-border",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "blueprint-grid absolute inset-0 opacity-100",
 					"aria-hidden": true
