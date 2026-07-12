@@ -41,12 +41,28 @@ export function TopBar() {
         <div className="flex items-center gap-12">
           <Link
             to="/"
-            className="flex items-center gap-2.5 font-display text-[15px] font-medium tracking-tight text-foreground"
+            className="flex items-center gap-2.5 font-display text-[15px] tracking-tight text-foreground"
           >
-            <span className="grid size-5 place-items-center border border-foreground/70">
-              <span className="size-1.5 bg-foreground" />
+            {/* Logo, masked so it takes the theme colour (light + dark) */}
+            <span
+              role="img"
+              aria-label="Boundless Intuition"
+              className="inline-block size-7 bg-foreground"
+              style={{
+                WebkitMaskImage: "url(/boundless_int_logo_white.png)",
+                maskImage: "url(/boundless_int_logo_white.png)",
+                WebkitMaskSize: "contain",
+                maskSize: "contain",
+                WebkitMaskRepeat: "no-repeat",
+                maskRepeat: "no-repeat",
+                WebkitMaskPosition: "center",
+                maskPosition: "center",
+              }}
+            />
+            <span>
+              <span className="font-light">Boundless</span>{" "}
+              <span className="font-semibold">Intuition</span>
             </span>
-            Boundless Intuition
           </Link>
           <div className="hidden gap-8 font-display text-[12px] font-medium text-muted-foreground md:flex">
             {SECTIONS.map((s) => (

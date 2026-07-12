@@ -1,7 +1,7 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-BlX38kYS.js
+//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-zp91Cd_6.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function apply(theme) {
@@ -9,12 +9,10 @@ function apply(theme) {
 	document.documentElement.classList.toggle("dark", theme === "dark");
 }
 function ThemeToggle() {
-	const [theme, setTheme] = (0, import_react.useState)("light");
+	const [theme, setTheme] = (0, import_react.useState)("dark");
 	const [mounted, setMounted] = (0, import_react.useState)(false);
 	(0, import_react.useEffect)(() => {
-		const stored = typeof window !== "undefined" && window.localStorage.getItem("bi-theme") || null;
-		const prefersDark = typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches;
-		const initial = stored ?? (prefersDark ? "dark" : "light");
+		const initial = (typeof window !== "undefined" && window.localStorage.getItem("bi-theme") || null) ?? "dark";
 		setTheme(initial);
 		apply(initial);
 		setMounted(true);
@@ -86,11 +84,32 @@ function TopBar() {
 				className: "flex items-center gap-12",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
 					to: "/",
-					className: "flex items-center gap-2.5 font-display text-[15px] font-medium tracking-tight text-foreground",
+					className: "flex items-center gap-2.5 font-display text-[15px] tracking-tight text-foreground",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-						className: "grid size-5 place-items-center border border-foreground/70",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "size-1.5 bg-foreground" })
-					}), "Boundless Intuition"]
+						role: "img",
+						"aria-label": "Boundless Intuition",
+						className: "inline-block size-7 bg-foreground",
+						style: {
+							WebkitMaskImage: "url(/boundless_int_logo_white.png)",
+							maskImage: "url(/boundless_int_logo_white.png)",
+							WebkitMaskSize: "contain",
+							maskSize: "contain",
+							WebkitMaskRepeat: "no-repeat",
+							maskRepeat: "no-repeat",
+							WebkitMaskPosition: "center",
+							maskPosition: "center"
+						}
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "font-light",
+							children: "Boundless"
+						}),
+						" ",
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "font-semibold",
+							children: "Intuition"
+						})
+					] })]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "hidden gap-8 font-display text-[12px] font-medium text-muted-foreground md:flex",
 					children: SECTIONS.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
@@ -197,9 +216,33 @@ function SiteFooter() {
 				className: "relative z-10 mx-auto max-w-7xl px-6 py-14",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "flex flex-col items-start justify-between gap-10 md:flex-row md:items-end",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "font-display text-[15px] font-medium tracking-tight text-foreground",
-						children: "Boundless Intuition"
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex items-center gap-2.5 font-display text-[15px] tracking-tight text-foreground",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							role: "img",
+							"aria-label": "Boundless Intuition",
+							className: "inline-block size-7 bg-foreground",
+							style: {
+								WebkitMaskImage: "url(/boundless_int_logo_white.png)",
+								maskImage: "url(/boundless_int_logo_white.png)",
+								WebkitMaskSize: "contain",
+								maskSize: "contain",
+								WebkitMaskRepeat: "no-repeat",
+								maskRepeat: "no-repeat",
+								WebkitMaskPosition: "center",
+								maskPosition: "center"
+							}
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "font-light",
+								children: "Boundless"
+							}),
+							" ",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "font-semibold",
+								children: "Intuition"
+							})
+						] })]
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 						className: "mt-3 max-w-sm text-[14.5px] leading-relaxed text-muted-foreground",
 						children: "The trust layer for artificial intelligence."

@@ -273,7 +273,7 @@ export function VerificationMethod() {
           {STEPS.map((s, i) => (
             <div
               key={s.n}
-              className="group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.965_0.008_90)] dark:bg-[oklch(0.175_0.014_250)]"
+              className="group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.965_0.008_90)] dark:bg-[oklch(0.14_0.014_250)]"
             >
               <MethodVisual index={i} />
               {/* legibility scrims — solid enough that copy reads over the

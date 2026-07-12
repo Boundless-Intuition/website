@@ -30,8 +30,27 @@ export function SiteFooter() {
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-14">
         <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
           <div>
-            <div className="font-display text-[15px] font-medium tracking-tight text-foreground">
-              Boundless Intuition
+            <div className="flex items-center gap-2.5 font-display text-[15px] tracking-tight text-foreground">
+              {/* Logo, masked so it takes the theme colour (light + dark) */}
+              <span
+                role="img"
+                aria-label="Boundless Intuition"
+                className="inline-block size-7 bg-foreground"
+                style={{
+                  WebkitMaskImage: "url(/boundless_int_logo_white.png)",
+                  maskImage: "url(/boundless_int_logo_white.png)",
+                  WebkitMaskSize: "contain",
+                  maskSize: "contain",
+                  WebkitMaskRepeat: "no-repeat",
+                  maskRepeat: "no-repeat",
+                  WebkitMaskPosition: "center",
+                  maskPosition: "center",
+                }}
+              />
+              <span>
+                <span className="font-light">Boundless</span>{" "}
+                <span className="font-semibold">Intuition</span>
+              </span>
             </div>
             <p className="mt-3 max-w-sm text-[14.5px] leading-relaxed text-muted-foreground">
               The trust layer for artificial intelligence.

@@ -249,7 +249,7 @@ export function EngagePage() {
             {STEPS.map((step, i) => (
               <div
                 key={step.n}
-                className="group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.965_0.008_90)] dark:bg-[oklch(0.175_0.014_250)]"
+                className="group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.965_0.008_90)] dark:bg-[oklch(0.14_0.014_250)]"
               >
                 {/* Live visual — full-bleed card background */}
                 <EngageStepVisual index={i} />

@@ -1,9 +1,9 @@
 import { n as require_jsx_runtime, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
 import { c as HeadContent, d as Outlet, f as lazyRouteComponent, g as useRouter, h as Link, m as createRootRouteWithContext, p as createFileRoute, s as Scripts, u as createRouter } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router--aSwShcq.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-CK3uI9jJ.js
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-LgbFA1kJ.css";
+var styles_default = "/assets/styles-BPGEps0y.css";
 function NotFoundComponent() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "flex min-h-screen items-center justify-center bg-background px-4",
@@ -137,7 +137,7 @@ function RootShell({ children }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("html", {
 		lang: "en",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("head", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HeadContent, {}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("body", { children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("script", { dangerouslySetInnerHTML: { __html: `(function(){try{var t=localStorage.getItem('bi-theme');var m=window.matchMedia('(prefers-color-scheme: dark)').matches;if(t==='dark'||(!t&&m))document.documentElement.classList.add('dark');}catch(e){}})();` } }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("script", { dangerouslySetInnerHTML: { __html: `(function(){try{var t=localStorage.getItem('bi-theme');if(t!=='light')document.documentElement.classList.add('dark');}catch(e){document.documentElement.classList.add('dark');}})();` } }),
 			children,
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Scripts, {})
 		] })]
@@ -150,7 +150,7 @@ function RootComponent() {
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {})
 	});
 }
-var $$splitComponentImporter$2 = () => import("./legal-DUyXcrve.mjs");
+var $$splitComponentImporter$2 = () => import("./legal-CmjlMi5C.mjs");
 var Route$2 = createFileRoute("/legal")({
 	head: () => ({ meta: [{ title: "Legal - Boundless Intuition" }, {
 		name: "description",
@@ -158,7 +158,7 @@ var Route$2 = createFileRoute("/legal")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-var $$splitComponentImporter$1 = () => import("./engage-BBaIIwQe.mjs");
+var $$splitComponentImporter$1 = () => import("./engage-Din4sL6M.mjs");
 var Route$1 = createFileRoute("/engage")({
 	head: () => ({ meta: [
 		{ title: "Engage - Boundless Intuition" },
@@ -177,7 +177,7 @@ var Route$1 = createFileRoute("/engage")({
 	] }),
 	component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-var $$splitComponentImporter = () => import("./routes-CYRbfD43.mjs");
+var $$splitComponentImporter = () => import("./routes-yv4tBy2e.mjs");
 var Route = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter, "component") });
 var LegalRoute = Route$2.update({
 	id: "/legal",

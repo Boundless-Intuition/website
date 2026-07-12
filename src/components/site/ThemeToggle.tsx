@@ -8,16 +8,14 @@ function apply(theme: Theme) {
 }
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("dark");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const stored = (typeof window !== "undefined" &&
       (window.localStorage.getItem("bi-theme") as Theme | null)) || null;
-    const prefersDark =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initial: Theme = stored ?? (prefersDark ? "dark" : "light");
+    // Dark by default on every device; only an explicit stored choice overrides.
+    const initial: Theme = stored ?? "dark";
     setTheme(initial);
     apply(initial);
     setMounted(true);

@@ -74,7 +74,7 @@ export function DomainGrid() {
             <Link
               key={d.n}
               to="/engage"
-              className="group relative flex min-h-[440px] flex-col overflow-hidden border-b border-r border-border bg-[oklch(0.965_0.008_90)] blueprint-grid-fine dark:bg-[oklch(0.175_0.014_250)]"
+              className="group relative flex min-h-[440px] flex-col overflow-hidden border-b border-r border-border bg-[oklch(0.965_0.008_90)] blueprint-grid-fine dark:bg-[oklch(0.14_0.014_250)]"
             >
               {/* Live visual — full-bleed card background */}
               <DomainVisual index={i} />

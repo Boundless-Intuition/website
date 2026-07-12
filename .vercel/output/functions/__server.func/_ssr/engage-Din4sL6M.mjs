@@ -1,8 +1,8 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-BlX38kYS.mjs";
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-zp91Cd_6.mjs";
 import { _ as ruleLattice, b as useDomainCanvas, d as field, f as mix, g as rng, n as PipelineBackdrop, p as oklcha, r as asciiFlow, s as claimMorph, v as smoothstep, y as tone } from "./MethodVisual-BqIWyxhw.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/engage-BBaIIwQe.js
+//#region node_modules/.nitro/vite/services/ssr/assets/engage-Din4sL6M.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -1053,7 +1053,7 @@ function EngagePage() {
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 						className: "grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-4",
 						children: STEPS.map((step, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.965_0.008_90)] dark:bg-[oklch(0.175_0.014_250)]",
+							className: "group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.965_0.008_90)] dark:bg-[oklch(0.14_0.014_250)]",
 							children: [
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(EngageStepVisual, { index: i }),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-background/60 to-transparent" }),
