@@ -2,9 +2,128 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as TopBar, t as SiteFooter } from "./SiteFooter-BGrJXls8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-BadIUHyU.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-B2e_CZ4W.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
+/**
+* GlitchText — a "decode to verified" headline effect.
+*
+* The text arrives as unstable, glitching noise — the visual of an AI answer
+* that is fluent but not yet trusted — and a verification pass (the scanline)
+* resolves it, character by character, into the clean final string. It is the
+* site's own thesis rendered in motion: fluent, not correct, being disproved.
+* It then rests briefly and re-runs on a loop so the headline never sits fully
+* still — verification is a thing that keeps happening.
+*
+* Design notes:
+* - SSR-safe: server and first client render both emit the plain final text
+*   (no hydration mismatch). The animation is a client-only enhancement kicked
+*   off in an effect.
+* - Accessible: while animating, the real text is exposed to assistive tech via
+*   an `sr-only` copy and the animated glyphs are `aria-hidden`. Once settled,
+*   the plain, selectable text is what remains in the DOM.
+* - No layout shift: undecoded characters keep their final glyph but render
+*   transparent, so they reserve their true width and wrapping never jumps.
+* - Honors `prefers-reduced-motion`: the effect simply never starts.
+*
+* Requires a positioned ancestor (e.g. `relative` on the wrapping heading) so
+* the sweeping scanline can size to the full, possibly multi-line, text box.
+*/
+var GLYPHS = "<>/\\[]{}=+*—·:;≡⊢∎01".split("");
+var STAGGER = 24;
+var DUR = 260;
+var TAIL = 80;
+function GlitchText({ text, replayOnHover = true, repeatDelay = 4600 }) {
+	const [cells, setCells] = (0, import_react.useState)(null);
+	const raf = (0, import_react.useRef)(null);
+	const timer = (0, import_react.useRef)(null);
+	const chars = [...text];
+	const order = /* @__PURE__ */ new Map();
+	let slots = 0;
+	chars.forEach((c, i) => {
+		if (c !== " ") order.set(i, slots++);
+	});
+	const total = slots * STAGGER + DUR + TAIL;
+	const stop = (0, import_react.useCallback)(() => {
+		if (raf.current !== null) cancelAnimationFrame(raf.current);
+		raf.current = null;
+		if (timer.current !== null) clearTimeout(timer.current);
+		timer.current = null;
+	}, []);
+	const play = (0, import_react.useCallback)(() => {
+		if (typeof window === "undefined") return;
+		if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+		stop();
+		let start = 0;
+		const step = (ts) => {
+			if (!start) start = ts;
+			const t = ts - start;
+			setCells(chars.map((ch, i) => {
+				if (ch === " ") return {
+					ch: " ",
+					s: 2
+				};
+				const from = (order.get(i) ?? 0) * STAGGER;
+				if (t >= from + DUR) return {
+					ch,
+					s: 2
+				};
+				if (t >= from) return {
+					ch: GLYPHS[Math.random() * GLYPHS.length | 0],
+					s: 1
+				};
+				return {
+					ch,
+					s: 0
+				};
+			}));
+			if (t < total) raf.current = requestAnimationFrame(step);
+			else {
+				raf.current = null;
+				setCells(null);
+				timer.current = setTimeout(play, repeatDelay);
+			}
+		};
+		raf.current = requestAnimationFrame(step);
+	}, [
+		text,
+		stop,
+		repeatDelay
+	]);
+	(0, import_react.useEffect)(() => {
+		play();
+		return stop;
+	}, [play, stop]);
+	if (!cells) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+		onMouseEnter: replayOnHover ? play : void 0,
+		children: text
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+		onMouseEnter: replayOnHover ? play : void 0,
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "sr-only",
+				children: text
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				"aria-hidden": true,
+				className: "hero-glitch",
+				children: cells.map((c, i) => c.ch === " " ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: " " }, i) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: c.s === 0 ? "text-transparent" : c.s === 1 ? "text-[oklch(0.55_0.13_230)] dark:text-[oklch(0.82_0.11_220)]" : "",
+					children: c.ch
+				}, i))
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				"aria-hidden": true,
+				className: "hero-scanbar pointer-events-none absolute inset-x-0 h-px bg-[oklch(0.55_0.13_230)] dark:bg-[oklch(0.82_0.11_220)]",
+				style: {
+					["--scan-dur"]: `${total}ms`,
+					boxShadow: "0 0 12px oklch(0.72 0.11 220 / 0.75)"
+				}
+			})
+		]
+	});
+}
 function Hero() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 		id: "doctrine",
@@ -145,8 +264,8 @@ function Hero() {
 						]
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-						className: "mb-10 max-w-[16ch] font-display text-[3rem] font-light leading-[1.02] tracking-[-0.03em] text-foreground md:text-[3.6rem] lg:text-[4.4rem]",
-						children: "The trust layer for artificial intelligence."
+						className: "relative mb-10 max-w-[16ch] font-display text-[3rem] font-light leading-[1.02] tracking-[-0.03em] text-foreground md:text-[3.6rem] lg:text-[4.4rem]",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(GlitchText, { text: "The trust layer for artificial intelligence." })
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "max-w-[54ch] space-y-5 text-[17px] leading-[1.6] text-foreground/85",
@@ -211,7 +330,7 @@ function Hero() {
 */
 var ACC$1 = "oklch(0.72 0.09 220)";
 var WARN$1 = "oklch(0.72 0.16 45)";
-var MONO$2 = { fontFamily: "var(--font-mono)" };
+var MONO$1 = { fontFamily: "var(--font-mono)" };
 function ModelAnswers() {
 	const bars = [
 		50,
@@ -278,7 +397,7 @@ function ModelAnswers() {
 				fontSize: "8.5",
 				fill: "currentColor",
 				fillOpacity: "0.5",
-				style: MONO$2,
+				style: MONO$1,
 				children: "generating…"
 			})
 		]
@@ -376,7 +495,7 @@ function Lattice() {
 				fontSize: "8.5",
 				fill: "currentColor",
 				fillOpacity: "0.5",
-				style: MONO$2,
+				style: MONO$1,
 				children: "compiled once"
 			})
 		]
@@ -432,7 +551,7 @@ function Claim() {
 					textAnchor: "middle",
 					fontSize: "13",
 					fill: ACC$1,
-					style: MONO$2,
+					style: MONO$1,
 					children: tk.t
 				})
 			}, i)),
@@ -443,7 +562,7 @@ function Claim() {
 				fontSize: "8.5",
 				fill: "currentColor",
 				fillOpacity: "0.5",
-				style: MONO$2,
+				style: MONO$1,
 				children: "precise claim"
 			})
 		]
@@ -551,7 +670,7 @@ function SearchTree() {
 				fontSize: "8.5",
 				fill: "currentColor",
 				fillOpacity: "0.5",
-				style: MONO$2,
+				style: MONO$1,
 				children: "search → ∎"
 			})
 		]
@@ -625,7 +744,7 @@ function ShipGate() {
 				fontSize: "8.5",
 				fill: ACC$1,
 				fillOpacity: "0.85",
-				style: MONO$2,
+				style: MONO$1,
 				children: "ships"
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("text", {
@@ -634,13 +753,13 @@ function ShipGate() {
 				fontSize: "8.5",
 				fill: WARN$1,
 				fillOpacity: "0.85",
-				style: MONO$2,
+				style: MONO$1,
 				children: "blocked"
 			})
 		]
 	});
 }
-var FIGURES$2 = [
+var FIGURES$1 = [
 	ModelAnswers,
 	Lattice,
 	Claim,
@@ -648,7 +767,7 @@ var FIGURES$2 = [
 	ShipGate
 ];
 function MethodStepFigure({ index }) {
-	const Figure = FIGURES$2[index % FIGURES$2.length];
+	const Figure = FIGURES$1[index % FIGURES$1.length];
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Figure, {});
 }
 var STEPS = [
@@ -1047,7 +1166,7 @@ function CoverageBand() {
 * thin strokes). Motion is pure CSS (classes defined in styles.css) and freezes
 * to a sensible static state under prefers-reduced-motion.
 */
-var MONO$1 = { fontFamily: "var(--font-mono)" };
+var MONO = { fontFamily: "var(--font-mono)" };
 function CiPipeline() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
 		viewBox: "0 0 220 80",
@@ -1108,7 +1227,7 @@ function CiPipeline() {
 				fontSize: "8",
 				fill: "currentColor",
 				fillOpacity: "0.5",
-				style: MONO$1,
+				style: MONO,
 				children: "commit → ci → ship"
 			})
 		]
@@ -1163,7 +1282,7 @@ function AuditBar() {
 				fontSize: "8",
 				fill: "currentColor",
 				fillOpacity: "0.5",
-				style: MONO$1,
+				style: MONO,
 				children: "query signed proofs"
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", {
@@ -1249,7 +1368,7 @@ function RiskGauge() {
 				fontSize: "7.5",
 				fill: "currentColor",
 				fillOpacity: "0.4",
-				style: MONO$1,
+				style: MONO,
 				children: "risk"
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("text", {
@@ -1258,20 +1377,20 @@ function RiskGauge() {
 				fontSize: "7.5",
 				fill: "currentColor",
 				fillOpacity: "0.4",
-				style: MONO$1,
+				style: MONO,
 				children: "safe"
 			})
 		]
 	});
 }
-var FIGURES$1 = [
+var FIGURES = [
 	CiPipeline,
 	CasesGrid,
 	AuditBar,
 	RiskGauge
 ];
 function ProductivityFigure({ index }) {
-	const Figure = FIGURES$1[index % FIGURES$1.length];
+	const Figure = FIGURES[index % FIGURES.length];
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Figure, {});
 }
 /**
@@ -1444,7 +1563,7 @@ var PRODUCTIVITY = [
 		body: "Once answers are provably safe, the decisions that were too risky to hand to AI - the ones that actually move the business - can finally be automated."
 	}
 ];
-var ACCENT$2 = "text-[oklch(0.48_0.09_220)] dark:text-[oklch(0.78_0.09_220)]";
+var ACCENT$1 = "text-[oklch(0.48_0.09_220)] dark:text-[oklch(0.78_0.09_220)]";
 var WAVE_PATH = (() => {
 	const W = 300;
 	const mid = 8;
@@ -1531,7 +1650,7 @@ function VerificationValue() {
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MeasuredFigure, { value: p.figure }),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: `font-mono text-[10px] uppercase tracking-[0.18em] ${ACCENT$2}`,
+										className: `font-mono text-[10px] uppercase tracking-[0.18em] ${ACCENT$1}`,
 										children: p.label
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
@@ -1584,7 +1703,7 @@ function VerificationValue() {
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 										className: "flex flex-wrap items-baseline gap-x-3 gap-y-1",
 										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											className: `font-mono text-[10px] uppercase tracking-[0.16em] ${ACCENT$2}`,
+											className: `font-mono text-[10px] uppercase tracking-[0.16em] ${ACCENT$1}`,
 											children: s.tag
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
 											className: "font-display text-[17px] font-medium tracking-tight text-foreground",
@@ -1623,7 +1742,7 @@ function VerificationValue() {
 						className: "flex flex-col gap-4 bg-background p-6 lg:p-7",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: `h-[70px] border-b border-border/60 pb-2 ${ACCENT$2}`,
+								className: `h-[70px] border-b border-border/60 pb-2 ${ACCENT$1}`,
 								"aria-hidden": true,
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ProductivityFigure, { index: idx })
 							}),
@@ -1792,7 +1911,7 @@ var CLAIMS = [
 		]
 	}
 ];
-var ACCENT$1 = "oklch(0.72 0.09 220)";
+var ACCENT = "oklch(0.72 0.09 220)";
 var WARN = "oklch(0.72 0.16 45)";
 function VerifyWidget() {
 	const [sel, setSel] = (0, import_react.useState)(0);
@@ -1843,7 +1962,7 @@ function VerifyWidget() {
 		timers.current.push(window.setTimeout(() => setStatus("done"), 300 * lines.length + 450));
 	};
 	const proven = res?.proven ?? true;
-	const verdictColor = proven ? ACCENT$1 : WARN;
+	const verdictColor = proven ? ACCENT : WARN;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 		id: "try",
 		className: "relative border-b border-border bg-background",
@@ -1954,7 +2073,7 @@ function VerifyWidget() {
 												reset();
 											},
 											className: "flex-1 cursor-pointer",
-											style: { accentColor: ACCENT$1 },
+											style: { accentColor: ACCENT },
 											"aria-label": c.param.label
 										}),
 										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
@@ -2060,489 +2179,1187 @@ function VerifyWidget() {
 		})]
 	});
 }
+var LIGHT = {
+	isDark: false,
+	bg: [
+		.965,
+		.008,
+		90
+	],
+	ink: [
+		.22,
+		.03,
+		250
+	],
+	dim: [
+		.42,
+		.02,
+		250
+	],
+	accent: [
+		.48,
+		.09,
+		220
+	]
+};
+var DARK = {
+	isDark: true,
+	bg: [
+		.19,
+		.015,
+		250
+	],
+	ink: [
+		.94,
+		.012,
+		90
+	],
+	dim: [
+		.72,
+		.02,
+		90
+	],
+	accent: [
+		.78,
+		.09,
+		220
+	]
+};
+function readPalette() {
+	if (typeof document === "undefined") return LIGHT;
+	return document.documentElement.classList.contains("dark") ? DARK : LIGHT;
+}
+/** Build an `oklch(L C H / a)` string, clamping alpha. */
+function oklcha([l, c, h], a = 1) {
+	return `oklch(${l} ${c} ${h} / ${a < 0 ? 0 : a > 1 ? 1 : a})`;
+}
+/** Mix two OKLCH colors by t in [0,1] (naive per-channel; fine for accents). */
+function mix(a, b, t) {
+	const k = t < 0 ? 0 : t > 1 ? 1 : t;
+	return [
+		a[0] + (b[0] - a[0]) * k,
+		a[1] + (b[1] - a[1]) * k,
+		a[2] + (b[2] - a[2]) * k
+	];
+}
+function tone(p, t) {
+	return p.isDark ? t.dark : t.light;
+}
+/** mulberry32 — tiny deterministic PRNG for stable, non-jittery layouts. */
+function rng(seed) {
+	let a = seed >>> 0;
+	return () => {
+		a |= 0;
+		a = a + 1831565813 | 0;
+		let t = Math.imul(a ^ a >>> 15, 1 | a);
+		t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+		return ((t ^ t >>> 14) >>> 0) / 4294967296;
+	};
+}
+/** Smooth 0..1 ramp. */
+function smoothstep(edge0, edge1, x) {
+	const t = Math.min(1, Math.max(0, (x - edge0) / (edge1 - edge0)));
+	return t * t * (3 - 2 * t);
+}
 /**
-* DomainFigures — a small figure per domain box, each tied to its subject.
-*
-* Blueprint/accent line-art (single currentColor). The static structure reads as
-* the domain; a looping accent motion reads as "being verified". Pure CSS motion
-* (vg-* / pl-prove classes in styles.css); freezes gracefully under
-* prefers-reduced-motion.
+* Cheap, deterministic value-noise-ish scalar field built from layered sines.
+* Not true Perlin, but smooth, seamless enough, and allocation-free — ideal
+* for driving ASCII intensity and flow directions across many canvases.
 */
-var MONO = { fontFamily: "var(--font-mono)" };
-function Shield() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
-		viewBox: "0 0 200 72",
-		className: "h-full w-auto",
-		"aria-hidden": true,
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
-				d: "M40 8 L64 16 V36 C64 50 54 58 40 64 C26 58 16 50 16 36 V16 Z",
-				fill: "none",
-				stroke: "currentColor",
-				strokeOpacity: "0.4",
-				strokeWidth: "1.3"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
-				className: "vg-check",
-				d: "M30 35 l7 8 14 -17",
-				fill: "none",
-				stroke: "currentColor",
-				strokeWidth: "1.8"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("text", {
-				x: "82",
-				y: "34",
-				fontSize: "8.5",
-				fill: "currentColor",
-				fillOpacity: "0.5",
-				style: MONO,
-				children: "policy ⊨"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("text", {
-				x: "82",
-				y: "46",
-				fontSize: "8.5",
-				fill: "currentColor",
-				fillOpacity: "0.5",
-				style: MONO,
-				children: "standard"
-			})
-		]
-	});
+function field(x, y, t) {
+	return (Math.sin(x * 1.7 + t * .7) * Math.cos(y * 1.3 - t * .5) + Math.sin((x + y) * .9 - t * .9) + Math.sin(x * .4 - y * 1.1 + t * .35) * .8) / 2.8;
 }
-function Ecg() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
-		viewBox: "0 0 200 72",
-		className: "h-full w-auto",
-		"aria-hidden": true,
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("line", {
-			x1: "14",
-			y1: "40",
-			x2: "186",
-			y2: "40",
-			stroke: "currentColor",
-			strokeOpacity: "0.22"
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
-			className: "pl-prove",
-			pathLength: 1,
-			d: "M14 40 H58 l6 0 l5 -22 l7 42 l6 -32 l5 12 H186",
-			fill: "none",
-			stroke: "currentColor",
-			strokeWidth: "1.6",
-			style: { animationDuration: "3s" }
-		})]
-	});
+/**
+* The generative engines behind the domain panels — one bespoke visual per
+* field, each with its own vibrant two-tone palette so the section reads as a
+* spectrum rather than a single accent. All are mouse-reactive and autoplay,
+* draw in CSS pixels (the hook has scaled the context for DPR), and avoid
+* per-frame allocation.
+*/
+var TAU = Math.PI * 2;
+var clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+/** Run `fn` with a glow set on the context, then restore. Use sparingly. */
+function glow(ctx, color, blur, fn) {
+	ctx.save();
+	ctx.shadowBlur = blur;
+	ctx.shadowColor = color;
+	fn();
+	ctx.restore();
 }
-function Checklist() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", {
-		viewBox: "0 0 200 72",
-		className: "h-full w-auto",
-		"aria-hidden": true,
-		children: [
-			16,
-			36,
-			56
-		].map((y, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("g", { children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", {
-				x: "16",
-				y: y - 8,
-				width: "14",
-				height: "14",
-				rx: "2",
-				fill: "none",
-				stroke: "currentColor",
-				strokeOpacity: "0.3"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
-				className: "vg-cell",
-				style: { animationDelay: `${(i * .6).toFixed(2)}s` },
-				d: `M19 ${y - 1} l3 4 6 -8`,
-				fill: "none",
-				stroke: "currentColor",
-				strokeWidth: "1.6"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("line", {
-				x1: "40",
-				y1: y,
-				x2: 132 - i * 18,
-				y2: y,
-				stroke: "currentColor",
-				strokeOpacity: "0.3"
-			})
-		] }, i))
-	});
-}
-function Network() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
-		viewBox: "0 0 200 72",
-		className: "h-full w-auto",
-		"aria-hidden": true,
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("line", {
-				x1: "24",
-				y1: "20",
-				x2: "52",
-				y2: "36",
-				stroke: "currentColor",
-				strokeOpacity: "0.3"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("line", {
-				x1: "24",
-				y1: "52",
-				x2: "52",
-				y2: "36",
-				stroke: "currentColor",
-				strokeOpacity: "0.3"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("line", {
-				x1: "52",
-				y1: "36",
-				x2: "150",
-				y2: "36",
-				stroke: "currentColor",
-				strokeOpacity: "0.3"
-			}),
-			[
-				[24, 20],
-				[24, 52],
-				[52, 36]
-			].map(([x, y], i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("circle", {
-				className: "vg-pulse",
-				style: { animationDelay: `${(i * .5).toFixed(2)}s` },
-				cx: x,
-				cy: y,
-				r: "3.5",
-				fill: "currentColor"
-			}, i)),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("line", {
-				x1: "100",
-				y1: "12",
-				x2: "100",
-				y2: "60",
-				stroke: "currentColor",
-				strokeOpacity: "0.5",
-				strokeDasharray: "3 4"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("circle", {
-				cx: "150",
-				cy: "36",
-				r: "3.5",
-				fill: "currentColor",
-				fillOpacity: "0.6"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", {
-				className: "vg-token",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("circle", {
-					cx: "52",
-					cy: "36",
-					r: "3.5",
-					fill: "currentColor"
-				})
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", {
-				className: "vg-check",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
-					d: "M92 36 l3 4 7 -9",
-					fill: "none",
-					stroke: "currentColor",
-					strokeWidth: "1.6"
-				})
-			})
-		]
-	});
-}
-function RiskBars() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
-		viewBox: "0 0 200 72",
-		className: "h-full w-auto",
-		"aria-hidden": true,
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("line", {
-				x1: "14",
-				y1: "64",
-				x2: "150",
-				y2: "64",
-				stroke: "currentColor",
-				strokeOpacity: "0.3"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("line", {
-				x1: "14",
-				y1: "20",
-				x2: "150",
-				y2: "20",
-				stroke: "currentColor",
-				strokeOpacity: "0.45",
-				strokeDasharray: "3 3"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("text", {
-				x: "154",
-				y: "23",
-				fontSize: "7.5",
-				fill: "currentColor",
-				fillOpacity: "0.5",
-				style: MONO,
-				children: "limit"
-			}),
-			[
-				[26, 34],
-				[50, 26],
-				[74, 40],
-				[98, 30],
-				[122, 44]
-			].map(([x, top], i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", {
-				className: "vg-barrise",
-				style: { animationDelay: `${(i * .22).toFixed(2)}s` },
-				x,
-				y: top,
-				width: "14",
-				height: 64 - top,
-				fill: "currentColor",
-				fillOpacity: "0.7"
-			}, i))
-		]
-	});
-}
-function Scales() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
-		viewBox: "0 0 200 72",
-		className: "h-full w-auto",
-		"aria-hidden": true,
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("line", {
-				x1: "60",
-				y1: "16",
-				x2: "60",
-				y2: "58",
-				stroke: "currentColor",
-				strokeOpacity: "0.5"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
-				d: "M48 58 h24",
-				stroke: "currentColor",
-				strokeOpacity: "0.5"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("g", {
-				className: "vg-balance",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("line", {
-						x1: "32",
-						y1: "20",
-						x2: "88",
-						y2: "20",
-						stroke: "currentColor",
-						strokeWidth: "1.4"
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
-						d: "M32 20 v6 M26 26 a6 4 0 0 0 12 0",
-						fill: "none",
-						stroke: "currentColor",
-						strokeOpacity: "0.6"
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
-						d: "M88 20 v6 M82 26 a6 4 0 0 0 12 0",
-						fill: "none",
-						stroke: "currentColor",
-						strokeOpacity: "0.6"
-					})
-				]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("circle", {
-				cx: "60",
-				cy: "20",
-				r: "2.5",
-				fill: "currentColor"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("text", {
-				x: "106",
-				y: "38",
-				fontSize: "8.5",
-				fill: "currentColor",
-				fillOpacity: "0.5",
-				style: MONO,
-				children: "consistent"
-			})
-		]
-	});
-}
-function Redaction() {
-	const rows = [
-		22,
-		38,
-		54
-	];
-	const dots = [
-		56,
-		66,
-		76,
-		86,
-		96,
-		106
-	];
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
-		viewBox: "0 0 200 72",
-		className: "h-full w-auto",
-		"aria-hidden": true,
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", {
-				x: "16",
-				y: "10",
-				width: "120",
-				height: "52",
-				rx: "3",
-				fill: "none",
-				stroke: "currentColor",
-				strokeOpacity: "0.35"
-			}),
-			rows.map((y, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("g", { children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", {
-					x: "26",
-					y: y - 2.5,
-					width: "18",
-					height: "5",
-					rx: "2",
-					fill: "currentColor",
-					fillOpacity: "0.3"
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("rect", {
-					x: "54",
-					y: y - 2.5,
-					width: "56",
-					height: "5",
-					rx: "2",
-					fill: "currentColor",
-					fillOpacity: "0.12"
-				}),
-				dots.map((x, di) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("circle", {
-					className: "vg-cell",
-					style: { animationDelay: `${(i * .5 + di * .08).toFixed(2)}s` },
-					cx: x,
-					cy: y,
-					r: "2.2",
-					fill: "currentColor"
-				}, di))
-			] }, i)),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("text", {
-				x: "146",
-				y: "34",
-				fontSize: "8.5",
-				fill: "currentColor",
-				fillOpacity: "0.5",
-				style: MONO,
-				children: "PII"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("text", {
-				x: "146",
-				y: "46",
-				fontSize: "8.5",
-				fill: "currentColor",
-				fillOpacity: "0.5",
-				style: MONO,
-				children: "masked"
-			})
-		]
-	});
-}
-function Classification() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
-		viewBox: "0 0 200 72",
-		className: "h-full w-auto",
-		"aria-hidden": true,
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("line", {
-				x1: "14",
-				y1: "36",
-				x2: "50",
-				y2: "36",
-				stroke: "currentColor",
-				strokeOpacity: "0.3"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("circle", {
-				className: "vg-pulse",
-				cx: "20",
-				cy: "36",
-				r: "3",
-				fill: "currentColor"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
-				d: "M60 26 L70 36 L60 46 L50 36 Z",
-				fill: "none",
-				stroke: "currentColor",
-				strokeOpacity: "0.5",
-				strokeWidth: "1.3"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
-				className: "pl-prove",
-				pathLength: 1,
-				d: "M70 36 L108 18",
-				fill: "none",
-				stroke: "currentColor",
-				strokeWidth: "1.4",
-				style: { animationDuration: "3s" }
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
-				className: "pl-prove",
-				pathLength: 1,
-				d: "M70 36 L108 54",
-				fill: "none",
-				stroke: "currentColor",
-				strokeOpacity: "0.5",
-				strokeWidth: "1.4",
-				style: {
-					animationDuration: "3s",
-					animationDelay: "0.4s"
+function asciiScan(opts) {
+	const ramp = opts.ramp ?? " ·:-=+*#⊨✓";
+	const cell = opts.cell ?? 13;
+	const speed = opts.speed ?? .5;
+	const scale = .06;
+	return () => {
+		let cols = 0;
+		let rows = 0;
+		let cw = cell;
+		let ch = cell;
+		let fontPx = cell;
+		return {
+			resize(w, h) {
+				cols = Math.max(1, Math.floor(w / cell));
+				rows = Math.max(1, Math.floor(h / cell));
+				cw = w / cols;
+				ch = h / rows;
+				fontPx = Math.min(cw, ch) * 1.04;
+			},
+			frame(ctx, env) {
+				const { t, palette, pointer, hover, still, w } = env;
+				const base = tone(palette, opts.tint);
+				const ok = tone(palette, opts.verified);
+				ctx.font = `${fontPx.toFixed(1)}px "JetBrains Mono", monospace`;
+				ctx.textAlign = "center";
+				ctx.textBaseline = "middle";
+				const sxN = t * .22 % 1.7;
+				const sx = sxN * w;
+				const fx = pointer.active ? pointer.x : .5;
+				const fy = pointer.active ? pointer.y : .5;
+				for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+					let v = field(c * cw * scale, r * ch * scale, still ? 1.2 : t * speed);
+					v = v * .5 + .5;
+					const cx = (c + .5) * cw;
+					const scanD = Math.abs(cx - sx);
+					const scanned = smoothstep(cell * 3.4, 0, scanD);
+					const nx = c / cols;
+					const ny = r / rows;
+					const focus = smoothstep(.4, 0, Math.hypot(nx - fx, ny - fy)) * (pointer.active ? .85 : 0);
+					let i = clamp(v * .7 + focus + scanned * .55, 0, 1);
+					let gi = Math.floor(i * (ramp.length - 1));
+					if (scanned > .55) gi = ramp.length - 1;
+					const g = ramp[gi];
+					if (g === " ") continue;
+					ctx.fillStyle = oklcha(scanned > .15 ? mix(base, ok, scanned) : mix(palette.dim, base, i), clamp(.16 + i * .66 + scanned * .3, 0, 1));
+					ctx.fillText(g, cx, (r + .5) * ch);
 				}
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("g", {
-				className: "vg-check",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
-					d: "M112 14 l3 4 7 -9",
-					fill: "none",
-					stroke: "currentColor",
-					strokeWidth: "1.8"
-				})
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
-				d: "M112 50 l8 8 M120 50 l-8 8",
-				stroke: "currentColor",
-				strokeOpacity: "0.3",
-				strokeWidth: "1.4"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("text", {
-				x: "126",
-				y: "20",
-				fontSize: "8",
-				fill: "currentColor",
-				fillOpacity: "0.5",
-				style: MONO,
-				children: "permit"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("text", {
-				x: "126",
-				y: "60",
-				fontSize: "8",
-				fill: "currentColor",
-				fillOpacity: "0.35",
-				style: MONO,
-				children: "control"
-			})
-		]
+				if (sxN <= 1 && !still) {
+					ctx.strokeStyle = oklcha(ok, .5);
+					ctx.lineWidth = 1;
+					ctx.beginPath();
+					ctx.moveTo(sx, 0);
+					ctx.lineTo(sx, env.h);
+					ctx.stroke();
+				}
+			}
+		};
+	};
+}
+function ecgWave(u) {
+	const bump = (c, w) => Math.exp(-((u - c) ** 2) / (2 * w * w));
+	return bump(.14, .03) * .18 - bump(.19, .012) * .22 + bump(.215, .011) * 1 - bump(.245, .014) * .34 + bump(.38, .05) * .3;
+}
+function ecgMonitor(opts) {
+	const speed = opts.speed ?? 1;
+	return () => {
+		let W = 0;
+		let H = 0;
+		return {
+			resize(w, h) {
+				W = w;
+				H = h;
+			},
+			frame(ctx, env) {
+				const { t, palette, pointer, hover, still } = env;
+				const col = tone(palette, opts.tint);
+				const y0 = H * .6;
+				const amp = H * .34;
+				const beats = 2.3;
+				const rate = (hover ? 1.7 : 1) * speed * .5;
+				const step = 2;
+				const glowCol = oklcha(col, .9);
+				const sampleY = (x) => {
+					const phase = x / W * beats + (still ? .2 : t * rate);
+					const u = phase - Math.floor(phase);
+					const jitter = field(x * .02, 0, t * 2) * .02;
+					return y0 - amp * (ecgWave(u) + jitter);
+				};
+				ctx.strokeStyle = oklcha(col, .12);
+				ctx.lineWidth = 1;
+				ctx.beginPath();
+				ctx.moveTo(0, y0);
+				ctx.lineTo(W, y0);
+				ctx.stroke();
+				glow(ctx, glowCol, 10, () => {
+					ctx.strokeStyle = oklcha(col, .85);
+					ctx.lineWidth = 1.7;
+					ctx.beginPath();
+					for (let x = 0; x <= W; x += step) {
+						const y = sampleY(x);
+						if (x === 0) ctx.moveTo(x, y);
+						else ctx.lineTo(x, y);
+					}
+					ctx.stroke();
+				});
+				if (!still) {
+					const y = sampleY(W - 1);
+					glow(ctx, glowCol, 14, () => {
+						ctx.fillStyle = oklcha(col, 1);
+						ctx.beginPath();
+						ctx.arc(W - 3, y, 3, 0, TAU);
+						ctx.fill();
+					});
+				}
+				if (pointer.active) {
+					const px = pointer.x * W;
+					ctx.strokeStyle = oklcha(col, .3);
+					ctx.setLineDash([2, 4]);
+					ctx.beginPath();
+					ctx.moveTo(px, 0);
+					ctx.lineTo(px, H);
+					ctx.stroke();
+					ctx.setLineDash([]);
+					const y = sampleY(px);
+					ctx.fillStyle = oklcha(col, .9);
+					ctx.beginPath();
+					ctx.arc(px, y, 2.4, 0, TAU);
+					ctx.fill();
+				}
+			}
+		};
+	};
+}
+function dnaHelix(opts) {
+	const speed = opts.speed ?? 1;
+	return () => {
+		let W = 0;
+		let H = 0;
+		return {
+			resize(w, h) {
+				W = w;
+				H = h;
+			},
+			frame(ctx, env) {
+				const { t, palette, pointer, hover, still } = env;
+				const midY = H / 2;
+				const amp = H * .3;
+				const k = Math.PI * 2 * 2.2 / W;
+				const spin = (still ? .6 : t) * speed * 1.4 * (hover ? 1.5 : 1);
+				const tilt = pointer.active ? (pointer.y - .5) * .6 : 0;
+				const strandCol = tone(palette, opts.strand);
+				const cA = tone(palette, opts.pairA);
+				const cB = tone(palette, opts.pairB);
+				const yOf = (x, off) => midY + amp * Math.sin(x * k + spin + off) * (1 - tilt * (x / W - .5));
+				const depthOf = (x, off) => Math.cos(x * k + spin + off);
+				for (const off of [0, Math.PI]) {
+					ctx.beginPath();
+					for (let x = 0; x <= W; x += 5) {
+						const y = yOf(x, off);
+						if (x === 0) ctx.moveTo(x, y);
+						else ctx.lineTo(x, y);
+					}
+					ctx.strokeStyle = oklcha(strandCol, .5);
+					ctx.lineWidth = 1.6;
+					ctx.stroke();
+				}
+				const rungGap = 16;
+				for (let x = rungGap / 2; x < W; x += rungGap) {
+					const y1 = yOf(x, 0);
+					const y2 = yOf(x, Math.PI);
+					const d1 = depthOf(x, 0);
+					const pairCol = Math.floor(x / rungGap) % 2 === 0 ? cA : cB;
+					const front = (d1 + 1) / 2;
+					ctx.strokeStyle = oklcha(pairCol, .25 + front * .55);
+					ctx.lineWidth = 1 + front * 1.4;
+					ctx.beginPath();
+					ctx.moveTo(x, y1);
+					ctx.lineTo(x, y2);
+					ctx.stroke();
+					for (const [y, near] of [[y1, d1 > 0], [y2, d1 <= 0]]) {
+						const r = near ? 2.6 : 1.4;
+						ctx.fillStyle = oklcha(strandCol, near ? .95 : .4);
+						ctx.beginPath();
+						ctx.arc(x, y, r, 0, TAU);
+						ctx.fill();
+					}
+				}
+			}
+		};
+	};
+}
+function dataFlowNet(opts) {
+	const density = opts.density ?? 1;
+	const link = opts.link ?? 96;
+	return () => {
+		let W = 0;
+		let H = 0;
+		let nodes = [];
+		let packets = [];
+		const flashes = [];
+		let seeded = false;
+		let r = rng(1);
+		const neighbor = (i, notB) => {
+			let best = -1;
+			let bestD = link;
+			for (let j = 0; j < nodes.length; j++) {
+				if (j === i || j === notB) continue;
+				const d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+				if (d < bestD && r() < .7) {
+					best = j;
+					bestD = d;
+				}
+			}
+			return best === -1 ? (i + 1) % nodes.length : best;
+		};
+		const seed = () => {
+			r = rng(7);
+			const count = clamp(Math.round(W * H / 9e3 * density), 12, 40);
+			nodes = [];
+			for (let k = 0; k < count; k++) nodes.push({
+				x: r() * W,
+				y: r() * H,
+				vx: (r() - .5) * 22,
+				vy: (r() - .5) * 22
+			});
+			packets = [];
+			for (let k = 0; k < Math.min(10, count); k++) {
+				const a = Math.floor(r() * count);
+				const b = neighbor(a, -1);
+				packets.push({
+					a,
+					b,
+					p: r(),
+					sp: .5 + r() * .7,
+					side: 0
+				});
+			}
+			seeded = true;
+		};
+		return {
+			resize(w, h) {
+				W = w;
+				H = h;
+				seed();
+			},
+			frame(ctx, env) {
+				if (!seeded) seed();
+				const { dt, palette, pointer, hover, still } = env;
+				const edge = tone(palette, opts.tint);
+				const pkt = tone(palette, opts.packet);
+				const bx = W * .5;
+				const px = pointer.x * W;
+				const py = pointer.y * H;
+				if (!still) for (const n of nodes) {
+					n.x += n.vx * dt;
+					n.y += n.vy * dt;
+					if (pointer.active) {
+						const dx = px - n.x;
+						const dy = py - n.y;
+						const d = Math.hypot(dx, dy);
+						if (d < 120 && d > 1) {
+							const f = (1 - d / 120) * 24;
+							n.vx += dx / d * f * dt;
+							n.vy += dy / d * f * dt;
+						}
+					}
+					const s = Math.hypot(n.vx, n.vy);
+					if (s > 26) {
+						n.vx = n.vx / s * 26;
+						n.vy = n.vy / s * 26;
+					}
+					if (n.x < 0) n.x += W;
+					else if (n.x > W) n.x -= W;
+					if (n.y < 0) n.y += H;
+					else if (n.y > H) n.y -= H;
+				}
+				ctx.lineWidth = 1;
+				for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
+					const a = nodes[i];
+					const b = nodes[j];
+					const d = Math.hypot(a.x - b.x, a.y - b.y);
+					if (d > link) continue;
+					ctx.strokeStyle = oklcha(edge, (1 - d / link) * (hover ? .4 : .26));
+					ctx.beginPath();
+					ctx.moveTo(a.x, a.y);
+					ctx.lineTo(b.x, b.y);
+					ctx.stroke();
+				}
+				ctx.setLineDash([3, 5]);
+				ctx.strokeStyle = oklcha(pkt, .45);
+				ctx.beginPath();
+				ctx.moveTo(bx, H * .06);
+				ctx.lineTo(bx, H * .94);
+				ctx.stroke();
+				ctx.setLineDash([]);
+				for (const pk of packets) {
+					const a = nodes[pk.a];
+					const b = nodes[pk.b];
+					if (!still) pk.p += pk.sp * dt;
+					if (pk.p >= 1) {
+						pk.p = 0;
+						pk.a = pk.b;
+						pk.b = neighbor(pk.a, pk.a);
+					}
+					const x = a.x + (b.x - a.x) * pk.p;
+					const y = a.y + (b.y - a.y) * pk.p;
+					const side = x < bx ? -1 : 1;
+					if (side !== pk.side && pk.side !== 0 && !still) {
+						flashes.push({
+							x: bx,
+							y,
+							age: 0
+						});
+						if (flashes.length > 20) flashes.shift();
+					}
+					pk.side = side;
+					glow(ctx, oklcha(pkt, .9), 8, () => {
+						ctx.fillStyle = oklcha(pkt, 1);
+						ctx.beginPath();
+						ctx.arc(x, y, 2, 0, TAU);
+						ctx.fill();
+					});
+				}
+				for (const n of nodes) {
+					ctx.fillStyle = oklcha(edge, .7);
+					ctx.beginPath();
+					ctx.arc(n.x, n.y, 1.8, 0, TAU);
+					ctx.fill();
+				}
+				for (let k = flashes.length - 1; k >= 0; k--) {
+					const f = flashes[k];
+					f.age += dt;
+					if (f.age > .8) {
+						flashes.splice(k, 1);
+						continue;
+					}
+					const p = f.age / .8;
+					ctx.strokeStyle = oklcha(pkt, (1 - p) * .7);
+					ctx.beginPath();
+					ctx.arc(f.x, f.y, 2 + p * 11, 0, TAU);
+					ctx.stroke();
+				}
+			}
+		};
+	};
+}
+function candlestick(opts) {
+	const speed = opts.speed ?? 1;
+	return () => {
+		let W = 0;
+		let H = 0;
+		let candles = [];
+		let n = 0;
+		let last = 50;
+		let r = rng(3);
+		let lastT = 0;
+		let seeded = false;
+		const next = () => {
+			const o = last;
+			const c = clamp(o + (r() - .48) * 9, 8, 92);
+			const h = Math.max(o, c) + r() * 5;
+			const l = Math.min(o, c) - r() * 5;
+			last = c;
+			return {
+				o,
+				h,
+				l,
+				c
+			};
+		};
+		const seed = () => {
+			r = rng(3);
+			last = 50;
+			n = clamp(Math.floor(W / 13), 6, 40);
+			candles = [];
+			for (let i = 0; i < n + 1; i++) candles.push(next());
+			seeded = true;
+			lastT = 0;
+		};
+		return {
+			resize(w, h) {
+				W = w;
+				H = h;
+				seed();
+			},
+			frame(ctx, env) {
+				if (!seeded) seed();
+				const { t, palette, pointer, hover, still } = env;
+				const up = tone(palette, opts.up);
+				const down = tone(palette, opts.down);
+				const lim = tone(palette, opts.limit);
+				const interval = (hover ? .5 : .85) / speed;
+				if (lastT === 0) lastT = t;
+				let guard = 0;
+				while (!still && t - lastT > interval && guard++ < 4) {
+					candles.shift();
+					candles.push(next());
+					lastT += interval;
+				}
+				const frac = still ? 0 : clamp((t - lastT) / interval, 0, 1);
+				let min = Infinity;
+				let max = -Infinity;
+				for (const cd of candles) {
+					if (cd.l < min) min = cd.l;
+					if (cd.h > max) max = cd.h;
+				}
+				const pad = 10;
+				const range = Math.max(1, max - min);
+				const yOf = (p) => pad + (max - p) / range * (H - 2 * pad);
+				const pitch = W / n;
+				const bw = Math.max(3, pitch * .55);
+				const limitP = max - range * .12;
+				const ly = yOf(limitP);
+				ctx.setLineDash([4, 5]);
+				ctx.strokeStyle = oklcha(lim, .6);
+				ctx.lineWidth = 1;
+				ctx.beginPath();
+				ctx.moveTo(0, ly);
+				ctx.lineTo(W, ly);
+				ctx.stroke();
+				ctx.setLineDash([]);
+				for (let i = 0; i < candles.length; i++) {
+					const cd = candles[i];
+					const x = i * pitch - frac * pitch + pitch / 2;
+					if (x < -bw || x > W + bw) continue;
+					const bull = cd.c >= cd.o;
+					const breach = cd.h > limitP;
+					const col = breach ? lim : bull ? up : down;
+					ctx.strokeStyle = oklcha(col, .8);
+					ctx.lineWidth = 1;
+					ctx.beginPath();
+					ctx.moveTo(x, yOf(cd.h));
+					ctx.lineTo(x, yOf(cd.l));
+					ctx.stroke();
+					const yo = yOf(cd.o);
+					const yc = yOf(cd.c);
+					const top = Math.min(yo, yc);
+					const bh = Math.max(1.5, Math.abs(yc - yo));
+					const draw = () => {
+						ctx.fillStyle = oklcha(col, breach ? .95 : .8);
+						ctx.fillRect(x - bw / 2, top, bw, bh);
+					};
+					if (breach) glow(ctx, oklcha(lim, .9), 8, draw);
+					else draw();
+				}
+				if (pointer.active) {
+					ctx.strokeStyle = oklcha(palette.dim, .4);
+					ctx.setLineDash([2, 4]);
+					ctx.beginPath();
+					ctx.moveTo(pointer.x * W, 0);
+					ctx.lineTo(pointer.x * W, H);
+					ctx.moveTo(0, pointer.y * H);
+					ctx.lineTo(W, pointer.y * H);
+					ctx.stroke();
+					ctx.setLineDash([]);
+				}
+			}
+		};
+	};
+}
+function citationArcs(opts) {
+	opts.speed;
+	return () => {
+		let W = 0;
+		let H = 0;
+		let left = [];
+		let right = [];
+		let arcs = [];
+		let seeded = false;
+		const seed = () => {
+			const r = rng(11);
+			const nSide = 6;
+			left = [];
+			right = [];
+			for (let i = 0; i < nSide; i++) {
+				left.push(H * (.12 + .76 * i / (nSide - 1)));
+				right.push(H * (.12 + .76 * i / (nSide - 1)));
+			}
+			arcs = [];
+			for (let i = 0; i < 9; i++) arcs.push({
+				a: Math.floor(r() * nSide),
+				b: Math.floor(r() * nSide),
+				phase: r(),
+				dur: 2.2 + r() * 2.5
+			});
+			seeded = true;
+		};
+		return {
+			resize(w, h) {
+				W = w;
+				H = h;
+				seed();
+			},
+			frame(ctx, env) {
+				if (!seeded) seed();
+				const { dt, palette, pointer, hover, still } = env;
+				const base = tone(palette, opts.tint);
+				const acc = tone(palette, opts.accent);
+				const lx = W * .15;
+				const rx = W * .85;
+				const px = pointer.x * W;
+				const py = pointer.y * H;
+				for (const y of left) {
+					ctx.strokeStyle = oklcha(base, .4);
+					ctx.lineWidth = 1;
+					ctx.beginPath();
+					ctx.moveTo(lx - 8, y);
+					ctx.lineTo(lx, y);
+					ctx.stroke();
+					ctx.fillStyle = oklcha(base, .7);
+					ctx.beginPath();
+					ctx.arc(lx, y, 2, 0, TAU);
+					ctx.fill();
+				}
+				for (const y of right) {
+					ctx.strokeStyle = oklcha(base, .4);
+					ctx.beginPath();
+					ctx.moveTo(rx, y);
+					ctx.lineTo(rx + 8, y);
+					ctx.stroke();
+					ctx.fillStyle = oklcha(base, .7);
+					ctx.beginPath();
+					ctx.arc(rx, y, 2, 0, TAU);
+					ctx.fill();
+				}
+				const bez = (u, p0, p1, p2) => (1 - u) * (1 - u) * p0 + 2 * (1 - u) * u * p1 + u * u * p2;
+				for (const arc of arcs) {
+					if (!still) arc.phase += dt / arc.dur;
+					const u = arc.phase % 1;
+					const y1 = left[arc.a];
+					const y2 = right[arc.b];
+					const cx = W * .5 + (still ? 0 : Math.sin(arc.phase) * 12);
+					const cyc = (y1 + y2) / 2 + (y1 - y2) * .15;
+					ctx.strokeStyle = oklcha(base, .14 + (pointer.active && Math.hypot(px - cx, py - cyc) < 90 ? .4 : 0));
+					ctx.lineWidth = 1;
+					ctx.beginPath();
+					ctx.moveTo(lx, y1);
+					ctx.quadraticCurveTo(cx, cyc, rx, y2);
+					ctx.stroke();
+					const steps = 6;
+					for (let s = 0; s < steps; s++) {
+						const uu = u - s * .02;
+						if (uu < 0 || uu > 1) continue;
+						const x = bez(uu, lx, cx, rx);
+						const y = bez(uu, y1, cyc, y2);
+						ctx.fillStyle = oklcha(acc, (1 - s / steps) * (.5 + (hover ? .3 : 0)));
+						ctx.beginPath();
+						ctx.arc(x, y, 1.8 - s * .15, 0, TAU);
+						ctx.fill();
+					}
+					if (u > .96) glow(ctx, oklcha(acc, .9), 8, () => {
+						ctx.fillStyle = oklcha(acc, 1);
+						ctx.beginPath();
+						ctx.arc(rx, y2, 3, 0, TAU);
+						ctx.fill();
+					});
+				}
+			}
+		};
+	};
+}
+function redactionRain(opts) {
+	const cell = opts.cell ?? 14;
+	const speed = opts.speed ?? 1;
+	return () => {
+		let W = 0;
+		let H = 0;
+		let cols = 0;
+		let rows = 0;
+		let heads = [];
+		let spd = [];
+		let fontPx = cell;
+		const seed = () => {
+			const r = rng(23);
+			cols = Math.max(1, Math.floor(W / cell));
+			rows = Math.max(1, Math.floor(H / cell));
+			fontPx = cell * .92;
+			heads = [];
+			spd = [];
+			for (let c = 0; c < cols; c++) {
+				heads.push(-r() * rows);
+				spd.push(4 + r() * 6);
+			}
+		};
+		const hash = (c, row) => (c * 73856093 ^ row * 19349663) >>> 0;
+		return {
+			resize(w, h) {
+				W = w;
+				H = h;
+				seed();
+			},
+			frame(ctx, env) {
+				const { t, dt, palette, pointer, still } = env;
+				const green = tone(palette, opts.tint);
+				const mask = tone(palette, opts.mask);
+				ctx.font = `${fontPx.toFixed(1)}px "JetBrains Mono", monospace`;
+				ctx.textAlign = "center";
+				ctx.textBaseline = "middle";
+				const cw = W / cols;
+				const ch = H / rows;
+				const trail = 9;
+				const px = pointer.x * W;
+				const py = pointer.y * H;
+				for (let c = 0; c < cols; c++) {
+					if (!still) {
+						heads[c] += spd[c] * speed * dt;
+						if (heads[c] - trail > rows) heads[c] = -2;
+					} else heads[c] = c % 5 + rows * .4;
+					const head = heads[c];
+					for (let k = 0; k < trail; k++) {
+						const row = Math.floor(head) - k;
+						if (row < 0 || row >= rows) continue;
+						const x = (c + .5) * cw;
+						const y = (row + .5) * ch;
+						const bright = 1 - k / trail;
+						const redacted = hash(c, row) % 4 === 0;
+						const revealed = pointer.active && Math.hypot(x - px, y - py) < 70;
+						if (redacted && !revealed) {
+							ctx.fillStyle = oklcha(mask, .25 + bright * .6);
+							const s = cw * .62;
+							ctx.fillRect(x - s / 2, y - ch * .34, s, ch * .62);
+						} else {
+							const digit = (hash(c, row + Math.floor(t * 6)) & 1).toString();
+							const col = k === 0 ? green : green;
+							const a = k === 0 ? 1 : .15 + bright * .55;
+							if (k === 0) glow(ctx, oklcha(green, .8), 6, () => {
+								ctx.fillStyle = oklcha(col, 1);
+								ctx.fillText(digit, x, y);
+							});
+							else {
+								ctx.fillStyle = oklcha(col, a);
+								ctx.fillText(digit, x, y);
+							}
+						}
+					}
+				}
+			}
+		};
+	};
+}
+function radarSweep(opts) {
+	const speed = opts.speed ?? 1;
+	return () => {
+		let W = 0;
+		let H = 0;
+		let cx = 0;
+		let cy = 0;
+		let maxR = 0;
+		let blips = [];
+		const seed = () => {
+			const r = rng(29);
+			cx = W / 2;
+			cy = H / 2;
+			maxR = Math.min(W, H) * .46;
+			blips = [];
+			for (let i = 0; i < 9; i++) blips.push({
+				r: (.25 + r() * .72) * maxR,
+				ang: r() * TAU,
+				flagged: r() < .3
+			});
+		};
+		return {
+			resize(w, h) {
+				W = w;
+				H = h;
+				seed();
+			},
+			frame(ctx, env) {
+				const { t, palette, hover, still } = env;
+				const green = tone(palette, opts.tint);
+				const red = tone(palette, opts.flag);
+				const sweep = (still ? .7 : t * (hover ? 1.5 : 1) * speed) % TAU;
+				ctx.strokeStyle = oklcha(green, .18);
+				ctx.lineWidth = 1;
+				for (let i = 1; i <= 3; i++) {
+					ctx.beginPath();
+					ctx.arc(cx, cy, maxR * i / 3, 0, TAU);
+					ctx.stroke();
+				}
+				ctx.beginPath();
+				ctx.moveTo(cx - maxR, cy);
+				ctx.lineTo(cx + maxR, cy);
+				ctx.moveTo(cx, cy - maxR);
+				ctx.lineTo(cx, cy + maxR);
+				ctx.stroke();
+				if (!still && typeof ctx.createConicGradient === "function") {
+					const g = ctx.createConicGradient(sweep - .9, cx, cy);
+					g.addColorStop(0, oklcha(green, 0));
+					g.addColorStop(.82, oklcha(green, 0));
+					g.addColorStop(.99, oklcha(green, .28));
+					g.addColorStop(1, oklcha(green, .4));
+					ctx.fillStyle = g;
+					ctx.beginPath();
+					ctx.moveTo(cx, cy);
+					ctx.arc(cx, cy, maxR, 0, TAU);
+					ctx.fill();
+				}
+				glow(ctx, oklcha(green, .8), 8, () => {
+					ctx.strokeStyle = oklcha(green, .85);
+					ctx.lineWidth = 1.4;
+					ctx.beginPath();
+					ctx.moveTo(cx, cy);
+					ctx.lineTo(cx + Math.cos(sweep) * maxR, cy + Math.sin(sweep) * maxR);
+					ctx.stroke();
+				});
+				for (const b of blips) {
+					let d = sweep - b.ang;
+					d = (d % TAU + TAU) % TAU;
+					const lit = still ? .7 : Math.exp(-d * 2.2);
+					const x = cx + Math.cos(b.ang) * b.r;
+					const y = cy + Math.sin(b.ang) * b.r;
+					const col = b.flagged ? red : green;
+					const a = .15 + lit * .85;
+					if (lit > .25) glow(ctx, oklcha(col, a), b.flagged ? 12 : 7, () => {
+						ctx.fillStyle = oklcha(col, a);
+						ctx.beginPath();
+						ctx.arc(x, y, b.flagged ? 3 : 2.2, 0, TAU);
+						ctx.fill();
+					});
+					else {
+						ctx.fillStyle = oklcha(col, a);
+						ctx.beginPath();
+						ctx.arc(x, y, b.flagged ? 3 : 2.2, 0, TAU);
+						ctx.fill();
+					}
+					if (b.flagged && lit > .4) {
+						ctx.strokeStyle = oklcha(red, lit * .7);
+						ctx.beginPath();
+						ctx.arc(x, y, 5 + (1 - lit) * 6, 0, TAU);
+						ctx.stroke();
+					}
+				}
+			}
+		};
+	};
+}
+/**
+* Drives a single <canvas> from an Engine factory.
+*
+* Responsibilities kept out of the engines:
+*  - HiDPI: sizes the backing store to devicePixelRatio (capped at 2) and
+*    scales the 2D context so engines draw in CSS pixels.
+*  - ResizeObserver: re-measures on layout changes.
+*  - IntersectionObserver: only runs the rAF loop while on (or near) screen —
+*    essential when eight of these live on one page.
+*  - visibilitychange: pauses in background tabs.
+*  - prefers-reduced-motion: draws exactly one still frame, no loop.
+*  - pointer tracking on an external target (the card), normalized to 0..1.
+*
+* The returned refs are attached by the component: `canvasRef` to the <canvas>
+* and `pointerTargetRef` to the element whose hover/pointer should drive the
+* animation (usually the whole card).
+*/
+function useDomainCanvas(makeEngine) {
+	const canvasRef = (0, import_react.useRef)(null);
+	const pointerTargetRef = (0, import_react.useRef)(null);
+	(0, import_react.useEffect)(() => {
+		const canvas = canvasRef.current;
+		if (!canvas || typeof window === "undefined") return;
+		const ctx = canvas.getContext("2d", { alpha: true });
+		if (!ctx) return;
+		const engine = makeEngine();
+		const pointer = {
+			x: .5,
+			y: .5,
+			active: false
+		};
+		let hover = false;
+		let w = 0;
+		let h = 0;
+		let dpr = 1;
+		const measure = () => {
+			const rect = canvas.getBoundingClientRect();
+			if (rect.width === 0 || rect.height === 0) return;
+			dpr = Math.min(2, window.devicePixelRatio || 1);
+			w = Math.round(rect.width);
+			h = Math.round(rect.height);
+			canvas.width = Math.round(w * dpr);
+			canvas.height = Math.round(h * dpr);
+			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+			engine.resize(w, h);
+		};
+		const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+		const drawStill = () => {
+			if (w === 0) measure();
+			if (w === 0) return;
+			ctx.clearRect(0, 0, w, h);
+			engine.frame(ctx, {
+				w,
+				h,
+				t: 0,
+				dt: 0,
+				pointer: {
+					x: .5,
+					y: .5,
+					active: false
+				},
+				palette: readPalette(),
+				hover: false,
+				still: true
+			});
+		};
+		let raf = 0;
+		let start = 0;
+		let last = 0;
+		let onScreen = false;
+		let running = false;
+		const tick = (now) => {
+			if (!running) return;
+			if (start === 0) {
+				start = now;
+				last = now;
+			}
+			const t = (now - start) / 1e3;
+			const dt = Math.min(.05, (now - last) / 1e3);
+			last = now;
+			const env = {
+				w,
+				h,
+				t,
+				dt,
+				pointer,
+				palette: readPalette(),
+				hover,
+				still: false
+			};
+			ctx.clearRect(0, 0, w, h);
+			engine.frame(ctx, env);
+			raf = window.requestAnimationFrame(tick);
+		};
+		const play = () => {
+			if (running || reduce.matches) return;
+			if (!onScreen || document.hidden) return;
+			if (w === 0) measure();
+			if (w === 0) return;
+			running = true;
+			start = 0;
+			last = 0;
+			raf = window.requestAnimationFrame(tick);
+		};
+		const pause = () => {
+			running = false;
+			if (raf) window.cancelAnimationFrame(raf);
+			raf = 0;
+		};
+		const ro = new ResizeObserver(() => {
+			measure();
+			if (reduce.matches) drawStill();
+		});
+		ro.observe(canvas);
+		const io = new IntersectionObserver((entries) => {
+			onScreen = entries[0]?.isIntersecting ?? false;
+			if (onScreen) if (reduce.matches) drawStill();
+			else play();
+			else pause();
+		}, { rootMargin: "120px" });
+		io.observe(canvas);
+		const onVisibility = () => {
+			if (document.hidden) pause();
+			else play();
+		};
+		document.addEventListener("visibilitychange", onVisibility);
+		const target = pointerTargetRef.current ?? canvas;
+		const onMove = (e) => {
+			const rect = canvas.getBoundingClientRect();
+			pointer.x = (e.clientX - rect.left) / Math.max(1, rect.width);
+			pointer.y = (e.clientY - rect.top) / Math.max(1, rect.height);
+			pointer.active = true;
+		};
+		const onEnter = () => {
+			hover = true;
+		};
+		const onLeave = () => {
+			hover = false;
+			pointer.active = false;
+			pointer.x = .5;
+			pointer.y = .5;
+		};
+		target.addEventListener("pointermove", onMove);
+		target.addEventListener("pointerenter", onEnter);
+		target.addEventListener("pointerleave", onLeave);
+		const onReduceChange = () => {
+			if (reduce.matches) {
+				pause();
+				drawStill();
+			} else play();
+		};
+		reduce.addEventListener("change", onReduceChange);
+		const themeObserver = new MutationObserver(() => {
+			if (reduce.matches || !running) drawStill();
+		});
+		themeObserver.observe(document.documentElement, {
+			attributes: true,
+			attributeFilter: ["class"]
+		});
+		measure();
+		if (reduce.matches) drawStill();
+		return () => {
+			pause();
+			ro.disconnect();
+			io.disconnect();
+			themeObserver.disconnect();
+			reduce.removeEventListener("change", onReduceChange);
+			document.removeEventListener("visibilitychange", onVisibility);
+			target.removeEventListener("pointermove", onMove);
+			target.removeEventListener("pointerenter", onEnter);
+			target.removeEventListener("pointerleave", onLeave);
+		};
+	}, [makeEngine]);
+	return {
+		canvasRef,
+		pointerTargetRef
+	};
+}
+var t = (light, dark) => ({
+	light,
+	dark
+});
+var CYAN = t([
+	.52,
+	.15,
+	215
+], [
+	.8,
+	.13,
+	210
+]);
+var GREEN = t([
+	.53,
+	.17,
+	152
+], [
+	.81,
+	.2,
+	150
+]);
+var RED = t([
+	.55,
+	.21,
+	25
+], [
+	.72,
+	.23,
+	25
+]);
+var TEAL = t([
+	.54,
+	.13,
+	195
+], [
+	.82,
+	.13,
+	195
+]);
+var MAGENTA = t([
+	.55,
+	.21,
+	330
+], [
+	.78,
+	.19,
+	330
+]);
+var AMBER = t([
+	.58,
+	.16,
+	78
+], [
+	.82,
+	.17,
+	82
+]);
+var AZURE = t([
+	.5,
+	.15,
+	255
+], [
+	.78,
+	.13,
+	250
+]);
+var SKY = t([
+	.55,
+	.16,
+	208
+], [
+	.85,
+	.14,
+	205
+]);
+var INDIGO = t([
+	.45,
+	.19,
+	295
+], [
+	.76,
+	.15,
+	295
+]);
+var VIOLET = t([
+	.56,
+	.2,
+	322
+], [
+	.83,
+	.16,
+	322
+]);
+var VISUALS = [
+	{ make: asciiScan({
+		tint: CYAN,
+		verified: GREEN,
+		speed: .5
+	}) },
+	{ make: ecgMonitor({
+		tint: RED,
+		speed: 1
+	}) },
+	{ make: dnaHelix({
+		strand: TEAL,
+		pairA: MAGENTA,
+		pairB: AMBER,
+		speed: 1
+	}) },
+	{ make: dataFlowNet({
+		tint: AZURE,
+		packet: SKY,
+		density: 1,
+		link: 96
+	}) },
+	{ make: candlestick({
+		up: GREEN,
+		down: RED,
+		limit: AMBER,
+		speed: 1
+	}) },
+	{ make: citationArcs({
+		tint: INDIGO,
+		accent: VIOLET,
+		speed: 1
+	}) },
+	{ make: redactionRain({
+		tint: GREEN,
+		mask: AMBER,
+		cell: 14,
+		speed: 1
+	}) },
+	{ make: radarSweep({
+		tint: AMBER,
+		flag: RED,
+		speed: 1
+	}) }
+];
+function DomainVisual({ index }) {
+	const visual = VISUALS[index % VISUALS.length];
+	const { canvasRef, pointerTargetRef } = useDomainCanvas((0, import_react.useMemo)(() => visual.make, [visual]));
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		ref: pointerTargetRef,
+		className: "pointer-events-auto absolute inset-0 overflow-hidden",
+		"aria-hidden": true,
+		children: visual.video ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("video", {
+			className: "absolute inset-0 h-full w-full object-cover opacity-80",
+			src: visual.video,
+			autoPlay: true,
+			loop: true,
+			muted: true,
+			playsInline: true,
+			preload: "metadata"
+		}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("canvas", {
+			ref: canvasRef,
+			className: "absolute inset-0 h-full w-full"
+		})
 	});
 }
-var FIGURES = [
-	Shield,
-	Ecg,
-	Checklist,
-	Network,
-	RiskBars,
-	Scales,
-	Redaction,
-	Classification
-];
-function DomainFigure({ index }) {
-	const Figure = FIGURES[index % FIGURES.length];
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Figure, {});
-}
-var ACCENT = "text-[oklch(0.48_0.09_220)] dark:text-[oklch(0.78_0.09_220)]";
 var DOMAINS = [
 	{
 		n: "01",
@@ -2621,36 +3438,38 @@ function DomainGrid() {
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 			className: "mx-auto max-w-7xl border-t border-border",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "grid grid-cols-1 border-l border-border md:grid-cols-2 lg:grid-cols-4",
+				className: "grid grid-cols-1 border-l border-border md:grid-cols-2",
 				children: DOMAINS.map((d, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
 					to: "/engage",
-					className: "group relative flex flex-col gap-5 border-b border-r border-border p-8 transition-colors hover:bg-muted/60",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex items-baseline justify-between",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "font-mono text-[11px] tracking-[0.14em] text-foreground/60",
-								children: d.n
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								"aria-hidden": true,
-								className: "text-[11px] text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100",
-								children: "↗"
-							})]
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: `h-16 opacity-80 transition-opacity group-hover:opacity-100 ${ACCENT}`,
-							"aria-hidden": true,
-							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DomainFigure, { index: i })
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-							className: "font-display text-[19px] font-medium leading-[1.2] tracking-tight text-foreground",
+					className: "group relative flex flex-col border-b border-r border-border transition-colors hover:bg-muted/40",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "relative h-48 overflow-hidden border-b border-border bg-[oklch(0.965_0.008_90)] blueprint-grid-fine dark:bg-[oklch(0.175_0.014_250)]",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DomainVisual, { index: i }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-background/70 to-transparent" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-background/60 to-transparent" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "pointer-events-none absolute inset-0 flex items-start justify-between p-4",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "font-mono text-[11px] tracking-[0.14em] text-foreground/70",
+									children: d.n
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									"aria-hidden": true,
+									className: "text-[12px] text-foreground/60 opacity-0 transition-opacity group-hover:opacity-100",
+									children: "↗"
+								})]
+							})
+						]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex flex-col gap-3 p-8",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+							className: "font-display text-[20px] font-medium leading-[1.2] tracking-tight text-foreground",
 							children: d.title
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "text-[14px] leading-relaxed text-muted-foreground",
 							children: d.body
-						})
-					]
+						})]
+					})]
 				}, d.n))
 			})
 		})]
