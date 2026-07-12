@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { GlitchText } from "./GlitchText";
 
 export function Hero() {
   return (
@@ -95,8 +96,8 @@ export function Hero() {
             <span>Doctrine</span>
           </div>
 
-          <h1 className="mb-10 max-w-[16ch] font-display text-[3rem] font-light leading-[1.02] tracking-[-0.03em] text-foreground md:text-[3.6rem] lg:text-[4.4rem]">
-            The trust layer for artificial intelligence.
+          <h1 className="relative mb-10 max-w-[16ch] font-display text-[3rem] font-light leading-[1.02] tracking-[-0.03em] text-foreground md:text-[3.6rem] lg:text-[4.4rem]">
+            <GlitchText text="The trust layer for artificial intelligence." />
           </h1>
 
           <div className="max-w-[54ch] space-y-5 text-[17px] leading-[1.6] text-foreground/85">

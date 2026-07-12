@@ -758,6 +758,69 @@
   }
 }
 
+/* --- Hero headline · glitch decode → verified --- */
+/* The headline arrives as unstable "fluent but unverified" output; a
+   verification scanline sweeps down and resolves it into clean, trusted text.
+   The glitch IS the thesis — fluent, not correct — being disproved in place. */
+@keyframes hero-chroma {
+  0%,
+  100% {
+    text-shadow: none;
+    transform: translate3d(0, 0, 0);
+  }
+  25% {
+    text-shadow:
+      -0.018em 0 0 oklch(0.62 0.19 25 / 0.5),
+      0.018em 0 0 oklch(0.7 0.13 220 / 0.5);
+  }
+  50% {
+    text-shadow: none;
+    transform: translate3d(0.4px, 0, 0);
+  }
+  75% {
+    text-shadow:
+      0.018em 0 0 oklch(0.62 0.19 25 / 0.45),
+      -0.018em 0 0 oklch(0.7 0.13 220 / 0.45);
+    transform: translate3d(-0.4px, 0, 0);
+  }
+}
+.hero-glitch {
+  animation: hero-chroma 0.42s steps(2, end) infinite;
+  will-change: text-shadow, transform;
+}
+/* the verification pass: a thin accent line sweeping the full headline box */
+@keyframes hero-scan {
+  0% {
+    top: -6%;
+    opacity: 0;
+  }
+  14% {
+    opacity: 0.9;
+  }
+  86% {
+    opacity: 0.9;
+  }
+  100% {
+    top: 106%;
+    opacity: 0;
+  }
+}
+.hero-scanbar {
+  animation: hero-scan var(--scan-dur, 1.3s) cubic-bezier(0.4, 0, 0.3, 1)
+    forwards;
+  will-change: top, opacity;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-glitch {
+    animation: none;
+    text-shadow: none;
+    transform: none;
+  }
+  .hero-scanbar {
+    display: none;
+  }
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
