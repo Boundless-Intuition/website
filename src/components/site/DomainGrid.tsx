@@ -1,7 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { DomainFigure } from "./DomainFigures";
-
-const ACCENT = "text-[oklch(0.48_0.09_220)] dark:text-[oklch(0.78_0.09_220)]";
+import { DomainVisual } from "./domain-visuals/DomainVisual";
 
 const DOMAINS = [
   {
@@ -71,36 +69,41 @@ export function DomainGrid() {
       </div>
 
       <div className="mx-auto max-w-7xl border-t border-border">
-        <div className="grid grid-cols-1 border-l border-border md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 border-l border-border md:grid-cols-2">
           {DOMAINS.map((d, i) => (
             <Link
               key={d.n}
               to="/engage"
-              className="group relative flex flex-col gap-5 border-b border-r border-border p-8 transition-colors hover:bg-muted/60"
+              className="group relative flex flex-col border-b border-r border-border transition-colors hover:bg-muted/40"
             >
-              <div className="flex items-baseline justify-between">
-                <span className="font-mono text-[11px] tracking-[0.14em] text-foreground/60">
-                  {d.n}
-                </span>
-                <span
-                  aria-hidden
-                  className="text-[11px] text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
-                >
-                  ↗
-                </span>
+              {/* Live visual panel */}
+              <div className="relative h-48 overflow-hidden border-b border-border bg-[oklch(0.965_0.008_90)] blueprint-grid-fine dark:bg-[oklch(0.175_0.014_250)]">
+                <DomainVisual index={i} />
+                {/* scrim so the label stays legible over the busiest frames */}
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-background/70 to-transparent" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-background/60 to-transparent" />
+                <div className="pointer-events-none absolute inset-0 flex items-start justify-between p-4">
+                  <span className="font-mono text-[11px] tracking-[0.14em] text-foreground/70">
+                    {d.n}
+                  </span>
+                  <span
+                    aria-hidden
+                    className="text-[12px] text-foreground/60 opacity-0 transition-opacity group-hover:opacity-100"
+                  >
+                    ↗
+                  </span>
+                </div>
               </div>
-              <div
-                className={`h-16 opacity-80 transition-opacity group-hover:opacity-100 ${ACCENT}`}
-                aria-hidden
-              >
-                <DomainFigure index={i} />
+
+              {/* Copy */}
+              <div className="flex flex-col gap-3 p-8">
+                <h3 className="font-display text-[20px] font-medium leading-[1.2] tracking-tight text-foreground">
+                  {d.title}
+                </h3>
+                <p className="text-[14px] leading-relaxed text-muted-foreground">
+                  {d.body}
+                </p>
               </div>
-              <h3 className="font-display text-[19px] font-medium leading-[1.2] tracking-tight text-foreground">
-                {d.title}
-              </h3>
-              <p className="text-[14px] leading-relaxed text-muted-foreground">
-                {d.body}
-              </p>
             </Link>
           ))}
         </div>
