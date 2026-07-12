@@ -49,8 +49,8 @@ const VISUALS: Visual[] = [
   { make: ecgMonitor({ tint: RED, speed: 1 }) },
   // 03 · Clinical Trials & Protocols — a rotating DNA double-helix
   { make: dnaHelix({ strand: TEAL, pairA: MAGENTA, pairB: AMBER, speed: 1 }) },
-  // 04 · Network & Infrastructure — packets flowing across a firewall
-  { make: dataFlowNet({ tint: AZURE, packet: SKY, density: 1, link: 96 }) },
+  // 04 · Network & Infrastructure — living mesh + threat-intercepting firewall
+  { make: dataFlowNet({ tint: AZURE, packet: SKY, threat: RED, density: 1.1 }) },
   // 05 · Finance & Risk — a candlestick chart under a risk limit
   { make: candlestick({ up: GREEN, down: RED, limit: AMBER, speed: 1 }) },
   // 06 · Legal & Regulatory — citation arcs cross-referencing provisions

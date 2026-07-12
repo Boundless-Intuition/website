@@ -2,7 +2,7 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as TopBar, t as SiteFooter } from "./SiteFooter-BGrJXls8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-B2e_CZ4W.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-BY5O2xsk.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -2479,50 +2479,108 @@ function dnaHelix(opts) {
 }
 function dataFlowNet(opts) {
 	const density = opts.density ?? 1;
-	const link = opts.link ?? 96;
+	const THREATS = 16;
+	const SPARKS = 120;
+	const HITS = 20;
 	return () => {
 		let W = 0;
 		let H = 0;
 		let nodes = [];
-		let packets = [];
-		const flashes = [];
+		let links = [];
+		let adj = [];
+		let flows = [];
+		let ax = [];
+		let ay = [];
+		const threats = [];
+		const sparks = [];
+		const hits = [];
+		let fwFlash = 0;
+		let spawnAcc = 0;
 		let seeded = false;
-		let r = rng(1);
-		const neighbor = (i, notB) => {
-			let best = -1;
-			let bestD = link;
-			for (let j = 0; j < nodes.length; j++) {
-				if (j === i || j === notB) continue;
-				const d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
-				if (d < bestD && r() < .7) {
-					best = j;
-					bestD = d;
-				}
-			}
-			return best === -1 ? (i + 1) % nodes.length : best;
-		};
+		let r = rng(41);
+		const freeThreat = () => threats.find((t) => !t.on);
+		const freeSpark = () => sparks.find((s) => !s.on);
+		const freeHit = () => hits.find((h) => !h.on);
 		const seed = () => {
-			r = rng(7);
-			const count = clamp(Math.round(W * H / 9e3 * density), 12, 40);
+			r = rng(41);
+			const count = clamp(Math.round(W * H / 1e4 * density), 14, 32);
 			nodes = [];
-			for (let k = 0; k < count; k++) nodes.push({
-				x: r() * W,
-				y: r() * H,
-				vx: (r() - .5) * 22,
-				vy: (r() - .5) * 22
-			});
-			packets = [];
-			for (let k = 0; k < Math.min(10, count); k++) {
-				const a = Math.floor(r() * count);
-				const b = neighbor(a, -1);
-				packets.push({
-					a,
-					b,
-					p: r(),
-					sp: .5 + r() * .7,
-					side: 0
+			for (let k = 0; k < count; k++) {
+				const x = (.08 + r() * .84) * W;
+				const y = (.14 + r() * .72) * H;
+				nodes.push({
+					x,
+					y,
+					vx: 0,
+					vy: 0,
+					hx: x,
+					hy: y,
+					pulse: 0
 				});
 			}
+			ax = new Array(count).fill(0);
+			ay = new Array(count).fill(0);
+			links = [];
+			adj = nodes.map(() => []);
+			const seen = /* @__PURE__ */ new Set();
+			const order = [];
+			for (let i = 0; i < count; i++) {
+				order.length = 0;
+				for (let j = 0; j < count; j++) {
+					if (j === i) continue;
+					order.push([j, Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y)]);
+				}
+				order.sort((p, q) => p[1] - q[1]);
+				const take = 2 + (r() < .35 ? 1 : 0);
+				for (let s = 0; s < take && s < order.length; s++) {
+					const j = order[s][0];
+					const key = i < j ? `${i}:${j}` : `${j}:${i}`;
+					if (seen.has(key)) continue;
+					seen.add(key);
+					const li = links.length;
+					links.push({
+						a: i,
+						b: j,
+						rest: order[s][1]
+					});
+					adj[i].push(li);
+					adj[j].push(li);
+				}
+			}
+			flows = [];
+			const nFlow = Math.min(links.length, Math.round(count * .9));
+			for (let k = 0; k < nFlow; k++) flows.push({
+				link: Math.floor(r() * links.length),
+				p: r(),
+				sp: .35 + r() * .5,
+				dir: r() < .5 ? 1 : -1
+			});
+			threats.length = 0;
+			for (let k = 0; k < THREATS; k++) threats.push({
+				on: false,
+				x: 0,
+				y: 0,
+				vx: 0,
+				vy: 0
+			});
+			sparks.length = 0;
+			for (let k = 0; k < SPARKS; k++) sparks.push({
+				on: false,
+				x: 0,
+				y: 0,
+				vx: 0,
+				vy: 0,
+				age: 0,
+				life: 0
+			});
+			hits.length = 0;
+			for (let k = 0; k < HITS; k++) hits.push({
+				on: false,
+				y: 0,
+				age: 0
+			});
+			fwFlash = 0;
+			spawnAcc = 0;
 			seeded = true;
 		};
 		return {
@@ -2536,97 +2594,258 @@ function dataFlowNet(opts) {
 				const { dt, palette, pointer, hover, still } = env;
 				const edge = tone(palette, opts.tint);
 				const pkt = tone(palette, opts.packet);
-				const bx = W * .5;
+				const bad = tone(palette, opts.threat);
+				const cx = W * .5;
 				const px = pointer.x * W;
 				const py = pointer.y * H;
-				if (!still) for (const n of nodes) {
-					n.x += n.vx * dt;
-					n.y += n.vy * dt;
-					if (pointer.active) {
-						const dx = px - n.x;
-						const dy = py - n.y;
-						const d = Math.hypot(dx, dy);
-						if (d < 120 && d > 1) {
-							const f = (1 - d / 120) * 24;
-							n.vx += dx / d * f * dt;
-							n.vy += dy / d * f * dt;
+				const step = Math.min(.033, dt);
+				if (!still) {
+					for (let i = 0; i < nodes.length; i++) {
+						const n = nodes[i];
+						let fx = (n.hx - n.x) * 3.4;
+						let fy = (n.hy - n.y) * 3.4;
+						if (pointer.active) {
+							const dx = n.x - px;
+							const dy = n.y - py;
+							const d = Math.hypot(dx, dy);
+							const R = 155;
+							if (d < R && d > .01) {
+								const f = 1 - d / R;
+								const s = 2300 * f * f;
+								fx += dx / d * s;
+								fy += dy / d * s;
+							}
 						}
+						for (let j = 0; j < nodes.length; j++) {
+							if (j === i) continue;
+							const m = nodes[j];
+							const dx = n.x - m.x;
+							const dy = n.y - m.y;
+							const d2 = dx * dx + dy * dy;
+							if (d2 < 3844 && d2 > .01) {
+								const d = Math.sqrt(d2);
+								const s = (1 - d / 62) * 420;
+								fx += dx / d * s;
+								fy += dy / d * s;
+							}
+						}
+						ax[i] = fx;
+						ay[i] = fy;
 					}
-					const s = Math.hypot(n.vx, n.vy);
-					if (s > 26) {
-						n.vx = n.vx / s * 26;
-						n.vy = n.vy / s * 26;
+					for (const L of links) {
+						const a = nodes[L.a];
+						const b = nodes[L.b];
+						const dx = b.x - a.x;
+						const dy = b.y - a.y;
+						const d = Math.hypot(dx, dy) || .01;
+						const f = (d - L.rest) * 9 * .5;
+						const ux = dx / d;
+						const uy = dy / d;
+						ax[L.a] += ux * f;
+						ay[L.a] += uy * f;
+						ax[L.b] -= ux * f;
+						ay[L.b] -= uy * f;
 					}
-					if (n.x < 0) n.x += W;
-					else if (n.x > W) n.x -= W;
-					if (n.y < 0) n.y += H;
-					else if (n.y > H) n.y -= H;
+					for (let i = 0; i < nodes.length; i++) {
+						const n = nodes[i];
+						n.vx = (n.vx + ax[i] * step) * .9;
+						n.vy = (n.vy + ay[i] * step) * .9;
+						const sp = Math.hypot(n.vx, n.vy);
+						if (sp > 520) {
+							n.vx = n.vx / sp * 520;
+							n.vy = n.vy / sp * 520;
+						}
+						n.x = clamp(n.x + n.vx * step, 2, W - 2);
+						n.y = clamp(n.y + n.vy * step, 2, H - 2);
+						n.pulse = Math.max(0, n.pulse - step * 2.2);
+					}
 				}
 				ctx.lineWidth = 1;
-				for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
-					const a = nodes[i];
-					const b = nodes[j];
-					const d = Math.hypot(a.x - b.x, a.y - b.y);
-					if (d > link) continue;
-					ctx.strokeStyle = oklcha(edge, (1 - d / link) * (hover ? .4 : .26));
+				for (const L of links) {
+					const a = nodes[L.a];
+					const b = nodes[L.b];
+					const stretch = clamp((Math.hypot(a.x - b.x, a.y - b.y) - L.rest) / (L.rest + 1), 0, 1);
+					ctx.strokeStyle = oklcha(stretch > .25 ? mix(edge, pkt, stretch) : edge, .16 + stretch * .42 + (hover ? .08 : 0));
 					ctx.beginPath();
 					ctx.moveTo(a.x, a.y);
 					ctx.lineTo(b.x, b.y);
 					ctx.stroke();
 				}
-				ctx.setLineDash([3, 5]);
-				ctx.strokeStyle = oklcha(pkt, .45);
-				ctx.beginPath();
-				ctx.moveTo(bx, H * .06);
-				ctx.lineTo(bx, H * .94);
-				ctx.stroke();
-				ctx.setLineDash([]);
-				for (const pk of packets) {
-					const a = nodes[pk.a];
-					const b = nodes[pk.b];
-					if (!still) pk.p += pk.sp * dt;
-					if (pk.p >= 1) {
-						pk.p = 0;
-						pk.a = pk.b;
-						pk.b = neighbor(pk.a, pk.a);
+				const fwA = .3 + fwFlash * .55;
+				const drawFw = () => {
+					ctx.setLineDash([2, 6]);
+					ctx.strokeStyle = oklcha(pkt, fwA);
+					ctx.lineWidth = 1 + fwFlash * 1.6;
+					ctx.beginPath();
+					ctx.moveTo(cx, H * .04);
+					ctx.lineTo(cx, H * .96);
+					ctx.stroke();
+					ctx.setLineDash([]);
+				};
+				if (fwFlash > .05) glow(ctx, oklcha(pkt, .85), 10, drawFw);
+				else drawFw();
+				if (!still) fwFlash = Math.max(0, fwFlash - step * 2.4);
+				for (const pk of flows) {
+					const L = links[pk.link];
+					if (!L) continue;
+					const a = nodes[L.a];
+					const b = nodes[L.b];
+					if (!still) pk.p += pk.sp * step * pk.dir;
+					if (pk.p >= 1 || pk.p <= 0) {
+						const at = pk.p >= 1 ? L.b : L.a;
+						nodes[at].pulse = 1;
+						const opt = adj[at];
+						const nl = opt.length ? opt[Math.floor(r() * opt.length)] : pk.link;
+						pk.link = nl;
+						if (links[nl].a === at) {
+							pk.dir = 1;
+							pk.p = 0;
+						} else {
+							pk.dir = -1;
+							pk.p = 1;
+						}
+						continue;
 					}
 					const x = a.x + (b.x - a.x) * pk.p;
 					const y = a.y + (b.y - a.y) * pk.p;
-					const side = x < bx ? -1 : 1;
-					if (side !== pk.side && pk.side !== 0 && !still) {
-						flashes.push({
-							x: bx,
-							y,
-							age: 0
-						});
-						if (flashes.length > 20) flashes.shift();
-					}
-					pk.side = side;
-					glow(ctx, oklcha(pkt, .9), 8, () => {
-						ctx.fillStyle = oklcha(pkt, 1);
+					const tp = pk.p - .14 * pk.dir;
+					const txp = a.x + (b.x - a.x) * tp;
+					const typ = a.y + (b.y - a.y) * tp;
+					ctx.strokeStyle = oklcha(pkt, .5);
+					ctx.lineWidth = 1.4;
+					ctx.beginPath();
+					ctx.moveTo(txp, typ);
+					ctx.lineTo(x, y);
+					ctx.stroke();
+					ctx.fillStyle = oklcha(pkt, .95);
+					ctx.beginPath();
+					ctx.arc(x, y, 1.8, 0, TAU);
+					ctx.fill();
+				}
+				for (const n of nodes) {
+					const pr = 2 + n.pulse * 3.2;
+					if (n.pulse > .05) glow(ctx, oklcha(pkt, .8), 8, () => {
+						ctx.fillStyle = oklcha(mix(edge, pkt, n.pulse), .92);
 						ctx.beginPath();
-						ctx.arc(x, y, 2, 0, TAU);
+						ctx.arc(n.x, n.y, pr, 0, TAU);
+						ctx.fill();
+					});
+					else {
+						ctx.fillStyle = oklcha(edge, .75);
+						ctx.beginPath();
+						ctx.arc(n.x, n.y, pr, 0, TAU);
+						ctx.fill();
+					}
+				}
+				if (!still) {
+					spawnAcc += step;
+					const rate = hover ? .32 : .62;
+					while (spawnAcc > rate) {
+						spawnAcc -= rate;
+						const th = freeThreat();
+						if (th) {
+							th.on = true;
+							th.x = -10;
+							th.y = (.12 + r() * .76) * H;
+							const tx = W * (.72 + r() * .26);
+							const ty = pointer.active ? py : (.12 + r() * .76) * H;
+							const dx = tx - th.x;
+							const dy = ty - th.y;
+							const d = Math.hypot(dx, dy) || 1;
+							const sp = 150 + r() * 120;
+							th.vx = dx / d * sp;
+							th.vy = dy / d * sp;
+						}
+					}
+				}
+				for (const th of threats) {
+					if (!th.on) continue;
+					if (!still) {
+						th.x += th.vx * step;
+						th.y += th.vy * step;
+					}
+					if (th.x >= cx) {
+						th.on = false;
+						fwFlash = 1;
+						const hit = freeHit();
+						if (hit) {
+							hit.on = true;
+							hit.y = th.y;
+							hit.age = 0;
+						}
+						for (let s = 0; s < 12; s++) {
+							const sk = freeSpark();
+							if (!sk) break;
+							const ang = r() * TAU;
+							const spd = 60 + r() * 190;
+							sk.on = true;
+							sk.x = cx;
+							sk.y = th.y;
+							sk.vx = Math.cos(ang) * spd - 40;
+							sk.vy = Math.sin(ang) * spd;
+							sk.age = 0;
+							sk.life = .35 + r() * .35;
+						}
+						continue;
+					}
+					if (th.x > W + 20 || th.y < -20 || th.y > H + 20) {
+						th.on = false;
+						continue;
+					}
+					glow(ctx, oklcha(bad, .9), 8, () => {
+						ctx.strokeStyle = oklcha(bad, .9);
+						ctx.lineWidth = 1.6;
+						ctx.beginPath();
+						ctx.moveTo(th.x - th.vx * .03, th.y - th.vy * .03);
+						ctx.lineTo(th.x, th.y);
+						ctx.stroke();
+						ctx.fillStyle = oklcha(bad, 1);
+						ctx.beginPath();
+						ctx.arc(th.x, th.y, 2.2, 0, TAU);
 						ctx.fill();
 					});
 				}
-				for (const n of nodes) {
-					ctx.fillStyle = oklcha(edge, .7);
-					ctx.beginPath();
-					ctx.arc(n.x, n.y, 1.8, 0, TAU);
-					ctx.fill();
-				}
-				for (let k = flashes.length - 1; k >= 0; k--) {
-					const f = flashes[k];
-					f.age += dt;
-					if (f.age > .8) {
-						flashes.splice(k, 1);
+				for (const hit of hits) {
+					if (!hit.on) continue;
+					if (!still) hit.age += step;
+					const life = .6;
+					if (hit.age > life) {
+						hit.on = false;
 						continue;
 					}
-					const p = f.age / .8;
-					ctx.strokeStyle = oklcha(pkt, (1 - p) * .7);
+					const p = hit.age / life;
+					ctx.strokeStyle = oklcha(pkt, (1 - p) * .8);
+					ctx.lineWidth = 1.4;
 					ctx.beginPath();
-					ctx.arc(f.x, f.y, 2 + p * 11, 0, TAU);
+					ctx.arc(cx, hit.y, 2 + p * 16, 0, TAU);
 					ctx.stroke();
+				}
+				for (const sk of sparks) {
+					if (!sk.on) continue;
+					if (!still) {
+						sk.x += sk.vx * step;
+						sk.y += sk.vy * step;
+						sk.vx *= .92;
+						sk.vy *= .92;
+						sk.age += step;
+					}
+					if (sk.age > sk.life) {
+						sk.on = false;
+						continue;
+					}
+					const a = 1 - sk.age / sk.life;
+					ctx.fillStyle = oklcha(bad, a);
+					ctx.beginPath();
+					ctx.arc(sk.x, sk.y, 1.6 * a + .5, 0, TAU);
+					ctx.fill();
+				}
+				if (pointer.active && !still) {
+					ctx.strokeStyle = oklcha(pkt, .22);
+					ctx.setLineDash([2, 5]);
+					ctx.beginPath();
+					ctx.arc(px, py, 26, 0, TAU);
+					ctx.stroke();
+					ctx.setLineDash([]);
 				}
 			}
 		};
@@ -3313,8 +3532,8 @@ var VISUALS = [
 	{ make: dataFlowNet({
 		tint: AZURE,
 		packet: SKY,
-		density: 1,
-		link: 96
+		threat: RED,
+		density: 1.1
 	}) },
 	{ make: candlestick({
 		up: GREEN,
