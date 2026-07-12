@@ -1,5 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ProofMark } from "./ProofMark";
+import type { Tint } from "./domain-visuals/engine";
+import {
+  proverField,
+  type ProverStatus,
+} from "./domain-visuals/proverField";
+import { useDomainCanvas } from "./domain-visuals/useDomainCanvas";
 
 /**
  * VerifyWidget — an interactive demonstration of verifying an AI answer.
@@ -26,6 +32,8 @@ type Claim = {
     step: number;
     default: number;
   };
+  /** the provable interval, in slider units — outside it the check refutes */
+  safe: { lo: number; hi: number };
   answer: (v: number) => string;
   check: (v: number) => Result;
   smt: (v: number) => string[];
@@ -48,6 +56,7 @@ const CLAIMS: Claim[] = [
       step: 1,
       default: 34,
     },
+    safe: { lo: 10, hi: 100 },
     answer: (w) =>
       `Administer methotrexate ${round1(0.6 * w)} mg this week (${w} kg patient).`,
     check: (w) => {
@@ -93,6 +102,7 @@ const CLAIMS: Claim[] = [
       step: 1,
       default: 24,
     },
+    safe: { lo: 1, hi: 24 },
     answer: (ttl) =>
       `GRANT read ON pii.customers TO role=support · ttl=${ttl}h`,
     check: (ttl) =>
@@ -131,6 +141,7 @@ const CLAIMS: Claim[] = [
       step: 1,
       default: 80,
     },
+    safe: { lo: 0, hi: 85 },
     answer: (eq) => `Rebalance to ${eq}% equities / ${100 - eq}% bonds.`,
     check: (eq) =>
       eq > 85
@@ -157,6 +168,15 @@ const CLAIMS: Claim[] = [
 const ACCENT = "oklch(0.72 0.09 220)";
 const WARN = "oklch(0.72 0.16 45)";
 
+// The console is always ink-dark, so both theme slots carry the bright value.
+const T = (l: number, c: number, h: number): Tint => ({
+  light: [l, c, h],
+  dark: [l, c, h],
+});
+const FIELD_CYAN = T(0.8, 0.13, 210);
+const FIELD_GREEN = T(0.81, 0.2, 150);
+const FIELD_WARN = T(0.72, 0.18, 45);
+
 export function VerifyWidget() {
   const [sel, setSel] = useState(0);
   const [v, setV] = useState(CLAIMS[0].param.default);
@@ -169,6 +189,19 @@ export function VerifyWidget() {
     ms: number;
   } | null>(null);
   const timers = useRef<number[]>([]);
+
+  // Live status fed to the canvas engine — mutated on render so the field
+  // reacts on the very next frame without re-creating the engine.
+  const statusRef = useRef<ProverStatus>({ mode: "idle", proven: true });
+  const make = useMemo(
+    () =>
+      proverField(
+        { tint: FIELD_CYAN, ok: FIELD_GREEN, bad: FIELD_WARN },
+        () => statusRef.current,
+      ),
+    [],
+  );
+  const { canvasRef, pointerTargetRef } = useDomainCanvas(make);
 
   const clearTimers = () => {
     timers.current.forEach((t) => window.clearTimeout(t));
@@ -234,6 +267,12 @@ export function VerifyWidget() {
   const proven = res?.proven ?? true;
   const verdictColor = proven ? ACCENT : WARN;
 
+  statusRef.current.mode = status;
+  statusRef.current.proven = proven;
+
+  const pct = (x: number) =>
+    ((x - c.param.min) / (c.param.max - c.param.min)) * 100;
+
   return (
     <section id="try" className="relative border-b border-border bg-background">
       <div
@@ -288,8 +327,23 @@ export function VerifyWidget() {
           </div>
 
           {/* Prover console */}
-          <div className="relative overflow-hidden rounded-sm bg-ink text-ink-foreground shadow-[0_30px_80px_-40px_oklch(0.22_0.03_250/0.45)] ring-1 ring-foreground/[0.08]">
-            <div className="flex items-center justify-between border-b border-white/10 px-5 py-3">
+          <div
+            ref={pointerTargetRef}
+            className="relative overflow-hidden rounded-sm bg-ink text-ink-foreground shadow-[0_30px_80px_-40px_oklch(0.22_0.03_250/0.45)] ring-1 ring-foreground/[0.08] transition-shadow duration-700"
+            style={
+              status === "done" && res
+                ? { boxShadow: `0 0 70px -22px ${verdictColor}` }
+                : undefined
+            }
+          >
+            {/* live prover field — idles, surges while checking, floods on verdict */}
+            <div className="absolute inset-0" aria-hidden>
+              <canvas
+                ref={canvasRef}
+                className="absolute inset-0 h-full w-full"
+              />
+            </div>
+            <div className="relative flex items-center justify-between border-b border-white/10 px-5 py-3">
               <div className="flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.16em] text-white/45">
                 <span
                   className={`size-1.5 rounded-full ${
@@ -312,7 +366,7 @@ export function VerifyWidget() {
             </div>
 
             {/* The AI answer + the editable input */}
-            <div className="border-b border-white/5 bg-white/[0.02] px-5 py-4">
+            <div className="relative border-b border-white/5 bg-white/[0.02] px-5 py-4">
               <div className="mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-white/40">
                 AI answer · {c.agent}
               </div>
@@ -345,13 +399,34 @@ export function VerifyWidget() {
                   </span>
                 </span>
               </div>
+              {/* The provable envelope — drag into the amber and the proof breaks */}
+              <div className="relative mt-3 h-[3px] overflow-hidden rounded-full" aria-hidden>
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: `linear-gradient(to right, oklch(0.72 0.18 45 / 0.45) 0% ${pct(c.safe.lo)}%, oklch(0.81 0.2 150 / 0.4) ${pct(c.safe.lo)}% ${pct(c.safe.hi)}%, oklch(0.72 0.18 45 / 0.45) ${pct(c.safe.hi)}% 100%)`,
+                  }}
+                />
+                <div
+                  className="absolute top-0 h-full w-[3px] -translate-x-1/2 rounded-full bg-white transition-[left] duration-100"
+                  style={{ left: `${pct(v)}%` }}
+                />
+              </div>
+              <div className="mt-1.5 flex items-center justify-between font-mono text-[9.5px]">
+                <span className="text-[oklch(0.81_0.2_150/0.8)]">
+                  provable · {c.safe.lo}–{c.safe.hi} {c.param.unit}
+                </span>
+                <span className="text-[oklch(0.72_0.18_45/0.8)]">
+                  counterexample territory
+                </span>
+              </div>
               <div className="mt-3 font-mono text-[10.5px] text-white/35">
                 checked against — {c.rule}
               </div>
             </div>
 
             {/* Log */}
-            <div className="min-h-[190px] px-5 py-4">
+            <div className="relative min-h-[190px] px-5 py-4">
               <div className="space-y-1.5 font-mono text-[11.5px] leading-relaxed text-white/55">
                 {status === "idle" ? (
                   <span className="text-white/35">
@@ -387,7 +462,7 @@ export function VerifyWidget() {
             </div>
 
             {/* Verdict / action */}
-            <div className="flex items-center justify-between gap-4 border-t border-white/10 px-5 py-4">
+            <div className="relative flex items-center justify-between gap-4 border-t border-white/10 px-5 py-4">
               {status === "done" && res ? (
                 <>
                   <div className="min-w-0">

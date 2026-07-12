@@ -1,9 +1,9 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-BGrJXls8.mjs";
-import { a as candlestick, b as useDomainCanvas, c as dataFlowNet, h as redactionRain, i as asciiScan, l as dnaHelix, m as radarSweep, n as PipelineBackdrop, o as citationArcs, r as asciiFlow, t as MethodVisual, u as ecgMonitor } from "./MethodVisual-BqIWyxhw.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-QxpFQhii.js
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-BlX38kYS.mjs";
+import { a as candlestick, b as useDomainCanvas, c as dataFlowNet, d as field, f as mix, h as redactionRain, i as asciiScan, l as dnaHelix, m as radarSweep, n as PipelineBackdrop, o as citationArcs, p as oklcha, r as asciiFlow, t as MethodVisual, u as ecgMonitor, v as smoothstep, y as tone } from "./MethodVisual-BqIWyxhw.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-CYRbfD43.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -1184,6 +1184,115 @@ function ProofMark({ className = "", symbol = "⊢" }) {
 		})]
 	});
 }
+/**
+* proverField — the live backdrop inside the VerifyWidget's prover console.
+*
+* Unlike the other engines this one is state-reactive: the widget hands it a
+* getter for the current run status and the field responds. Idle, it breathes
+* as a dim glyph haze. While a check runs, a scan beam sweeps the console and
+* the field surges. On a verdict the whole field re-tints — green with ✓s
+* raining through the bright cells when the property is proved, warn-orange
+* with ✗s when a counterexample is found — and ripple rings mark the moment.
+*
+* The console is always ink-dark, so callers pass Tints with identical
+* light/dark values. Alphas stay low: the log text sits directly on top.
+*/
+var TAU = Math.PI * 2;
+var clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+function proverField(opts, status) {
+	const RAMP = " ·:∴+⊢";
+	const cell = opts.cell ?? 17;
+	return () => {
+		let W = 0;
+		let H = 0;
+		let cols = 0;
+		let rows = 0;
+		let cw = cell;
+		let chh = cell;
+		let energy = .3;
+		let vm = 0;
+		let bt = 0;
+		let doneAge = 9;
+		let prevMode = "idle";
+		return {
+			resize(w, h) {
+				W = w;
+				H = h;
+				cols = Math.max(1, Math.floor(w / cell));
+				rows = Math.max(1, Math.floor(h / cell));
+				cw = w / cols;
+				chh = h / rows;
+			},
+			frame(ctx, env) {
+				const { t, dt, palette, pointer, still } = env;
+				const s = status();
+				if (s.mode !== prevMode) {
+					if (s.mode === "done") doneAge = 0;
+					prevMode = s.mode;
+				}
+				const target = s.mode === "running" ? .8 : s.mode === "done" ? .55 : .3;
+				energy += (target - energy) * clamp(dt * 3, 0, 1);
+				vm += ((s.mode === "done" ? 1 : 0) - vm) * clamp(dt * 2.5, 0, 1);
+				if (!still) {
+					if (s.mode === "running") bt = (bt + dt / 1.15) % 1;
+					if (s.mode === "done") doneAge += dt;
+				}
+				const base = tone(palette, opts.tint);
+				const vcol = tone(palette, s.proven ? opts.ok : opts.bad);
+				const beamX = bt * (W + 80) - 40;
+				const px = pointer.x * W;
+				const py = pointer.y * H;
+				ctx.font = `${(Math.min(cw, chh) * .8).toFixed(1)}px "JetBrains Mono", monospace`;
+				ctx.textAlign = "center";
+				ctx.textBaseline = "middle";
+				for (let rw = 0; rw < rows; rw++) for (let c = 0; c < cols; c++) {
+					const x = (c + .5) * cw;
+					const y = (rw + .5) * chh;
+					const n = field(c * .33, rw * .5, t * .5) * .5 + .5;
+					const beam = s.mode === "running" ? smoothstep(55, 0, Math.abs(x - beamX)) * .75 : 0;
+					const near = pointer.active ? smoothstep(90, 0, Math.hypot(x - px, y - py)) * .45 : 0;
+					const i = clamp(n * energy + beam * .55 + near, 0, 1);
+					const col = mix(base, vcol, vm);
+					if (vm > .5 && i > .74) {
+						ctx.fillStyle = oklcha(vcol, .1 + i * .3);
+						ctx.fillText(s.proven ? "✓" : "✗", x, y);
+						continue;
+					}
+					const g = RAMP[Math.floor(i * 5)];
+					if (g === " ") continue;
+					ctx.fillStyle = oklcha(col, .04 + i * .2);
+					ctx.fillText(g, x, y);
+				}
+				if (s.mode === "running") {
+					ctx.save();
+					ctx.shadowBlur = 9;
+					ctx.shadowColor = oklcha(base, .7);
+					ctx.strokeStyle = oklcha(base, .38);
+					ctx.lineWidth = 1;
+					ctx.beginPath();
+					ctx.moveTo(beamX, 0);
+					ctx.lineTo(beamX, H);
+					ctx.stroke();
+					ctx.restore();
+				}
+				if (doneAge < 1.4) {
+					const cx = W * .5;
+					const cy = H * .45;
+					const maxR = Math.hypot(W, H) * .5;
+					ctx.lineWidth = 1;
+					for (let k = 0; k < 2; k++) {
+						const p = clamp(doneAge / 1.4 - k * .12, 0, 1);
+						if (p <= 0) continue;
+						ctx.strokeStyle = oklcha(vcol, (1 - p) * .5);
+						ctx.beginPath();
+						ctx.arc(cx, cy, p * maxR, 0, TAU);
+						ctx.stroke();
+					}
+				}
+			}
+		};
+	};
+}
 var round1 = (n) => Math.round(n * 10) / 10;
 var CLAIMS = [
 	{
@@ -1198,6 +1307,10 @@ var CLAIMS = [
 			max: 120,
 			step: 1,
 			default: 34
+		},
+		safe: {
+			lo: 10,
+			hi: 100
 		},
 		answer: (w) => `Administer methotrexate ${round1(.6 * w)} mg this week (${w} kg patient).`,
 		check: (w) => {
@@ -1240,6 +1353,10 @@ var CLAIMS = [
 			step: 1,
 			default: 24
 		},
+		safe: {
+			lo: 1,
+			hi: 24
+		},
 		answer: (ttl) => `GRANT read ON pii.customers TO role=support · ttl=${ttl}h`,
 		check: (ttl) => ttl > 24 ? {
 			proven: false,
@@ -1273,6 +1390,10 @@ var CLAIMS = [
 			step: 1,
 			default: 80
 		},
+		safe: {
+			lo: 0,
+			hi: 85
+		},
 		answer: (eq) => `Rebalance to ${eq}% equities / ${100 - eq}% bonds.`,
 		check: (eq) => eq > 85 ? {
 			proven: false,
@@ -1294,6 +1415,21 @@ var CLAIMS = [
 ];
 var ACCENT = "oklch(0.72 0.09 220)";
 var WARN = "oklch(0.72 0.16 45)";
+var T = (l, c, h) => ({
+	light: [
+		l,
+		c,
+		h
+	],
+	dark: [
+		l,
+		c,
+		h
+	]
+});
+var FIELD_CYAN = T(.8, .13, 210);
+var FIELD_GREEN = T(.81, .2, 150);
+var FIELD_WARN = T(.72, .18, 45);
 function VerifyWidget() {
 	const [sel, setSel] = (0, import_react.useState)(0);
 	const [v, setV] = (0, import_react.useState)(CLAIMS[0].param.default);
@@ -1301,6 +1437,15 @@ function VerifyWidget() {
 	const [step, setStep] = (0, import_react.useState)(0);
 	const [res, setRes] = (0, import_react.useState)(null);
 	const timers = (0, import_react.useRef)([]);
+	const statusRef = (0, import_react.useRef)({
+		mode: "idle",
+		proven: true
+	});
+	const { canvasRef, pointerTargetRef } = useDomainCanvas((0, import_react.useMemo)(() => proverField({
+		tint: FIELD_CYAN,
+		ok: FIELD_GREEN,
+		bad: FIELD_WARN
+	}, () => statusRef.current), []));
 	const clearTimers = () => {
 		timers.current.forEach((t) => window.clearTimeout(t));
 		timers.current = [];
@@ -1344,6 +1489,9 @@ function VerifyWidget() {
 	};
 	const proven = res?.proven ?? true;
 	const verdictColor = proven ? ACCENT : WARN;
+	statusRef.current.mode = status;
+	statusRef.current.proven = proven;
+	const pct = (x) => (x - c.param.min) / (c.param.max - c.param.min) * 100;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 		id: "try",
 		className: "relative border-b border-border bg-background",
@@ -1410,10 +1558,20 @@ function VerifyWidget() {
 						})]
 					}, cl.domain))
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "relative overflow-hidden rounded-sm bg-ink text-ink-foreground shadow-[0_30px_80px_-40px_oklch(0.22_0.03_250/0.45)] ring-1 ring-foreground/[0.08]",
+					ref: pointerTargetRef,
+					className: "relative overflow-hidden rounded-sm bg-ink text-ink-foreground shadow-[0_30px_80px_-40px_oklch(0.22_0.03_250/0.45)] ring-1 ring-foreground/[0.08] transition-shadow duration-700",
+					style: status === "done" && res ? { boxShadow: `0 0 70px -22px ${verdictColor}` } : void 0,
 					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "absolute inset-0",
+							"aria-hidden": true,
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("canvas", {
+								ref: canvasRef,
+								className: "absolute inset-0 h-full w-full"
+							})
+						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex items-center justify-between border-b border-white/10 px-5 py-3",
+							className: "relative flex items-center justify-between border-b border-white/10 px-5 py-3",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: "flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.16em] text-white/45",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
@@ -1426,7 +1584,7 @@ function VerifyWidget() {
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "border-b border-white/5 bg-white/[0.02] px-5 py-4",
+							className: "relative border-b border-white/5 bg-white/[0.02] px-5 py-4",
 							children: [
 								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 									className: "mb-2 font-mono text-[10px] uppercase tracking-[0.16em] text-white/40",
@@ -1467,13 +1625,41 @@ function VerifyWidget() {
 									]
 								}),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "relative mt-3 h-[3px] overflow-hidden rounded-full",
+									"aria-hidden": true,
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "absolute inset-0",
+										style: { background: `linear-gradient(to right, oklch(0.72 0.18 45 / 0.45) 0% ${pct(c.safe.lo)}%, oklch(0.81 0.2 150 / 0.4) ${pct(c.safe.lo)}% ${pct(c.safe.hi)}%, oklch(0.72 0.18 45 / 0.45) ${pct(c.safe.hi)}% 100%)` }
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+										className: "absolute top-0 h-full w-[3px] -translate-x-1/2 rounded-full bg-white transition-[left] duration-100",
+										style: { left: `${pct(v)}%` }
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "mt-1.5 flex items-center justify-between font-mono text-[9.5px]",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+										className: "text-[oklch(0.81_0.2_150/0.8)]",
+										children: [
+											"provable · ",
+											c.safe.lo,
+											"–",
+											c.safe.hi,
+											" ",
+											c.param.unit
+										]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "text-[oklch(0.72_0.18_45/0.8)]",
+										children: "counterexample territory"
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 									className: "mt-3 font-mono text-[10.5px] text-white/35",
 									children: ["checked against — ", c.rule]
 								})
 							]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "min-h-[190px] px-5 py-4",
+							className: "relative min-h-[190px] px-5 py-4",
 							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: "space-y-1.5 font-mono text-[11.5px] leading-relaxed text-white/55",
 								children: [status === "idle" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
@@ -1507,7 +1693,7 @@ function VerifyWidget() {
 							})
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "flex items-center justify-between gap-4 border-t border-white/10 px-5 py-4",
+							className: "relative flex items-center justify-between gap-4 border-t border-white/10 px-5 py-4",
 							children: status === "done" && res ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: "min-w-0",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {

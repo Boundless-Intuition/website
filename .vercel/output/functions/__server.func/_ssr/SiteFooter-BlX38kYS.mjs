@@ -1,7 +1,7 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-BGrJXls8.js
+//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-BlX38kYS.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function apply(theme) {
@@ -71,7 +71,6 @@ var SECTIONS = [
 ];
 function TopBar() {
 	const [open, setOpen] = (0, import_react.useState)(false);
-	const [scrolled, setScrolled] = (0, import_react.useState)(false);
 	(0, import_react.useEffect)(() => {
 		if (typeof document === "undefined") return;
 		document.body.style.overflow = open ? "hidden" : "";
@@ -79,15 +78,8 @@ function TopBar() {
 			document.body.style.overflow = "";
 		};
 	}, [open]);
-	(0, import_react.useEffect)(() => {
-		if (typeof window === "undefined") return;
-		const onScroll = () => setScrolled(window.scrollY > 24);
-		onScroll();
-		window.addEventListener("scroll", onScroll, { passive: true });
-		return () => window.removeEventListener("scroll", onScroll);
-	}, []);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("nav", {
-		className: `sticky top-0 z-50 w-full transition-[background-color,border-color,backdrop-filter] duration-300 ${scrolled || open ? "border-b border-border bg-background/85 backdrop-blur-md" : "border-b border-transparent bg-gradient-to-b from-background/55 via-background/15 to-transparent backdrop-blur-[2px]"}`,
+		className: `sticky top-0 z-50 w-full transition-[background-color,backdrop-filter] duration-300 ${open ? "bg-background/85 backdrop-blur-md" : "bg-gradient-to-b from-background/55 via-background/15 to-transparent backdrop-blur-[2px]"}`,
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "mx-auto flex h-16 max-w-7xl items-center justify-between px-6",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -134,7 +126,7 @@ function TopBar() {
 				]
 			})]
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: `overflow-hidden border-t border-border bg-background/95 backdrop-blur-md transition-[max-height] duration-300 md:hidden ${open ? "max-h-96" : "max-h-0 border-t-transparent"}`,
+			className: `overflow-hidden transition-[max-height] duration-300 md:hidden ${open ? "max-h-96 border-t border-border bg-background/95 backdrop-blur-md" : "max-h-0"}`,
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				className: "mx-auto max-w-7xl px-6 py-4",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {

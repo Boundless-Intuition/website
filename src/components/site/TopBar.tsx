@@ -14,7 +14,6 @@ const SECTIONS = [
 
 export function TopBar() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
   // Lock body scroll while the mobile drawer is open.
   useEffect(() => {
@@ -25,24 +24,17 @@ export function TopBar() {
     };
   }, [open]);
 
-  // Transparent over the hero; solidify once the page scrolls beneath it.
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Drawer open forces the solid treatment so the menu stays legible.
-  const solid = scrolled || open;
+  // The bar stays transparent and blends with the page at every scroll
+  // position; only the open mobile drawer forces the solid treatment so the
+  // menu stays legible.
+  const solid = open;
 
   return (
     <nav
-      className={`sticky top-0 z-50 w-full transition-[background-color,border-color,backdrop-filter] duration-300 ${
+      className={`sticky top-0 z-50 w-full transition-[background-color,backdrop-filter] duration-300 ${
         solid
-          ? "border-b border-border bg-background/85 backdrop-blur-md"
-          : "border-b border-transparent bg-gradient-to-b from-background/55 via-background/15 to-transparent backdrop-blur-[2px]"
+          ? "bg-background/85 backdrop-blur-md"
+          : "bg-gradient-to-b from-background/55 via-background/15 to-transparent backdrop-blur-[2px]"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
@@ -108,8 +100,10 @@ export function TopBar() {
 
       {/* Mobile drawer */}
       <div
-        className={`overflow-hidden border-t border-border bg-background/95 backdrop-blur-md transition-[max-height] duration-300 md:hidden ${
-          open ? "max-h-96" : "max-h-0 border-t-transparent"
+        className={`overflow-hidden transition-[max-height] duration-300 md:hidden ${
+          open
+            ? "max-h-96 border-t border-border bg-background/95 backdrop-blur-md"
+            : "max-h-0"
         }`}
       >
         <div className="mx-auto max-w-7xl px-6 py-4">
