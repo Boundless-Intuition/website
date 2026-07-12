@@ -1,6 +1,6 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/MethodVisual-BqIWyxhw.js
+//#region node_modules/.nitro/vite/services/ssr/assets/MethodVisual-JtB-9_J1.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var LIGHT = {
@@ -11,18 +11,18 @@ var LIGHT = {
 		90
 	],
 	ink: [
-		.22,
+		.2,
 		.03,
 		250
 	],
 	dim: [
-		.42,
-		.02,
+		.36,
+		.025,
 		250
 	],
 	accent: [
-		.48,
-		.09,
+		.46,
+		.11,
 		220
 	]
 };

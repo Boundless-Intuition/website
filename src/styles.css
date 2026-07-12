@@ -29,15 +29,15 @@
 :root {
   --radius: 0.25rem;
   /* Blueprint Vellum palette */
-  --background: oklch(0.945 0.012 90); /* #efece2 pale vellum */
-  --foreground: oklch(0.22 0.03 250); /* deep prussian navy */
-  --card: oklch(0.965 0.008 90);
-  --card-foreground: oklch(0.22 0.03 250);
+  --background: oklch(0.94 0.012 90); /* #efece2 pale vellum */
+  --foreground: oklch(0.2 0.03 250); /* deep prussian navy */
+  --card: oklch(0.96 0.008 90);
+  --card-foreground: oklch(0.2 0.03 250);
   --muted: oklch(0.88 0.015 90); /* #d9d4c3 secondary vellum */
-  --muted-foreground: oklch(0.42 0.02 250);
+  --muted-foreground: oklch(0.4 0.02 250);
   --accent: oklch(0.28 0.06 250); /* prussian navy accent */
   --accent-foreground: oklch(0.945 0.012 90);
-  --border: oklch(0.22 0.03 250 / 0.14);
+  --border: oklch(0.22 0.03 250 / 0.2);
   --ring: oklch(0.28 0.06 250);
   --ink: oklch(0.12 0.02 250); /* graphite ink */
   --ink-foreground: oklch(0.94 0.012 90);
@@ -74,15 +74,15 @@
 
 @utility blueprint-grid {
   background-image:
-    linear-gradient(oklch(0.22 0.03 250 / 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, oklch(0.22 0.03 250 / 0.06) 1px, transparent 1px);
+    linear-gradient(oklch(0.22 0.03 250 / 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0.22 0.03 250 / 0.09) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
 @utility blueprint-grid-fine {
   background-image:
-    linear-gradient(oklch(0.22 0.03 250 / 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, oklch(0.22 0.03 250 / 0.04) 1px, transparent 1px);
+    linear-gradient(oklch(0.22 0.03 250 / 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0.22 0.03 250 / 0.06) 1px, transparent 1px);
   background-size: 12px 12px;
 }
 

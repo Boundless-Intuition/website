@@ -25,9 +25,9 @@ export type Palette = {
 const LIGHT: Palette = {
   isDark: false,
   bg: [0.965, 0.008, 90],
-  ink: [0.22, 0.03, 250],
-  dim: [0.42, 0.02, 250],
-  accent: [0.48, 0.09, 220],
+  ink: [0.2, 0.03, 250],
+  dim: [0.36, 0.025, 250],
+  accent: [0.46, 0.11, 220],
 };
 
 const DARK: Palette = {

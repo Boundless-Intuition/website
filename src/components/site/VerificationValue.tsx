@@ -285,12 +285,12 @@ export function VerificationValue() {
             {PRODUCTIVITY.map((p, idx) => (
               <div
                 key={p.n}
-                className="relative flex flex-col overflow-hidden bg-background"
+                className="relative flex flex-col overflow-hidden bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.14_0.014_250)]"
               >
                 {/* ASCII slipstream running behind the copy */}
                 <ValueBoxVisual index={idx} />
                 {/* light wash so the copy reads over the field */}
-                <div className="pointer-events-none absolute inset-0 bg-background/40" />
+                <div className="pointer-events-none absolute inset-0 bg-background/25" />
                 <div className="pointer-events-none relative flex flex-col gap-4 p-6 lg:p-7">
                   <span className="font-mono text-[11px] tracking-[0.14em] text-foreground/50">
                     {p.n}

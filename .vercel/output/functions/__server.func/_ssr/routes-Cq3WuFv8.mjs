@@ -2,8 +2,8 @@ import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as TopBar, t as SiteFooter } from "./SiteFooter-zp91Cd_6.mjs";
-import { a as candlestick, b as useDomainCanvas, c as dataFlowNet, d as field, f as mix, h as redactionRain, i as asciiScan, l as dnaHelix, m as radarSweep, n as PipelineBackdrop, o as citationArcs, p as oklcha, r as asciiFlow, t as MethodVisual, u as ecgMonitor, v as smoothstep, y as tone } from "./MethodVisual-BqIWyxhw.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-yv4tBy2e.js
+import { a as candlestick, b as useDomainCanvas, c as dataFlowNet, d as field, f as mix, h as redactionRain, i as asciiScan, l as dnaHelix, m as radarSweep, n as PipelineBackdrop, o as citationArcs, p as oklcha, r as asciiFlow, t as MethodVisual, u as ecgMonitor, v as smoothstep, y as tone } from "./MethodVisual-JtB-9_J1.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-Cq3WuFv8.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -560,7 +560,7 @@ function VerificationMethod() {
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-5",
 					children: STEPS.map((s, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.965_0.008_90)] dark:bg-[oklch(0.14_0.014_250)]",
+						className: "group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.14_0.014_250)]",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MethodVisual, { index: i }),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-background/60 to-transparent" }),
@@ -1118,10 +1118,10 @@ function VerificationValue() {
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Divider, { label: "And it makes teams faster" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-4",
 					children: PRODUCTIVITY.map((p, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "relative flex flex-col overflow-hidden bg-background",
+						className: "relative flex flex-col overflow-hidden bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.14_0.014_250)]",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ValueBoxVisual, { index: idx }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-0 bg-background/40" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-0 bg-background/25" }),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: "pointer-events-none relative flex flex-col gap-4 p-6 lg:p-7",
 								children: [
@@ -1991,7 +1991,7 @@ function DomainGrid() {
 				className: "grid grid-cols-1 border-l border-border md:grid-cols-2",
 				children: DOMAINS.map((d, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
 					to: "/engage",
-					className: "group relative flex min-h-[440px] flex-col overflow-hidden border-b border-r border-border bg-[oklch(0.965_0.008_90)] blueprint-grid-fine dark:bg-[oklch(0.14_0.014_250)]",
+					className: "group relative flex min-h-[440px] flex-col overflow-hidden border-b border-r border-border bg-[oklch(0.9_0.012_90)] blueprint-grid-fine dark:bg-[oklch(0.14_0.014_250)]",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DomainVisual, { index: i }),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-background/60 to-transparent" }),
