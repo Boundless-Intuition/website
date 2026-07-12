@@ -1,4 +1,4 @@
-//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-C_tPzQLI.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-DMA96bei.js
 var tsrStartManifest = () => ({ routes: {
 	__root__: {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/__root.tsx",
@@ -7,27 +7,27 @@ var tsrStartManifest = () => ({ routes: {
 			"/engage",
 			"/legal"
 		],
-		preloads: ["/assets/index-BFY8Tyy1.js"],
+		preloads: ["/assets/index-6NCiAvhQ.js"],
 		scripts: [{ attrs: {
 			type: "module",
 			async: !0,
-			src: "/assets/index-BFY8Tyy1.js"
+			src: "/assets/index-6NCiAvhQ.js"
 		} }]
 	},
 	"/": {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/index.tsx",
 		children: void 0,
-		preloads: ["/assets/routes-DREXmozT.js", "/assets/SiteFooter-oSL-MRKP.js"]
+		preloads: ["/assets/routes-Dc-WTyJN.js", "/assets/SiteFooter-CsfAo-Zq.js"]
 	},
 	"/engage": {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/engage.tsx",
 		children: void 0,
-		preloads: ["/assets/engage-BKWCms8D.js", "/assets/SiteFooter-oSL-MRKP.js"]
+		preloads: ["/assets/engage-BCz4hyBd.js", "/assets/SiteFooter-CsfAo-Zq.js"]
 	},
 	"/legal": {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/legal.tsx",
 		children: void 0,
-		preloads: ["/assets/legal-DvmG7L6T.js", "/assets/SiteFooter-oSL-MRKP.js"]
+		preloads: ["/assets/legal-Gbx3CUCt.js", "/assets/SiteFooter-CsfAo-Zq.js"]
 	}
 } });
 //#endregion

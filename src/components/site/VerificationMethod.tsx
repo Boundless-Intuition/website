@@ -1,4 +1,7 @@
-import { MethodStepFigure } from "./MethodStepFigures";
+import {
+  MethodVisual,
+  PipelineBackdrop,
+} from "./domain-visuals/MethodVisual";
 
 const STEPS = [
   {
@@ -201,9 +204,11 @@ export function VerificationMethod() {
         </div>
 
         {/* Pipeline diagram */}
-        <div className="mb-20 rounded-sm border border-border bg-muted/30 p-6 lg:p-8">
+        <div className="relative mb-20 overflow-hidden rounded-sm border border-border bg-muted/30 p-6 lg:p-8">
+          {/* live ASCII verification field behind the diagram */}
+          <PipelineBackdrop />
           {/* horizontal on lg+ */}
-          <div className="hidden items-stretch gap-3 lg:flex">
+          <div className="pointer-events-none relative hidden items-stretch gap-3 lg:flex">
             <div className="flex min-w-0 flex-[1.4] flex-col gap-3">
               <Node
                 tag="AI output"
@@ -233,7 +238,7 @@ export function VerificationMethod() {
           </div>
 
           {/* vertical on mobile */}
-          <div className="flex flex-col lg:hidden">
+          <div className="pointer-events-none relative flex flex-col lg:hidden">
             <Node
               tag="AI output"
               title="The answer"
@@ -262,28 +267,34 @@ export function VerificationMethod() {
           </div>
         </div>
 
-        {/* Step breakdown */}
+        {/* Step breakdown — each card runs its live visual as a full-bleed
+            background, with the copy floating on a scrim at the bottom */}
         <div className="grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-5">
           {STEPS.map((s, i) => (
             <div
               key={s.n}
-              className="flex flex-col gap-4 bg-background p-6 lg:p-7"
+              className="group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.965_0.008_90)] dark:bg-[oklch(0.175_0.014_250)]"
             >
-              <div
-                className="h-20 border-b border-border/60 pb-1 text-foreground"
-                aria-hidden
-              >
-                <MethodStepFigure index={i} />
+              <MethodVisual index={i} />
+              {/* legibility scrims — solid enough that copy reads over the
+                  busiest frames */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-background/60 to-transparent" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[78%] bg-gradient-to-t from-background via-background/90 to-transparent" />
+              {/* copy — the zone is a fixed share of the card so every title
+                  starts on the same line across all five boxes */}
+              <div className="pointer-events-none relative flex h-full flex-col p-6 lg:p-7">
+                <span className="font-mono text-[11px] tracking-[0.14em] text-foreground/60">
+                  {s.n}
+                </span>
+                <div className="mt-auto flex min-h-[58%] flex-col gap-3">
+                  <h3 className="min-h-[2.4em] font-display text-[16px] font-medium leading-[1.2] tracking-tight text-foreground">
+                    {s.title}
+                  </h3>
+                  <p className="text-[13.5px] leading-relaxed text-muted-foreground">
+                    {s.body}
+                  </p>
+                </div>
               </div>
-              <span className="font-mono text-[11px] tracking-[0.14em] text-foreground/50">
-                {s.n}
-              </span>
-              <h3 className="font-display text-[16px] font-medium leading-[1.2] tracking-tight text-foreground">
-                {s.title}
-              </h3>
-              <p className="text-[13.5px] leading-relaxed text-muted-foreground">
-                {s.body}
-              </p>
             </div>
           ))}
         </div>
