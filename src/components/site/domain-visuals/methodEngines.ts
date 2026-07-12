@@ -275,11 +275,12 @@ export function ruleLattice(opts: {
 export function claimMorph(opts: {
   prose: Tint;
   logic: Tint;
+  cell?: number;
   speed?: number;
 }): EngineFactory {
   const PROSE = "the answer said to give. ";
   const LOGIC = "∀∃¬∧∨→⊨λ⊢:=()";
-  const cell = 16;
+  const cell = opts.cell ?? 16;
   const speed = opts.speed ?? 1;
   return (): Engine => {
     let cols = 0;
@@ -711,6 +712,155 @@ export function shipGate(opts: {
         ctx.fillStyle = oklcha(base, 0.5);
         ctx.font = '9px "JetBrains Mono", monospace';
         for (let y = 14; y < H - 8; y += 26) ctx.fillText("›", gx + 6, y);
+      },
+    };
+  };
+}
+
+// ===========================================================================
+// Value · "it makes teams faster" — an ASCII slipstream. The same live-glyph
+// language as the Security panel, but directional: instead of a scan beam
+// over a static field, gusts of intensity stream rightward through the
+// glyphs (the ramp runs · : - = > ≫, so faster reads as more arrow-like),
+// comets ride the flow and land as ✓ flashes, and the cursor drags a wake
+// that resolves to ≫. Alphas stay moderate — the copy sits directly on top.
+// ===========================================================================
+
+export function asciiFlow(opts: {
+  tint: Tint;
+  hot: Tint;
+  ok: Tint;
+  seed?: number;
+  cell?: number;
+  speed?: number;
+}): EngineFactory {
+  const RAMP = " ··:-=>≫";
+  const cell = opts.cell ?? 15;
+  const speed = opts.speed ?? 1;
+  return (): Engine => {
+    type Comet = { x: number; y: number; sp: number };
+    type Flash = { on: boolean; x: number; y: number; age: number };
+    let W = 0;
+    let H = 0;
+    let cols = 0;
+    let rows = 0;
+    let cw = cell;
+    let chh = cell;
+    const comets: Comet[] = [];
+    const flashes: Flash[] = [];
+    const r = rng(opts.seed ?? 97);
+
+    const respawn = (c: Comet, offscreen: boolean) => {
+      // long random run-up so arrivals stay sparse and unsynchronised
+      c.x = offscreen ? -30 - r() * W * 1.6 : r() * W;
+      c.y = (0.16 + r() * 0.68) * H;
+      c.sp = 90 + r() * 70;
+    };
+
+    return {
+      resize(w, h) {
+        W = w;
+        H = h;
+        cols = Math.max(1, Math.floor(w / cell));
+        rows = Math.max(1, Math.floor(h / cell));
+        cw = w / cols;
+        chh = h / rows;
+        if (comets.length === 0) {
+          for (let i = 0; i < 2; i++) {
+            const c: Comet = { x: 0, y: 0, sp: 0 };
+            respawn(c, i > 0);
+            comets.push(c);
+          }
+          for (let i = 0; i < 4; i++)
+            flashes.push({ on: false, x: 0, y: 0, age: 0 });
+        }
+      },
+      frame(ctx, env) {
+        const { t, dt, palette, pointer, hover, still } = env;
+        const base = tone(palette, opts.tint);
+        const hot = tone(palette, opts.hot);
+        const okc = tone(palette, opts.ok);
+        const tempo = (hover ? 1.35 : 1) * speed;
+        const ft = still ? 0.8 : t * tempo;
+        const px = pointer.x * W;
+        const py = pointer.y * H;
+
+        ctx.font = `${(Math.min(cw, chh) * 0.92).toFixed(1)}px "JetBrains Mono", monospace`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        // the wind field — advected noise + gusts sweeping rightward
+        for (let rw = 0; rw < rows; rw++) {
+          for (let c = 0; c < cols; c++) {
+            const x = (c + 0.5) * cw;
+            const y = (rw + 0.5) * chh;
+            const v =
+              field(c * 0.32 - ft * 1.1, rw * 0.55, ft * 0.25) * 0.5 + 0.5;
+            const gust = 0.5 + 0.5 * Math.sin(c * 0.55 - ft * 2.4 + rw * 0.9);
+            const near = pointer.active
+              ? smoothstep(90, 0, Math.hypot(x - px, y - py))
+              : 0;
+            const i = clamp(v * 0.5 + gust * gust * 0.42 + near * 0.6, 0, 1);
+            let gi = Math.floor(i * (RAMP.length - 1));
+            if (near > 0.55) gi = RAMP.length - 1; // the wake runs at full ≫
+            const g = RAMP[gi];
+            if (g === " ") continue;
+            const col =
+              i > 0.85
+                ? mix(base, hot, (i - 0.85) / 0.15)
+                : mix(palette.dim, base, i);
+            ctx.fillStyle = oklcha(col, 0.07 + i * 0.3 + near * 0.2);
+            ctx.fillText(g, x, y);
+          }
+        }
+
+        // comets riding the stream — work items racing to done
+        for (const c of comets) {
+          if (!still) {
+            c.x += c.sp * tempo * dt;
+            if (c.x > W - 14) {
+              // arrived: leave a ✓ where it finished
+              const fl = flashes.find((f) => !f.on);
+              if (fl) {
+                fl.on = true;
+                fl.x = W - 16;
+                fl.y = c.y;
+                fl.age = 0;
+              }
+              respawn(c, true);
+            }
+          }
+          if (c.x < -20) continue;
+          const trail = c.sp * 0.22;
+          ctx.strokeStyle = oklcha(hot, 0.35);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(c.x - trail, c.y);
+          ctx.lineTo(c.x - 3, c.y);
+          ctx.stroke();
+          glow(ctx, oklcha(hot, 0.7), 6, () => {
+            ctx.fillStyle = oklcha(hot, 0.85);
+            ctx.beginPath();
+            ctx.arc(c.x, c.y, 1.8, 0, TAU);
+            ctx.fill();
+          });
+        }
+
+        // ✓ flashes — brief, small, gone
+        ctx.font = '11px "JetBrains Mono", monospace';
+        for (const fl of flashes) {
+          if (!fl.on) continue;
+          if (!still) fl.age += dt;
+          const life = 1.1;
+          if (fl.age > life) {
+            fl.on = false;
+            continue;
+          }
+          const p = fl.age / life;
+          const a = p < 0.2 ? p / 0.2 : 1 - (p - 0.2) / 0.8;
+          ctx.fillStyle = oklcha(okc, a * 0.8);
+          ctx.fillText("✓", fl.x, fl.y - p * 6);
+        }
       },
     };
   };

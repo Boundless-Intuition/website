@@ -43,18 +43,28 @@ type Visual = {
 };
 
 const VISUALS: Visual[] = [
-  // 01 · Security & Compliance — live ASCII field under a verification scan
-  { make: asciiScan({ tint: CYAN, verified: GREEN, speed: 0.5 }) },
-  // 02 · Healthcare & Clinical Safety — an ECG heart monitor
-  { make: ecgMonitor({ tint: RED, speed: 1 }) },
-  // 03 · Clinical Trials & Protocols — a rotating DNA double-helix
-  { make: dnaHelix({ strand: TEAL, pairA: MAGENTA, pairB: AMBER, speed: 1 }) },
+  // 01 · Security & Compliance — ASCII field; the scan exposes violations
+  { make: asciiScan({ tint: CYAN, verified: GREEN, alert: RED, speed: 0.5 }) },
+  // 02 · Healthcare & Clinical Safety — an ECG under a verified safety envelope
+  { make: ecgMonitor({ tint: RED, alert: AMBER, speed: 1 }) },
+  // 03 · Clinical Trials & Protocols — a DNA helix the cursor can unzip + read
+  {
+    make: dnaHelix({
+      strand: TEAL,
+      pairA: MAGENTA,
+      pairB: AMBER,
+      flag: RED,
+      speed: 1,
+    }),
+  },
   // 04 · Network & Infrastructure — living mesh + threat-intercepting firewall
   { make: dataFlowNet({ tint: AZURE, packet: SKY, threat: RED, density: 1.1 }) },
   // 05 · Finance & Risk — a candlestick chart under a risk limit
   { make: candlestick({ up: GREEN, down: RED, limit: AMBER, speed: 1 }) },
-  // 06 · Legal & Regulatory — citation arcs cross-referencing provisions
-  { make: citationArcs({ tint: INDIGO, accent: VIOLET, speed: 1 }) },
+  // 06 · Legal & Regulatory — a citation web with conflicts landing as ✗
+  {
+    make: citationArcs({ tint: INDIGO, accent: VIOLET, conflict: RED, speed: 1 }),
+  },
   // 07 · Data Protection & Privacy — binary rain masking into redaction blocks
   { make: redactionRain({ tint: GREEN, mask: AMBER, cell: 14, speed: 1 }) },
   // 08 · Export Control & Sanctions — a radar sweep screening entities

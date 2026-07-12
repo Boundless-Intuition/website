@@ -41,6 +41,9 @@ function glow(
 export function asciiScan(opts: {
   tint: Tint;
   verified: Tint;
+  /** when set, hidden anomalies are planted in the field — the beam exposes
+   *  them as red ✗ marks that slowly sink back into the noise */
+  alert?: Tint;
   ramp?: string;
   cell?: number;
   speed?: number;
@@ -68,6 +71,7 @@ export function asciiScan(opts: {
         const { t, palette, pointer, hover, still, w } = env;
         const base = tone(palette, opts.tint);
         const ok = tone(palette, opts.verified);
+        const bad = opts.alert ? tone(palette, opts.alert) : null;
         ctx.font = `${fontPx.toFixed(1)}px "JetBrains Mono", monospace`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
@@ -88,6 +92,22 @@ export function asciiScan(opts: {
             const cx = (c + 0.5) * cw;
             const scanD = Math.abs(cx - sx);
             const scanned = smoothstep(cell * 3.4, 0, scanD);
+
+            // planted policy violations — invisible in the noise until the
+            // beam sweeps over them, then exposed as a red ✗ that fades
+            if (bad && (((c * 92821) ^ (r * 68917)) & 0x7fffffff) % 37 === 0) {
+              const fresh =
+                sx > cx ? clamp(1 - (sx - cx) / (w * 0.55), 0, 1) : 0;
+              if (fresh > 0.03) {
+                const drawX = () => {
+                  ctx.fillStyle = oklcha(bad, 0.3 + fresh * 0.7);
+                  ctx.fillText("✗", cx, (r + 0.5) * ch);
+                };
+                if (fresh > 0.75) glow(ctx, oklcha(bad, 0.9), 8, drawX);
+                else drawX();
+                continue;
+              }
+            }
 
             const nx = c / cols;
             const ny = r / rows;
@@ -140,6 +160,8 @@ function ecgWave(u: number): number {
 
 export function ecgMonitor(opts: {
   tint: Tint;
+  /** color of the safety envelope + breach counterexamples */
+  alert?: Tint;
   speed?: number;
 }): EngineFactory {
   const speed = opts.speed ?? 1;
@@ -154,27 +176,66 @@ export function ecgMonitor(opts: {
       frame(ctx, env) {
         const { t, palette, pointer, hover, still } = env;
         const col = tone(palette, opts.tint);
-        const y0 = H * 0.6;
-        const amp = H * 0.34;
+        const warn = opts.alert ? tone(palette, opts.alert) : col;
+        const y0 = H * 0.58;
+        const amp = H * 0.3;
         const beats = 2.3;
-        const rate = (hover ? 1.7 : 1) * speed * 0.5;
+        // the cursor drives the heart rate — glide right to stress the signal
+        const stress = pointer.active ? 0.6 + pointer.x * 1.7 : hover ? 1.6 : 1;
+        const rate = stress * speed * 0.5;
         const step = 2;
         const glowCol = oklcha(col, 0.9);
 
+        // ECG paper
+        const grid = Math.max(12, Math.round(H / 14));
+        ctx.lineWidth = 1;
+        for (let x = 0; x <= W; x += grid) {
+          ctx.strokeStyle = oklcha(col, (x / grid) % 5 === 0 ? 0.1 : 0.04);
+          ctx.beginPath();
+          ctx.moveTo(x + 0.5, 0);
+          ctx.lineTo(x + 0.5, H);
+          ctx.stroke();
+        }
+        for (let y = 0; y <= H; y += grid) {
+          ctx.strokeStyle = oklcha(col, (y / grid) % 5 === 0 ? 0.1 : 0.04);
+          ctx.beginPath();
+          ctx.moveTo(0, y + 0.5);
+          ctx.lineTo(W, y + 0.5);
+          ctx.stroke();
+        }
+
+        const phaseOf = (x: number) =>
+          (x / W) * beats + (still ? 0.2 : t * rate);
+        // every seventh beat spikes out of the verified envelope
+        const ampMul = (bi: number) => (((bi % 7) + 7) % 7 === 3 ? 1.5 : 1);
         const sampleY = (x: number) => {
-          const phase = (x / W) * beats + (still ? 0.2 : t * rate);
-          const u = phase - Math.floor(phase);
+          const ph = phaseOf(x);
+          const u = ph - Math.floor(ph);
           const jitter = field(x * 0.02, 0, t * 2) * 0.02;
-          return y0 - amp * (ecgWave(u) + jitter);
+          return y0 - amp * ampMul(Math.floor(ph)) * (ecgWave(u) + jitter);
         };
 
         // baseline
         ctx.strokeStyle = oklcha(col, 0.12);
-        ctx.lineWidth = 1;
         ctx.beginPath();
         ctx.moveTo(0, y0);
         ctx.lineTo(W, y0);
         ctx.stroke();
+
+        // the verified safety envelope — beats must stay inside it
+        const envTop = y0 - amp * 1.12;
+        const envBot = y0 + amp * 0.3;
+        ctx.fillStyle = oklcha(warn, 0.05);
+        ctx.fillRect(0, envTop, W, envBot - envTop);
+        ctx.setLineDash([4, 5]);
+        ctx.strokeStyle = oklcha(warn, 0.5);
+        ctx.beginPath();
+        ctx.moveTo(0, envTop);
+        ctx.lineTo(W, envTop);
+        ctx.moveTo(0, envBot);
+        ctx.lineTo(W, envBot);
+        ctx.stroke();
+        ctx.setLineDash([]);
 
         // the trace: a soft wide glow pass, then a crisp line
         glow(ctx, glowCol, 10, () => {
@@ -188,6 +249,39 @@ export function ecgMonitor(opts: {
           }
           ctx.stroke();
         });
+
+        // overdraw any excursion beyond the envelope in the alert color and
+        // mark the worst point with a counterexample ✗
+        let minY = Infinity;
+        let minX = 0;
+        ctx.strokeStyle = oklcha(warn, 0.95);
+        ctx.lineWidth = 1.9;
+        ctx.beginPath();
+        let pen = false;
+        for (let x = 0; x <= W; x += step) {
+          const y = sampleY(x);
+          if (y < minY) {
+            minY = y;
+            minX = x;
+          }
+          if (y < envTop) {
+            if (!pen) {
+              ctx.moveTo(x, y);
+              pen = true;
+            } else ctx.lineTo(x, y);
+          } else pen = false;
+        }
+        ctx.stroke();
+        ctx.lineWidth = 1;
+        if (minY < envTop - 2) {
+          ctx.font = '10px "JetBrains Mono", monospace';
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          glow(ctx, oklcha(warn, 0.9), 8, () => {
+            ctx.fillStyle = oklcha(warn, 1);
+            ctx.fillText("✗", minX, Math.max(8, minY - 10));
+          });
+        }
 
         // leading pulse dot at the right edge
         if (!still) {
@@ -229,9 +323,13 @@ export function dnaHelix(opts: {
   strand: Tint;
   pairA: Tint;
   pairB: Tint;
+  /** color of flagged mutation pairs */
+  flag?: Tint;
   speed?: number;
 }): EngineFactory {
   const speed = opts.speed ?? 1;
+  const LETTERS = ["A", "T", "C", "G"];
+  const COMP = ["T", "A", "G", "C"];
   return (): Engine => {
     let W = 0;
     let H = 0;
@@ -246,42 +344,80 @@ export function dnaHelix(opts: {
         const amp = H * 0.3;
         const k = (Math.PI * 2 * 2.2) / W; // ~2.2 turns across
         const spin = (still ? 0.6 : t) * speed * 1.4 * (hover ? 1.5 : 1);
-        const tilt = pointer.active ? (pointer.y - 0.5) * 0.6 : 0;
         const strandCol = tone(palette, opts.strand);
         const cA = tone(palette, opts.pairA);
         const cB = tone(palette, opts.pairB);
+        const flag = opts.flag ? tone(palette, opts.flag) : cB;
+        const px = pointer.x * W;
 
-        const yOf = (x: number, off: number) =>
-          midY + amp * Math.sin(x * k + spin + off) * (1 - tilt * (x / W - 0.5));
+        // the cursor is a replication fork — it unzips the helix so the
+        // sequence can be read base by base
+        const unzip = (x: number) =>
+          pointer.active ? smoothstep(120, 24, Math.abs(x - px)) : 0;
+        const gap = amp * 0.85;
+
+        const yRaw = (x: number, off: number) =>
+          midY + amp * Math.sin(x * k + spin + off);
+        const yOf = (x: number, off: number) => {
+          const u = unzip(x);
+          const target = off === 0 ? midY - gap : midY + gap;
+          return yRaw(x, off) * (1 - u) + target * u;
+        };
         const depthOf = (x: number, off: number) => Math.cos(x * k + spin + off);
 
         // two strands
         for (const off of [0, Math.PI]) {
           ctx.beginPath();
-          for (let x = 0; x <= W; x += 5) {
+          for (let x = 0; x <= W; x += 4) {
             const y = yOf(x, off);
             if (x === 0) ctx.moveTo(x, y);
             else ctx.lineTo(x, y);
           }
-          ctx.strokeStyle = oklcha(strandCol, 0.5);
+          ctx.strokeStyle = oklcha(strandCol, 0.55);
           ctx.lineWidth = 1.6;
           ctx.stroke();
         }
 
         // base-pair rungs + nucleotide nodes
         const rungGap = 16;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
         for (let x = rungGap / 2; x < W; x += rungGap) {
+          const u = unzip(x);
           const y1 = yOf(x, 0);
           const y2 = yOf(x, Math.PI);
           const d1 = depthOf(x, 0); // >0 = front
-          const pairCol = Math.floor(x / rungGap) % 2 === 0 ? cA : cB;
+          const pi = Math.floor(x / rungGap);
+          const bi = (pi ^ (pi >> 2)) % 4; // which base lives here
+          const mut = pi % 11 === 4; // a flagged mutation pair
+          const pairCol = mut ? flag : pi % 2 === 0 ? cA : cB;
           const front = (d1 + 1) / 2; // 0..1
-          ctx.strokeStyle = oklcha(pairCol, 0.25 + front * 0.55);
-          ctx.lineWidth = 1 + front * 1.4;
-          ctx.beginPath();
-          ctx.moveTo(x, y1);
-          ctx.lineTo(x, y2);
-          ctx.stroke();
+
+          if (u < 0.5) {
+            // intact rung
+            ctx.strokeStyle = oklcha(pairCol, (0.25 + front * 0.55) * (1 - u));
+            ctx.lineWidth = 1 + front * 1.4;
+            ctx.beginPath();
+            ctx.moveTo(x, y1);
+            ctx.lineTo(x, y2);
+            ctx.stroke();
+          } else {
+            // broken pair — two stubs, and the bases become readable
+            const stub = 7;
+            ctx.strokeStyle = oklcha(pairCol, 0.7);
+            ctx.lineWidth = 1.4;
+            ctx.beginPath();
+            ctx.moveTo(x, y1);
+            ctx.lineTo(x, y1 + stub);
+            ctx.moveTo(x, y2);
+            ctx.lineTo(x, y2 - stub);
+            ctx.stroke();
+            const la = (u - 0.5) * 2;
+            ctx.font = '10px "JetBrains Mono", monospace';
+            ctx.fillStyle = oklcha(mut ? flag : pairCol, la);
+            ctx.fillText(LETTERS[bi], x, y1 + stub + 8);
+            ctx.fillText(COMP[bi], x, y2 - stub - 8);
+          }
 
           for (const [y, near] of [
             [y1, d1 > 0],
@@ -292,6 +428,16 @@ export function dnaHelix(opts: {
             ctx.beginPath();
             ctx.arc(x, y, r, 0, TAU);
             ctx.fill();
+          }
+
+          // mutation pairs pulse a lock-on ring even while zipped
+          if (mut) {
+            const pl = still ? 0.5 : 0.5 + 0.5 * Math.sin(t * 3 + pi);
+            ctx.strokeStyle = oklcha(flag, 0.25 + pl * 0.45);
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.arc(x, (y1 + y2) / 2, 4 + pl * 3, 0, TAU);
+            ctx.stroke();
           }
         }
       },
@@ -729,7 +875,7 @@ export function dataFlowNet(opts: {
 // 05 · Finance & Risk — a scrolling candlestick chart under a limit
 // ===========================================================================
 
-type Candle = { o: number; h: number; l: number; c: number };
+type Candle = { o: number; h: number; l: number; c: number; v: number };
 
 export function candlestick(opts: {
   up: Tint;
@@ -755,7 +901,7 @@ export function candlestick(opts: {
       const h = Math.max(o, c) + r() * 5;
       const l = Math.min(o, c) - r() * 5;
       last = c;
-      return { o, h, l, c };
+      return { o, h, l, c, v: 0.25 + r() * 0.75 };
     };
 
     const seed = () => {
@@ -805,17 +951,25 @@ export function candlestick(opts: {
         const pitch = W / n;
         const bw = Math.max(3, pitch * 0.55);
 
-        // risk limit line (near the top of the window)
+        // risk limit line (near the top of the window) — it flares while any
+        // recent candle is in breach
         const limitP = max - range * 0.12;
         const ly = yOf(limitP);
-        ctx.setLineDash([4, 5]);
-        ctx.strokeStyle = oklcha(lim, 0.6);
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(0, ly);
-        ctx.lineTo(W, ly);
-        ctx.stroke();
-        ctx.setLineDash([]);
+        let inBreach = false;
+        for (let i = Math.max(0, candles.length - 3); i < candles.length; i++)
+          if (candles[i].h > limitP) inBreach = true;
+        const drawLimit = () => {
+          ctx.setLineDash([4, 5]);
+          ctx.strokeStyle = oklcha(lim, inBreach ? 0.9 : 0.6);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(0, ly);
+          ctx.lineTo(W, ly);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        };
+        if (inBreach) glow(ctx, oklcha(lim, 0.8), 8, drawLimit);
+        else drawLimit();
 
         for (let i = 0; i < candles.length; i++) {
           const cd = candles[i];
@@ -842,10 +996,54 @@ export function candlestick(opts: {
           };
           if (breach) glow(ctx, oklcha(lim, 0.9), 8, draw);
           else draw();
+          // the counterexample marker over a breaching candle
+          if (breach) {
+            ctx.font = '10px "JetBrains Mono", monospace';
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillStyle = oklcha(lim, 0.95);
+            ctx.fillText("✗", x, yOf(cd.h) - 9);
+          }
+          // volume footprint along the bottom
+          const vh = cd.v * H * 0.1;
+          ctx.fillStyle = oklcha(bull ? up : down, 0.3);
+          ctx.fillRect(x - bw / 2, H - 3 - vh, bw, vh);
         }
 
-        // cursor crosshair
+        // 5-period moving average — the mandate's expected trajectory
+        ctx.strokeStyle = oklcha(palette.dim, 0.55);
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        let started = false;
+        for (let i = 4; i < candles.length; i++) {
+          let sum = 0;
+          for (let j = i - 4; j <= i; j++) sum += candles[j].c;
+          const x = i * pitch - frac * pitch + pitch / 2;
+          const y = yOf(sum / 5);
+          if (!started) {
+            ctx.moveTo(x, y);
+            started = true;
+          } else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        // cursor crosshair + an inspection bracket on the candle underneath
         if (pointer.active) {
+          const hi = Math.round((pointer.x * W + frac * pitch) / pitch - 0.5);
+          if (hi >= 0 && hi < candles.length) {
+            const cd = candles[hi];
+            const x = hi * pitch - frac * pitch + pitch / 2;
+            const yT = yOf(cd.h) - 5;
+            const yB = yOf(cd.l) + 5;
+            ctx.strokeStyle = oklcha(lim, 0.75);
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(x - bw, yT);
+            ctx.lineTo(x + bw, yT);
+            ctx.moveTo(x - bw, yB);
+            ctx.lineTo(x + bw, yB);
+            ctx.stroke();
+          }
           ctx.strokeStyle = oklcha(palette.dim, 0.4);
           ctx.setLineDash([2, 4]);
           ctx.beginPath();
@@ -865,11 +1063,19 @@ export function candlestick(opts: {
 // 06 · Legal & Regulatory — citation arcs cross-referencing provisions
 // ===========================================================================
 
-type Arc = { a: number; b: number; phase: number; dur: number };
+type Arc = {
+  a: number;
+  b: number;
+  phase: number;
+  dur: number;
+  conflict: boolean;
+};
 
 export function citationArcs(opts: {
   tint: Tint;
   accent: Tint;
+  /** color of conflicting cross-references */
+  conflict?: Tint;
   speed?: number;
 }): EngineFactory {
   const speed = opts.speed ?? 1;
@@ -878,6 +1084,8 @@ export function citationArcs(opts: {
     let H = 0;
     let left: number[] = [];
     let right: number[] = [];
+    let leftLabels: string[] = [];
+    let rightLabels: string[] = [];
     let arcs: Arc[] = [];
     let seeded = false;
 
@@ -886,17 +1094,22 @@ export function citationArcs(opts: {
       const nSide = 6;
       left = [];
       right = [];
+      leftLabels = [];
+      rightLabels = [];
       for (let i = 0; i < nSide; i++) {
         left.push(H * (0.12 + (0.76 * i) / (nSide - 1)));
         right.push(H * (0.12 + (0.76 * i) / (nSide - 1)));
+        leftLabels.push(`§ ${i + 2}.${1 + ((i * 7) % 9)}`);
+        rightLabels.push(`art. ${i + 4}(${1 + (i % 4)})`);
       }
       arcs = [];
-      for (let i = 0; i < 9; i++) {
+      for (let i = 0; i < 11; i++) {
         arcs.push({
           a: Math.floor(r() * nSide),
           b: Math.floor(r() * nSide),
           phase: r(),
           dur: 2.2 + r() * 2.5,
+          conflict: r() < 0.24,
         });
       }
       seeded = true;
@@ -913,59 +1126,102 @@ export function citationArcs(opts: {
         const { dt, palette, pointer, hover, still } = env;
         const base = tone(palette, opts.tint);
         const acc = tone(palette, opts.accent);
-        const lx = W * 0.15;
-        const rx = W * 0.85;
+        const bad = opts.conflict ? tone(palette, opts.conflict) : acc;
+        const lx = W * 0.16;
+        const rx = W * 0.84;
         const px = pointer.x * W;
         const py = pointer.y * H;
 
-        // provision ticks
-        for (const y of left) {
-          ctx.strokeStyle = oklcha(base, 0.4);
+        // which provision is the cursor interrogating?
+        let hlSide = -1;
+        let hlIdx = -1;
+        if (pointer.active) {
+          let bd = 52;
+          for (let i = 0; i < left.length; i++) {
+            const d = Math.hypot(px - lx, py - left[i]);
+            if (d < bd) {
+              bd = d;
+              hlSide = 0;
+              hlIdx = i;
+            }
+          }
+          for (let i = 0; i < right.length; i++) {
+            const d = Math.hypot(px - rx, py - right[i]);
+            if (d < bd) {
+              bd = d;
+              hlSide = 1;
+              hlIdx = i;
+            }
+          }
+        }
+        const anyHl = hlIdx >= 0;
+
+        // provision ticks + citations to statute / regulation labels
+        ctx.font = '9px "JetBrains Mono", monospace';
+        ctx.textBaseline = "middle";
+        for (let i = 0; i < left.length; i++) {
+          const y = left[i];
+          const hl = hlSide === 0 && hlIdx === i;
+          ctx.strokeStyle = oklcha(base, hl ? 0.9 : 0.4);
           ctx.lineWidth = 1;
           ctx.beginPath();
           ctx.moveTo(lx - 8, y);
           ctx.lineTo(lx, y);
           ctx.stroke();
-          ctx.fillStyle = oklcha(base, 0.7);
+          ctx.fillStyle = oklcha(base, hl ? 1 : 0.7);
           ctx.beginPath();
-          ctx.arc(lx, y, 2, 0, TAU);
+          ctx.arc(lx, y, hl ? 3 : 2, 0, TAU);
           ctx.fill();
+          ctx.textAlign = "right";
+          ctx.fillStyle = oklcha(base, hl ? 0.95 : 0.45);
+          ctx.fillText(leftLabels[i], lx - 12, y);
         }
-        for (const y of right) {
-          ctx.strokeStyle = oklcha(base, 0.4);
+        for (let i = 0; i < right.length; i++) {
+          const y = right[i];
+          const hl = hlSide === 1 && hlIdx === i;
+          ctx.strokeStyle = oklcha(base, hl ? 0.9 : 0.4);
           ctx.beginPath();
           ctx.moveTo(rx, y);
           ctx.lineTo(rx + 8, y);
           ctx.stroke();
-          ctx.fillStyle = oklcha(base, 0.7);
+          ctx.fillStyle = oklcha(base, hl ? 1 : 0.7);
           ctx.beginPath();
-          ctx.arc(rx, y, 2, 0, TAU);
+          ctx.arc(rx, y, hl ? 3 : 2, 0, TAU);
           ctx.fill();
+          ctx.textAlign = "left";
+          ctx.fillStyle = oklcha(base, hl ? 0.95 : 0.45);
+          ctx.fillText(rightLabels[i], rx + 12, y);
         }
 
         const bez = (u: number, p0: number, p1: number, p2: number) =>
           (1 - u) * (1 - u) * p0 + 2 * (1 - u) * u * p1 + u * u * p2;
 
+        ctx.textAlign = "center";
         for (const arc of arcs) {
-          if (!still) arc.phase += dt / arc.dur;
+          if (!still) arc.phase += (dt / arc.dur) * speed;
           const u = arc.phase % 1;
           const y1 = left[arc.a];
           const y2 = right[arc.b];
           const cx = W * 0.5 + (still ? 0 : Math.sin(arc.phase) * 12);
           const cyc = (y1 + y2) / 2 + (y1 - y2) * 0.15;
+          const col = arc.conflict ? bad : acc;
 
-          // faint full arc
-          const near =
-            pointer.active &&
-            Math.hypot(px - cx, py - cyc) < 90
-              ? 0.4
-              : 0;
-          ctx.strokeStyle = oklcha(base, 0.14 + near);
-          ctx.lineWidth = 1;
+          // interrogation: arcs touching the hovered provision surge,
+          // everything else recedes
+          const touched =
+            (hlSide === 0 && arc.a === hlIdx) ||
+            (hlSide === 1 && arc.b === hlIdx);
+          const baseA = anyHl ? (touched ? 0.55 : 0.05) : 0.14;
+
+          ctx.strokeStyle = oklcha(arc.conflict ? bad : base, baseA);
+          ctx.lineWidth = touched ? 1.4 : 1;
+          if (arc.conflict) ctx.setLineDash([3, 4]);
           ctx.beginPath();
           ctx.moveTo(lx, y1);
           ctx.quadraticCurveTo(cx, cyc, rx, y2);
           ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.lineWidth = 1;
 
           // a comet tracing the citation
           const steps = 6;
@@ -974,20 +1230,29 @@ export function citationArcs(opts: {
             if (uu < 0 || uu > 1) continue;
             const x = bez(uu, lx, cx, rx);
             const y = bez(uu, y1, cyc, y2);
-            const a = (1 - s / steps) * (0.5 + (hover ? 0.3 : 0));
-            ctx.fillStyle = oklcha(acc, a);
+            const a =
+              (1 - s / steps) *
+              (0.5 + (hover ? 0.3 : 0) + (touched ? 0.2 : 0));
+            ctx.fillStyle = oklcha(col, a);
             ctx.beginPath();
             ctx.arc(x, y, 1.8 - s * 0.15, 0, TAU);
             ctx.fill();
           }
-          // arrival flash on the target node
+          // arrival: a conflict lands as an ✗, a clean citation as a flash
           if (u > 0.96) {
-            glow(ctx, oklcha(acc, 0.9), 8, () => {
-              ctx.fillStyle = oklcha(acc, 1);
-              ctx.beginPath();
-              ctx.arc(rx, y2, 3, 0, TAU);
-              ctx.fill();
-            });
+            if (arc.conflict) {
+              ctx.font = '10px "JetBrains Mono", monospace';
+              ctx.fillStyle = oklcha(bad, 1);
+              ctx.fillText("✗", rx - 9, y2 - 9);
+              ctx.font = '9px "JetBrains Mono", monospace';
+            } else {
+              glow(ctx, oklcha(acc, 0.9), 8, () => {
+                ctx.fillStyle = oklcha(acc, 1);
+                ctx.beginPath();
+                ctx.arc(rx, y2, 3, 0, TAU);
+                ctx.fill();
+              });
+            }
           }
         }
       },
@@ -1033,6 +1298,9 @@ export function redactionRain(opts: {
     const hash = (c: number, row: number) =>
       ((c * 73856093) ^ (row * 19349663)) >>> 0;
 
+    // the "raw values" readable under the authorized-access lens
+    const HEXSET = "a7f39ce04b81d265";
+
     return {
       resize(w, h) {
         W = w;
@@ -1077,6 +1345,15 @@ export function redactionRain(opts: {
               ctx.fillStyle = oklcha(mask, 0.25 + bright * 0.6);
               const s = cw * 0.62;
               ctx.fillRect(x - s / 2, y - ch * 0.34, s, ch * 0.62);
+            } else if (redacted) {
+              // authorized view — the raw value, readable only in the lens
+              const raw = HEXSET[hash(c, row) % HEXSET.length];
+              const drawRaw = () => {
+                ctx.fillStyle = oklcha(mask, 0.5 + bright * 0.5);
+                ctx.fillText(raw, x, y);
+              };
+              if (k === 0) glow(ctx, oklcha(mask, 0.8), 6, drawRaw);
+              else drawRaw();
             } else {
               const digit = (hash(c, row + Math.floor(t * 6)) & 1).toString();
               const col = k === 0 ? green : green;
@@ -1093,6 +1370,17 @@ export function redactionRain(opts: {
             }
           }
         }
+
+        // the authorized-access lens
+        if (pointer.active) {
+          ctx.strokeStyle = oklcha(mask, 0.55);
+          ctx.setLineDash([3, 6]);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.arc(px, py, 70, 0, TAU);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
       },
     };
   };
@@ -1102,7 +1390,7 @@ export function redactionRain(opts: {
 // 08 · Export Control & Sanctions — a radar sweep screening entities
 // ===========================================================================
 
-type Blip = { r: number; ang: number; flagged: boolean };
+type Blip = { r: number; ang: number; drift: number; flagged: boolean };
 
 export function radarSweep(opts: {
   tint: Tint;
@@ -1128,6 +1416,7 @@ export function radarSweep(opts: {
         blips.push({
           r: (0.25 + r() * 0.72) * maxR,
           ang: r() * TAU,
+          drift: (r() - 0.5) * 0.14,
           flagged: r() < 0.3,
         });
       }
@@ -1140,7 +1429,7 @@ export function radarSweep(opts: {
         seed();
       },
       frame(ctx, env) {
-        const { t, palette, hover, still } = env;
+        const { t, dt, palette, pointer, hover, still } = env;
         const green = tone(palette, opts.tint);
         const red = tone(palette, opts.flag);
         const sweep = (still ? 0.7 : t * (hover ? 1.5 : 1) * speed) % TAU;
@@ -1159,6 +1448,18 @@ export function radarSweep(opts: {
         ctx.moveTo(cx, cy - maxR);
         ctx.lineTo(cx, cy + maxR);
         ctx.stroke();
+
+        // bearing ticks around the rim
+        for (let i = 0; i < 36; i++) {
+          const a = (TAU * i) / 36;
+          const major = i % 9 === 0;
+          const r1 = maxR - (major ? 9 : 4);
+          ctx.strokeStyle = oklcha(green, major ? 0.4 : 0.2);
+          ctx.beginPath();
+          ctx.moveTo(cx + Math.cos(a) * r1, cy + Math.sin(a) * r1);
+          ctx.lineTo(cx + Math.cos(a) * maxR, cy + Math.sin(a) * maxR);
+          ctx.stroke();
+        }
 
         // trailing sweep wedge (conic gradient)
         if (!still && typeof ctx.createConicGradient === "function") {
@@ -1184,8 +1485,9 @@ export function radarSweep(opts: {
           ctx.stroke();
         });
 
-        // blips: brighten just after the beam passes, then fade
+        // blips: entities drift slowly and brighten as the beam passes
         for (const b of blips) {
+          if (!still) b.ang += b.drift * dt;
           let d = sweep - b.ang;
           d = ((d % TAU) + TAU) % TAU; // 0..TAU since last pass
           const lit = still ? 0.7 : Math.exp(-d * 2.2);
@@ -1206,11 +1508,64 @@ export function radarSweep(opts: {
             ctx.arc(x, y, b.flagged ? 3 : 2.2, 0, TAU);
             ctx.fill();
           }
-          // flagged entities get a lock-on ring
+          // verdicts: flagged entities lock on with an ✗, cleared get a ✓
+          ctx.font = '10px "JetBrains Mono", monospace';
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
           if (b.flagged && lit > 0.4) {
             ctx.strokeStyle = oklcha(red, lit * 0.7);
             ctx.beginPath();
             ctx.arc(x, y, 5 + (1 - lit) * 6, 0, TAU);
+            ctx.stroke();
+            ctx.fillStyle = oklcha(red, lit);
+            ctx.fillText("✗", x + 9, y - 9);
+          } else if (!b.flagged && lit > 0.35 && lit < 0.95) {
+            ctx.fillStyle = oklcha(green, lit * 0.8);
+            ctx.fillText("✓", x + 8, y - 8);
+          }
+        }
+
+        // cursor interrogation reticle — hover an entity to inspect it
+        if (pointer.active) {
+          const rpx = pointer.x * W;
+          const rpy = pointer.y * H;
+          ctx.strokeStyle = oklcha(green, 0.25);
+          ctx.setLineDash([3, 5]);
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(cx, cy);
+          ctx.lineTo(rpx, rpy);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.strokeStyle = oklcha(green, 0.6);
+          ctx.beginPath();
+          ctx.arc(rpx, rpy, 9, 0, TAU);
+          ctx.stroke();
+          // lock onto the nearest entity
+          let bi = -1;
+          let bd = 46;
+          for (let i = 0; i < blips.length; i++) {
+            const bx = cx + Math.cos(blips[i].ang) * blips[i].r;
+            const by = cy + Math.sin(blips[i].ang) * blips[i].r;
+            const dd = Math.hypot(bx - rpx, by - rpy);
+            if (dd < bd) {
+              bd = dd;
+              bi = i;
+            }
+          }
+          if (bi >= 0) {
+            const b = blips[bi];
+            const bx = cx + Math.cos(b.ang) * b.r;
+            const by = cy + Math.sin(b.ang) * b.r;
+            const col = b.flagged ? red : green;
+            glow(ctx, oklcha(col, 0.9), 8, () => {
+              ctx.strokeStyle = oklcha(col, 0.95);
+              ctx.strokeRect(bx - 8, by - 8, 16, 16);
+            });
+            ctx.strokeStyle = oklcha(col, 0.5);
+            ctx.beginPath();
+            ctx.moveTo(rpx, rpy);
+            ctx.lineTo(bx, by);
             ctx.stroke();
           }
         }

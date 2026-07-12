@@ -74,15 +74,16 @@ export function DomainGrid() {
             <Link
               key={d.n}
               to="/engage"
-              className="group relative flex flex-col border-b border-r border-border transition-colors hover:bg-muted/40"
+              className="group relative flex min-h-[440px] flex-col overflow-hidden border-b border-r border-border bg-[oklch(0.965_0.008_90)] blueprint-grid-fine dark:bg-[oklch(0.175_0.014_250)]"
             >
-              {/* Live visual panel */}
-              <div className="relative h-48 overflow-hidden border-b border-border bg-[oklch(0.965_0.008_90)] blueprint-grid-fine dark:bg-[oklch(0.175_0.014_250)]">
-                <DomainVisual index={i} />
-                {/* scrim so the label stays legible over the busiest frames */}
-                <div className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-background/70 to-transparent" />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-background/60 to-transparent" />
-                <div className="pointer-events-none absolute inset-0 flex items-start justify-between p-4">
+              {/* Live visual — full-bleed card background */}
+              <DomainVisual index={i} />
+              {/* legibility scrims */}
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-background/60 to-transparent" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-background via-background/88 to-transparent" />
+              {/* Copy — a fixed share of the card so titles align across cards */}
+              <div className="pointer-events-none relative flex h-full flex-col p-8">
+                <div className="flex items-start justify-between">
                   <span className="font-mono text-[11px] tracking-[0.14em] text-foreground/70">
                     {d.n}
                   </span>
@@ -93,16 +94,14 @@ export function DomainGrid() {
                     ↗
                   </span>
                 </div>
-              </div>
-
-              {/* Copy */}
-              <div className="flex flex-col gap-3 p-8">
-                <h3 className="font-display text-[20px] font-medium leading-[1.2] tracking-tight text-foreground">
-                  {d.title}
-                </h3>
-                <p className="text-[14px] leading-relaxed text-muted-foreground">
-                  {d.body}
-                </p>
+                <div className="mt-auto flex min-h-[34%] flex-col gap-3">
+                  <h3 className="font-display text-[20px] font-medium leading-[1.2] tracking-tight text-foreground">
+                    {d.title}
+                  </h3>
+                  <p className="max-w-[56ch] text-[14px] leading-relaxed text-muted-foreground">
+                    {d.body}
+                  </p>
+                </div>
               </div>
             </Link>
           ))}

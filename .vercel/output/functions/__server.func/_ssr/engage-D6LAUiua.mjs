@@ -1,7 +1,8 @@
 import { r as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { n as TopBar, t as SiteFooter } from "./SiteFooter-BGrJXls8.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/engage-DyrwA10Y.js
+import { _ as ruleLattice, b as useDomainCanvas, d as field, f as mix, g as rng, n as PipelineBackdrop, p as oklcha, r as asciiFlow, s as claimMorph, v as smoothstep, y as tone } from "./MethodVisual-BqIWyxhw.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/engage-D6LAUiua.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -268,6 +269,520 @@ function ProcessFlow() {
 		]
 	});
 }
+/**
+* Engage-page engines — the client journey dramatized in the same live-ASCII
+* canvas language as the Method and Domain panels. Rules stream in and stack
+* into a corpus (01), commits cross a standing prover beam (03), and a signed
+* certificate types itself out and gets sealed (04). Step 02 reuses the
+* ruleLattice compiler from the Method section with its own tints.
+*
+* These render as full-card backgrounds, so the brightest action concentrates
+* in the upper half where the copy scrim is thinnest. All are mouse-reactive
+* and allocation-free per frame.
+*/
+var TAU = Math.PI * 2;
+var clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+/** Run `fn` with a glow set on the context, then restore. Use sparingly. */
+function glow(ctx, color, blur, fn) {
+	ctx.save();
+	ctx.shadowBlur = blur;
+	ctx.shadowColor = color;
+	fn();
+	ctx.restore();
+}
+function ruleIngest(opts) {
+	const speed = opts.speed ?? 1;
+	const N = 6;
+	return () => {
+		let W = 0;
+		let H = 0;
+		const docs = [];
+		const r = rng(4111);
+		let pulse = 0;
+		let count = 217;
+		const respawn = (d, offscreen) => {
+			d.x = offscreen ? -40 - r() * W * .9 : r() * W * .5;
+			d.y0 = (.1 + r() * .5) * H;
+			d.y = d.y0;
+			d.sp = 46 + r() * 34;
+			d.ph = r() * TAU;
+			d.seed = r() * 4096 | 0;
+		};
+		return {
+			resize(w, h) {
+				W = w;
+				H = h;
+				if (docs.length === 0) for (let i = 0; i < N; i++) {
+					const d = {
+						x: 0,
+						y: 0,
+						y0: 0,
+						sp: 0,
+						ph: 0,
+						seed: 0
+					};
+					respawn(d, i > 0);
+					docs.push(d);
+				}
+			},
+			frame(ctx, env) {
+				const { t, dt, palette, pointer, hover, still } = env;
+				const base = tone(palette, opts.tint);
+				const hot = tone(palette, opts.hot);
+				const okc = tone(palette, opts.ok);
+				const sx = W * .72;
+				const sy = H * .3;
+				pulse *= Math.exp(-dt * 3);
+				ctx.font = "11px \"JetBrains Mono\", monospace";
+				ctx.textAlign = "center";
+				ctx.textBaseline = "middle";
+				const mc = Math.max(4, Math.floor(W / 44));
+				const mr = Math.max(3, Math.floor(H / 46));
+				for (let gy = 0; gy < mr; gy++) for (let gx = 0; gx < mc; gx++) {
+					const v = field(gx * .7, gy * .8, t * .3) * .5 + .5;
+					if (v < .6) continue;
+					ctx.fillStyle = oklcha(palette.dim, .05 + v * .09);
+					ctx.fillText("·", (gx + .5) / mc * W, (gy + .5) / mr * H);
+				}
+				ctx.lineWidth = 1;
+				for (let i = 4; i >= 0; i--) {
+					const ox = sx - 26 + i * 2.5;
+					const oy = sy - 34 + i * 3;
+					ctx.fillStyle = oklcha(palette.bg, .88);
+					ctx.fillRect(ox, oy, 52, 68);
+					ctx.strokeStyle = oklcha(base, clamp(.55 - i * .09 + pulse * .3, 0, 1));
+					ctx.strokeRect(ox, oy, 52, 68);
+				}
+				ctx.strokeStyle = oklcha(mix(palette.dim, base, .6), .5);
+				ctx.beginPath();
+				for (let k = 0; k < 4; k++) {
+					const ly = sy - 34 + 22 + k * 11;
+					ctx.moveTo(sx - 18, ly);
+					ctx.lineTo(sx + (k === 3 ? 4 : 18), ly);
+				}
+				ctx.stroke();
+				ctx.font = "11px \"JetBrains Mono\", monospace";
+				ctx.fillStyle = oklcha(hot, .85);
+				ctx.fillText("§", sx - 16, sy - 22);
+				ctx.font = "10px \"JetBrains Mono\", monospace";
+				ctx.fillStyle = oklcha(mix(palette.dim, base, .7), .8);
+				ctx.fillText(`rules · ${count}`, sx, sy + 48);
+				if (pulse > .04) {
+					glow(ctx, oklcha(okc, .8), 8, () => {
+						ctx.fillStyle = oklcha(okc, pulse);
+						ctx.fillText("✓", sx + 34, sy - 40);
+					});
+					const rr = (1 - pulse) * 30;
+					ctx.strokeStyle = oklcha(okc, pulse * .6);
+					ctx.beginPath();
+					ctx.arc(sx, sy, 40 + rr, 0, TAU);
+					ctx.stroke();
+				}
+				for (const d of docs) {
+					const prog = clamp((d.x + 40) / Math.max(1, sx - 40), 0, 1);
+					if (!still) {
+						let ty = d.y0 + Math.sin(t * 1.1 + d.ph) * 22 * (1 - prog);
+						if (pointer.active) ty += (pointer.y * H - ty) * .35 * (1 - prog);
+						ty += (sy - ty) * smoothstep(.55, 1, prog);
+						d.y += (ty - d.y) * clamp(dt * 4, 0, 1);
+						d.x += d.sp * speed * (hover ? 1.5 : 1) * dt;
+						if (d.x >= sx - 32) {
+							count++;
+							pulse = 1;
+							respawn(d, true);
+						}
+					}
+					if (d.x < -30) continue;
+					const a = clamp(.3 + prog * .55, 0, 1);
+					ctx.strokeStyle = oklcha(base, .15 + prog * .12);
+					ctx.beginPath();
+					ctx.moveTo(d.x - 32, d.y);
+					ctx.lineTo(d.x - 15, d.y);
+					ctx.stroke();
+					ctx.fillStyle = oklcha(palette.bg, .82);
+					ctx.fillRect(d.x - 11, d.y - 14, 22, 28);
+					ctx.strokeStyle = oklcha(base, a);
+					ctx.strokeRect(d.x - 11, d.y - 14, 22, 28);
+					ctx.strokeStyle = oklcha(mix(palette.dim, base, .5), a * .7);
+					ctx.beginPath();
+					for (let k = 0; k < 3; k++) {
+						const ly = d.y - 4 + k * 6;
+						ctx.moveTo(d.x - 6, ly);
+						ctx.lineTo(d.x + (k === 2 ? 1 : 7), ly);
+					}
+					ctx.stroke();
+					ctx.font = "9px \"JetBrains Mono\", monospace";
+					ctx.fillStyle = oklcha(hot, a);
+					ctx.fillText("§", d.x - 5, d.y - 9);
+				}
+			}
+		};
+	};
+}
+function commitProofs(opts) {
+	const speed = opts.speed ?? 1;
+	const LANES = 3;
+	const PER = 5;
+	const HEXC = "0123456789abcdef";
+	const DASH = [5, 6];
+	const NODASH = [];
+	return () => {
+		let W = 0;
+		let H = 0;
+		const cs = [];
+		const r = rng(9020);
+		let bp = 0;
+		return {
+			resize(w, h) {
+				W = w;
+				H = h;
+				if (cs.length === 0) for (let ln = 0; ln < LANES; ln++) for (let i = 0; i < PER; i++) cs.push({
+					lane: ln,
+					x: (i + r() * .7) / PER * w * 1.5,
+					seed: r() * 4096 | 0,
+					st: 0,
+					fl: 0
+				});
+			},
+			frame(ctx, env) {
+				const { dt, palette, pointer, hover, still } = env;
+				const base = tone(palette, opts.tint);
+				const okc = tone(palette, opts.ok);
+				const bad = tone(palette, opts.bad);
+				const bx = W * .58;
+				const laneY = (ln) => H * (.16 + ln * .17);
+				const v = 30 * speed * (hover ? 1.7 : 1);
+				bp *= Math.exp(-dt * 3.5);
+				ctx.lineWidth = 1;
+				ctx.strokeStyle = oklcha(palette.dim, .16);
+				ctx.beginPath();
+				for (let ln = 0; ln < LANES; ln++) {
+					const y = laneY(ln);
+					ctx.moveTo(8, y);
+					ctx.lineTo(W - 8, y);
+				}
+				ctx.stroke();
+				glow(ctx, oklcha(base, .8), 7 + bp * 12, () => {
+					ctx.strokeStyle = oklcha(mix(base, okc, bp), .45 + bp * .5);
+					ctx.setLineDash(DASH);
+					ctx.beginPath();
+					ctx.moveTo(bx, H * .06);
+					ctx.lineTo(bx, H * .6);
+					ctx.stroke();
+					ctx.setLineDash(NODASH);
+				});
+				ctx.font = "12px \"JetBrains Mono\", monospace";
+				ctx.textAlign = "center";
+				ctx.textBaseline = "middle";
+				ctx.fillStyle = oklcha(base, .75);
+				ctx.fillText("⊢", bx, H * .66);
+				const px = pointer.x * W;
+				const py = pointer.y * H;
+				ctx.font = "11px \"JetBrains Mono\", monospace";
+				for (const c of cs) {
+					const y = laneY(c.lane);
+					if (!still) {
+						c.x -= v * dt;
+						if (c.x < -24) {
+							c.x = W + 20 + r() * 140;
+							c.seed = r() * 4096 | 0;
+							c.st = 0;
+							c.fl = 0;
+						}
+						if (c.st === 0 && c.x <= bx) {
+							c.st = c.seed % 6 === 3 ? 2 : 1;
+							c.fl = 1;
+							bp = 1;
+						}
+						c.fl *= Math.exp(-dt * 1.8);
+					} else if (c.st === 0 && c.x <= bx) c.st = c.seed % 6 === 3 ? 2 : 1;
+					const near = pointer.active ? smoothstep(46, 0, Math.hypot(c.x - px, y - py)) : 0;
+					if (c.st === 2) {
+						ctx.strokeStyle = oklcha(bad, .85);
+						ctx.beginPath();
+						ctx.arc(c.x, y, 3, 0, TAU);
+						ctx.stroke();
+						ctx.fillStyle = oklcha(bad, clamp(.5 + c.fl * .5, 0, 1));
+						ctx.fillText("✗", c.x, y - 13);
+					} else if (c.st === 1) {
+						ctx.fillStyle = oklcha(mix(base, okc, .75), .9);
+						ctx.beginPath();
+						ctx.arc(c.x, y, 2.8, 0, TAU);
+						ctx.fill();
+						ctx.fillStyle = oklcha(okc, clamp(.4 + c.fl * .6 + near * .3, 0, 1));
+						ctx.fillText("✓", c.x, y - 13);
+						if (c.fl > .05) {
+							ctx.strokeStyle = oklcha(okc, c.fl * .7);
+							ctx.beginPath();
+							ctx.arc(c.x, y, 5 + (1 - c.fl) * 14, 0, TAU);
+							ctx.stroke();
+						}
+					} else {
+						ctx.fillStyle = oklcha(mix(palette.dim, base, .6), .8);
+						ctx.beginPath();
+						ctx.arc(c.x, y, 2.6, 0, TAU);
+						ctx.fill();
+					}
+					if (near > .45) {
+						ctx.fillStyle = oklcha(base, near);
+						ctx.fillText(`#${HEXC[c.seed & 15]}${HEXC[c.seed >> 4 & 15]}${HEXC[c.seed >> 8 & 15]}`, c.x, y + 15);
+					}
+				}
+			}
+		};
+	};
+}
+function sealCert(opts) {
+	const HEX = "89abcdef01234567";
+	const speed = opts.speed ?? 1;
+	return () => {
+		let W = 0;
+		let H = 0;
+		let gen = 0;
+		let prev = 0;
+		return {
+			resize(w, h) {
+				W = w;
+				H = h;
+			},
+			frame(ctx, env) {
+				const { t, palette, pointer, hover, still } = env;
+				const base = tone(palette, opts.tint);
+				const hot = tone(palette, opts.hot);
+				const seal = tone(palette, opts.seal);
+				const T = 7.5 / speed;
+				const tau = still ? 4.2 : t % T;
+				if (tau < prev) gen++;
+				prev = tau;
+				const fade = 1 - smoothstep(T - .7, T - .05, tau);
+				const lines = 6;
+				const lh = Math.min(22, H * .48 / lines);
+				const cw = 10;
+				const cols = Math.max(8, Math.floor((W - 36) / cw));
+				const px = pointer.x * W;
+				const py = pointer.y * H;
+				ctx.font = "12px \"JetBrains Mono\", monospace";
+				ctx.textAlign = "center";
+				ctx.textBaseline = "middle";
+				const cps = 34 * (hover ? 1.3 : 1);
+				for (let li = 0; li < lines; li++) {
+					const y = 22 + li * lh;
+					const head = still ? cols : clamp((tau - li * .28) * cps, 0, cols);
+					for (let c = 0; c < cols; c++) {
+						if (c >= head) break;
+						const x = 18 + (c + .5) * cw;
+						const near = pointer.active ? smoothstep(60, 0, Math.hypot(x - px, y - py)) : 0;
+						let gi = gen * 131 + li * 37 + c * 11 & 1023;
+						if (near > .3) gi += t * 20 | 0;
+						const ch = c % 9 === 4 ? "·" : HEX[gi & 15];
+						const fresh = clamp(1 - (head - c) * .08, 0, 1);
+						ctx.fillStyle = oklcha(mix(mix(palette.dim, base, .5 + near * .4), hot, fresh), (.2 + fresh * .62 + near * .25) * fade);
+						ctx.fillText(ch, x, y);
+					}
+				}
+				const stampT = 2.88;
+				if (tau >= stampT - .3) {
+					const drop = clamp((tau - (stampT - .3)) / .3, 0, 1);
+					const sc = 1 + (1 - drop) * 1.5;
+					const aS = drop * fade;
+					const cx = W * .64 + (pointer.x - .5) * (pointer.active ? 12 : 0);
+					const cy = H * .3 + (pointer.y - .5) * (pointer.active ? 9 : 0);
+					glow(ctx, oklcha(seal, .8), 10, () => {
+						ctx.strokeStyle = oklcha(seal, .85 * aS);
+						ctx.lineWidth = 1.5;
+						ctx.beginPath();
+						ctx.arc(cx, cy, 24 * sc, 0, TAU);
+						ctx.stroke();
+						ctx.lineWidth = 1;
+					});
+					ctx.strokeStyle = oklcha(seal, .45 * aS);
+					ctx.beginPath();
+					ctx.arc(cx, cy, 30 * sc, 0, TAU);
+					ctx.stroke();
+					const rot = still ? .6 : t * .5;
+					ctx.strokeStyle = oklcha(seal, .6 * aS);
+					ctx.beginPath();
+					for (let k = 0; k < 12; k++) {
+						const an = rot + k / 12 * TAU;
+						ctx.moveTo(cx + Math.cos(an) * 30 * sc, cy + Math.sin(an) * 30 * sc);
+						ctx.lineTo(cx + Math.cos(an) * 34 * sc, cy + Math.sin(an) * 34 * sc);
+					}
+					ctx.stroke();
+					ctx.font = "16px \"JetBrains Mono\", monospace";
+					ctx.fillStyle = oklcha(seal, aS);
+					ctx.fillText("✓", cx, cy - 4);
+					ctx.font = "8px \"JetBrains Mono\", monospace";
+					ctx.fillStyle = oklcha(seal, .85 * aS);
+					ctx.fillText("∎ QED", cx, cy + 11);
+					const since = tau - stampT;
+					if (since > 0 && since < .9) {
+						const p = since / .9;
+						ctx.strokeStyle = oklcha(seal, (1 - p) * .7 * fade);
+						ctx.beginPath();
+						ctx.arc(cx, cy, 36 + p * 30, 0, TAU);
+						ctx.stroke();
+					}
+				}
+			}
+		};
+	};
+}
+var t = (light, dark) => ({
+	light,
+	dark
+});
+var CYAN = t([
+	.52,
+	.15,
+	215
+], [
+	.8,
+	.13,
+	210
+]);
+var SKY = t([
+	.55,
+	.16,
+	208
+], [
+	.85,
+	.14,
+	205
+]);
+var GREEN = t([
+	.53,
+	.17,
+	152
+], [
+	.81,
+	.2,
+	150
+]);
+var RED = t([
+	.55,
+	.21,
+	25
+], [
+	.72,
+	.23,
+	25
+]);
+var TEAL = t([
+	.54,
+	.13,
+	195
+], [
+	.82,
+	.13,
+	195
+]);
+var AMBER = t([
+	.58,
+	.16,
+	78
+], [
+	.82,
+	.17,
+	82
+]);
+var AZURE = t([
+	.5,
+	.15,
+	255
+], [
+	.78,
+	.13,
+	250
+]);
+var INDIGO = t([
+	.45,
+	.19,
+	295
+], [
+	.76,
+	.15,
+	295
+]);
+var VIOLET = t([
+	.56,
+	.2,
+	322
+], [
+	.83,
+	.16,
+	322
+]);
+/** One full-card live visual per Engage process step (01–04). */
+var VISUALS = [
+	ruleIngest({
+		tint: TEAL,
+		hot: AMBER,
+		ok: GREEN
+	}),
+	ruleLattice({
+		chaos: VIOLET,
+		ord: CYAN
+	}),
+	commitProofs({
+		tint: AZURE,
+		ok: GREEN,
+		bad: RED
+	}),
+	sealCert({
+		tint: INDIGO,
+		hot: VIOLET,
+		seal: GREEN
+	})
+];
+function EngageStepVisual({ index }) {
+	const { canvasRef, pointerTargetRef } = useDomainCanvas((0, import_react.useMemo)(() => VISUALS[index % VISUALS.length], [index]));
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		ref: pointerTargetRef,
+		className: "pointer-events-auto absolute inset-0 overflow-hidden",
+		"aria-hidden": true,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("canvas", {
+			ref: canvasRef,
+			className: "absolute inset-0 h-full w-full"
+		})
+	});
+}
+var heroMake = claimMorph({
+	prose: AZURE,
+	logic: SKY,
+	cell: 21,
+	speed: .7
+});
+function EngageHeroBackdrop() {
+	const { canvasRef, pointerTargetRef } = useDomainCanvas(heroMake);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		ref: pointerTargetRef,
+		className: "pointer-events-auto absolute inset-0 overflow-hidden opacity-40",
+		"aria-hidden": true,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("canvas", {
+			ref: canvasRef,
+			className: "absolute inset-0 h-full w-full"
+		})
+	});
+}
+var gateMake = asciiFlow({
+	tint: CYAN,
+	hot: SKY,
+	ok: GREEN,
+	seed: 211,
+	speed: .8
+});
+function GateFlowBackdrop() {
+	const { canvasRef, pointerTargetRef } = useDomainCanvas(gateMake);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		ref: pointerTargetRef,
+		className: "pointer-events-auto absolute inset-0 overflow-hidden opacity-60",
+		"aria-hidden": true,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("canvas", {
+			ref: canvasRef,
+			className: "absolute inset-0 h-full w-full"
+		})
+	});
+}
 var STEPS = [
 	{
 		n: "01",
@@ -340,40 +855,46 @@ function EngagePage() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
 		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 			className: "relative -mt-16 overflow-hidden border-b border-border",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "blueprint-grid absolute inset-0 opacity-100",
-				"aria-hidden": true
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative mx-auto max-w-7xl px-6 pt-24 pb-28 lg:pt-32",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-foreground/40" }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-foreground/70",
-								children: "§ VII"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-muted-foreground/50",
-								children: "·"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Engage" })
-						]
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-						className: "mb-10 max-w-[18ch] font-display text-[3rem] font-light leading-[1.02] tracking-[-0.03em] text-foreground md:text-[3.6rem] lg:text-[4.4rem]",
-						children: "Bring us your rules."
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "max-w-[58ch] space-y-5 text-[17px] leading-[1.6] text-foreground/85",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "We work with organizations to formalize the rules that govern their domain - standards, policies, regulations, protocols - into machine-checkable form. Then we build the verification layer that proves every decision conforms to them." }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "text-muted-foreground",
-							children: "This is not consulting. It is engineering. The output is not a report - it is a system that runs proofs, continuously, on every change, forever."
-						})]
-					})
-				]
-			})]
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "blueprint-grid absolute inset-0 opacity-100",
+					"aria-hidden": true
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(EngageHeroBackdrop, {}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-0 bg-gradient-to-r from-background/85 via-background/45 to-transparent" }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background/80 to-transparent" }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "pointer-events-none relative mx-auto max-w-7xl px-6 pt-24 pb-28 lg:pt-32",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-foreground/40" }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-foreground/70",
+									children: "§ VII"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-muted-foreground/50",
+									children: "·"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Engage" })
+							]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+							className: "mb-10 max-w-[18ch] font-display text-[3rem] font-light leading-[1.02] tracking-[-0.03em] text-foreground md:text-[3.6rem] lg:text-[4.4rem]",
+							children: "Bring us your rules."
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "max-w-[58ch] space-y-5 text-[17px] leading-[1.6] text-foreground/85",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "We work with organizations to formalize the rules that govern their domain - standards, policies, regulations, protocols - into machine-checkable form. Then we build the verification layer that proves every decision conforms to them." }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "text-muted-foreground",
+								children: "This is not consulting. It is engineering. The output is not a report - it is a system that runs proofs, continuously, on every change, forever."
+							})]
+						})
+					]
+				})
+			]
 		}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 			className: "relative border-b border-border bg-muted/40",
@@ -421,10 +942,11 @@ function EngagePage() {
 						})]
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "grid gap-3 rounded-sm border border-border bg-background/70 p-6 backdrop-blur-sm md:grid-cols-[1fr_auto_1.5fr_auto_1fr] md:items-stretch",
+						className: "relative grid gap-3 overflow-hidden rounded-sm border border-border bg-background/70 p-6 backdrop-blur-sm md:grid-cols-[1fr_auto_1.5fr_auto_1fr] md:items-stretch",
 						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(GateFlowBackdrop, {}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex flex-col gap-2 rounded-sm border border-border bg-background p-5",
+								className: "pointer-events-none relative flex flex-col gap-2 rounded-sm border border-border bg-background p-5",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 										className: "font-mono text-[9.5px] uppercase tracking-[0.18em] text-muted-foreground",
@@ -442,14 +964,14 @@ function EngagePage() {
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 								"aria-hidden": true,
-								className: "flex items-center justify-center py-1 text-foreground/40 md:py-0",
+								className: "pointer-events-none relative flex items-center justify-center py-1 text-foreground/40 md:py-0",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 									className: "inline-block rotate-90 md:rotate-0",
 									children: "→"
 								})
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex flex-col gap-2 rounded-sm border border-transparent bg-ink p-5 text-ink-foreground",
+								className: "pointer-events-none relative flex flex-col gap-2 rounded-sm border border-transparent bg-ink p-5 text-ink-foreground",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 										className: "font-mono text-[9.5px] uppercase tracking-[0.18em] text-white/40",
@@ -467,14 +989,14 @@ function EngagePage() {
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 								"aria-hidden": true,
-								className: "flex items-center justify-center py-1 text-foreground/40 md:py-0",
+								className: "pointer-events-none relative flex items-center justify-center py-1 text-foreground/40 md:py-0",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 									className: "inline-block rotate-90 md:rotate-0",
 									children: "→"
 								})
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex flex-col gap-2 rounded-sm border border-border bg-background p-5",
+								className: "pointer-events-none relative flex flex-col gap-2 rounded-sm border border-border bg-background p-5",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 										className: "font-mono text-[9.5px] uppercase tracking-[0.18em] text-muted-foreground",
@@ -521,35 +1043,36 @@ function EngagePage() {
 							children: "How it works."
 						})]
 					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "mb-14 overflow-x-auto rounded-sm border border-border bg-muted/20 p-6",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "mx-auto h-44 min-w-[680px] max-w-5xl",
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "relative mb-14 overflow-x-auto rounded-sm border border-border bg-muted/20 p-6",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(PipelineBackdrop, {}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "pointer-events-none relative mx-auto h-44 min-w-[680px] max-w-5xl",
 							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ProcessFlow, {})
-						})
+						})]
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 						className: "grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-4",
 						children: STEPS.map((step, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "group relative flex flex-col gap-5 bg-background p-8 transition-colors hover:bg-muted/40",
+							className: "group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.965_0.008_90)] dark:bg-[oklch(0.175_0.014_250)]",
 							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(EngageStepVisual, { index: i }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-background/60 to-transparent" }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-x-0 bottom-0 h-[76%] bg-gradient-to-t from-background via-background/90 to-transparent" }),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "flex items-center gap-4",
+									className: "pointer-events-none relative flex h-full flex-col p-6 lg:p-7",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "grid size-10 place-items-center rounded-full border border-foreground/20 font-mono text-[12px] tabular-nums text-foreground/60 transition-colors group-hover:border-foreground/40 group-hover:text-foreground",
+										className: "grid size-10 place-items-center rounded-full border border-foreground/25 bg-background/60 font-mono text-[12px] tabular-nums text-foreground/70 backdrop-blur-sm transition-colors group-hover:border-foreground/50 group-hover:text-foreground",
 										children: step.n
-									}), i < STEPS.length - 1 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "hidden h-px flex-1 bg-border lg:block",
-										"aria-hidden": true
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "mt-auto flex min-h-[56%] flex-col gap-3",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+											className: "min-h-[2.4em] font-display text-[18px] font-medium leading-[1.2] tracking-tight text-foreground",
+											children: step.title
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+											className: "text-[13.5px] leading-relaxed text-muted-foreground",
+											children: step.body
+										})]
 									})]
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-									className: "font-display text-[19px] font-medium leading-[1.2] tracking-tight text-foreground",
-									children: step.title
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-									className: "text-[14px] leading-relaxed text-muted-foreground",
-									children: step.body
 								})
 							]
 						}, step.n))

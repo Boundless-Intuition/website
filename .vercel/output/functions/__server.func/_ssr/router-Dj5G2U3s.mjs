@@ -1,9 +1,9 @@
 import { n as require_jsx_runtime, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
 import { c as HeadContent, d as Outlet, f as lazyRouteComponent, g as useRouter, h as Link, m as createRootRouteWithContext, p as createFileRoute, s as Scripts, u as createRouter } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-x7bvbLNi.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-Dj5G2U3s.js
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-BajEStLq.css";
+var styles_default = "/assets/styles-CoAhre2c.css";
 function NotFoundComponent() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "flex min-h-screen items-center justify-center bg-background px-4",
@@ -158,7 +158,7 @@ var Route$2 = createFileRoute("/legal")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-var $$splitComponentImporter$1 = () => import("./engage-DyrwA10Y.mjs");
+var $$splitComponentImporter$1 = () => import("./engage-D6LAUiua.mjs");
 var Route$1 = createFileRoute("/engage")({
 	head: () => ({ meta: [
 		{ title: "Engage - Boundless Intuition" },
@@ -177,7 +177,7 @@ var Route$1 = createFileRoute("/engage")({
 	] }),
 	component: lazyRouteComponent($$splitComponentImporter$1, "component")
 });
-var $$splitComponentImporter = () => import("./routes-DX7PRp1M.mjs");
+var $$splitComponentImporter = () => import("./routes-QxpFQhii.mjs");
 var Route = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter, "component") });
 var LegalRoute = Route$2.update({
 	id: "/legal",

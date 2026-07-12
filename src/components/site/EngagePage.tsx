@@ -1,5 +1,11 @@
 import { useState } from "react";
 import { ProcessFlow } from "./ProcessFlow";
+import {
+  EngageHeroBackdrop,
+  EngageStepVisual,
+  GateFlowBackdrop,
+} from "./domain-visuals/EngageVisual";
+import { PipelineBackdrop } from "./domain-visuals/MethodVisual";
 
 const STEPS = [
   {
@@ -88,7 +94,12 @@ export function EngagePage() {
           className="blueprint-grid absolute inset-0 opacity-100"
           aria-hidden
         />
-        <div className="relative mx-auto max-w-7xl px-6 pt-24 pb-28 lg:pt-32">
+        {/* live prose→logic lens field; the cursor is the lens */}
+        <EngageHeroBackdrop />
+        {/* legibility scrims — heavier on the left where the copy sits */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/85 via-background/45 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background/80 to-transparent" />
+        <div className="pointer-events-none relative mx-auto max-w-7xl px-6 pt-24 pb-28 lg:pt-32">
           <div className="mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
             <span className="h-px w-8 bg-foreground/40" />
             <span className="text-foreground/70">§ VII</span>
@@ -159,8 +170,10 @@ export function EngagePage() {
           </div>
 
           {/* Where it sits in your stack */}
-          <div className="grid gap-3 rounded-sm border border-border bg-background/70 p-6 backdrop-blur-sm md:grid-cols-[1fr_auto_1.5fr_auto_1fr] md:items-stretch">
-            <div className="flex flex-col gap-2 rounded-sm border border-border bg-background p-5">
+          <div className="relative grid gap-3 overflow-hidden rounded-sm border border-border bg-background/70 p-6 backdrop-blur-sm md:grid-cols-[1fr_auto_1.5fr_auto_1fr] md:items-stretch">
+            {/* ASCII slipstream flowing the same direction as the answers */}
+            <GateFlowBackdrop />
+            <div className="pointer-events-none relative flex flex-col gap-2 rounded-sm border border-border bg-background p-5">
               <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-muted-foreground">
                 Input
               </span>
@@ -173,11 +186,11 @@ export function EngagePage() {
             </div>
             <div
               aria-hidden
-              className="flex items-center justify-center py-1 text-foreground/40 md:py-0"
+              className="pointer-events-none relative flex items-center justify-center py-1 text-foreground/40 md:py-0"
             >
               <span className="inline-block rotate-90 md:rotate-0">→</span>
             </div>
-            <div className="flex flex-col gap-2 rounded-sm border border-transparent bg-ink p-5 text-ink-foreground">
+            <div className="pointer-events-none relative flex flex-col gap-2 rounded-sm border border-transparent bg-ink p-5 text-ink-foreground">
               <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-white/40">
                 Verification gate · your rules
               </span>
@@ -190,11 +203,11 @@ export function EngagePage() {
             </div>
             <div
               aria-hidden
-              className="flex items-center justify-center py-1 text-foreground/40 md:py-0"
+              className="pointer-events-none relative flex items-center justify-center py-1 text-foreground/40 md:py-0"
             >
               <span className="inline-block rotate-90 md:rotate-0">→</span>
             </div>
-            <div className="flex flex-col gap-2 rounded-sm border border-border bg-background p-5">
+            <div className="pointer-events-none relative flex flex-col gap-2 rounded-sm border border-border bg-background p-5">
               <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-muted-foreground">
                 Output
               </span>
@@ -225,8 +238,9 @@ export function EngagePage() {
           </div>
 
           {/* Animated pipeline — the four steps as one continuous run */}
-          <div className="mb-14 overflow-x-auto rounded-sm border border-border bg-muted/20 p-6">
-            <div className="mx-auto h-44 min-w-[680px] max-w-5xl">
+          <div className="relative mb-14 overflow-x-auto rounded-sm border border-border bg-muted/20 p-6">
+            <PipelineBackdrop />
+            <div className="pointer-events-none relative mx-auto h-44 min-w-[680px] max-w-5xl">
               <ProcessFlow />
             </div>
           </div>
@@ -235,25 +249,27 @@ export function EngagePage() {
             {STEPS.map((step, i) => (
               <div
                 key={step.n}
-                className="group relative flex flex-col gap-5 bg-background p-8 transition-colors hover:bg-muted/40"
+                className="group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.965_0.008_90)] dark:bg-[oklch(0.175_0.014_250)]"
               >
-                <div className="flex items-center gap-4">
-                  <span className="grid size-10 place-items-center rounded-full border border-foreground/20 font-mono text-[12px] tabular-nums text-foreground/60 transition-colors group-hover:border-foreground/40 group-hover:text-foreground">
+                {/* Live visual — full-bleed card background */}
+                <EngageStepVisual index={i} />
+                {/* legibility scrims */}
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-background/60 to-transparent" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[76%] bg-gradient-to-t from-background via-background/90 to-transparent" />
+                {/* Copy — a fixed share of the card so titles align across cards */}
+                <div className="pointer-events-none relative flex h-full flex-col p-6 lg:p-7">
+                  <span className="grid size-10 place-items-center rounded-full border border-foreground/25 bg-background/60 font-mono text-[12px] tabular-nums text-foreground/70 backdrop-blur-sm transition-colors group-hover:border-foreground/50 group-hover:text-foreground">
                     {step.n}
                   </span>
-                  {i < STEPS.length - 1 && (
-                    <span
-                      className="hidden h-px flex-1 bg-border lg:block"
-                      aria-hidden
-                    />
-                  )}
+                  <div className="mt-auto flex min-h-[56%] flex-col gap-3">
+                    <h3 className="min-h-[2.4em] font-display text-[18px] font-medium leading-[1.2] tracking-tight text-foreground">
+                      {step.title}
+                    </h3>
+                    <p className="text-[13.5px] leading-relaxed text-muted-foreground">
+                      {step.body}
+                    </p>
+                  </div>
                 </div>
-                <h3 className="font-display text-[19px] font-medium leading-[1.2] tracking-tight text-foreground">
-                  {step.title}
-                </h3>
-                <p className="text-[14px] leading-relaxed text-muted-foreground">
-                  {step.body}
-                </p>
               </div>
             ))}
           </div>

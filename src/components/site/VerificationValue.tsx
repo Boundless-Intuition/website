@@ -1,5 +1,5 @@
-import { ProductivityFigure } from "./ProductivityFigures";
 import { MeasuredFigure } from "./MeasuredFigure";
+import { ValueBoxVisual } from "./domain-visuals/ValueVisual";
 
 const PENALTIES = [
   {
@@ -285,23 +285,23 @@ export function VerificationValue() {
             {PRODUCTIVITY.map((p, idx) => (
               <div
                 key={p.n}
-                className="flex flex-col gap-4 bg-background p-6 lg:p-7"
+                className="relative flex flex-col overflow-hidden bg-background"
               >
-                <div
-                  className={`h-[70px] border-b border-border/60 pb-2 ${ACCENT}`}
-                  aria-hidden
-                >
-                  <ProductivityFigure index={idx} />
+                {/* ASCII slipstream running behind the copy */}
+                <ValueBoxVisual index={idx} />
+                {/* light wash so the copy reads over the field */}
+                <div className="pointer-events-none absolute inset-0 bg-background/40" />
+                <div className="pointer-events-none relative flex flex-col gap-4 p-6 lg:p-7">
+                  <span className="font-mono text-[11px] tracking-[0.14em] text-foreground/50">
+                    {p.n}
+                  </span>
+                  <h3 className="font-display text-[16px] font-medium leading-[1.2] tracking-tight text-foreground">
+                    {p.head}
+                  </h3>
+                  <p className="text-[13.5px] leading-relaxed text-muted-foreground">
+                    {p.body}
+                  </p>
                 </div>
-                <span className="font-mono text-[11px] tracking-[0.14em] text-foreground/50">
-                  {p.n}
-                </span>
-                <h3 className="font-display text-[16px] font-medium leading-[1.2] tracking-tight text-foreground">
-                  {p.head}
-                </h3>
-                <p className="text-[13.5px] leading-relaxed text-muted-foreground">
-                  {p.body}
-                </p>
               </div>
             ))}
           </div>
