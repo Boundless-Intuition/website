@@ -1,5 +1,20 @@
 import { Link } from "@tanstack/react-router";
 
+function SwissFlag({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 32 32"
+      className={className}
+      role="img"
+      aria-label="Switzerland"
+    >
+      <rect width="32" height="32" rx="4" fill="#D52B1E" />
+      <rect x="13" y="7" width="6" height="18" fill="#fff" />
+      <rect x="7" y="13" width="18" height="6" fill="#fff" />
+    </svg>
+  );
+}
+
 const SECTION_LINKS = [
   ["/#doctrine", "Doctrine"],
   ["/#method", "Method"],
@@ -11,8 +26,8 @@ const SECTION_LINKS = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-14">
+    <footer className="relative overflow-hidden bg-background">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 py-14">
         <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
           <div>
             <div className="font-display text-[15px] font-medium tracking-tight text-foreground">
@@ -42,12 +57,49 @@ export function SiteFooter() {
             </Link>
           </div>
         </div>
-        <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-border pt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground md:flex-row md:items-center">
-          <span>© 2026 Boundless Intuition</span>
+        <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground md:flex-row md:items-center">
+          <div className="flex items-center gap-4">
+            {/* CERN mark, masked so it takes the theme colour (light + dark) */}
+            <span
+              role="img"
+              aria-label="CERN"
+              className="inline-block h-[18px] w-[18px] bg-foreground/70"
+              style={{
+                WebkitMaskImage: "url(/CERN_logo_badge.svg)",
+                maskImage: "url(/CERN_logo_badge.svg)",
+                WebkitMaskSize: "contain",
+                maskSize: "contain",
+                WebkitMaskRepeat: "no-repeat",
+                maskRepeat: "no-repeat",
+                WebkitMaskPosition: "center",
+                maskPosition: "center",
+              }}
+            />
+            <SwissFlag className="h-[15px] w-[15px] rounded-[3px]" />
+            <span className="h-3 w-px bg-border" aria-hidden />
+            <span>© 2026 Boundless Intuition</span>
+          </div>
           <span className="tabular-nums text-foreground/70">
             46.2330° N · 6.0557° E
           </span>
           <span>All results verifiable</span>
+        </div>
+      </div>
+
+      {/* Blueprint texture rising to the divider, then the monument wordmark
+          drafted on it — a quiet watermark clipped by the base of the page. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[62%] select-none blueprint-grid-fine [mask-image:linear-gradient(to_top,black_55%,transparent)]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 select-none"
+      >
+        <div className="flex translate-y-[26%] justify-center">
+          <span className="whitespace-nowrap font-display text-[19vw] font-light leading-none tracking-[-0.045em] text-foreground/[0.07]">
+            Boundless Intuition
+          </span>
         </div>
       </div>
     </footer>

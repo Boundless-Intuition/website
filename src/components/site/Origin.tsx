@@ -1,25 +1,3 @@
-const LINEAGE = [
-  { k: "Lineage", v: "CERN" },
-  { k: "Discipline", v: "Formal verification" },
-  { k: "Standard", v: "Proof, not test" },
-  { k: "Seat", v: "Geneva" },
-];
-
-function SwissFlag({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 32 32"
-      className={className}
-      role="img"
-      aria-label="Switzerland"
-    >
-      <rect width="32" height="32" rx="4" fill="#D52B1E" />
-      <rect x="13" y="7" width="6" height="18" fill="#fff" />
-      <rect x="7" y="13" width="18" height="6" fill="#fff" />
-    </svg>
-  );
-}
-
 export function Origin() {
   return (
     <section id="lab" className="border-b border-border bg-background">
@@ -83,49 +61,6 @@ export function Origin() {
                 →
               </span>
             </a>
-          </div>
-        </div>
-      </div>
-
-      {/* Research lineage - a quiet trust signal, not a logo wall */}
-      <div className="mx-auto max-w-7xl px-6 pb-24">
-        <div className="flex flex-col gap-6 border-t border-border pt-8 md:flex-row md:items-center md:justify-between">
-          <div className="flex flex-col gap-4">
-            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-              Research lineage
-            </span>
-            <div className="flex items-center gap-5">
-              <SwissFlag className="h-6 w-6 rounded-[3px]" />
-              <span className="h-5 w-px bg-border" aria-hidden />
-              {/* CERN mark, masked so it takes the theme colour (works in light + dark) */}
-              <span
-                role="img"
-                aria-label="CERN"
-                className="inline-block h-6 w-6 bg-foreground/90"
-                style={{
-                  WebkitMaskImage: "url(/CERN_logo_badge.svg)",
-                  maskImage: "url(/CERN_logo_badge.svg)",
-                  WebkitMaskSize: "contain",
-                  maskSize: "contain",
-                  WebkitMaskRepeat: "no-repeat",
-                  maskRepeat: "no-repeat",
-                  WebkitMaskPosition: "center",
-                  maskPosition: "center",
-                }}
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-x-10 gap-y-4 sm:grid-cols-4">
-            {LINEAGE.map((item) => (
-              <div key={item.k} className="flex flex-col gap-1">
-                <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-muted-foreground/70">
-                  {item.k}
-                </span>
-                <span className="font-display text-[13px] font-medium tracking-tight text-foreground">
-                  {item.v}
-                </span>
-              </div>
-            ))}
           </div>
         </div>
       </div>
