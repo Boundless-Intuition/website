@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { Waitlist } from "./Waitlist";
 
 function SwissFlag({ className = "" }: { className?: string }) {
   return (
@@ -27,6 +28,8 @@ const SECTION_LINKS = [
 export function SiteFooter() {
   return (
     <footer className="relative overflow-hidden bg-background">
+      {/* Waitlist / "Signal" capture — the first row of the footer */}
+      <Waitlist />
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-14">
         <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
           <div>

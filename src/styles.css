@@ -821,6 +821,42 @@
   }
 }
 
+/* --- Waitlist "signal" strip (footer) --- */
+/* Live "transmitting" dot — a ping ring expanding out of the core. */
+@keyframes wl-ping {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+.wl-ping {
+  animation: wl-ping 1.9s ease-out infinite;
+}
+/* Waveform bars in the card header, staggered via inline delay. */
+@keyframes wl-bar {
+  0%,
+  100% {
+    transform: scaleY(0.28);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+.wl-bar {
+  transform-origin: bottom;
+  animation: wl-bar 1.1s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wl-ping,
+  .wl-bar {
+    animation: none;
+  }
+}
+
 @layer base {
   * {
     border-color: var(--color-border);

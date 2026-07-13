@@ -139,6 +139,24 @@ export function Hero() {
               </span>
             </a>
           </div>
+
+          {/* Quiet tertiary link down to the research updates signup */}
+          <a
+            href="#signal"
+            className="group mt-6 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <span className="relative grid size-2 place-items-center">
+              <span className="wl-ping absolute inset-0 rounded-full bg-[oklch(0.48_0.09_220)] dark:bg-[oklch(0.78_0.09_220)]" />
+              <span className="size-1.5 rounded-full bg-[oklch(0.48_0.09_220)] dark:bg-[oklch(0.78_0.09_220)]" />
+            </span>
+            Get research updates
+            <span
+              aria-hidden
+              className="transition-transform group-hover:translate-y-0.5"
+            >
+              ↓
+            </span>
+          </a>
         </div>
 
         {/* Frosted caption plate, floated over the mechanism in the photograph */}

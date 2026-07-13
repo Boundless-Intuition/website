@@ -1,9 +1,9 @@
 import { r as __toESM } from "../_runtime.mjs";
-import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-zp91Cd_6.mjs";
+import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-hD-C6brx.mjs";
 import { a as candlestick, b as useDomainCanvas, c as dataFlowNet, d as field, f as mix, h as redactionRain, i as asciiScan, l as dnaHelix, m as radarSweep, n as PipelineBackdrop, o as citationArcs, p as oklcha, r as asciiFlow, t as MethodVisual, u as ecgMonitor, v as smoothstep, y as tone } from "./MethodVisual-JtB-9_J1.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-Cq3WuFv8.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-CbcIU95X.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -294,6 +294,22 @@ function Hero() {
 								children: "→"
 							})]
 						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+						href: "#signal",
+						className: "group mt-6 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "relative grid size-2 place-items-center",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "wl-ping absolute inset-0 rounded-full bg-[oklch(0.48_0.09_220)] dark:bg-[oklch(0.78_0.09_220)]" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "size-1.5 rounded-full bg-[oklch(0.48_0.09_220)] dark:bg-[oklch(0.78_0.09_220)]" })]
+							}),
+							"Get research updates",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								"aria-hidden": true,
+								className: "transition-transform group-hover:translate-y-0.5",
+								children: "↓"
+							})
+						]
 					})
 				] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "relative hidden lg:block",
