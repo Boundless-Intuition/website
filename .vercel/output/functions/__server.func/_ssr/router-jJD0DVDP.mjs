@@ -1,9 +1,9 @@
 import { c as HeadContent, d as Outlet, f as lazyRouteComponent, g as useRouter, h as Link, m as createRootRouteWithContext, p as createFileRoute, s as Scripts, u as createRouter } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-4xp00bJ4.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-jJD0DVDP.js
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-Dw4jkF0o.css";
+var styles_default = "/assets/styles-DyRdRAir.css";
 function NotFoundComponent() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "flex min-h-screen items-center justify-center bg-background px-4",
@@ -69,7 +69,7 @@ function ErrorComponent({ error, reset }) {
 		})
 	});
 }
-var Route$3 = createRootRouteWithContext()({
+var Route$5 = createRootRouteWithContext()({
 	head: () => ({
 		meta: [
 			{ charSet: "utf-8" },
@@ -144,12 +144,40 @@ function RootShell({ children }) {
 	});
 }
 function RootComponent() {
-	const { queryClient } = Route$3.useRouteContext();
+	const { queryClient } = Route$5.useRouteContext();
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(QueryClientProvider, {
 		client: queryClient,
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {})
 	});
 }
+var $$splitComponentImporter$4 = () => import("./unsubscribed-DHSt566E.mjs");
+var Route$4 = createFileRoute("/unsubscribed")({
+	head: () => ({
+		meta: [{ title: "Unsubscribed · Boundless Intuition" }, {
+			name: "robots",
+			content: "noindex, nofollow"
+		}],
+		links: [{
+			rel: "stylesheet",
+			href: "https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Shadows+Into+Light&display=swap"
+		}]
+	}),
+	component: lazyRouteComponent($$splitComponentImporter$4, "component")
+});
+var $$splitComponentImporter$3 = () => import("./subscribed-DQUA8jbR.mjs");
+var Route$3 = createFileRoute("/subscribed")({
+	head: () => ({
+		meta: [{ title: "You're in · Boundless Intuition" }, {
+			name: "robots",
+			content: "noindex, nofollow"
+		}],
+		links: [{
+			rel: "stylesheet",
+			href: "https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Shadows+Into+Light&display=swap"
+		}]
+	}),
+	component: lazyRouteComponent($$splitComponentImporter$3, "component")
+});
 var $$splitComponentImporter$2 = () => import("./legal-ByFggkOQ.mjs");
 var Route$2 = createFileRoute("/legal")({
 	head: () => ({ meta: [{ title: "Legal - Boundless Intuition" }, {
@@ -179,26 +207,38 @@ var Route$1 = createFileRoute("/engage")({
 });
 var $$splitComponentImporter = () => import("./routes-CbcIU95X.mjs");
 var Route = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter, "component") });
+var UnsubscribedRoute = Route$4.update({
+	id: "/unsubscribed",
+	path: "/unsubscribed",
+	getParentRoute: () => Route$5
+});
+var SubscribedRoute = Route$3.update({
+	id: "/subscribed",
+	path: "/subscribed",
+	getParentRoute: () => Route$5
+});
 var LegalRoute = Route$2.update({
 	id: "/legal",
 	path: "/legal",
-	getParentRoute: () => Route$3
+	getParentRoute: () => Route$5
 });
 var EngageRoute = Route$1.update({
 	id: "/engage",
 	path: "/engage",
-	getParentRoute: () => Route$3
+	getParentRoute: () => Route$5
 });
 var rootRouteChildren = {
 	IndexRoute: Route.update({
 		id: "/",
 		path: "/",
-		getParentRoute: () => Route$3
+		getParentRoute: () => Route$5
 	}),
 	EngageRoute,
-	LegalRoute
+	LegalRoute,
+	SubscribedRoute,
+	UnsubscribedRoute
 };
-var routeTree = Route$3._addFileChildren(rootRouteChildren)._addFileTypes();
+var routeTree = Route$5._addFileChildren(rootRouteChildren)._addFileTypes();
 var getRouter = () => {
 	return createRouter({
 		routeTree,

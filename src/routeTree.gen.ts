@@ -9,10 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UnsubscribedRouteImport } from './routes/unsubscribed'
+import { Route as SubscribedRouteImport } from './routes/subscribed'
 import { Route as LegalRouteImport } from './routes/legal'
 import { Route as EngageRouteImport } from './routes/engage'
 import { Route as IndexRouteImport } from './routes/index'
 
+const UnsubscribedRoute = UnsubscribedRouteImport.update({
+  id: '/unsubscribed',
+  path: '/unsubscribed',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubscribedRoute = SubscribedRouteImport.update({
+  id: '/subscribed',
+  path: '/subscribed',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LegalRoute = LegalRouteImport.update({
   id: '/legal',
   path: '/legal',
@@ -33,34 +45,56 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/engage': typeof EngageRoute
   '/legal': typeof LegalRoute
+  '/subscribed': typeof SubscribedRoute
+  '/unsubscribed': typeof UnsubscribedRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/engage': typeof EngageRoute
   '/legal': typeof LegalRoute
+  '/subscribed': typeof SubscribedRoute
+  '/unsubscribed': typeof UnsubscribedRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/engage': typeof EngageRoute
   '/legal': typeof LegalRoute
+  '/subscribed': typeof SubscribedRoute
+  '/unsubscribed': typeof UnsubscribedRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/engage' | '/legal'
+  fullPaths: '/' | '/engage' | '/legal' | '/subscribed' | '/unsubscribed'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/engage' | '/legal'
-  id: '__root__' | '/' | '/engage' | '/legal'
+  to: '/' | '/engage' | '/legal' | '/subscribed' | '/unsubscribed'
+  id: '__root__' | '/' | '/engage' | '/legal' | '/subscribed' | '/unsubscribed'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EngageRoute: typeof EngageRoute
   LegalRoute: typeof LegalRoute
+  SubscribedRoute: typeof SubscribedRoute
+  UnsubscribedRoute: typeof UnsubscribedRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/unsubscribed': {
+      id: '/unsubscribed'
+      path: '/unsubscribed'
+      fullPath: '/unsubscribed'
+      preLoaderRoute: typeof UnsubscribedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/subscribed': {
+      id: '/subscribed'
+      path: '/subscribed'
+      fullPath: '/subscribed'
+      preLoaderRoute: typeof SubscribedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/legal': {
       id: '/legal'
       path: '/legal'
@@ -89,6 +123,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EngageRoute: EngageRoute,
   LegalRoute: LegalRoute,
+  SubscribedRoute: SubscribedRoute,
+  UnsubscribedRoute: UnsubscribedRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
