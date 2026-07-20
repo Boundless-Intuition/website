@@ -68,6 +68,9 @@ export function SiteFooter() {
             <Link to="/engage" className="hover:text-foreground">
               Engage
             </Link>
+            <Link to="/blog" className="hover:text-foreground">
+              Blog
+            </Link>
             <a
               href="mailto:research@boundlessintuition.com"
               className="hover:text-foreground"

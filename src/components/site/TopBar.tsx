@@ -74,6 +74,9 @@ export function TopBar() {
                 {s.label}
               </a>
             ))}
+            <Link to="/blog" className="transition-colors hover:text-foreground">
+              Blog
+            </Link>
           </div>
         </div>
         <div className="flex items-center gap-5">
@@ -134,6 +137,13 @@ export function TopBar() {
                 {s.label}
               </a>
             ))}
+            <Link
+              to="/blog"
+              onClick={() => setOpen(false)}
+              className="flex items-center justify-between py-3 font-display text-[15px] font-medium text-foreground/85 transition-colors hover:text-foreground"
+            >
+              Blog
+            </Link>
             <Link
               to="/engage"
               onClick={() => setOpen(false)}
