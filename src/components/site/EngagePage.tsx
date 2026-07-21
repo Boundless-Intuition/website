@@ -349,7 +349,20 @@ export function EngagePage() {
       </section>
 
       {/* Contact CTA */}
-      <section className="relative border-b border-border bg-muted/40">
+      <section className="relative overflow-hidden border-b border-border bg-muted/40">
+        {/* survey art drifting behind the conversation — raw domain knowledge
+            being measured; scrims keep the copy and form readable */}
+        <div aria-hidden className="absolute inset-0 overflow-hidden">
+          <img
+            src="/engage-conversation.webp"
+            alt=""
+            loading="lazy"
+            className="blog-cover-img h-full w-full object-cover opacity-35 saturate-[0.85] dark:opacity-30"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/85 via-background/60 to-background/35" />
+          <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/70 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/80 to-transparent" />
+        </div>
         <div className="relative mx-auto max-w-7xl px-6 py-28">
           <div className="grid gap-16 lg:grid-cols-[1.1fr_1fr]">
             <div>

@@ -88,7 +88,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Machine-checkable verification for high-stakes AI. Every answer proved correct before it reaches production. Founded 2026 in Geneva by research software engineers from CERN.",
       },
       { property: "og:type", content: "website" },
+      {
+        property: "og:image",
+        content: "https://boundlessintuition.com/og-image.jpg",
+      },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      {
+        property: "og:image:alt",
+        content:
+          '"Wandering the Immeasurable" at CERN - engraved equations on steel',
+      },
       { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:image",
+        content: "https://boundlessintuition.com/og-image.jpg",
+      },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
