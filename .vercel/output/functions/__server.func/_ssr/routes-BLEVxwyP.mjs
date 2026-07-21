@@ -4,7 +4,7 @@ import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as TopBar, t as SiteFooter } from "./SiteFooter-qUp6QTaU.mjs";
 import { a as smoothstep, n as mix, o as tone, r as oklcha, s as useDomainCanvas, t as field } from "./useDomainCanvas-BjzCv2zR.mjs";
 import { a as candlestick, c as dataFlowNet, d as radarSweep, f as redactionRain, i as asciiScan, l as dnaHelix, n as PipelineBackdrop, o as citationArcs, r as asciiFlow, t as MethodVisual, u as ecgMonitor } from "./MethodVisual-tZ0ZgSgY.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-DDV7NMXi.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-BLEVxwyP.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SECTIONS = [
@@ -1098,48 +1098,62 @@ function VerificationValue() {
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "mb-20",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Divider, { label: "Where the cost lands" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "grid gap-px border border-border bg-border lg:grid-cols-2",
+						className: "relative overflow-hidden border border-border bg-graphite",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "bg-background p-8 lg:p-10",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "mb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground",
-								children: "The cost of a wrong answer"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "flex flex-col divide-y divide-border",
-								children: STAKES.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "flex flex-col gap-2 py-5 first:pt-0 last:pb-0",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "flex flex-wrap items-baseline gap-x-3 gap-y-1",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											className: `font-mono text-[10px] uppercase tracking-[0.16em] ${ACCENT$1}`,
-											children: s.tag
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-											className: "font-display text-[17px] font-medium tracking-tight text-foreground",
-											children: s.head
-										})]
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										className: "text-[14px] leading-relaxed text-muted-foreground",
-										children: s.body
-									})]
-								}, s.tag))
-							})]
+							className: "absolute inset-0",
+							"aria-hidden": true,
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("picture", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("source", {
+								media: "(max-width: 768px)",
+								srcSet: "/value-mesh-mobile.webp"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+								src: "/value-mesh.webp",
+								alt: "",
+								className: "value-glow h-full w-full object-cover object-center opacity-95 dark:opacity-80"
+							})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-gradient-to-b from-graphite/50 via-graphite/10 to-graphite/55" })]
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "bg-background p-8 lg:p-10",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "mb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground",
-								children: "The cost of guessing around it"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "flex flex-col divide-y divide-border",
-								children: EFFICIENCY.map((e) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "flex flex-col gap-2 py-5 first:pt-0 last:pb-0",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-										className: "font-display text-[17px] font-medium tracking-tight text-foreground",
-										children: e.head
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										className: "text-[14px] leading-relaxed text-muted-foreground",
-										children: e.body
-									})]
-								}, e.head))
+							className: "relative grid gap-4 px-4 py-12 lg:grid-cols-2 lg:gap-5 lg:px-6 lg:py-16",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "border border-border/70 bg-background/85 p-8 backdrop-blur-md dark:bg-background/65 lg:p-10",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "mb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground",
+									children: "The cost of a wrong answer"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "flex flex-col divide-y divide-border",
+									children: STAKES.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "flex flex-col gap-2 py-5 first:pt-0 last:pb-0",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "flex flex-wrap items-baseline gap-x-3 gap-y-1",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												className: `font-mono text-[10px] uppercase tracking-[0.16em] ${ACCENT$1}`,
+												children: s.tag
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+												className: "font-display text-[17px] font-medium tracking-tight text-foreground",
+												children: s.head
+											})]
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+											className: "text-[14px] leading-relaxed text-muted-foreground",
+											children: s.body
+										})]
+									}, s.tag))
+								})]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "border border-border/70 bg-background/85 p-8 backdrop-blur-md dark:bg-background/65 lg:p-10",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "mb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground",
+									children: "The cost of guessing around it"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "flex flex-col divide-y divide-border",
+									children: EFFICIENCY.map((e) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "flex flex-col gap-2 py-5 first:pt-0 last:pb-0",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+											className: "font-display text-[17px] font-medium tracking-tight text-foreground",
+											children: e.head
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+											className: "text-[14px] leading-relaxed text-muted-foreground",
+											children: e.body
+										})]
+									}, e.head))
+								})]
 							})]
 						})]
 					})]

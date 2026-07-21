@@ -214,58 +214,78 @@ export function VerificationValue() {
           </p>
         </div>
 
-        {/* Stakes + waste, two columns */}
+        {/* Stakes + waste, two frosted panels over the surveyed-form plate */}
         <div className="mb-20">
           <Divider label="Where the cost lands" />
-          <div className="grid gap-px border border-border bg-border lg:grid-cols-2">
-            {/* The downside cost */}
-            <div className="bg-background p-8 lg:p-10">
-              <div className="mb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                The cost of a wrong answer
-              </div>
-              <div className="flex flex-col divide-y divide-border">
-                {STAKES.map((s) => (
-                  <div
-                    key={s.tag}
-                    className="flex flex-col gap-2 py-5 first:pt-0 last:pb-0"
-                  >
-                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <span
-                        className={`font-mono text-[10px] uppercase tracking-[0.16em] ${ACCENT}`}
-                      >
-                        {s.tag}
-                      </span>
-                      <h3 className="font-display text-[17px] font-medium tracking-tight text-foreground">
-                        {s.head}
-                      </h3>
-                    </div>
-                    <p className="text-[14px] leading-relaxed text-muted-foreground">
-                      {s.body}
-                    </p>
-                  </div>
-                ))}
-              </div>
+          <div className="relative overflow-hidden border border-border bg-graphite">
+            {/* Plate: an organic form pinned down by measurement — what
+                verification does to a domain */}
+            <div className="absolute inset-0" aria-hidden>
+              <picture>
+                <source
+                  media="(max-width: 768px)"
+                  srcSet="/value-mesh-mobile.webp"
+                />
+                <img
+                  src="/value-mesh.webp"
+                  alt=""
+                  className="value-glow h-full w-full object-cover object-center opacity-95 dark:opacity-80"
+                />
+              </picture>
+              {/* dark wash top and bottom so the panel edges read */}
+              <div className="absolute inset-0 bg-gradient-to-b from-graphite/50 via-graphite/10 to-graphite/55" />
             </div>
 
-            {/* The efficiency cost */}
-            <div className="bg-background p-8 lg:p-10">
-              <div className="mb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                The cost of guessing around it
+            <div className="relative grid gap-4 px-4 py-12 lg:grid-cols-2 lg:gap-5 lg:px-6 lg:py-16">
+              {/* The downside cost */}
+              <div className="border border-border/70 bg-background/85 p-8 backdrop-blur-md dark:bg-background/65 lg:p-10">
+                <div className="mb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                  The cost of a wrong answer
+                </div>
+                <div className="flex flex-col divide-y divide-border">
+                  {STAKES.map((s) => (
+                    <div
+                      key={s.tag}
+                      className="flex flex-col gap-2 py-5 first:pt-0 last:pb-0"
+                    >
+                      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                        <span
+                          className={`font-mono text-[10px] uppercase tracking-[0.16em] ${ACCENT}`}
+                        >
+                          {s.tag}
+                        </span>
+                        <h3 className="font-display text-[17px] font-medium tracking-tight text-foreground">
+                          {s.head}
+                        </h3>
+                      </div>
+                      <p className="text-[14px] leading-relaxed text-muted-foreground">
+                        {s.body}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="flex flex-col divide-y divide-border">
-                {EFFICIENCY.map((e) => (
-                  <div
-                    key={e.head}
-                    className="flex flex-col gap-2 py-5 first:pt-0 last:pb-0"
-                  >
-                    <h3 className="font-display text-[17px] font-medium tracking-tight text-foreground">
-                      {e.head}
-                    </h3>
-                    <p className="text-[14px] leading-relaxed text-muted-foreground">
-                      {e.body}
-                    </p>
-                  </div>
-                ))}
+
+              {/* The efficiency cost */}
+              <div className="border border-border/70 bg-background/85 p-8 backdrop-blur-md dark:bg-background/65 lg:p-10">
+                <div className="mb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                  The cost of guessing around it
+                </div>
+                <div className="flex flex-col divide-y divide-border">
+                  {EFFICIENCY.map((e) => (
+                    <div
+                      key={e.head}
+                      className="flex flex-col gap-2 py-5 first:pt-0 last:pb-0"
+                    >
+                      <h3 className="font-display text-[17px] font-medium tracking-tight text-foreground">
+                        {e.head}
+                      </h3>
+                      <p className="text-[14px] leading-relaxed text-muted-foreground">
+                        {e.body}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

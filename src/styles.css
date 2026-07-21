@@ -892,3 +892,23 @@ body::after {
     animation: none;
   }
 }
+
+/* value section plate: the surveyed form glows softly — same breathing
+   feel as the blog covers, but the low end never dims far */
+@keyframes value-glow {
+  from {
+    filter: brightness(0.92) saturate(0.95);
+  }
+  to {
+    filter: brightness(1.32) saturate(1.1);
+  }
+}
+.value-glow {
+  animation: value-glow 7s ease-in-out infinite alternate;
+  will-change: filter;
+}
+@media (prefers-reduced-motion: reduce) {
+  .value-glow {
+    animation: none;
+  }
+}
