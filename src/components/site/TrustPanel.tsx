@@ -131,7 +131,7 @@ export function TrustPanel() {
       {/* Header */}
       <div className="flex items-center justify-between border-b border-white/10 px-5 py-3">
         <div className="flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.16em] text-white/45">
-          <span className="size-1.5 rounded-full bg-[oklch(0.72_0.09_220)]" />
+          <span className="size-1.5 rounded-full bg-[oklch(0.72_0.13_176)]" />
           verification ledger
         </div>
         <div className="flex gap-1">
@@ -151,7 +151,7 @@ export function TrustPanel() {
 
       {/* Domain tag */}
       <div className="border-b border-white/5 px-5 pt-4">
-        <div className="font-display text-[10.5px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.72_0.09_220)]">
+        <div className="font-display text-[10.5px] font-semibold uppercase tracking-[0.18em] text-[oklch(0.72_0.13_176)]">
           {c.domain}
         </div>
       </div>
@@ -196,7 +196,7 @@ export function TrustPanel() {
                 <span
                   className={`mt-1 grid size-4 shrink-0 place-items-center rounded-full text-[10px] ${
                     shown
-                      ? "bg-[oklch(0.72_0.09_220)]/20 text-[oklch(0.82_0.11_220)]"
+                      ? "bg-[oklch(0.72_0.13_176)]/20 text-[oklch(0.82_0.14_176)]"
                       : "bg-white/10 text-white/40"
                   }`}
                   aria-hidden
@@ -224,7 +224,7 @@ export function TrustPanel() {
         }`}
       >
         <div className="min-w-0">
-          <div className="mb-1 flex items-center gap-2 font-mono text-[11px] text-[oklch(0.72_0.09_220)]">
+          <div className="mb-1 flex items-center gap-2 font-mono text-[11px] text-[oklch(0.72_0.13_176)]">
             <span>proven</span>
             <span className="text-white/25">·</span>
             <span className="tabular-nums text-white/35">{c.hash}</span>
@@ -234,7 +234,7 @@ export function TrustPanel() {
         {phase === 2 && (
           <ProofMark
             key={i}
-            className="seal-stamp h-9 w-9 shrink-0 text-[oklch(0.72_0.09_220)]"
+            className="seal-stamp h-9 w-9 shrink-0 text-[oklch(0.72_0.13_176)]"
           />
         )}
       </div>

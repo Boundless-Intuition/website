@@ -74,7 +74,7 @@ const A: Artifact[] = [
 ];
 
 const CLASS: Record<NonNullable<Token["c"]>, string> = {
-  kw: "text-[oklch(0.72_0.09_220)]",
+  kw: "text-[oklch(0.72_0.13_176)]",
   num: "text-[oklch(0.82_0.09_60)]",
   cmt: "text-white/35 italic",
   fn: "text-white",
@@ -114,7 +114,7 @@ export function ArtifactViewer() {
       </div>
 
       <div className="border-b border-white/5 bg-white/[0.02] px-5 py-4">
-        <div className="mb-2 font-display text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[oklch(0.72_0.09_220)]">
+        <div className="mb-2 font-display text-[10.5px] font-semibold uppercase tracking-[0.16em] text-[oklch(0.72_0.13_176)]">
           {art.title}
         </div>
         <p className="text-[14px] leading-snug text-white/85">{art.summary}</p>
@@ -159,7 +159,7 @@ export function ArtifactViewer() {
               .filter((x) => x.note)
               .map((x) => (
                 <li key={x.li} className="flex gap-3 text-[13px] leading-snug text-white/75">
-                  <span className="mt-[3px] w-6 shrink-0 font-mono text-[10px] text-[oklch(0.72_0.09_220)]">
+                  <span className="mt-[3px] w-6 shrink-0 font-mono text-[10px] text-[oklch(0.72_0.13_176)]">
                     {String(x.li).padStart(2, "0")}
                   </span>
                   <span>{x.note}</span>
@@ -170,7 +170,7 @@ export function ArtifactViewer() {
       </div>
 
       <div className="border-t border-white/10 px-5 py-4">
-        <div className="mb-1.5 flex items-center gap-2 font-mono text-[11px] text-[oklch(0.72_0.09_220)]">
+        <div className="mb-1.5 flex items-center gap-2 font-mono text-[11px] text-[oklch(0.72_0.13_176)]">
           <span aria-hidden>✓</span>
           <span>{art.verdict}</span>
         </div>

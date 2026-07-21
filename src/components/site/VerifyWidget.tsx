@@ -165,7 +165,7 @@ const CLAIMS: Claim[] = [
   },
 ];
 
-const ACCENT = "oklch(0.72 0.09 220)";
+const ACCENT = "oklch(0.72 0.13 176)";
 const WARN = "oklch(0.72 0.16 45)";
 
 // The console is always ink-dark, so both theme slots carry the bright value.

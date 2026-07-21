@@ -103,8 +103,8 @@ export function CoverageBand() {
 
         <div
           ref={ref}
-          className="font-mono text-[clamp(1.25rem,6.2vw,3.6rem)] font-medium leading-none tracking-tight tabular-nums text-[oklch(0.82_0.11_220)]"
-          style={{ textShadow: "0 0 32px oklch(0.72 0.09 220 / 0.45)" }}
+          className="font-mono text-[clamp(1.25rem,6.2vw,3.6rem)] font-medium leading-none tracking-tight tabular-nums text-[oklch(0.82_0.14_176)]"
+          style={{ textShadow: "0 0 32px oklch(0.72 0.13 176 / 0.45)" }}
         >
           {display}
         </div>

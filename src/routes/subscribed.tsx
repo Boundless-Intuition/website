@@ -84,7 +84,7 @@ function SubscribedRoute() {
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-6 py-20 text-foreground">
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_36%,oklch(0.78_0.09_220/0.10),transparent)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_36%,oklch(0.78_0.13_176/0.10),transparent)]"
         aria-hidden
       />
 

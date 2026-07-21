@@ -7,7 +7,7 @@
  * the faint blueprint foreground; the packet and stage flashes use the accent.
  * Pure CSS motion (pf-* classes); freezes gracefully under reduced motion.
  */
-const ACC = "oklch(0.72 0.09 220)";
+const ACC = "oklch(0.72 0.13 176)";
 const MONO = { fontFamily: "var(--font-mono)" };
 
 const STAGES = [

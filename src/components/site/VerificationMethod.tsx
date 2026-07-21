@@ -31,7 +31,7 @@ const STEPS = [
   },
 ];
 
-const ACC = "oklch(0.72 0.09 220)";
+const ACC = "oklch(0.72 0.13 176)";
 
 function Node({
   tag,
@@ -73,7 +73,7 @@ function Node({
           engine
             ? "text-white"
             : verdict
-              ? "text-[oklch(0.48_0.09_220)] dark:text-[oklch(0.78_0.09_220)]"
+              ? "text-[oklch(0.48_0.11_176)] dark:text-[oklch(0.78_0.13_176)]"
               : "text-foreground"
         }`}
       >

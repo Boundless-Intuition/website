@@ -435,7 +435,7 @@ const PRIVACY: Example = {
 const EXAMPLES: Example[] = [CLINICAL, SECURITY, FINANCE, PRIVACY];
 
 const CLASS = {
-  kw: "text-[oklch(0.72_0.09_220)]",
+  kw: "text-[oklch(0.72_0.13_176)]",
   num: "text-[oklch(0.82_0.09_60)]",
   cmt: "text-white/35 italic",
   fn: "text-white",
@@ -459,7 +459,7 @@ function CodeCard({
           <div className="flex gap-1.5">
             <span className="size-2 rounded-full bg-white/10" />
             <span className="size-2 rounded-full bg-white/10" />
-            <span className="size-2 rounded-full bg-[oklch(0.72_0.09_220)]" />
+            <span className="size-2 rounded-full bg-[oklch(0.72_0.13_176)]" />
           </div>
           <span className="font-mono text-[10.5px] text-white/40">
             {example.filename}
@@ -488,7 +488,7 @@ function CodeCard({
               >
                 <span
                   className={`absolute -left-2 top-0 bottom-0 w-0.5 rounded-full transition-colors ${
-                    highlighted ? "bg-[oklch(0.72_0.09_220)]" : "bg-transparent"
+                    highlighted ? "bg-[oklch(0.72_0.13_176)]" : "bg-transparent"
                   }`}
                 />
                 <span className="w-7 shrink-0 select-none pr-2 text-right text-[10px] tabular-nums text-white/20">
@@ -520,7 +520,7 @@ function CodeCard({
         }`}
       >
         <div className="px-5 py-4">
-          <div className="mb-1.5 flex items-center gap-2 font-mono text-[11px] text-[oklch(0.72_0.09_220)]">
+          <div className="mb-1.5 flex items-center gap-2 font-mono text-[11px] text-[oklch(0.72_0.13_176)]">
             <span aria-hidden>✓</span>
             <span>{example.verdict}</span>
           </div>
@@ -621,7 +621,7 @@ export function ProofWalkthrough() {
               className="flex w-full items-center justify-between px-4 py-2.5 font-mono text-[11px] text-muted-foreground"
             >
               <span className="flex items-center gap-2">
-                <span className="size-1.5 rounded-full bg-[oklch(0.72_0.09_220)]" />
+                <span className="size-1.5 rounded-full bg-[oklch(0.72_0.13_176)]" />
                 {example.filename} · Stage {active + 1}/{example.stages.length}
               </span>
               <span

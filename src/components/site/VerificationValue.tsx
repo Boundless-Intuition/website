@@ -93,7 +93,7 @@ const PRODUCTIVITY = [
   },
 ];
 
-const ACCENT = "text-[oklch(0.48_0.09_220)] dark:text-[oklch(0.78_0.09_220)]";
+const ACCENT = "text-[oklch(0.48_0.11_176)] dark:text-[oklch(0.78_0.13_176)]";
 
 // A sine wave that flatlines beside the label, then resolves into oscillation.
 // Computed once; preserveAspectRatio="none" + non-scaling-stroke keeps it a crisp

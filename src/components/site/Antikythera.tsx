@@ -8,7 +8,7 @@ import type { CSSProperties } from "react";
  * graduated dial ring turns slowly behind it. Pure CSS motion; reduced-motion
  * safe (gears freeze). Colour comes from the parent's text colour.
  */
-const ACC = "oklch(0.72 0.09 220)";
+const ACC = "oklch(0.72 0.13 176)";
 
 function Gear({
   cx,

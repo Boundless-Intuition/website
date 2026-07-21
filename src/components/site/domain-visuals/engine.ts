@@ -27,7 +27,7 @@ const LIGHT: Palette = {
   bg: [0.965, 0.008, 90],
   ink: [0.2, 0.03, 250],
   dim: [0.36, 0.025, 250],
-  accent: [0.46, 0.11, 220],
+  accent: [0.46, 0.12, 176],
 };
 
 const DARK: Palette = {
@@ -35,7 +35,7 @@ const DARK: Palette = {
   bg: [0.19, 0.015, 250],
   ink: [0.94, 0.012, 90],
   dim: [0.72, 0.02, 90],
-  accent: [0.78, 0.09, 220],
+  accent: [0.78, 0.13, 176],
 };
 
 export function readPalette(): Palette {

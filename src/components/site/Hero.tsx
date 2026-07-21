@@ -145,8 +145,8 @@ export function Hero() {
             className="group mt-6 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground"
           >
             <span className="relative grid size-2 place-items-center">
-              <span className="wl-ping absolute inset-0 rounded-full bg-[oklch(0.48_0.09_220)] dark:bg-[oklch(0.78_0.09_220)]" />
-              <span className="size-1.5 rounded-full bg-[oklch(0.48_0.09_220)] dark:bg-[oklch(0.78_0.09_220)]" />
+              <span className="wl-ping absolute inset-0 rounded-full bg-[oklch(0.48_0.11_176)] dark:bg-[oklch(0.78_0.13_176)]" />
+              <span className="size-1.5 rounded-full bg-[oklch(0.48_0.11_176)] dark:bg-[oklch(0.78_0.13_176)]" />
             </span>
             Get research updates
             <span

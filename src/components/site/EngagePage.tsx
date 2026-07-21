@@ -203,7 +203,7 @@ export function EngagePage() {
               <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-muted-foreground">
                 Output
               </span>
-              <span className="font-display text-[16px] font-medium tracking-tight text-[oklch(0.48_0.09_220)] dark:text-[oklch(0.78_0.09_220)]">
+              <span className="font-display text-[16px] font-medium tracking-tight text-[oklch(0.48_0.11_176)] dark:text-[oklch(0.78_0.13_176)]">
                 Production
               </span>
               <span className="font-mono text-[11px] text-muted-foreground">
@@ -291,7 +291,7 @@ export function EngagePage() {
               >
                 <div className="mb-4 flex items-center gap-3">
                   <span
-                    className="grid size-6 place-items-center rounded-full bg-[oklch(0.72_0.09_220)]/15 text-[10px] text-[oklch(0.72_0.09_220)]"
+                    className="grid size-6 place-items-center rounded-full bg-[oklch(0.72_0.13_176)]/15 text-[10px] text-[oklch(0.72_0.13_176)]"
                     aria-hidden
                   >
                     ✓
@@ -393,7 +393,7 @@ export function EngagePage() {
               {submitted ? (
                 <div className="flex h-full items-center justify-center rounded-sm border border-border bg-background/80 p-12 text-center backdrop-blur-sm">
                   <div>
-                    <div className="mb-4 text-[oklch(0.72_0.09_220)]">
+                    <div className="mb-4 text-[oklch(0.72_0.13_176)]">
                       <span className="text-3xl">✓</span>
                     </div>
                     <h3 className="mb-2 font-display text-[19px] font-medium text-foreground">
