@@ -317,6 +317,22 @@ export function VerifyWidget() {
                 </div>
               </button>
             ))}
+            <p className="px-1 pt-1 text-[12.5px] leading-relaxed text-muted-foreground">
+              Want more than a slider? The{" "}
+              <a
+                href="https://playground.boundlessintuition.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-foreground underline decoration-foreground/30 underline-offset-4 transition-colors hover:decoration-foreground"
+              >
+                playground
+                <span aria-hidden className="text-[10px]">
+                  ↗
+                </span>
+              </a>{" "}
+              runs real benchmarks against real models — watch an AI answer go
+              wrong and the pipeline catch it.
+            </p>
           </div>
 
           {/* Prover console */}

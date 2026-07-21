@@ -4,7 +4,7 @@ import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as TopBar, t as SiteFooter } from "./SiteFooter-qUp6QTaU.mjs";
 import { a as smoothstep, n as mix, o as tone, r as oklcha, s as useDomainCanvas, t as field } from "./useDomainCanvas-BjzCv2zR.mjs";
 import { a as candlestick, c as dataFlowNet, d as radarSweep, f as redactionRain, i as asciiScan, l as dnaHelix, n as PipelineBackdrop, o as citationArcs, r as asciiFlow, t as MethodVisual, u as ecgMonitor } from "./MethodVisual-tZ0ZgSgY.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-BLEVxwyP.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-Bxs-2bRG.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SECTIONS = [
@@ -1565,9 +1565,9 @@ function VerifyWidget() {
 				})]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "grid gap-4 lg:grid-cols-[0.8fr_1.2fr] lg:gap-6",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "flex flex-col gap-3",
-					children: CLAIMS.map((cl, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					children: [CLAIMS.map((cl, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 						type: "button",
 						onClick: () => setSel(idx),
 						className: `group rounded-sm border p-4 text-left transition-all ${idx === sel ? "border-foreground/40 bg-foreground/[0.04]" : "border-border bg-background hover:border-foreground/25"}`,
@@ -1585,7 +1585,26 @@ function VerifyWidget() {
 							className: "text-[13.5px] leading-snug text-foreground",
 							children: cl.value
 						})]
-					}, cl.domain))
+					}, cl.domain)), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+						className: "px-1 pt-1 text-[12.5px] leading-relaxed text-muted-foreground",
+						children: [
+							"Want more than a slider? The",
+							" ",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+								href: "https://playground.boundlessintuition.com/",
+								target: "_blank",
+								rel: "noopener noreferrer",
+								className: "inline-flex items-center gap-1 text-foreground underline decoration-foreground/30 underline-offset-4 transition-colors hover:decoration-foreground",
+								children: ["playground", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									"aria-hidden": true,
+									className: "text-[10px]",
+									children: "↗"
+								})]
+							}),
+							" ",
+							"runs real benchmarks against real models — watch an AI answer go wrong and the pipeline catch it."
+						]
+					})]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					ref: pointerTargetRef,
 					className: "relative overflow-hidden rounded-sm bg-ink text-ink-foreground shadow-[0_30px_80px_-40px_oklch(0.22_0.03_250/0.45)] ring-1 ring-foreground/[0.08] transition-shadow duration-700",
