@@ -4,7 +4,7 @@ import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-DDgF3BC-.mjs";
 import { i as TSS_SERVER_FUNCTION, l as createServerFn } from "./esm-Dova13aH.mjs";
 import { n as objectType, r as stringType, t as arrayType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-DAHasxRO.js
+//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-qUp6QTaU.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function apply(theme) {
@@ -565,6 +565,11 @@ function SiteFooter() {
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 								className: "font-semibold",
 								children: "Intuition"
+							}),
+							" ",
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "font-light",
+								children: "Labs"
 							})
 						] })]
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {

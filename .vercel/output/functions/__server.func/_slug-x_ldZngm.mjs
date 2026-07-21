@@ -2,9 +2,9 @@ import { i as __toESM } from "./_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "./_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "./_libs/@tanstack/react-router+[...].mjs";
 import { a as getBlogPost, i as formatBlogDate, r as Prose, t as BLOG_POSTS } from "./_ssr/blog-CKUsRWAJ.mjs";
-import { t as Route } from "./_slug-OIxn5HYl.mjs";
-import { n as TopBar, t as SiteFooter } from "./_ssr/SiteFooter-DAHasxRO.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/_slug-B2uzA1L9.js
+import { t as Route } from "./_slug-OoUizyhC.mjs";
+import { n as TopBar, t as SiteFooter } from "./_ssr/SiteFooter-qUp6QTaU.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/_slug-x_ldZngm.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function TableOfContents({ containerRef }) {

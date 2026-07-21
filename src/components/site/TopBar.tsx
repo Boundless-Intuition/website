@@ -73,7 +73,8 @@ export function TopBar() {
             />
             <span>
               <span className="font-light">Boundless</span>{" "}
-              <span className="font-semibold">Intuition</span>
+              <span className="font-semibold">Intuition</span>{" "}
+              <span className="font-light">Labs</span>
             </span>
           </Link>
           <div className="hidden gap-8 font-display text-[12px] font-medium text-muted-foreground md:flex">

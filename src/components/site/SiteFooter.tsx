@@ -52,7 +52,8 @@ export function SiteFooter() {
               />
               <span>
                 <span className="font-light">Boundless</span>{" "}
-                <span className="font-semibold">Intuition</span>
+                <span className="font-semibold">Intuition</span>{" "}
+                <span className="font-light">Labs</span>
               </span>
             </div>
             <p className="mt-3 max-w-sm text-[14.5px] leading-relaxed text-muted-foreground">

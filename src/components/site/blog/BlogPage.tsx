@@ -28,7 +28,7 @@ export function BlogPage() {
             <span>Blog</span>
           </div>
           <h1 className="mb-6 max-w-[20ch] font-display text-[3rem] font-light leading-[1.02] tracking-[-0.03em] text-foreground md:text-[3.6rem]">
-            Latest updates from Boundless Intuition.
+            Latest updates from Boundless Intuition Labs.
           </h1>
           <p className="max-w-[58ch] text-[17px] leading-[1.6] text-foreground/85">
             Benchmarks, verification results, and the failures we found along

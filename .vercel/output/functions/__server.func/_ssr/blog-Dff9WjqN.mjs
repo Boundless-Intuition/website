@@ -2,9 +2,9 @@ import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { i as formatBlogDate, n as BLOG_TAGS, t as BLOG_POSTS } from "./blog-CKUsRWAJ.mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-DAHasxRO.mjs";
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-qUp6QTaU.mjs";
 import { a as smoothstep, n as mix, o as tone, r as oklcha, s as useDomainCanvas, t as field } from "./useDomainCanvas-BjzCv2zR.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/blog-DF6DWZ_b.js
+//#region node_modules/.nitro/vite/services/ssr/assets/blog-Dff9WjqN.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -213,7 +213,7 @@ function BlogPage() {
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
 							className: "mb-6 max-w-[20ch] font-display text-[3rem] font-light leading-[1.02] tracking-[-0.03em] text-foreground md:text-[3.6rem]",
-							children: "Latest updates from Boundless Intuition."
+							children: "Latest updates from Boundless Intuition Labs."
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "max-w-[58ch] text-[17px] leading-[1.6] text-foreground/85",
