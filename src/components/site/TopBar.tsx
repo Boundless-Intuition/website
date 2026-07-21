@@ -14,6 +14,7 @@ const SECTIONS = [
 
 export function TopBar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   // Lock body scroll while the mobile drawer is open.
   useEffect(() => {
@@ -24,17 +25,28 @@ export function TopBar() {
     };
   }, [open]);
 
-  // The bar stays transparent and blends with the page at every scroll
-  // position; only the open mobile drawer forces the solid treatment so the
-  // menu stays legible.
-  const solid = open;
+  // Track whether the page has scrolled away from the top.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
+  // The bar never paints a background — it stays fully transparent and
+  // dissolved into the page at every scroll position. When scrolled, only a
+  // faint backdrop blur is applied (no colour/tint) so links stay legible
+  // over passing content without going dark. The open mobile drawer forces
+  // the solid treatment so the menu stays readable.
   return (
     <nav
       className={`sticky top-0 z-50 w-full transition-[background-color,backdrop-filter] duration-300 ${
-        solid
+        open
           ? "bg-background/85 backdrop-blur-md"
-          : "bg-gradient-to-b from-background/55 via-background/15 to-transparent backdrop-blur-[2px]"
+          : scrolled
+            ? "bg-transparent backdrop-blur-[2px]"
+            : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
