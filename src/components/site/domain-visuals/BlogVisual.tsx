@@ -6,8 +6,8 @@ import { useDomainCanvas } from "./useDomainCanvas";
 // they read on pale vellum; dark values run bright.
 const t = (light: Tint["light"], dark: Tint["dark"]): Tint => ({ light, dark });
 
-const SKY = t([0.57, 0.14, 180], [0.86, 0.13, 178]);
-const TEAL = t([0.52, 0.12, 174], [0.8, 0.12, 174]);
+const SKY = t([0.58, 0.15, 174], [0.86, 0.14, 172]);
+const TEAL = t([0.53, 0.13, 168], [0.8, 0.13, 168]);
 
 // The blog hero backdrop — Bayer-dithered pixel waves drifting across the
 // section; the cursor is a gravity well that bends and brightens the field.

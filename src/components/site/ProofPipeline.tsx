@@ -40,7 +40,6 @@ export function ProofPipeline() {
         {/* Preamble */}
         <div className="mx-auto mb-20 max-w-3xl text-center">
           <div className="mb-6 inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
-            <span className="h-px w-8 bg-accent" />
             <span className="text-accent">Canto III</span>
             <span className="text-muted-foreground/50">·</span>
             <span>The Rite of Verification</span>

@@ -25,9 +25,6 @@ export function BlogPage() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background/80 to-transparent" />
         <div className="pointer-events-none relative mx-auto max-w-7xl px-6 pt-24 pb-16 lg:pt-32">
           <div className="mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-            <span className="h-px w-8 bg-foreground/40" />
-            <span className="text-foreground/70">§ IX</span>
-            <span className="text-muted-foreground/50">·</span>
             <span>Blog</span>
           </div>
           <h1 className="mb-6 max-w-[20ch] font-display text-[3rem] font-light leading-[1.02] tracking-[-0.03em] text-foreground md:text-[3.6rem]">

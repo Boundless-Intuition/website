@@ -8,7 +8,7 @@
  * Structure is drawn in the faint blueprint foreground (currentColor); the live
  * beats use the accent with a glow. Pure CSS motion; reduced-motion safe.
  */
-const ACC = "oklch(0.72 0.13 176)";
+const ACC = "oklch(0.72 0.13 170)";
 const WARN = "oklch(0.72 0.16 45)";
 const MONO = { fontFamily: "var(--font-mono)" };
 

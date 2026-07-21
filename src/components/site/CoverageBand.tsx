@@ -92,9 +92,7 @@ export function CoverageBand() {
     >
       <div className="relative mx-auto max-w-4xl px-6 py-28 text-center">
         <div className="mb-8 flex items-center justify-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-white/45">
-          <span className="h-px w-8 bg-white/30" />
-          <span>§ · Coverage</span>
-          <span className="h-px w-8 bg-white/30" />
+          <span>Coverage</span>
         </div>
 
         <p className="mb-7 font-display text-[1.5rem] font-light leading-tight tracking-tight text-white/85 md:text-[2rem]">
@@ -103,8 +101,8 @@ export function CoverageBand() {
 
         <div
           ref={ref}
-          className="font-mono text-[clamp(1.25rem,6.2vw,3.6rem)] font-medium leading-none tracking-tight tabular-nums text-[oklch(0.82_0.14_176)]"
-          style={{ textShadow: "0 0 32px oklch(0.72 0.13 176 / 0.45)" }}
+          className="font-mono text-[clamp(1.25rem,6.2vw,3.6rem)] font-medium leading-none tracking-tight tabular-nums text-[oklch(0.82_0.14_170)]"
+          style={{ textShadow: "0 0 32px oklch(0.72 0.13 170 / 0.45)" }}
         >
           {display}
         </div>

@@ -36,7 +36,7 @@ type Cell = { ch: string; s: 0 | 1 | 2 }; // 0 pending · 1 scrambling · 2 done
 export function GlitchText({
   text,
   replayOnHover = true,
-  repeatDelay = 4600,
+  repeatDelay = 8200,
 }: {
   text: string;
   replayOnHover?: boolean;
@@ -120,7 +120,7 @@ export function GlitchText({
                 c.s === 0
                   ? "text-transparent"
                   : c.s === 1
-                    ? "text-[oklch(0.55_0.13_176)] dark:text-[oklch(0.82_0.14_176)]"
+                    ? "text-[oklch(0.55_0.13_170)] dark:text-[oklch(0.82_0.14_170)]"
                     : ""
               }
             >
@@ -131,10 +131,10 @@ export function GlitchText({
       </span>
       <span
         aria-hidden
-        className="hero-scanbar pointer-events-none absolute inset-x-0 h-px bg-[oklch(0.55_0.13_176)] dark:bg-[oklch(0.82_0.14_176)]"
+        className="hero-scanbar pointer-events-none absolute inset-x-0 h-px bg-[oklch(0.55_0.13_170)] dark:bg-[oklch(0.82_0.14_170)]"
         style={{
           ["--scan-dur" as string]: `${total}ms`,
-          boxShadow: "0 0 12px oklch(0.72 0.13 176 / 0.75)",
+          boxShadow: "0 0 12px oklch(0.72 0.13 170 / 0.75)",
         }}
       />
     </span>

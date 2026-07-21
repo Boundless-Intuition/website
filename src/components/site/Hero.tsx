@@ -72,26 +72,9 @@ export function Hero() {
         aria-hidden
       />
 
-      {/* Drafting registration marks */}
-      <span
-        aria-hidden
-        className="pointer-events-none absolute left-6 top-20 hidden font-mono text-[10px] tracking-[0.2em] text-foreground/40 lg:block"
-      >
-        ⌐ BI—001
-      </span>
-      <span
-        aria-hidden
-        className="pointer-events-none absolute bottom-6 right-6 hidden font-mono text-[10px] tracking-[0.2em] text-foreground/40 lg:block"
-      >
-        SHEET 1 / 6 ¬
-      </span>
-
       <div className="relative mx-auto grid max-w-7xl gap-16 px-6 pt-24 pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:pt-32">
         <div>
           <div className="mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-            <span className="h-px w-8 bg-foreground/40" />
-            <span className="text-foreground/70">§ I</span>
-            <span className="text-muted-foreground/50">·</span>
             <span>Doctrine</span>
           </div>
 
@@ -145,8 +128,8 @@ export function Hero() {
             className="group mt-6 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground"
           >
             <span className="relative grid size-2 place-items-center">
-              <span className="wl-ping absolute inset-0 rounded-full bg-[oklch(0.48_0.11_176)] dark:bg-[oklch(0.78_0.13_176)]" />
-              <span className="size-1.5 rounded-full bg-[oklch(0.48_0.11_176)] dark:bg-[oklch(0.78_0.13_176)]" />
+              <span className="wl-ping absolute inset-0 rounded-full bg-[oklch(0.48_0.11_170)] dark:bg-[oklch(0.78_0.13_170)]" />
+              <span className="size-1.5 rounded-full bg-[oklch(0.48_0.11_170)] dark:bg-[oklch(0.78_0.13_170)]" />
             </span>
             Get research updates
             <span

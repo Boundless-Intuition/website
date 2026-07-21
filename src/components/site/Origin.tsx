@@ -4,9 +4,6 @@ export function Origin() {
       <div className="relative mx-auto grid max-w-7xl gap-16 px-6 pt-28 pb-20 lg:grid-cols-[1.1fr_1fr]">
         <div>
           <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-            <span className="h-px w-8 bg-foreground/40" />
-            <span className="text-foreground/70">§ VI</span>
-            <span className="text-muted-foreground/50">·</span>
             <span>Lab</span>
           </div>
           <h2 className="mb-8 max-w-[18ch] font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]">

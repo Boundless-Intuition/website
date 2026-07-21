@@ -79,7 +79,7 @@ export function Waitlist() {
   return (
     <div
       id="signal"
-      className="relative z-10 scroll-mt-20 border-b border-border bg-muted/30 [--sig:oklch(0.48_0.11_176)] dark:[--sig:oklch(0.78_0.13_176)]"
+      className="relative z-10 scroll-mt-20 border-b border-border bg-muted/30 [--sig:oklch(0.48_0.11_170)] dark:[--sig:oklch(0.78_0.13_170)]"
     >
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 lg:grid-cols-[1fr_0.92fr] lg:gap-20">
         {/* Left: pitch and capture */}

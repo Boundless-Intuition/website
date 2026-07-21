@@ -97,9 +97,6 @@ export function EngagePage() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background/80 to-transparent" />
         <div className="pointer-events-none relative mx-auto max-w-7xl px-6 pt-24 pb-28 lg:pt-32">
           <div className="mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-            <span className="h-px w-8 bg-foreground/40" />
-            <span className="text-foreground/70">§ VII</span>
-            <span className="text-muted-foreground/50">·</span>
             <span>Engage</span>
           </div>
 
@@ -129,9 +126,6 @@ export function EngagePage() {
           <div className="mb-14 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
             <div className="max-w-2xl">
               <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-                <span className="h-px w-8 bg-foreground/40" />
-                <span className="text-foreground/70">§ VII.i</span>
-                <span className="text-muted-foreground/50">·</span>
                 <span>AI verification</span>
               </div>
               <h2 className="max-w-[18ch] font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]">
@@ -203,7 +197,7 @@ export function EngagePage() {
               <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-muted-foreground">
                 Output
               </span>
-              <span className="font-display text-[16px] font-medium tracking-tight text-[oklch(0.48_0.11_176)] dark:text-[oklch(0.78_0.13_176)]">
+              <span className="font-display text-[16px] font-medium tracking-tight text-[oklch(0.48_0.11_170)] dark:text-[oklch(0.78_0.13_170)]">
                 Production
               </span>
               <span className="font-mono text-[11px] text-muted-foreground">
@@ -219,9 +213,6 @@ export function EngagePage() {
         <div className="relative mx-auto max-w-7xl px-6 py-28">
           <div className="mb-16">
             <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-              <span className="h-px w-8 bg-foreground/40" />
-              <span className="text-foreground/70">§ VII.ii</span>
-              <span className="text-muted-foreground/50">·</span>
               <span>Process</span>
             </div>
             <h2 className="max-w-[16ch] font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]">
@@ -273,9 +264,6 @@ export function EngagePage() {
         <div className="relative mx-auto max-w-7xl px-6 py-28">
           <div className="mb-16">
             <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-              <span className="h-px w-8 bg-foreground/40" />
-              <span className="text-foreground/70">§ VII.iii</span>
-              <span className="text-muted-foreground/50">·</span>
               <span>Deliverables</span>
             </div>
             <h2 className="max-w-[16ch] font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]">
@@ -291,7 +279,7 @@ export function EngagePage() {
               >
                 <div className="mb-4 flex items-center gap-3">
                   <span
-                    className="grid size-6 place-items-center rounded-full bg-[oklch(0.72_0.13_176)]/15 text-[10px] text-[oklch(0.72_0.13_176)]"
+                    className="grid size-6 place-items-center rounded-full bg-[oklch(0.72_0.13_170)]/15 text-[10px] text-[oklch(0.72_0.13_170)]"
                     aria-hidden
                   >
                     ✓
@@ -315,9 +303,6 @@ export function EngagePage() {
           <div className="mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
             <div>
               <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-                <span className="h-px w-8 bg-foreground/40" />
-                <span className="text-foreground/70">§ VII.iv</span>
-                <span className="text-muted-foreground/50">·</span>
                 <span>For</span>
               </div>
               <h2 className="max-w-[20ch] font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]">
@@ -367,9 +352,6 @@ export function EngagePage() {
           <div className="grid gap-16 lg:grid-cols-[1.1fr_1fr]">
             <div>
               <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-                <span className="h-px w-8 bg-foreground/40" />
-                <span className="text-foreground/70">§ VII.v</span>
-                <span className="text-muted-foreground/50">·</span>
                 <span>Contact</span>
               </div>
               <h2 className="mb-8 max-w-[16ch] font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]">
@@ -406,7 +388,7 @@ export function EngagePage() {
               {submitted ? (
                 <div className="flex h-full items-center justify-center rounded-sm border border-border bg-background/80 p-12 text-center backdrop-blur-sm">
                   <div>
-                    <div className="mb-4 text-[oklch(0.72_0.13_176)]">
+                    <div className="mb-4 text-[oklch(0.72_0.13_170)]">
                       <span className="text-3xl">✓</span>
                     </div>
                     <h3 className="mb-2 font-display text-[19px] font-medium text-foreground">

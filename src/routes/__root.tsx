@@ -90,7 +90,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       {
         property: "og:image",
-        content: "https://boundlessintuition.com/og-image.jpg",
+        content: "https://www.boundlessintuition.com/og-image.jpg",
       },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
@@ -102,7 +102,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:image",
-        content: "https://boundlessintuition.com/og-image.jpg",
+        content: "https://www.boundlessintuition.com/og-image.jpg",
       },
     ],
     links: [

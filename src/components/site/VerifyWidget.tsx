@@ -165,7 +165,7 @@ const CLAIMS: Claim[] = [
   },
 ];
 
-const ACCENT = "oklch(0.72 0.13 176)";
+const ACCENT = "oklch(0.72 0.13 170)";
 const WARN = "oklch(0.72 0.16 45)";
 
 // The console is always ink-dark, so both theme slots carry the bright value.
@@ -279,9 +279,6 @@ export function VerifyWidget() {
         <div className="mb-12 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div className="max-w-2xl">
             <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-              <span className="h-px w-8 bg-foreground/40" />
-              <span className="text-foreground/70">§</span>
-              <span className="text-muted-foreground/50">·</span>
               <span>Demonstration</span>
             </div>
             <h2 className="font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]">
