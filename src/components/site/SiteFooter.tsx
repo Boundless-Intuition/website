@@ -30,6 +30,8 @@ export function SiteFooter() {
     <footer className="relative overflow-hidden bg-background">
       {/* Waitlist / "Signal" capture — the first row of the footer */}
       <Waitlist />
+      {/* Divider between the waitlist band and the footer proper */}
+      <div className="relative z-10 h-px w-full bg-border" aria-hidden />
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-14">
         <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
           <div>

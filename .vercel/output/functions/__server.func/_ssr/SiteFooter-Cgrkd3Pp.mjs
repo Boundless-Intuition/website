@@ -4,7 +4,7 @@ import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-DDgF3BC-.mjs";
 import { i as TSS_SERVER_FUNCTION, l as createServerFn } from "./esm-Dova13aH.mjs";
 import { n as objectType, r as stringType, t as arrayType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-C2SUD4Kr.js
+//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-Cgrkd3Pp.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function apply(theme) {
@@ -546,6 +546,10 @@ function SiteFooter() {
 		className: "relative overflow-hidden bg-background",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Waitlist, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "relative z-10 h-px w-full bg-border",
+				"aria-hidden": true
+			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "relative z-10 mx-auto max-w-7xl px-6 py-14",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {

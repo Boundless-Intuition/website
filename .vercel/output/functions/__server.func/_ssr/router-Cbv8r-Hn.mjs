@@ -1,8 +1,8 @@
 import { n as require_jsx_runtime, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
 import { c as HeadContent, d as Outlet, f as lazyRouteComponent, g as useRouter, h as Link, m as createRootRouteWithContext, p as createFileRoute, s as Scripts, u as createRouter } from "../_libs/@tanstack/react-router+[...].mjs";
-import { t as Route$7 } from "../_slug-DlG-tVlt.mjs";
+import { t as Route$7 } from "../_slug-BcgaosI4.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-DB3kZRep.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-Cbv8r-Hn.js
 var import_jsx_runtime = require_jsx_runtime();
 var styles_default = "/assets/styles-JCTezegs.css";
 function NotFoundComponent() {
@@ -199,7 +199,7 @@ var Route$4 = createFileRoute("/subscribed")({
 	}),
 	component: lazyRouteComponent($$splitComponentImporter$4, "component")
 });
-var $$splitComponentImporter$3 = () => import("./legal-BlsMhd7R.mjs");
+var $$splitComponentImporter$3 = () => import("./legal-Bj4x0jNo.mjs");
 var Route$3 = createFileRoute("/legal")({
 	head: () => ({ meta: [{ title: "Legal - Boundless Intuition" }, {
 		name: "description",
@@ -207,7 +207,7 @@ var Route$3 = createFileRoute("/legal")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-var $$splitComponentImporter$2 = () => import("./engage-CP0jslil.mjs");
+var $$splitComponentImporter$2 = () => import("./engage-BzGwV6Bt.mjs");
 var Route$2 = createFileRoute("/engage")({
 	head: () => ({ meta: [
 		{ title: "Engage - Boundless Intuition" },
@@ -226,9 +226,9 @@ var Route$2 = createFileRoute("/engage")({
 	] }),
 	component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-var $$splitComponentImporter$1 = () => import("./routes-DmI5CoJH.mjs");
+var $$splitComponentImporter$1 = () => import("./routes-mb4UgWBb.mjs");
 var Route$1 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
-var $$splitComponentImporter = () => import("./blog-D_4L3HV2.mjs");
+var $$splitComponentImporter = () => import("./blog-C70chK-4.mjs");
 var Route = createFileRoute("/blog/")({
 	head: () => ({ meta: [
 		{ title: "Blog - Boundless Intuition" },
