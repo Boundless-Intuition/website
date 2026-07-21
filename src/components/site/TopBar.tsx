@@ -77,18 +77,20 @@ export function TopBar() {
             </span>
           </Link>
           <div className="hidden gap-8 font-display text-[12px] font-medium text-muted-foreground md:flex">
-            {SECTIONS.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                className="transition-colors hover:text-foreground"
-              >
-                {s.label}
-              </a>
-            ))}
             <Link to="/blog" className="transition-colors hover:text-foreground">
               Blog
             </Link>
+            <a
+              href="https://playground.boundlessintuition.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
+            >
+              Playground
+              <span aria-hidden className="text-[10px]">
+                ↗
+              </span>
+            </a>
           </div>
         </div>
         <div className="flex items-center gap-5">
@@ -156,6 +158,18 @@ export function TopBar() {
             >
               Blog
             </Link>
+            <a
+              href="https://playground.boundlessintuition.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="flex items-center justify-between py-3 font-display text-[15px] font-medium text-foreground/85 transition-colors hover:text-foreground"
+            >
+              Playground
+              <span aria-hidden className="text-muted-foreground">
+                ↗
+              </span>
+            </a>
             <Link
               to="/engage"
               onClick={() => setOpen(false)}

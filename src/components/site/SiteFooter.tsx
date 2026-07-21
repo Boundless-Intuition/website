@@ -72,6 +72,17 @@ export function SiteFooter() {
               Blog
             </Link>
             <a
+              href="https://playground.boundlessintuition.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 hover:text-foreground"
+            >
+              Playground
+              <span aria-hidden className="text-[10px]">
+                ↗
+              </span>
+            </a>
+            <a
               href="mailto:research@boundlessintuition.com"
               className="hover:text-foreground"
             >

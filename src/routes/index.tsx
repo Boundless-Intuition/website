@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { TopBar } from "@/components/site/TopBar";
+import { SectionRail } from "@/components/site/SectionRail";
 import { Hero } from "@/components/site/Hero";
 import { VerificationMethod } from "@/components/site/VerificationMethod";
 import { CoverageBand } from "@/components/site/CoverageBand";
@@ -18,6 +19,7 @@ function Index() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <TopBar />
+      <SectionRail />
       <main>
         <Hero />
         <VerificationMethod />
