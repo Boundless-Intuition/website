@@ -73,9 +73,23 @@ export function BlogPage() {
                   key={post.slug}
                   to="/blog/$slug"
                   params={{ slug: post.slug }}
-                  className="group block py-10 first:pt-0"
+                  className="group relative block overflow-hidden py-12"
                 >
-                  <div className="flex flex-col gap-3 md:flex-row md:items-baseline md:justify-between md:gap-8">
+                  {/* cover art drifting behind the title; the scrim keeps the
+                      copy side readable and lets the art breathe on the right */}
+                  {post.image && (
+                    <div aria-hidden className="absolute inset-0 overflow-hidden">
+                      <img
+                        src={post.image}
+                        alt=""
+                        loading="lazy"
+                        className="blog-cover-img h-full w-full object-cover opacity-40 saturate-[0.85] transition-[opacity,filter] duration-700 group-hover:opacity-60 group-hover:saturate-110 dark:opacity-35 dark:group-hover:opacity-55"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/25" />
+                      <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background/70 to-transparent" />
+                    </div>
+                  )}
+                  <div className="relative flex flex-col gap-3 md:flex-row md:items-baseline md:justify-between md:gap-8">
                     <div className="flex-1">
                       <div className="mb-3 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                         <span className="border border-border px-2 py-0.5 text-foreground/70">
@@ -92,8 +106,14 @@ export function BlogPage() {
                         {post.description}
                       </p>
                     </div>
-                    <span className="shrink-0 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground transition-colors group-hover:text-foreground">
-                      Read →
+                    <span className="inline-flex shrink-0 items-center gap-2 self-start font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/80 [text-shadow:0_0_10px_var(--background),0_1px_16px_var(--background)] transition-colors group-hover:text-accent md:mr-6 md:self-auto">
+                      Read
+                      <span
+                        aria-hidden
+                        className="transition-transform duration-300 group-hover:translate-x-0.5"
+                      >
+                        →
+                      </span>
                     </span>
                   </div>
                 </Link>

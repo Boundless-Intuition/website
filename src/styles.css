@@ -868,7 +868,27 @@ body::after {
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background: oklch(0.28 0.06 250 / 0.85);
+    background: oklch(0.45 0.1 176 / 0.85);
     color: oklch(0.945 0.012 90);
+  }
+}
+
+/* blog cover art: a slow Ken Burns drift; scale always exceeds the
+   translation so the frame never shows an edge */
+@keyframes blog-drift {
+  from {
+    transform: scale(1.08) translate3d(-1.2%, -0.8%, 0);
+  }
+  to {
+    transform: scale(1.16) translate3d(1.2%, 0.8%, 0);
+  }
+}
+.blog-cover-img {
+  animation: blog-drift 44s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .blog-cover-img {
+    animation: none;
   }
 }

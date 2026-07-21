@@ -17,6 +17,8 @@ export interface BlogPost {
   author: string;
   date: string; // ISO yyyy-mm-dd
   readingTime: string;
+  /** cover art under /public, shown behind the title on the index and post hero */
+  image?: string;
   Content: ComponentType;
 }
 
@@ -32,6 +34,7 @@ export const BLOG_POSTS: BlogPost[] = [
     author: "Boundless Intuition Research",
     date: "2026-07-17",
     readingTime: "18 min read",
+    image: "/blog/fluent-hero.webp",
     Content: FluentIsNotTheSameAsCorrect,
   },
   {
@@ -45,6 +48,7 @@ export const BLOG_POSTS: BlogPost[] = [
     author: "Boundless Intuition Research",
     date: "2026-06-19",
     readingTime: "15 min read",
+    image: "/blog/diagnosis-hero.webp",
     Content: ADiagnosisShouldBeAProof,
   },
 ];

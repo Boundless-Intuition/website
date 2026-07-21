@@ -12,6 +12,20 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
   return (
     <>
       <section className="relative -mt-16 overflow-hidden border-b border-border">
+        {/* cover art drifting behind the title */}
+        {post.image && (
+          <div aria-hidden className="absolute inset-0 overflow-hidden">
+            <img
+              src={post.image}
+              alt=""
+              className="blog-cover-img h-full w-full object-cover opacity-50 dark:opacity-45"
+            />
+            {/* even scrim for the centered copy, fading out at the edges */}
+            <div className="absolute inset-0 bg-background/60 dark:bg-background/65" />
+            <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/80 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background to-transparent" />
+          </div>
+        )}
         <div className="relative mx-auto max-w-4xl px-6 pt-24 pb-16 text-center lg:pt-32">
           <div className="mb-8 flex items-center justify-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
             <Link to="/blog" className="text-foreground/70 transition-colors hover:text-foreground">
@@ -66,15 +80,27 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                   key={p.slug}
                   to="/blog/$slug"
                   params={{ slug: p.slug }}
-                  className="group flex flex-col gap-3 bg-background p-8 transition-colors hover:bg-muted/40 lg:p-10"
+                  className="group relative flex flex-col gap-3 overflow-hidden bg-background p-8 lg:p-10"
                 >
-                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                  {/* cover art drifting behind the card copy */}
+                  {p.image && (
+                    <div aria-hidden className="absolute inset-0 overflow-hidden">
+                      <img
+                        src={p.image}
+                        alt=""
+                        loading="lazy"
+                        className="blog-cover-img h-full w-full object-cover opacity-30 saturate-[0.85] transition-[opacity,filter] duration-700 group-hover:opacity-50 group-hover:saturate-110 dark:opacity-25 dark:group-hover:opacity-45"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/75 to-background/35" />
+                    </div>
+                  )}
+                  <span className="relative font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
                     {p.tag} · {formatBlogDate(p.date)}
                   </span>
-                  <h3 className="font-display text-[19px] font-medium tracking-tight text-foreground transition-colors group-hover:text-accent">
+                  <h3 className="relative font-display text-[19px] font-medium tracking-tight text-foreground transition-colors group-hover:text-accent">
                     {p.title}
                   </h3>
-                  <p className="text-[14px] leading-relaxed text-muted-foreground">
+                  <p className="relative text-[14px] leading-relaxed text-muted-foreground">
                     {p.description}
                   </p>
                 </Link>
