@@ -79,7 +79,7 @@ export function Waitlist() {
   return (
     <div
       id="signal"
-      className="relative z-10 scroll-mt-20 bg-muted/30 [--sig:oklch(0.48_0.11_170)] dark:[--sig:oklch(0.78_0.13_170)]"
+      className="relative z-10 scroll-mt-20 border-t border-border bg-muted/30 [--sig:oklch(0.48_0.11_170)] dark:[--sig:oklch(0.78_0.13_170)]"
     >
       {/* no hard seams: the signal band dissolves into the page background
           above and below, same treatment as the coverage plate */}
