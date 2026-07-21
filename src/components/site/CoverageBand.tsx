@@ -88,9 +88,40 @@ export function CoverageBand() {
   return (
     <section
       id="coverage"
-      className="relative overflow-hidden border-b border-border bg-ink text-ink-foreground"
+      className="group relative overflow-hidden bg-ink text-ink-foreground"
     >
-      <div className="relative mx-auto max-w-4xl px-6 py-28 text-center">
+      {/* Wave-field plate behind the counter: pans slowly side to side, and
+          the whole plate glows up — brighter, more saturated, warmer tint —
+          when the cursor rests anywhere on the band. */}
+      <div aria-hidden className="absolute inset-0">
+        <picture>
+          <source
+            media="(max-width: 768px)"
+            srcSet="/coverage-field-mobile.webp"
+          />
+          <img
+            src="/coverage-field.webp"
+            alt=""
+            loading="lazy"
+            className="coverage-pan h-full w-full object-cover opacity-30 saturate-[0.75] transition-[opacity,filter] duration-1000 ease-out group-hover:opacity-60 group-hover:saturate-100"
+          />
+        </picture>
+        {/* accent tint that deepens as the plate glows */}
+        <div className="absolute inset-0 bg-[oklch(0.72_0.13_170/0.07)] opacity-50 mix-blend-screen transition-opacity duration-1000 group-hover:opacity-100" />
+        {/* static vignette keeping the counter legible at full glow */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 55% at 50% 45%, color-mix(in oklab, var(--ink) 45%, transparent), transparent 100%)",
+          }}
+        />
+        {/* long dissolve into the neighbouring sections — no hard seam; the
+            plate breathes in and out of the page background */}
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background via-background/35 to-transparent md:h-48" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/35 to-transparent md:h-48" />
+      </div>
+      <div className="relative mx-auto max-w-4xl px-6 py-32 text-center md:py-36">
         <div className="mb-8 flex items-center justify-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-white/45">
           <span>Coverage</span>
         </div>

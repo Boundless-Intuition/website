@@ -1,10 +1,10 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-qUp6QTaU.mjs";
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-D-rbqUmw.mjs";
 import { a as smoothstep, n as mix, o as tone, r as oklcha, s as useDomainCanvas, t as field } from "./useDomainCanvas-BjzCv2zR.mjs";
 import { a as candlestick, c as dataFlowNet, d as radarSweep, f as redactionRain, i as asciiScan, l as dnaHelix, n as PipelineBackdrop, o as citationArcs, r as asciiFlow, t as MethodVisual, u as ecgMonitor } from "./MethodVisual-tZ0ZgSgY.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-Bxs-2bRG.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-C8JT1h0X.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SECTIONS = [
@@ -201,7 +201,7 @@ function GlitchText({ text, replayOnHover = true, repeatDelay = 8200 }) {
 function Hero() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 		id: "doctrine",
-		className: "relative -mt-16 overflow-hidden border-b border-border",
+		className: "relative -mt-16 overflow-hidden",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "absolute inset-0",
@@ -304,6 +304,10 @@ function Hero() {
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				className: "paper-grain pointer-events-none absolute inset-0",
 				"aria-hidden": true
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				"aria-hidden": true,
+				className: "pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/35 to-transparent md:h-48"
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "relative mx-auto grid max-w-7xl gap-16 px-6 pt-24 pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:pt-32",
@@ -514,7 +518,7 @@ function Arrow({ vertical = false, delay = 0 }) {
 function VerificationMethod() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		id: "method",
-		className: "relative border-b border-border bg-background",
+		className: "relative bg-background",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "relative mx-auto max-w-7xl px-6 py-28",
 			children: [
@@ -703,11 +707,32 @@ function CoverageBand() {
 			if (raf.current) cancelAnimationFrame(raf.current);
 		};
 	}, []);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 		id: "coverage",
-		className: "relative overflow-hidden border-b border-border bg-ink text-ink-foreground",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "relative mx-auto max-w-4xl px-6 py-28 text-center",
+		className: "group relative overflow-hidden bg-ink text-ink-foreground",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			"aria-hidden": true,
+			className: "absolute inset-0",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("picture", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("source", {
+					media: "(max-width: 768px)",
+					srcSet: "/coverage-field-mobile.webp"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+					src: "/coverage-field.webp",
+					alt: "",
+					loading: "lazy",
+					className: "coverage-pan h-full w-full object-cover opacity-30 saturate-[0.75] transition-[opacity,filter] duration-1000 ease-out group-hover:opacity-60 group-hover:saturate-100"
+				})] }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-[oklch(0.72_0.13_170/0.07)] opacity-50 mix-blend-screen transition-opacity duration-1000 group-hover:opacity-100" }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "absolute inset-0",
+					style: { background: "radial-gradient(ellipse 60% 55% at 50% 45%, color-mix(in oklab, var(--ink) 45%, transparent), transparent 100%)" }
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background via-background/35 to-transparent md:h-48" }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/35 to-transparent md:h-48" })
+			]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "relative mx-auto max-w-4xl px-6 py-32 text-center md:py-36",
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "mb-8 flex items-center justify-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-white/45",
@@ -754,7 +779,7 @@ function CoverageBand() {
 					]
 				})
 			]
-		})
+		})]
 	});
 }
 /**
@@ -1025,6 +1050,14 @@ function Divider({ label }) {
 	});
 }
 function VerificationValue() {
+	const plateRef = (0, import_react.useRef)(null);
+	const handlePlateMove = (e) => {
+		const el = plateRef.current;
+		if (!el) return;
+		const r = el.getBoundingClientRect();
+		el.style.setProperty("--fx", `${e.clientX - r.left}px`);
+		el.style.setProperty("--fy", `${e.clientY - r.top}px`);
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		id: "value",
 		className: "relative border-b border-border bg-background",
@@ -1098,22 +1131,35 @@ function VerificationValue() {
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "mb-20",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Divider, { label: "Where the cost lands" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "relative overflow-hidden border border-border bg-graphite",
+						ref: plateRef,
+						onPointerMove: handlePlateMove,
+						className: "relative overflow-hidden border border-border",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "absolute inset-0",
 							"aria-hidden": true,
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("picture", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("source", {
-								media: "(max-width: 768px)",
-								srcSet: "/value-mesh-mobile.webp"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-								src: "/value-mesh.webp",
-								alt: "",
-								className: "value-glow h-full w-full object-cover object-center opacity-95 dark:opacity-80"
-							})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-gradient-to-b from-graphite/50 via-graphite/10 to-graphite/55" })]
+							className: "absolute inset-0",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("picture", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("source", {
+									media: "(max-width: 768px)",
+									srcSet: "/value-field-mobile.webp"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+									src: "/value-field.webp",
+									alt: "",
+									loading: "lazy",
+									className: "h-full w-full object-cover"
+								})] }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "absolute inset-0",
+									style: { background: "radial-gradient(620px circle at var(--fx, 50%) var(--fy, 50%), color-mix(in oklab, var(--background) 50%, transparent), color-mix(in oklab, var(--background) 76%, transparent) 80%)" }
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "absolute inset-0",
+									style: { background: "radial-gradient(420px circle at var(--fx, 50%) var(--fy, 50%), color-mix(in oklab, var(--accent) 5%, transparent), transparent 70%)" }
+								})
+							]
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "relative grid gap-4 px-4 py-12 lg:grid-cols-2 lg:gap-5 lg:px-6 lg:py-16",
+							className: "relative grid gap-4 p-4 sm:gap-6 sm:p-6 lg:grid-cols-2 lg:gap-8 lg:p-8",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "border border-border/70 bg-background/85 p-8 backdrop-blur-md dark:bg-background/65 lg:p-10",
+								className: "border border-border/60 bg-background/85 p-8 backdrop-blur-[2px] lg:p-10",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 									className: "mb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground",
 									children: "The cost of a wrong answer"
@@ -1137,7 +1183,7 @@ function VerificationValue() {
 									}, s.tag))
 								})]
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "border border-border/70 bg-background/85 p-8 backdrop-blur-md dark:bg-background/65 lg:p-10",
+								className: "border border-border/60 bg-background/85 p-8 backdrop-blur-[2px] lg:p-10",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 									className: "mb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground",
 									children: "The cost of guessing around it"
@@ -2899,7 +2945,7 @@ function ProofWalkthrough() {
 function Origin() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		id: "lab",
-		className: "relative border-b border-border bg-background",
+		className: "relative bg-background",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "relative mx-auto grid max-w-7xl gap-16 px-6 pt-28 pb-20 lg:grid-cols-[1.1fr_1fr]",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [

@@ -79,9 +79,19 @@ export function Waitlist() {
   return (
     <div
       id="signal"
-      className="relative z-10 scroll-mt-20 border-b border-border bg-muted/30 [--sig:oklch(0.48_0.11_170)] dark:[--sig:oklch(0.78_0.13_170)]"
+      className="relative z-10 scroll-mt-20 bg-muted/30 [--sig:oklch(0.48_0.11_170)] dark:[--sig:oklch(0.78_0.13_170)]"
     >
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 lg:grid-cols-[1fr_0.92fr] lg:gap-20">
+      {/* no hard seams: the signal band dissolves into the page background
+          above and below, same treatment as the coverage plate */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-background to-transparent"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent"
+      />
+      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-[1fr_0.92fr] lg:gap-20">
         {/* Left: pitch and capture */}
         <div>
           <div className="mb-5 flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">

@@ -893,22 +893,22 @@ body::after {
   }
 }
 
-/* value section plate: the surveyed form glows softly — same breathing
-   feel as the blog covers, but the low end never dims far */
-@keyframes value-glow {
+/* coverage plate: a long lateral pan — slower and flatter than the blog
+   drift; scale always exceeds the translation so no edge ever shows */
+@keyframes coverage-pan {
   from {
-    filter: brightness(0.92) saturate(0.95);
+    transform: scale(1.12) translate3d(-2%, 1%, 0);
   }
   to {
-    filter: brightness(1.32) saturate(1.1);
+    transform: scale(1.12) translate3d(2%, -1%, 0);
   }
 }
-.value-glow {
-  animation: value-glow 7s ease-in-out infinite alternate;
-  will-change: filter;
+.coverage-pan {
+  animation: coverage-pan 70s ease-in-out infinite alternate;
+  will-change: transform;
 }
 @media (prefers-reduced-motion: reduce) {
-  .value-glow {
+  .coverage-pan {
     animation: none;
   }
 }

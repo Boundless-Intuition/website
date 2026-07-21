@@ -177,7 +177,7 @@ export function VerificationMethod() {
   return (
     <section
       id="method"
-      className="relative border-b border-border bg-background"
+      className="relative bg-background"
     >
       <div className="relative mx-auto max-w-7xl px-6 py-28">
         <div className="mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">

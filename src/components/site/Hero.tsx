@@ -5,7 +5,7 @@ export function Hero() {
   return (
     <section
       id="doctrine"
-      className="relative -mt-16 overflow-hidden border-b border-border"
+      className="relative -mt-16 overflow-hidden"
     >
       {/* Full-bleed plate — the sum of human knowledge, engraved and checkable
           (CERN, "Wandering the Immeasurable", Meyrin) */}
@@ -70,6 +70,13 @@ export function Hero() {
       <div
         className="paper-grain pointer-events-none absolute inset-0"
         aria-hidden
+      />
+
+      {/* Long dissolve into the method section below — sits above the plate,
+          the blueprint lines, and the grain so everything fades together */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/35 to-transparent md:h-48"
       />
 
       <div className="relative mx-auto grid max-w-7xl gap-16 px-6 pt-24 pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:pt-32">

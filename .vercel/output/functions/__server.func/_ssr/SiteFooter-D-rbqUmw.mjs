@@ -4,7 +4,7 @@ import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-DDgF3BC-.mjs";
 import { i as TSS_SERVER_FUNCTION, l as createServerFn } from "./esm-Dova13aH.mjs";
 import { n as objectType, r as stringType, t as arrayType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-qUp6QTaU.js
+//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-D-rbqUmw.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function apply(theme) {
@@ -289,113 +289,123 @@ function Waitlist() {
 			setStatus("error");
 		}
 	};
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		id: "signal",
-		className: "relative z-10 scroll-mt-20 border-b border-border bg-muted/30 [--sig:oklch(0.48_0.11_170)] dark:[--sig:oklch(0.78_0.13_170)]",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 lg:grid-cols-[1fr_0.92fr] lg:gap-20",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "mb-5 flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-						className: "relative grid size-2.5 place-items-center",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "wl-ping absolute inset-0 rounded-full bg-[var(--sig)]" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "size-1.5 rounded-full bg-[var(--sig)]" })]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Research updates" })]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-					className: "max-w-[16ch] font-display text-[2rem] font-light leading-[1.06] tracking-[-0.02em] text-foreground md:text-[2.6rem]",
-					children: "The work, as we publish it."
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-					className: "mt-4 max-w-[48ch] text-[15px] leading-relaxed text-muted-foreground",
-					children: "New benchmarks, verification results, and tooling, sent when we have a real finding to share rather than on a schedule. Technical, infrequent, and no marketing."
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "mt-8 max-w-md",
-					children: status === "success" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "flex items-center gap-4",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "seal-stamp grid size-11 shrink-0 place-items-center rounded-full border-2 border-[var(--sig)] font-display text-[18px] text-[var(--sig)]",
-							"aria-hidden": true,
-							children: "∎"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "font-display text-[16px] font-medium tracking-tight text-foreground",
-							children: "You're subscribed."
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "text-[13.5px] leading-relaxed text-muted-foreground",
-							children: message || /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
-								"We'll send new results to",
-								" ",
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-foreground",
-									children: email
-								}),
-								" as we publish them. Check your inbox to confirm."
-							] })
-						})] })]
-					}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
-						onSubmit: handleSubmit,
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								className: "flex flex-col gap-3 sm:flex-row sm:items-end",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "group relative flex-1",
-									children: [
-										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
-											htmlFor: "waitlist-email",
-											className: "mb-2 block font-display text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground",
-											children: "Email"
-										}),
-										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
-											id: "waitlist-email",
-											type: "email",
-											required: true,
-											value: email,
-											onChange: (e) => setEmail(e.target.value),
-											placeholder: "you@organization.com",
-											className: "w-full border-b border-border bg-transparent px-0 py-2.5 font-display text-[16px] text-foreground outline-none transition-colors placeholder:text-muted-foreground/40 focus:border-transparent"
-										}),
-										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											"aria-hidden": true,
-											className: "absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-[var(--sig)] transition-transform duration-300 ease-out group-focus-within:scale-x-100"
-										})
-									]
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-									type: "submit",
-									disabled: status === "submitting",
-									className: "group inline-flex shrink-0 items-center justify-center gap-2 border border-foreground/40 bg-foreground/5 px-6 py-3 font-display text-[12px] font-medium uppercase tracking-[0.16em] text-foreground transition-all hover:border-foreground hover:bg-foreground/10 disabled:cursor-not-allowed disabled:opacity-60",
-									children: status === "submitting" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: ["Subscribing", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "flex gap-[3px]",
-										"aria-hidden": true,
+		className: "relative z-10 scroll-mt-20 bg-muted/30 [--sig:oklch(0.48_0.11_170)] dark:[--sig:oklch(0.78_0.13_170)]",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				"aria-hidden": true,
+				className: "pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-background to-transparent"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				"aria-hidden": true,
+				className: "pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-[1fr_0.92fr] lg:gap-20",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "mb-5 flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+							className: "relative grid size-2.5 place-items-center",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "wl-ping absolute inset-0 rounded-full bg-[var(--sig)]" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "size-1.5 rounded-full bg-[var(--sig)]" })]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Research updates" })]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+						className: "max-w-[16ch] font-display text-[2rem] font-light leading-[1.06] tracking-[-0.02em] text-foreground md:text-[2.6rem]",
+						children: "The work, as we publish it."
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "mt-4 max-w-[48ch] text-[15px] leading-relaxed text-muted-foreground",
+						children: "New benchmarks, verification results, and tooling, sent when we have a real finding to share rather than on a schedule. Technical, infrequent, and no marketing."
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "mt-8 max-w-md",
+						children: status === "success" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center gap-4",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "seal-stamp grid size-11 shrink-0 place-items-center rounded-full border-2 border-[var(--sig)] font-display text-[18px] text-[var(--sig)]",
+								"aria-hidden": true,
+								children: "∎"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "font-display text-[16px] font-medium tracking-tight text-foreground",
+								children: "You're subscribed."
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "text-[13.5px] leading-relaxed text-muted-foreground",
+								children: message || /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+									"We'll send new results to",
+									" ",
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										className: "text-foreground",
+										children: email
+									}),
+									" as we publish them. Check your inbox to confirm."
+								] })
+							})] })]
+						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+							onSubmit: handleSubmit,
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex flex-col gap-3 sm:flex-row sm:items-end",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "group relative flex-1",
 										children: [
-											0,
-											1,
-											2
-										].map((i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											className: "wl-bar h-2.5 w-[2px] bg-current",
-											style: { animationDelay: `${i * .16}s` }
-										}, i))
-									})] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: ["Subscribe", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										"aria-hidden": true,
-										className: "transition-transform group-hover:translate-x-1",
-										children: "→"
-									})] })
-								})]
-							}),
-							status === "error" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								role: "alert",
-								className: "mt-3 border-l-2 border-[oklch(0.55_0.16_25)] pl-3 text-[13px] leading-relaxed text-[oklch(0.5_0.16_25)] dark:border-[oklch(0.7_0.16_25)] dark:text-[oklch(0.75_0.15_25)]",
-								children: message
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "mt-3 font-mono text-[11px] text-muted-foreground/70",
-								children: "Unsubscribe anytime. We'll never share your address."
-							})
-						]
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("label", {
+												htmlFor: "waitlist-email",
+												className: "mb-2 block font-display text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground",
+												children: "Email"
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+												id: "waitlist-email",
+												type: "email",
+												required: true,
+												value: email,
+												onChange: (e) => setEmail(e.target.value),
+												placeholder: "you@organization.com",
+												className: "w-full border-b border-border bg-transparent px-0 py-2.5 font-display text-[16px] text-foreground outline-none transition-colors placeholder:text-muted-foreground/40 focus:border-transparent"
+											}),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												"aria-hidden": true,
+												className: "absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-[var(--sig)] transition-transform duration-300 ease-out group-focus-within:scale-x-100"
+											})
+										]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										type: "submit",
+										disabled: status === "submitting",
+										className: "group inline-flex shrink-0 items-center justify-center gap-2 border border-foreground/40 bg-foreground/5 px-6 py-3 font-display text-[12px] font-medium uppercase tracking-[0.16em] text-foreground transition-all hover:border-foreground hover:bg-foreground/10 disabled:cursor-not-allowed disabled:opacity-60",
+										children: status === "submitting" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: ["Subscribing", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											className: "flex gap-[3px]",
+											"aria-hidden": true,
+											children: [
+												0,
+												1,
+												2
+											].map((i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												className: "wl-bar h-2.5 w-[2px] bg-current",
+												style: { animationDelay: `${i * .16}s` }
+											}, i))
+										})] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: ["Subscribe", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											"aria-hidden": true,
+											className: "transition-transform group-hover:translate-x-1",
+											children: "→"
+										})] })
+									})]
+								}),
+								status === "error" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									role: "alert",
+									className: "mt-3 border-l-2 border-[oklch(0.55_0.16_25)] pl-3 text-[13px] leading-relaxed text-[oklch(0.5_0.16_25)] dark:border-[oklch(0.7_0.16_25)] dark:text-[oklch(0.75_0.15_25)]",
+									children: message
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "mt-3 font-mono text-[11px] text-muted-foreground/70",
+									children: "Unsubscribe anytime. We'll never share your address."
+								})
+							]
+						})
 					})
-				})
-			] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(UpdateStack, {})]
-		})
+				] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(UpdateStack, {})]
+			})
+		]
 	});
 }
 /**
