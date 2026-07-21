@@ -179,10 +179,6 @@ export function VerificationMethod() {
       id="method"
       className="relative border-b border-border bg-background"
     >
-      <div
-        className="blueprint-grid-fine absolute inset-0 opacity-40"
-        aria-hidden
-      />
       <div className="relative mx-auto max-w-7xl px-6 py-28">
         <div className="mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div className="max-w-2xl">
@@ -273,7 +269,7 @@ export function VerificationMethod() {
           {STEPS.map((s, i) => (
             <div
               key={s.n}
-              className="group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.14_0.014_250)]"
+              className="group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.08_0.009_250)]"
             >
               <MethodVisual index={i} />
               {/* legibility scrims — solid enough that copy reads over the

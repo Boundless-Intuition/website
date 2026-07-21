@@ -150,10 +150,6 @@ export function VerificationValue() {
       id="value"
       className="relative border-b border-border bg-background"
     >
-      <div
-        className="blueprint-grid-fine absolute inset-0 opacity-40"
-        aria-hidden
-      />
       <div className="relative mx-auto max-w-7xl px-6 py-28">
         <div className="mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div className="max-w-2xl">
@@ -285,7 +281,7 @@ export function VerificationValue() {
             {PRODUCTIVITY.map((p, idx) => (
               <div
                 key={p.n}
-                className="relative flex flex-col overflow-hidden bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.14_0.014_250)]"
+                className="relative flex flex-col overflow-hidden bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.08_0.009_250)]"
               >
                 {/* ASCII slipstream running behind the copy */}
                 <ValueBoxVisual index={idx} />

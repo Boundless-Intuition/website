@@ -1,7 +1,7 @@
 export function Origin() {
   return (
-    <section id="lab" className="border-b border-border bg-background">
-      <div className="mx-auto grid max-w-7xl gap-16 px-6 pt-28 pb-20 lg:grid-cols-[1.1fr_1fr]">
+    <section id="lab" className="relative border-b border-border bg-background">
+      <div className="relative mx-auto grid max-w-7xl gap-16 px-6 pt-28 pb-20 lg:grid-cols-[1.1fr_1fr]">
         <div>
           <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
             <span className="h-px w-8 bg-foreground/40" />

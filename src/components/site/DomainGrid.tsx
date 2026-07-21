@@ -46,8 +46,8 @@ const DOMAINS = [
 
 export function DomainGrid() {
   return (
-    <section id="domains" className="border-b border-border bg-background">
-      <div className="mx-auto max-w-7xl px-6 pt-28">
+    <section id="domains" className="relative border-b border-border bg-background">
+      <div className="relative mx-auto max-w-7xl px-6 pt-28">
         <div className="mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div className="max-w-xl">
             <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
@@ -68,13 +68,13 @@ export function DomainGrid() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl border-t border-border">
+      <div className="relative mx-auto max-w-7xl border-t border-border">
         <div className="grid grid-cols-1 border-l border-border md:grid-cols-2">
           {DOMAINS.map((d, i) => (
             <Link
               key={d.n}
               to="/engage"
-              className="group relative flex min-h-[440px] flex-col overflow-hidden border-b border-r border-border bg-[oklch(0.9_0.012_90)] blueprint-grid-fine dark:bg-[oklch(0.14_0.014_250)]"
+              className="group relative flex min-h-[440px] flex-col overflow-hidden border-b border-r border-border bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.08_0.009_250)]"
             >
               {/* Live visual — full-bleed card background */}
               <DomainVisual index={i} />

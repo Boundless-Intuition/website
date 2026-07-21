@@ -81,7 +81,6 @@ function Signatures() {
 function UnsubscribedRoute() {
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-6 py-20 text-foreground [--sig:oklch(0.48_0.09_220)] dark:[--sig:oklch(0.78_0.09_220)]">
-      <div className="blueprint-grid absolute inset-0 opacity-40" aria-hidden />
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_36%,oklch(0.78_0.09_220/0.05),transparent)]"
         aria-hidden

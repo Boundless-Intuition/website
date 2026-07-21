@@ -90,10 +90,6 @@ export function EngagePage() {
       {/* Hero — pulled under the transparent sticky header, matching the
           landing page overlay (pt-24/pt-32 keeps copy clear of the bar). */}
       <section className="relative -mt-16 overflow-hidden border-b border-border">
-        <div
-          className="blueprint-grid absolute inset-0 opacity-100"
-          aria-hidden
-        />
         {/* live prose→logic lens field; the cursor is the lens */}
         <EngageHeroBackdrop />
         {/* legibility scrims — heavier on the left where the copy sits */}
@@ -129,10 +125,6 @@ export function EngagePage() {
 
       {/* AI verification */}
       <section className="relative border-b border-border bg-muted/40">
-        <div
-          className="blueprint-grid-fine absolute inset-0 opacity-60"
-          aria-hidden
-        />
         <div className="relative mx-auto max-w-7xl px-6 py-28">
           <div className="mb-14 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
             <div className="max-w-2xl">
@@ -223,8 +215,8 @@ export function EngagePage() {
       </section>
 
       {/* How It Works */}
-      <section className="border-b border-border bg-background">
-        <div className="mx-auto max-w-7xl px-6 py-28">
+      <section className="relative border-b border-border bg-background">
+        <div className="relative mx-auto max-w-7xl px-6 py-28">
           <div className="mb-16">
             <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
               <span className="h-px w-8 bg-foreground/40" />
@@ -249,7 +241,7 @@ export function EngagePage() {
             {STEPS.map((step, i) => (
               <div
                 key={step.n}
-                className="group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.14_0.014_250)]"
+                className="group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.08_0.009_250)]"
               >
                 {/* Live visual — full-bleed card background */}
                 <EngageStepVisual index={i} />
@@ -278,10 +270,6 @@ export function EngagePage() {
 
       {/* Deliverables */}
       <section className="relative border-b border-border bg-muted/40">
-        <div
-          className="blueprint-grid-fine absolute inset-0 opacity-60"
-          aria-hidden
-        />
         <div className="relative mx-auto max-w-7xl px-6 py-28">
           <div className="mb-16">
             <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
@@ -322,8 +310,8 @@ export function EngagePage() {
       </section>
 
       {/* Who This Is For */}
-      <section className="border-b border-border bg-background">
-        <div className="mx-auto max-w-7xl px-6 py-28">
+      <section className="relative border-b border-border bg-background">
+        <div className="relative mx-auto max-w-7xl px-6 py-28">
           <div className="mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
             <div>
               <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
@@ -362,10 +350,6 @@ export function EngagePage() {
 
       {/* Contact CTA */}
       <section className="relative border-b border-border bg-muted/40">
-        <div
-          className="blueprint-grid absolute inset-0 opacity-60"
-          aria-hidden
-        />
         <div className="relative mx-auto max-w-7xl px-6 py-28">
           <div className="grid gap-16 lg:grid-cols-[1.1fr_1fr]">
             <div>

@@ -90,10 +90,6 @@ export function CoverageBand() {
       id="coverage"
       className="relative overflow-hidden border-b border-border bg-ink text-ink-foreground"
     >
-      <div
-        className="blueprint-grid pointer-events-none absolute inset-0 opacity-[0.12]"
-        aria-hidden
-      />
       <div className="relative mx-auto max-w-4xl px-6 py-28 text-center">
         <div className="mb-8 flex items-center justify-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-white/45">
           <span className="h-px w-8 bg-white/30" />

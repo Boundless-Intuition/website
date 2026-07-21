@@ -52,10 +52,6 @@ function LegalRoute() {
         {/* -mt-16 pulls this under the transparent sticky header, matching
             the landing overlay; pt-24/pt-32 keeps the copy clear of the bar. */}
         <section className="relative -mt-16 overflow-hidden border-b border-border">
-          <div
-            className="blueprint-grid absolute inset-0 opacity-100"
-            aria-hidden
-          />
           <div className="relative mx-auto max-w-7xl px-6 pt-24 pb-20 lg:pt-32">
             <div className="mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
               <span className="h-px w-8 bg-foreground/40" />

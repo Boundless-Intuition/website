@@ -568,10 +568,6 @@ export function ProofWalkthrough() {
       id="walkthrough"
       className="relative border-b border-border bg-muted/40"
     >
-      <div
-        className="blueprint-grid-fine absolute inset-0 opacity-60"
-        aria-hidden
-      />
       <div className="relative mx-auto max-w-7xl px-6 py-28">
         <div className="mb-14 max-w-3xl">
           <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">

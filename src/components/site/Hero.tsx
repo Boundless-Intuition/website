@@ -66,8 +66,7 @@ export function Hero() {
         </g>
       </svg>
 
-      {/* Blueprint grid + grain, kept faint over the plate */}
-      <div className="blueprint-grid absolute inset-0 opacity-40" aria-hidden />
+      {/* Faint depth + grain over the plate */}
       <div
         className="paper-grain pointer-events-none absolute inset-0"
         aria-hidden

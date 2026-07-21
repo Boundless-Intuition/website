@@ -12,7 +12,6 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
   return (
     <>
       <section className="relative -mt-16 overflow-hidden border-b border-border">
-        <div className="blueprint-grid absolute inset-0 opacity-100" aria-hidden />
         <div className="relative mx-auto max-w-4xl px-6 pt-24 pb-16 text-center lg:pt-32">
           <div className="mb-8 flex items-center justify-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
             <Link to="/blog" className="text-foreground/70 transition-colors hover:text-foreground">

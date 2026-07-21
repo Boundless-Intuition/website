@@ -275,10 +275,6 @@ export function VerifyWidget() {
 
   return (
     <section id="try" className="relative border-b border-border bg-background">
-      <div
-        className="blueprint-grid-fine pointer-events-none absolute inset-0 opacity-40"
-        aria-hidden
-      />
       <div className="relative mx-auto max-w-7xl px-6 py-28">
         <div className="mb-12 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div className="max-w-2xl">

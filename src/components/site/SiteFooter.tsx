@@ -111,12 +111,8 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* Blueprint texture rising to the divider, then the monument wordmark
-          drafted on it — a quiet watermark clipped by the base of the page. */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[62%] select-none blueprint-grid-fine [mask-image:linear-gradient(to_top,black_55%,transparent)]"
-      />
+      {/* The monument wordmark — a quiet watermark clipped by the base of the
+          page. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 select-none"
