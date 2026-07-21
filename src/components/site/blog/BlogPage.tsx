@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { BLOG_POSTS, BLOG_TAGS, formatBlogDate, type BlogTag } from "@/lib/blog";
+import { BlogHeroBackdrop } from "@/components/site/domain-visuals/BlogVisual";
 
 const FILTERS: Array<"All" | BlogTag> = ["All", ...BLOG_TAGS];
 
@@ -17,7 +18,12 @@ export function BlogPage() {
       {/* -mt-16 pulls this under the transparent sticky header, matching
           the pattern used on the landing and legal pages. */}
       <section className="relative -mt-16 overflow-hidden border-b border-border">
-        <div className="relative mx-auto max-w-7xl px-6 pt-24 pb-16 lg:pt-32">
+        {/* dithered pixel wave field — the cursor bends it like a gravity well */}
+        <BlogHeroBackdrop />
+        {/* legibility scrims — heavier on the left where the copy sits */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/85 via-background/45 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background/80 to-transparent" />
+        <div className="pointer-events-none relative mx-auto max-w-7xl px-6 pt-24 pb-16 lg:pt-32">
           <div className="mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
             <span className="h-px w-8 bg-foreground/40" />
             <span className="text-foreground/70">§ IX</span>
