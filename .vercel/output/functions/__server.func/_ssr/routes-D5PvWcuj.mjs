@@ -1,11 +1,84 @@
-import { r as __toESM } from "../_runtime.mjs";
-import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
+import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-hD-C6brx.mjs";
-import { a as candlestick, b as useDomainCanvas, c as dataFlowNet, d as field, f as mix, h as redactionRain, i as asciiScan, l as dnaHelix, m as radarSweep, n as PipelineBackdrop, o as citationArcs, p as oklcha, r as asciiFlow, t as MethodVisual, u as ecgMonitor, v as smoothstep, y as tone } from "./MethodVisual-JtB-9_J1.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-CbcIU95X.js
+import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-DAHasxRO.mjs";
+import { a as smoothstep, n as mix, o as tone, r as oklcha, s as useDomainCanvas, t as field } from "./useDomainCanvas-BjzCv2zR.mjs";
+import { a as candlestick, c as dataFlowNet, d as radarSweep, f as redactionRain, i as asciiScan, l as dnaHelix, n as PipelineBackdrop, o as citationArcs, r as asciiFlow, t as MethodVisual, u as ecgMonitor } from "./MethodVisual-tZ0ZgSgY.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-D5PvWcuj.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
+var SECTIONS = [
+	{
+		id: "doctrine",
+		label: "Doctrine"
+	},
+	{
+		id: "method",
+		label: "Method"
+	},
+	{
+		id: "try",
+		label: "Demonstration"
+	},
+	{
+		id: "domains",
+		label: "Domains"
+	},
+	{
+		id: "value",
+		label: "Value"
+	},
+	{
+		id: "walkthrough",
+		label: "Walkthrough"
+	},
+	{
+		id: "lab",
+		label: "Lab"
+	}
+];
+function SectionRail() {
+	const [active, setActive] = (0, import_react.useState)(SECTIONS[0].id);
+	(0, import_react.useEffect)(() => {
+		if (typeof window === "undefined") return;
+		const els = SECTIONS.map((s) => document.getElementById(s.id)).filter((el) => el !== null);
+		if (!els.length) return;
+		const visible = /* @__PURE__ */ new Set();
+		const observer = new IntersectionObserver((entries) => {
+			for (const entry of entries) if (entry.isIntersecting) visible.add(entry.target.id);
+			else visible.delete(entry.target.id);
+			const next = SECTIONS.find((s) => visible.has(s.id));
+			if (next) setActive(next.id);
+		}, { rootMargin: "-45% 0px -45% 0px" });
+		els.forEach((el) => observer.observe(el));
+		return () => observer.disconnect();
+	}, []);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
+		"aria-label": "Page sections",
+		className: "fixed right-5 top-[42%] z-40 hidden -translate-y-1/2 xl:block",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+			className: "group flex flex-col items-end gap-1",
+			children: SECTIONS.map((s) => {
+				const isActive = active === s.id;
+				return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", {
+					className: "w-full",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+						href: `/#${s.id}`,
+						"aria-current": isActive ? "true" : void 0,
+						className: "flex items-center justify-end gap-3 py-1",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: `font-mono text-[10px] uppercase tracking-[0.18em] opacity-0 transition-all duration-300 group-hover:opacity-100 ${isActive ? "text-foreground group-hover:text-foreground" : "text-muted-foreground hover:text-foreground"}`,
+							children: s.label
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							"aria-hidden": true,
+							className: `h-px shrink-0 transition-all duration-300 ${isActive ? "w-8 bg-accent" : "w-4 bg-foreground/25 group-hover:bg-foreground/45"}`
+						})]
+					})
+				}, s.id);
+			})
+		})
+	});
+}
 /**
 * GlitchText — a "decode to verified" headline effect.
 *
@@ -34,7 +107,7 @@ var GLYPHS = "<>/\\[]{}=+*—·:;≡⊢∎01".split("");
 var STAGGER = 24;
 var DUR = 260;
 var TAIL = 80;
-function GlitchText({ text, replayOnHover = true, repeatDelay = 4600 }) {
+function GlitchText({ text, replayOnHover = true, repeatDelay = 8200 }) {
 	const [cells, setCells] = (0, import_react.useState)(null);
 	const raf = (0, import_react.useRef)(null);
 	const timer = (0, import_react.useRef)(null);
@@ -110,16 +183,16 @@ function GlitchText({ text, replayOnHover = true, repeatDelay = 4600 }) {
 				"aria-hidden": true,
 				className: "hero-glitch",
 				children: cells.map((c, i) => c.ch === " " ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: " " }, i) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-					className: c.s === 0 ? "text-transparent" : c.s === 1 ? "text-[oklch(0.55_0.13_230)] dark:text-[oklch(0.82_0.11_220)]" : "",
+					className: c.s === 0 ? "text-transparent" : c.s === 1 ? "text-[oklch(0.55_0.13_170)] dark:text-[oklch(0.82_0.14_170)]" : "",
 					children: c.ch
 				}, i))
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 				"aria-hidden": true,
-				className: "hero-scanbar pointer-events-none absolute inset-x-0 h-px bg-[oklch(0.55_0.13_230)] dark:bg-[oklch(0.82_0.11_220)]",
+				className: "hero-scanbar pointer-events-none absolute inset-x-0 h-px bg-[oklch(0.55_0.13_170)] dark:bg-[oklch(0.82_0.14_170)]",
 				style: {
 					["--scan-dur"]: `${total}ms`,
-					boxShadow: "0 0 12px oklch(0.72 0.11 220 / 0.75)"
+					boxShadow: "0 0 12px oklch(0.72 0.13 170 / 0.75)"
 				}
 			})
 		]
@@ -229,40 +302,15 @@ function Hero() {
 				]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "blueprint-grid absolute inset-0 opacity-40",
-				"aria-hidden": true
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				className: "paper-grain pointer-events-none absolute inset-0",
 				"aria-hidden": true
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-				"aria-hidden": true,
-				className: "pointer-events-none absolute left-6 top-20 hidden font-mono text-[10px] tracking-[0.2em] text-foreground/40 lg:block",
-				children: "⌐ BI—001"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-				"aria-hidden": true,
-				className: "pointer-events-none absolute bottom-6 right-6 hidden font-mono text-[10px] tracking-[0.2em] text-foreground/40 lg:block",
-				children: "SHEET 1 / 6 ¬"
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "relative mx-auto grid max-w-7xl gap-16 px-6 pt-24 pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:pt-32",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 						className: "mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-foreground/40" }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-foreground/70",
-								children: "§ I"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-muted-foreground/50",
-								children: "·"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Doctrine" })
-						]
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Doctrine" })
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
 						className: "relative mb-10 max-w-[16ch] font-display text-[3rem] font-light leading-[1.02] tracking-[-0.03em] text-foreground md:text-[3.6rem] lg:text-[4.4rem]",
@@ -301,7 +349,7 @@ function Hero() {
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
 								className: "relative grid size-2 place-items-center",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "wl-ping absolute inset-0 rounded-full bg-[oklch(0.48_0.09_220)] dark:bg-[oklch(0.78_0.09_220)]" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "size-1.5 rounded-full bg-[oklch(0.48_0.09_220)] dark:bg-[oklch(0.78_0.09_220)]" })]
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "wl-ping absolute inset-0 rounded-full bg-[oklch(0.48_0.11_170)] dark:bg-[oklch(0.78_0.13_170)]" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "size-1.5 rounded-full bg-[oklch(0.48_0.11_170)] dark:bg-[oklch(0.78_0.13_170)]" })]
 							}),
 							"Get research updates",
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
@@ -362,7 +410,7 @@ var STEPS = [
 		body: "Verified answers proceed, carrying a signed, reproducible certificate. Refuted answers are blocked before they reach production, with the precise reason attached."
 	}
 ];
-var ACC = "oklch(0.72 0.09 220)";
+var ACC = "oklch(0.72 0.13 170)";
 function Node({ tag, title, sub, variant = "default" }) {
 	const engine = variant === "engine";
 	const verdict = variant === "verdict";
@@ -378,7 +426,7 @@ function Node({ tag, title, sub, variant = "default" }) {
 				}), tag]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: `flex items-center gap-1.5 font-display text-[15px] font-medium tracking-tight ${engine ? "text-white" : verdict ? "text-[oklch(0.48_0.09_220)] dark:text-[oklch(0.78_0.09_220)]" : "text-foreground"}`,
+				className: `flex items-center gap-1.5 font-display text-[15px] font-medium tracking-tight ${engine ? "text-white" : verdict ? "text-[oklch(0.48_0.11_170)] dark:text-[oklch(0.78_0.13_170)]" : "text-foreground"}`,
 				children: [verdict && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 					className: "vg-check",
 					"aria-hidden": true,
@@ -464,33 +512,19 @@ function Arrow({ vertical = false, delay = 0 }) {
 	});
 }
 function VerificationMethod() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		id: "method",
 		className: "relative border-b border-border bg-background",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "blueprint-grid-fine absolute inset-0 opacity-40",
-			"aria-hidden": true
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "relative mx-auto max-w-7xl px-6 py-28",
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "max-w-2xl",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 							className: "mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-foreground/40" }),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-foreground/70",
-									children: "§ II"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-muted-foreground/50",
-									children: "·"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Method" })
-							]
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Method" })
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 							className: "font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]",
 							children: "How an AI answer becomes a proof."
@@ -576,7 +610,7 @@ function VerificationMethod() {
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-5",
 					children: STEPS.map((s, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.14_0.014_250)]",
+						className: "group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.08_0.009_250)]",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MethodVisual, { index: i }),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-background/60 to-transparent" }),
@@ -605,7 +639,7 @@ function VerificationMethod() {
 					children: "The model proposes; the prover disposes. Verification is not another model second-guessing the first - it is mathematics, checking a fluent answer against rules that were written down long before the question was asked."
 				})
 			]
-		})]
+		})
 	});
 }
 /**
@@ -669,22 +703,15 @@ function CoverageBand() {
 			if (raf.current) cancelAnimationFrame(raf.current);
 		};
 	}, []);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		id: "coverage",
 		className: "relative overflow-hidden border-b border-border bg-ink text-ink-foreground",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "blueprint-grid pointer-events-none absolute inset-0 opacity-[0.12]",
-			"aria-hidden": true
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "relative mx-auto max-w-4xl px-6 py-28 text-center",
 			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "mb-8 flex items-center justify-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-white/45",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-white/30" }),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "§ · Coverage" }),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-white/30" })
-					]
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Coverage" })
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 					className: "mb-7 font-display text-[1.5rem] font-light leading-tight tracking-tight text-white/85 md:text-[2rem]",
@@ -692,8 +719,8 @@ function CoverageBand() {
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					ref,
-					className: "font-mono text-[clamp(1.25rem,6.2vw,3.6rem)] font-medium leading-none tracking-tight tabular-nums text-[oklch(0.82_0.11_220)]",
-					style: { textShadow: "0 0 32px oklch(0.72 0.09 220 / 0.45)" },
+					className: "font-mono text-[clamp(1.25rem,6.2vw,3.6rem)] font-medium leading-none tracking-tight tabular-nums text-[oklch(0.82_0.14_170)]",
+					style: { textShadow: "0 0 32px oklch(0.72 0.13 170 / 0.45)" },
 					children: display
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("svg", {
@@ -727,7 +754,7 @@ function CoverageBand() {
 					]
 				})
 			]
-		})]
+		})
 	});
 }
 /**
@@ -958,7 +985,7 @@ var PRODUCTIVITY = [
 		body: "Once answers are provably safe, the decisions that were too risky to hand to AI - the ones that actually move the business - can finally be automated."
 	}
 ];
-var ACCENT$1 = "text-[oklch(0.48_0.09_220)] dark:text-[oklch(0.78_0.09_220)]";
+var ACCENT$1 = "text-[oklch(0.48_0.11_170)] dark:text-[oklch(0.78_0.13_170)]";
 var WAVE_PATH = (() => {
 	const W = 300;
 	const mid = 8;
@@ -998,33 +1025,19 @@ function Divider({ label }) {
 	});
 }
 function VerificationValue() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		id: "value",
 		className: "relative border-b border-border bg-background",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "blueprint-grid-fine absolute inset-0 opacity-40",
-			"aria-hidden": true
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "relative mx-auto max-w-7xl px-6 py-28",
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "max-w-2xl",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 							className: "mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-foreground/40" }),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-foreground/70",
-									children: "§ IV"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-muted-foreground/50",
-									children: "·"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Value" })
-							]
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Value" })
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 							className: "font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]",
 							children: "Cheaper than being wrong."
@@ -1134,7 +1147,7 @@ function VerificationValue() {
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Divider, { label: "And it makes teams faster" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-4",
 					children: PRODUCTIVITY.map((p, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "relative flex flex-col overflow-hidden bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.14_0.014_250)]",
+						className: "relative flex flex-col overflow-hidden bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.08_0.009_250)]",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ValueBoxVisual, { index: idx }),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-0 bg-background/25" }),
@@ -1163,7 +1176,7 @@ function VerificationValue() {
 					children: "A proof runs once and holds forever. Set against the penalties it averts, the tokens spent second-guessing a model, and the audits it pre-empts, the verification layer is not a cost center - it is the cheapest insurance in the stack, and it makes everything downstream of it faster."
 				})
 			]
-		})]
+		})
 	});
 }
 /**
@@ -1429,7 +1442,7 @@ var CLAIMS = [
 		]
 	}
 ];
-var ACCENT = "oklch(0.72 0.09 220)";
+var ACCENT = "oklch(0.72 0.13 170)";
 var WARN = "oklch(0.72 0.16 45)";
 var T = (l, c, h) => ({
 	light: [
@@ -1508,32 +1521,18 @@ function VerifyWidget() {
 	statusRef.current.mode = status;
 	statusRef.current.proven = proven;
 	const pct = (x) => (x - c.param.min) / (c.param.max - c.param.min) * 100;
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		id: "try",
 		className: "relative border-b border-border bg-background",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "blueprint-grid-fine pointer-events-none absolute inset-0 opacity-40",
-			"aria-hidden": true
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "relative mx-auto max-w-7xl px-6 py-28",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "mb-12 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "max-w-2xl",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 						className: "mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-foreground/40" }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-foreground/70",
-								children: "§"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-muted-foreground/50",
-								children: "·"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Demonstration" })
-						]
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Demonstration" })
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 						className: "font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]",
 						children: "Verify an AI answer yourself."
@@ -1759,7 +1758,7 @@ function VerifyWidget() {
 					]
 				})]
 			})]
-		})]
+		})
 	});
 }
 var t = (light, dark) => ({
@@ -1971,27 +1970,16 @@ var DOMAINS = [
 function DomainGrid() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 		id: "domains",
-		className: "border-b border-border bg-background",
+		className: "relative border-b border-border bg-background",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "mx-auto max-w-7xl px-6 pt-28",
+			className: "relative mx-auto max-w-7xl px-6 pt-28",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "max-w-xl",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 						className: "mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-foreground/40" }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-foreground/70",
-								children: "§ III"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-muted-foreground/50",
-								children: "·"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Domains" })
-						]
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Domains" })
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 						className: "font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]",
 						children: "Wherever the rules are written down."
@@ -2002,12 +1990,12 @@ function DomainGrid() {
 				})]
 			})
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "mx-auto max-w-7xl border-t border-border",
+			className: "relative mx-auto max-w-7xl border-t border-border",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				className: "grid grid-cols-1 border-l border-border md:grid-cols-2",
 				children: DOMAINS.map((d, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
 					to: "/engage",
-					className: "group relative flex min-h-[440px] flex-col overflow-hidden border-b border-r border-border bg-[oklch(0.9_0.012_90)] blueprint-grid-fine dark:bg-[oklch(0.14_0.014_250)]",
+					className: "group relative flex min-h-[440px] flex-col overflow-hidden border-b border-r border-border bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.08_0.009_250)]",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DomainVisual, { index: i }),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-background/60 to-transparent" }),
@@ -2627,7 +2615,7 @@ var EXAMPLES = [
 	}
 ];
 var CLASS = {
-	kw: "text-[oklch(0.72_0.09_220)]",
+	kw: "text-[oklch(0.72_0.13_170)]",
 	num: "text-[oklch(0.82_0.09_60)]",
 	cmt: "text-white/35 italic",
 	fn: "text-white"
@@ -2645,7 +2633,7 @@ function CodeCard({ example, active, activeLines, isVerdict }) {
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "size-2 rounded-full bg-white/10" }),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "size-2 rounded-full bg-white/10" }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "size-2 rounded-full bg-[oklch(0.72_0.09_220)]" })
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "size-2 rounded-full bg-[oklch(0.72_0.13_170)]" })
 						]
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 						className: "font-mono text-[10.5px] text-white/40",
@@ -2682,7 +2670,7 @@ function CodeCard({ example, active, activeLines, isVerdict }) {
 						return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: `relative flex transition-all duration-500 ${activeLines.size > 0 && !highlighted ? "opacity-25" : "opacity-100"}`,
 							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `absolute -left-2 top-0 bottom-0 w-0.5 rounded-full transition-colors ${highlighted ? "bg-[oklch(0.72_0.09_220)]" : "bg-transparent"}` }),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `absolute -left-2 top-0 bottom-0 w-0.5 rounded-full transition-colors ${highlighted ? "bg-[oklch(0.72_0.13_170)]" : "bg-transparent"}` }),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 									className: "w-7 shrink-0 select-none pr-2 text-right text-[10px] tabular-nums text-white/20",
 									children: lineNo
@@ -2704,7 +2692,7 @@ function CodeCard({ example, active, activeLines, isVerdict }) {
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "px-5 py-4",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "mb-1.5 flex items-center gap-2 font-mono text-[11px] text-[oklch(0.72_0.09_220)]",
+						className: "mb-1.5 flex items-center gap-2 font-mono text-[11px] text-[oklch(0.72_0.13_170)]",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 							"aria-hidden": true,
 							children: "✓"
@@ -2743,32 +2731,18 @@ function ProofWalkthrough() {
 	}, [exampleIdx]);
 	const activeLines = new Set(example.stages[active]?.lines ?? []);
 	const isVerdict = active === example.stages.length - 1;
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		id: "walkthrough",
 		className: "relative border-b border-border bg-muted/40",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "blueprint-grid-fine absolute inset-0 opacity-60",
-			"aria-hidden": true
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "relative mx-auto max-w-7xl px-6 py-28",
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "mb-14 max-w-3xl",
 					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 							className: "mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-foreground/40" }),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-foreground/70",
-									children: "§ V"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-muted-foreground/50",
-									children: "·"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Interactive walkthrough" })
-							]
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Interactive walkthrough" })
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 							className: "mb-6 font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]",
@@ -2804,7 +2778,7 @@ function ProofWalkthrough() {
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
 								className: "flex items-center gap-2",
 								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "size-1.5 rounded-full bg-[oklch(0.72_0.09_220)]" }),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "size-1.5 rounded-full bg-[oklch(0.72_0.13_170)]" }),
 									example.filename,
 									" · Stage ",
 									active + 1,
@@ -2886,30 +2860,19 @@ function ProofWalkthrough() {
 					})]
 				})
 			]
-		})]
+		})
 	});
 }
 function Origin() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 		id: "lab",
-		className: "border-b border-border bg-background",
+		className: "relative border-b border-border bg-background",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "mx-auto grid max-w-7xl gap-16 px-6 pt-28 pb-20 lg:grid-cols-[1.1fr_1fr]",
+			className: "relative mx-auto grid max-w-7xl gap-16 px-6 pt-28 pb-20 lg:grid-cols-[1.1fr_1fr]",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-foreground/40" }),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "text-foreground/70",
-							children: "§ VI"
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "text-muted-foreground/50",
-							children: "·"
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Lab" })
-					]
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Lab" })
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 					className: "mb-8 max-w-[18ch] font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]",
@@ -2961,6 +2924,7 @@ function Index() {
 		className: "min-h-screen bg-background text-foreground",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TopBar, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SectionRail, {}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", { children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hero, {}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(VerificationMethod, {}),

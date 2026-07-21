@@ -1,9 +1,10 @@
-import { c as HeadContent, d as Outlet, f as lazyRouteComponent, g as useRouter, h as Link, m as createRootRouteWithContext, p as createFileRoute, s as Scripts, u as createRouter } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as require_jsx_runtime, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
+import { c as HeadContent, d as Outlet, f as lazyRouteComponent, g as useRouter, h as Link, m as createRootRouteWithContext, p as createFileRoute, s as Scripts, u as createRouter } from "../_libs/@tanstack/react-router+[...].mjs";
+import { t as Route$7 } from "../_slug-OIxn5HYl.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-jJD0DVDP.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-DrxuaE_N.js
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-DyRdRAir.css";
+var styles_default = "/assets/styles-DC9l8Hna.css";
 function NotFoundComponent() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "flex min-h-screen items-center justify-center bg-background px-4",
@@ -69,7 +70,7 @@ function ErrorComponent({ error, reset }) {
 		})
 	});
 }
-var Route$5 = createRootRouteWithContext()({
+var Route$6 = createRootRouteWithContext()({
 	head: () => ({
 		meta: [
 			{ charSet: "utf-8" },
@@ -99,8 +100,28 @@ var Route$5 = createRootRouteWithContext()({
 				content: "website"
 			},
 			{
+				property: "og:image",
+				content: "https://www.boundlessintuition.com/og-image.jpg"
+			},
+			{
+				property: "og:image:width",
+				content: "1200"
+			},
+			{
+				property: "og:image:height",
+				content: "630"
+			},
+			{
+				property: "og:image:alt",
+				content: "\"Wandering the Immeasurable\" at CERN - engraved equations on steel"
+			},
+			{
 				name: "twitter:card",
 				content: "summary_large_image"
+			},
+			{
+				name: "twitter:image",
+				content: "https://www.boundlessintuition.com/og-image.jpg"
 			}
 		],
 		links: [
@@ -144,14 +165,14 @@ function RootShell({ children }) {
 	});
 }
 function RootComponent() {
-	const { queryClient } = Route$5.useRouteContext();
+	const { queryClient } = Route$6.useRouteContext();
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(QueryClientProvider, {
 		client: queryClient,
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {})
 	});
 }
-var $$splitComponentImporter$4 = () => import("./unsubscribed-DHSt566E.mjs");
-var Route$4 = createFileRoute("/unsubscribed")({
+var $$splitComponentImporter$5 = () => import("./unsubscribed-Dngxr8ok.mjs");
+var Route$5 = createFileRoute("/unsubscribed")({
 	head: () => ({
 		meta: [{ title: "Unsubscribed · Boundless Intuition" }, {
 			name: "robots",
@@ -162,10 +183,10 @@ var Route$4 = createFileRoute("/unsubscribed")({
 			href: "https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Shadows+Into+Light&display=swap"
 		}]
 	}),
-	component: lazyRouteComponent($$splitComponentImporter$4, "component")
+	component: lazyRouteComponent($$splitComponentImporter$5, "component")
 });
-var $$splitComponentImporter$3 = () => import("./subscribed-DQUA8jbR.mjs");
-var Route$3 = createFileRoute("/subscribed")({
+var $$splitComponentImporter$4 = () => import("./subscribed-C5SeB-fG.mjs");
+var Route$4 = createFileRoute("/subscribed")({
 	head: () => ({
 		meta: [{ title: "You're in · Boundless Intuition" }, {
 			name: "robots",
@@ -176,18 +197,18 @@ var Route$3 = createFileRoute("/subscribed")({
 			href: "https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Shadows+Into+Light&display=swap"
 		}]
 	}),
-	component: lazyRouteComponent($$splitComponentImporter$3, "component")
+	component: lazyRouteComponent($$splitComponentImporter$4, "component")
 });
-var $$splitComponentImporter$2 = () => import("./legal-ByFggkOQ.mjs");
-var Route$2 = createFileRoute("/legal")({
+var $$splitComponentImporter$3 = () => import("./legal-BZvKwD-n.mjs");
+var Route$3 = createFileRoute("/legal")({
 	head: () => ({ meta: [{ title: "Legal - Boundless Intuition" }, {
 		name: "description",
 		content: "Terms of use and privacy notice for Boundless Intuition - the verification layer for artificial intelligence."
 	}] }),
-	component: lazyRouteComponent($$splitComponentImporter$2, "component")
+	component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-var $$splitComponentImporter$1 = () => import("./engage-BT8alNEj.mjs");
-var Route$1 = createFileRoute("/engage")({
+var $$splitComponentImporter$2 = () => import("./engage-xRF1xpXh.mjs");
+var Route$2 = createFileRoute("/engage")({
 	head: () => ({ meta: [
 		{ title: "Engage - Boundless Intuition" },
 		{
@@ -203,42 +224,77 @@ var Route$1 = createFileRoute("/engage")({
 			content: "Bring us your rules. We make them machine-checkable and prove every change safe, continuously."
 		}
 	] }),
-	component: lazyRouteComponent($$splitComponentImporter$1, "component")
+	component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-var $$splitComponentImporter = () => import("./routes-CbcIU95X.mjs");
-var Route = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter, "component") });
-var UnsubscribedRoute = Route$4.update({
+var $$splitComponentImporter$1 = () => import("./routes-D5PvWcuj.mjs");
+var Route$1 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
+var $$splitComponentImporter = () => import("./blog-DF6DWZ_b.mjs");
+var Route = createFileRoute("/blog/")({
+	head: () => ({ meta: [
+		{ title: "Blog - Boundless Intuition" },
+		{
+			name: "description",
+			content: "Research, benchmarks, and verification results from Boundless Intuition - published as we finish a report, not on a schedule."
+		},
+		{
+			property: "og:title",
+			content: "Blog - Boundless Intuition"
+		},
+		{
+			property: "og:description",
+			content: "Research, benchmarks, and verification results from Boundless Intuition."
+		},
+		{
+			property: "og:type",
+			content: "website"
+		}
+	] }),
+	component: lazyRouteComponent($$splitComponentImporter, "component")
+});
+var UnsubscribedRoute = Route$5.update({
 	id: "/unsubscribed",
 	path: "/unsubscribed",
-	getParentRoute: () => Route$5
+	getParentRoute: () => Route$6
 });
-var SubscribedRoute = Route$3.update({
+var SubscribedRoute = Route$4.update({
 	id: "/subscribed",
 	path: "/subscribed",
-	getParentRoute: () => Route$5
+	getParentRoute: () => Route$6
 });
-var LegalRoute = Route$2.update({
+var LegalRoute = Route$3.update({
 	id: "/legal",
 	path: "/legal",
-	getParentRoute: () => Route$5
+	getParentRoute: () => Route$6
 });
-var EngageRoute = Route$1.update({
+var EngageRoute = Route$2.update({
 	id: "/engage",
 	path: "/engage",
-	getParentRoute: () => Route$5
+	getParentRoute: () => Route$6
+});
+var IndexRoute = Route$1.update({
+	id: "/",
+	path: "/",
+	getParentRoute: () => Route$6
+});
+var BlogIndexRoute = Route.update({
+	id: "/blog/",
+	path: "/blog/",
+	getParentRoute: () => Route$6
 });
 var rootRouteChildren = {
-	IndexRoute: Route.update({
-		id: "/",
-		path: "/",
-		getParentRoute: () => Route$5
-	}),
+	IndexRoute,
 	EngageRoute,
 	LegalRoute,
 	SubscribedRoute,
-	UnsubscribedRoute
+	UnsubscribedRoute,
+	BlogSlugRoute: Route$7.update({
+		id: "/blog/$slug",
+		path: "/blog/$slug",
+		getParentRoute: () => Route$6
+	}),
+	BlogIndexRoute
 };
-var routeTree = Route$5._addFileChildren(rootRouteChildren)._addFileTypes();
+var routeTree = Route$6._addFileChildren(rootRouteChildren)._addFileTypes();
 var getRouter = () => {
 	return createRouter({
 		routeTree,

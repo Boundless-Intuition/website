@@ -1,8 +1,9 @@
-import { r as __toESM } from "../_runtime.mjs";
+import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-hD-C6brx.mjs";
-import { _ as ruleLattice, b as useDomainCanvas, d as field, f as mix, g as rng, n as PipelineBackdrop, p as oklcha, r as asciiFlow, s as claimMorph, v as smoothstep, y as tone } from "./MethodVisual-JtB-9_J1.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/engage-BT8alNEj.js
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-DAHasxRO.mjs";
+import { a as smoothstep, i as rng, n as mix, o as tone, r as oklcha, s as useDomainCanvas, t as field } from "./useDomainCanvas-BjzCv2zR.mjs";
+import { n as PipelineBackdrop, p as ruleLattice, r as asciiFlow, s as claimMorph } from "./MethodVisual-tZ0ZgSgY.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/engage-xRF1xpXh.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -14,7 +15,7 @@ var import_jsx_runtime = require_jsx_runtime();
 * the faint blueprint foreground; the packet and stage flashes use the accent.
 * Pure CSS motion (pf-* classes); freezes gracefully under reduced motion.
 */
-var ACC = "oklch(0.72 0.09 220)";
+var ACC = "oklch(0.72 0.13 170)";
 var MONO = { fontFamily: "var(--font-mono)" };
 var STAGES = [
 	{
@@ -856,30 +857,15 @@ function EngagePage() {
 		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 			className: "relative -mt-16 overflow-hidden border-b border-border",
 			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "blueprint-grid absolute inset-0 opacity-100",
-					"aria-hidden": true
-				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(EngageHeroBackdrop, {}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-0 bg-gradient-to-r from-background/85 via-background/45 to-transparent" }),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background/80 to-transparent" }),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "pointer-events-none relative mx-auto max-w-7xl px-6 pt-24 pb-28 lg:pt-32",
 					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 							className: "mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-foreground/40" }),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-foreground/70",
-									children: "§ VII"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-muted-foreground/50",
-									children: "·"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Engage" })
-							]
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Engage" })
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
 							className: "mb-10 max-w-[18ch] font-display text-[3rem] font-light leading-[1.02] tracking-[-0.03em] text-foreground md:text-[3.6rem] lg:text-[4.4rem]",
@@ -896,32 +882,18 @@ function EngagePage() {
 				})
 			]
 		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 			className: "relative border-b border-border bg-muted/40",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "blueprint-grid-fine absolute inset-0 opacity-60",
-				"aria-hidden": true
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "relative mx-auto max-w-7xl px-6 py-28",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "mb-14 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "max-w-2xl",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 								className: "mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
-								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-foreground/40" }),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "text-foreground/70",
-										children: "§ VII.i"
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "text-muted-foreground/50",
-										children: "·"
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "AI verification" })
-								]
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "AI verification" })
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 								className: "max-w-[18ch] font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]",
 								children: "Between your AI and production."
@@ -1003,7 +975,7 @@ function EngagePage() {
 										children: "Output"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										className: "font-display text-[16px] font-medium tracking-tight text-[oklch(0.48_0.09_220)] dark:text-[oklch(0.78_0.09_220)]",
+										className: "font-display text-[16px] font-medium tracking-tight text-[oklch(0.48_0.11_170)] dark:text-[oklch(0.78_0.13_170)]",
 										children: "Production"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
@@ -1015,29 +987,18 @@ function EngagePage() {
 						]
 					})
 				]
-			})]
+			})
 		}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
-			className: "border-b border-border bg-background",
+			className: "relative border-b border-border bg-background",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "mx-auto max-w-7xl px-6 py-28",
+				className: "relative mx-auto max-w-7xl px-6 py-28",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "mb-16",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 							className: "mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-foreground/40" }),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-foreground/70",
-									children: "§ VII.ii"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-muted-foreground/50",
-									children: "·"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Process" })
-							]
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Process" })
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 							className: "max-w-[16ch] font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]",
 							children: "How it works."
@@ -1053,7 +1014,7 @@ function EngagePage() {
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 						className: "grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2 lg:grid-cols-4",
 						children: STEPS.map((step, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.14_0.014_250)]",
+							className: "group relative flex min-h-[400px] flex-col overflow-hidden bg-[oklch(0.9_0.012_90)] dark:bg-[oklch(0.08_0.009_250)]",
 							children: [
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(EngageStepVisual, { index: i }),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-background/60 to-transparent" }),
@@ -1080,29 +1041,15 @@ function EngagePage() {
 				]
 			})
 		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 			className: "relative border-b border-border bg-muted/40",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "blueprint-grid-fine absolute inset-0 opacity-60",
-				"aria-hidden": true
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "relative mx-auto max-w-7xl px-6 py-28",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "mb-16",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 						className: "mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-foreground/40" }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-foreground/70",
-								children: "§ VII.iii"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-muted-foreground/50",
-								children: "·"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Deliverables" })
-						]
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Deliverables" })
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 						className: "max-w-[16ch] font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]",
 						children: "What you get."
@@ -1114,7 +1061,7 @@ function EngagePage() {
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "mb-4 flex items-center gap-3",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "grid size-6 place-items-center rounded-full bg-[oklch(0.72_0.09_220)]/15 text-[10px] text-[oklch(0.72_0.09_220)]",
+								className: "grid size-6 place-items-center rounded-full bg-[oklch(0.72_0.13_170)]/15 text-[10px] text-[oklch(0.72_0.13_170)]",
 								"aria-hidden": true,
 								children: "✓"
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
@@ -1127,28 +1074,17 @@ function EngagePage() {
 						})]
 					}, d.title))
 				})]
-			})]
+			})
 		}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
-			className: "border-b border-border bg-background",
+			className: "relative border-b border-border bg-background",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "mx-auto max-w-7xl px-6 py-28",
+				className: "relative mx-auto max-w-7xl px-6 py-28",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 						className: "mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-foreground/40" }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-foreground/70",
-								children: "§ VII.iv"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-muted-foreground/50",
-								children: "·"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "For" })
-						]
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "For" })
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 						className: "max-w-[20ch] font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]",
 						children: "Who this is for."
@@ -1172,29 +1108,29 @@ function EngagePage() {
 			})
 		}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
-			className: "relative border-b border-border bg-muted/40",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "blueprint-grid absolute inset-0 opacity-60",
-				"aria-hidden": true
+			className: "relative overflow-hidden border-b border-border bg-muted/40",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				"aria-hidden": true,
+				className: "absolute inset-0 overflow-hidden",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+						src: "/engage-conversation.webp",
+						alt: "",
+						loading: "lazy",
+						className: "blog-cover-img h-full w-full object-cover opacity-35 saturate-[0.85] dark:opacity-30"
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-gradient-to-r from-background/85 via-background/60 to-background/35" }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/70 to-transparent" }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/80 to-transparent" })
+				]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				className: "relative mx-auto max-w-7xl px-6 py-28",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "grid gap-16 lg:grid-cols-[1.1fr_1fr]",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 							className: "mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-foreground/40" }),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-foreground/70",
-									children: "§ VII.v"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-muted-foreground/50",
-									children: "·"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Contact" })
-							]
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Contact" })
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 							className: "mb-8 max-w-[16ch] font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]",
@@ -1225,7 +1161,7 @@ function EngagePage() {
 							className: "flex h-full items-center justify-center rounded-sm border border-border bg-background/80 p-12 text-center backdrop-blur-sm",
 							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									className: "mb-4 text-[oklch(0.72_0.09_220)]",
+									className: "mb-4 text-[oklch(0.72_0.13_170)]",
 									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 										className: "text-3xl",
 										children: "✓"

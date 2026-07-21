@@ -1,10 +1,10 @@
-import { r as __toESM } from "../_runtime.mjs";
-import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-DDgF3BC-.mjs";
-import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { i as TSS_SERVER_FUNCTION, l as createServerFn } from "./esm-Dova13aH.mjs";
+import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
+import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
+import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-DDgF3BC-.mjs";
+import { i as TSS_SERVER_FUNCTION, l as createServerFn } from "./esm-Dova13aH.mjs";
 import { n as objectType, r as stringType, t as arrayType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-hD-C6brx.js
+//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-DAHasxRO.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function apply(theme) {
@@ -72,6 +72,7 @@ var SECTIONS = [
 ];
 function TopBar() {
 	const [open, setOpen] = (0, import_react.useState)(false);
+	const [scrolled, setScrolled] = (0, import_react.useState)(false);
 	(0, import_react.useEffect)(() => {
 		if (typeof document === "undefined") return;
 		document.body.style.overflow = open ? "hidden" : "";
@@ -79,8 +80,15 @@ function TopBar() {
 			document.body.style.overflow = "";
 		};
 	}, [open]);
+	(0, import_react.useEffect)(() => {
+		if (typeof window === "undefined") return;
+		const onScroll = () => setScrolled(window.scrollY > 8);
+		onScroll();
+		window.addEventListener("scroll", onScroll, { passive: true });
+		return () => window.removeEventListener("scroll", onScroll);
+	}, []);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("nav", {
-		className: `sticky top-0 z-50 w-full transition-[background-color,backdrop-filter] duration-300 ${open ? "bg-background/85 backdrop-blur-md" : "bg-gradient-to-b from-background/55 via-background/15 to-transparent backdrop-blur-[2px]"}`,
+		className: `sticky top-0 z-50 w-full transition-[background-color,backdrop-filter] duration-300 ${open ? "bg-background/85 backdrop-blur-md" : scrolled ? "bg-transparent backdrop-blur-[2px]" : "bg-transparent"}`,
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "mx-auto flex h-16 max-w-7xl items-center justify-between px-6",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -111,15 +119,30 @@ function TopBar() {
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 							className: "font-semibold",
 							children: "Intuition"
+						}),
+						" ",
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "font-light",
+							children: "Labs"
 						})
 					] })]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "hidden gap-8 font-display text-[12px] font-medium text-muted-foreground md:flex",
-					children: SECTIONS.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-						href: s.href,
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+						to: "/blog",
 						className: "transition-colors hover:text-foreground",
-						children: s.label
-					}, s.label))
+						children: "Blog"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+						href: "https://playground.boundlessintuition.com/",
+						target: "_blank",
+						rel: "noopener noreferrer",
+						className: "inline-flex items-center gap-1 transition-colors hover:text-foreground",
+						children: ["Playground", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							"aria-hidden": true,
+							className: "text-[10px]",
+							children: "↗"
+						})]
+					})]
 				})]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "flex items-center gap-5",
@@ -153,21 +176,42 @@ function TopBar() {
 				className: "mx-auto max-w-7xl px-6 py-4",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "flex flex-col divide-y divide-border",
-					children: [SECTIONS.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-						href: s.href,
-						onClick: () => setOpen(false),
-						className: "py-3 font-display text-[15px] font-medium text-foreground/85 transition-colors hover:text-foreground",
-						children: s.label
-					}, s.label)), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-						to: "/engage",
-						onClick: () => setOpen(false),
-						className: "flex items-center justify-between py-3 font-display text-[15px] font-medium text-foreground",
-						children: ["Engage", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							"aria-hidden": true,
-							className: "text-muted-foreground",
-							children: "→"
-						})]
-					})]
+					children: [
+						SECTIONS.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+							href: s.href,
+							onClick: () => setOpen(false),
+							className: "py-3 font-display text-[15px] font-medium text-foreground/85 transition-colors hover:text-foreground",
+							children: s.label
+						}, s.label)),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+							to: "/blog",
+							onClick: () => setOpen(false),
+							className: "flex items-center justify-between py-3 font-display text-[15px] font-medium text-foreground/85 transition-colors hover:text-foreground",
+							children: "Blog"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+							href: "https://playground.boundlessintuition.com/",
+							target: "_blank",
+							rel: "noopener noreferrer",
+							onClick: () => setOpen(false),
+							className: "flex items-center justify-between py-3 font-display text-[15px] font-medium text-foreground/85 transition-colors hover:text-foreground",
+							children: ["Playground", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								"aria-hidden": true,
+								className: "text-muted-foreground",
+								children: "↗"
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+							to: "/engage",
+							onClick: () => setOpen(false),
+							className: "flex items-center justify-between py-3 font-display text-[15px] font-medium text-foreground",
+							children: ["Engage", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								"aria-hidden": true,
+								className: "text-muted-foreground",
+								children: "→"
+							})]
+						})
+					]
 				})
 			})
 		})]
@@ -245,13 +289,10 @@ function Waitlist() {
 			setStatus("error");
 		}
 	};
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		id: "signal",
-		className: "relative z-10 scroll-mt-20 border-b border-border bg-muted/30 [--sig:oklch(0.48_0.09_220)] dark:[--sig:oklch(0.78_0.09_220)]",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "blueprint-grid-fine pointer-events-none absolute inset-0 opacity-50",
-			"aria-hidden": true
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "relative z-10 scroll-mt-20 border-b border-border bg-muted/30 [--sig:oklch(0.48_0.11_170)] dark:[--sig:oklch(0.78_0.13_170)]",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: "relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 lg:grid-cols-[1fr_0.92fr] lg:gap-20",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -354,7 +395,7 @@ function Waitlist() {
 					})
 				})
 			] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(UpdateStack, {})]
-		})]
+		})
 	});
 }
 /**
@@ -542,6 +583,22 @@ function SiteFooter() {
 								className: "hover:text-foreground",
 								children: "Engage"
 							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+								to: "/blog",
+								className: "hover:text-foreground",
+								children: "Blog"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+								href: "https://playground.boundlessintuition.com/",
+								target: "_blank",
+								rel: "noopener noreferrer",
+								className: "inline-flex items-center gap-1 hover:text-foreground",
+								children: ["Playground", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									"aria-hidden": true,
+									className: "text-[10px]",
+									children: "↗"
+								})]
+							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
 								href: "mailto:research@boundlessintuition.com",
 								className: "hover:text-foreground",
@@ -590,10 +647,6 @@ function SiteFooter() {
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "All results verifiable" })
 					]
 				})]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				"aria-hidden": true,
-				className: "pointer-events-none absolute inset-x-0 bottom-0 h-[62%] select-none blueprint-grid-fine [mask-image:linear-gradient(to_top,black_55%,transparent)]"
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				"aria-hidden": true,

@@ -1,6 +1,6 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-hD-C6brx.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/legal-ByFggkOQ.js
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-DAHasxRO.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/legal-BZvKwD-n.js
 var import_jsx_runtime = require_jsx_runtime();
 var SECTIONS = [
 	{
@@ -34,28 +34,14 @@ function LegalRoute() {
 		className: "min-h-screen bg-background text-foreground",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TopBar, {}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 				className: "relative -mt-16 overflow-hidden border-b border-border",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "blueprint-grid absolute inset-0 opacity-100",
-					"aria-hidden": true
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "relative mx-auto max-w-7xl px-6 pt-24 pb-20 lg:pt-32",
 					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 							className: "mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px w-8 bg-foreground/40" }),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-foreground/70",
-									children: "§ VIII"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									className: "text-muted-foreground/50",
-									children: "·"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Legal" })
-							]
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "Legal" })
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
 							className: "mb-8 max-w-[18ch] font-display text-[3rem] font-light leading-[1.02] tracking-[-0.03em] text-foreground md:text-[3.6rem]",
@@ -66,7 +52,7 @@ function LegalRoute() {
 							children: "Plain terms for a lab that values precision. Nothing here replaces the written agreement that governs an engagement - it exists so you know where you stand before we ever talk."
 						})
 					]
-				})]
+				})
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 				className: "bg-background",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
