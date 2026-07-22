@@ -9,7 +9,7 @@ export function Hero() {
     >
       {/* Full-bleed plate — the sum of human knowledge, engraved and checkable
           (CERN, "Wandering the Immeasurable", Meyrin) */}
-      <div className="absolute inset-0" aria-hidden>
+      <div className="absolute inset-0 isolate" aria-hidden>
         <picture>
           <source
             media="(max-width: 768px)"
@@ -18,62 +18,39 @@ export function Hero() {
           <img
             src="/artifact-hero.webp"
             alt=""
-            className="h-full w-full object-cover object-[62%_center] opacity-100 saturate-[0.92] contrast-[1.02] dark:opacity-[0.72] dark:saturate-[0.78]"
+            className="h-full w-full object-cover object-[62%_center] opacity-100 saturate-100 contrast-[1.03] dark:opacity-95 dark:saturate-[0.9]"
           />
         </picture>
         {/* Navy wash to fuse the photograph into the vellum plate */}
-        <div className="absolute inset-0 bg-accent/5 mix-blend-multiply dark:bg-background/25 dark:mix-blend-normal" />
+        <div className="absolute inset-0 bg-accent/5 mix-blend-multiply dark:bg-background/10 dark:mix-blend-normal" />
         {/* Vertical scrim — carries readability on mobile / narrow viewports */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/35 to-background/85 lg:from-background/40 lg:via-transparent lg:to-background/55" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-transparent to-background/60 lg:from-background/25 lg:via-transparent lg:to-background/30" />
         {/* Horizontal reading scrim — anchors the copy column on wide screens */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/78 to-background/5 lg:via-background/55 lg:to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/55 to-transparent lg:via-background/30 lg:to-transparent" />
+        {/* Radial vignette — corners fall away into the page so the sculpture
+            holds the eye. Centred on the photograph's focal point (62%), the
+            same point object-position crops to. */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 78% 72% at 62% 45%, transparent 25%, color-mix(in oklab, var(--background) 80%, transparent) 100%)",
+          }}
+        />
+        {/* Extra grain on the plate, on top of the global body::after layer —
+            same tile params so it reads as more of the site's film stock, not a
+            second, different noise. */}
+        <div
+          className="absolute inset-0 opacity-[0.07] mix-blend-overlay dark:opacity-[0.09]"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+          }}
+        />
       </div>
 
-      {/* Blueprint construction lines drawn over the plate */}
-      <svg
-        aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full text-foreground"
-        viewBox="0 0 1200 800"
-        preserveAspectRatio="xMidYMid slice"
-        fill="none"
-        stroke="currentColor"
-        vectorEffect="non-scaling-stroke"
-      >
-        {/* concentric survey rings over the mechanism */}
-        <g opacity="0.22" strokeWidth="1">
-          <circle cx="815" cy="430" r="118" />
-          <circle cx="815" cy="430" r="196" strokeDasharray="2 6" />
-          <circle cx="815" cy="430" r="286" opacity="0.6" />
-        </g>
-        {/* crosshair + registration ticks */}
-        <g opacity="0.28" strokeWidth="1">
-          <path d="M815 250 V610 M665 430 H965" />
-          <path d="M803 430 h24 M815 418 v24" opacity="0.8" />
-          <circle cx="815" cy="430" r="5" opacity="0.9" />
-        </g>
-        {/* construction diagonals + golden section */}
-        <g opacity="0.16" strokeWidth="1">
-          <path d="M0 120 L1200 690" />
-          <path d="M120 800 L1050 0" strokeDasharray="3 7" />
-          <rect x="612" y="272" width="406" height="316" />
-          <path d="M612 430 H1018" opacity="0.7" />
-        </g>
-        {/* dimension line with arrow ticks along the base */}
-        <g opacity="0.3" strokeWidth="1">
-          <path d="M612 720 H1018" />
-          <path d="M612 712 v16 M1018 712 v16" />
-          <path d="M612 720 l10 -5 M612 720 l10 5 M1018 720 l-10 -5 M1018 720 l-10 5" />
-        </g>
-      </svg>
-
-      {/* Faint depth + grain over the plate */}
-      <div
-        className="paper-grain pointer-events-none absolute inset-0"
-        aria-hidden
-      />
-
-      {/* Long dissolve into the method section below — sits above the plate,
-          the blueprint lines, and the grain so everything fades together */}
+      {/* Long dissolve into the method section below — sits above the plate
+          so it fades cleanly into the method section */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/35 to-transparent md:h-48"
