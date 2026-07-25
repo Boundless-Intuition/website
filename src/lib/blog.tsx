@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import { FluentIsNotTheSameAsCorrect } from "@/components/site/blog/content/FluentIsNotTheSameAsCorrect";
+import { FluencyIsNotCorrectness } from "@/components/site/blog/content/FluencyIsNotCorrectness";
 import { ADiagnosisShouldBeAProof } from "@/components/site/blog/content/ADiagnosisShouldBeAProof";
 
 export type BlogTag = "Announcements" | "Partnerships" | "Research";
@@ -17,22 +17,29 @@ export interface BlogPost {
   author: string;
   date: string; // ISO yyyy-mm-dd
   readingTime: string;
+  // Optional wide header artwork. Posts without one keep the purely
+  // typographic hero.
+  heroImage?: { src: string; mobileSrc?: string };
   Content: ComponentType;
 }
 
 export const BLOG_POSTS: BlogPost[] = [
   {
-    slug: "fluent-is-not-the-same-as-correct",
-    title: "Fluent Is Not the Same as Correct",
+    slug: "fluency-is-not-correctness",
+    title: "Fluency Is Not Correctness",
     subtitle:
-      "Stress-testing a proof-carrying verification architecture on a benchmark we didn't build, a domain we didn't design it for, and two frontier Claude models that land on the identical wrong dollar figure.",
+      "Separating semantic parsing from deterministic execution in rule-governed reasoning.",
     description:
-      "Two frontier Claude models fail an independently authored airline fee benchmark on the same cases, landing on the same wrong dollar figure - and a proof-carrying kernel takes both to 100%.",
+      "On RuleArena's airline domain, verification lifts two frontier Claude models from 54% and 61% to 100% while cutting cost roughly fourteenfold - and a verified budget model beats both unaided frontier models.",
     tag: "Research",
     author: "Boundless Intuition Research",
     date: "2026-07-17",
-    readingTime: "18 min read",
-    Content: FluentIsNotTheSameAsCorrect,
+    readingTime: "12 min read",
+    heroImage: {
+      src: "/artifact-hero.webp",
+      mobileSrc: "/artifact-hero-mobile.webp",
+    },
+    Content: FluencyIsNotCorrectness,
   },
   {
     slug: "a-diagnosis-should-be-a-proof-not-a-probability",

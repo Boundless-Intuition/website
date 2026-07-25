@@ -16,6 +16,7 @@ import {
   ScatterChart,
   XAxis,
   YAxis,
+  ZAxis,
 } from "recharts";
 import {
   ChartContainer,
@@ -31,11 +32,24 @@ import {
 // data-chart id) so these stay in sync with the site's dark-mode toggle
 // without any extra plumbing here.
 const AMBER = { light: "oklch(0.58 0.16 40)", dark: "oklch(0.75 0.15 45)" };
-const TEAL = { light: "oklch(0.44 0.1 165)", dark: "oklch(0.7 0.12 165)" };
 const NEUTRAL = { light: "oklch(0.55 0.02 250)", dark: "oklch(0.65 0.02 250)" };
-const NEGATIVE = { light: "oklch(0.55 0.18 25)", dark: "oklch(0.7 0.16 25)" };
+
+// Airline-post palette: one hue per model tier, held constant across every
+// figure so a reader can carry the colour from one chart to the next.
+const SALMON = { light: "oklch(0.6 0.17 38)", dark: "oklch(0.74 0.15 42)" };
+const PERIWINKLE = { light: "oklch(0.5 0.15 266)", dark: "oklch(0.73 0.13 268)" };
+const BLUSH = { light: "oklch(0.59 0.13 350)", dark: "oklch(0.8 0.1 350)" };
+const PALE_BLUE = { light: "oklch(0.64 0.09 250)", dark: "oklch(0.87 0.06 245)" };
 
 const tooltipCursor = { fill: "var(--muted)", opacity: 0.4 };
+
+// Axis treatment shared by the airline figures: a single hairline rule per
+// axis, no grid, monospaced tabular ticks.
+const AXIS = {
+  tickLine: false as const,
+  axisLine: { stroke: "var(--border)" },
+  tick: { fontSize: 11, className: "font-mono" },
+};
 
 // ChartTooltipContent's `formatter` prop replaces its entire row markup, not
 // a recharts-style [value, label] tuple - render the row ourselves so name
@@ -49,70 +63,131 @@ function tooltipRow(label: ReactNode, value: ReactNode) {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Fig 2 (fluent) — headline accuracy, unaided vs behind-the-kernel   */
-/* ------------------------------------------------------------------ */
-
-const headlineAccuracyConfig: ChartConfig = {
-  unaided: { label: "Unaided", theme: AMBER },
-  kernel: { label: "Behind the kernel", color: "var(--accent)" },
-};
-
-const headlineAccuracyData = [
-  { label: "Claude Opus 4.8", unaided: 54, kernel: 100 },
-  { label: "Claude Fable 5", unaided: 61, kernel: 100 },
-];
-
-export function HeadlineAccuracyChart() {
+// Chart title and axis unit sit above the plot rather than inside it, so the
+// figure reads as a titled exhibit instead of a bare set of axes.
+function ChartFrame({
+  title,
+  unit,
+  children,
+}: {
+  title: string;
+  unit?: string;
+  children: ReactNode;
+}) {
   return (
-    <ChartContainer config={headlineAccuracyConfig} className="aspect-[16/10] w-full">
-      <BarChart data={headlineAccuracyData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
-        <CartesianGrid vertical={false} />
-        <XAxis dataKey="label" tickLine={false} axisLine={false} fontSize={12} />
-        <YAxis
-          tickLine={false}
-          axisLine={false}
-          domain={[0, 100]}
-          tickFormatter={(v) => `${v}%`}
-          width={40}
-          fontSize={12}
-        />
-        <ChartTooltip
-          cursor={tooltipCursor}
-          content={<ChartTooltipContent formatter={(value, name) => tooltipRow(name, `${value}%`)} />}
-        />
-        <ChartLegend content={<ChartLegendContent />} />
-        <Bar dataKey="unaided" fill="var(--color-unaided)" radius={[3, 3, 0, 0]} />
-        <Bar dataKey="kernel" fill="var(--color-kernel)" radius={[3, 3, 0, 0]} />
-      </BarChart>
-    </ChartContainer>
+    <div>
+      <h4 className="font-display text-[15px] font-semibold tracking-tight text-foreground">
+        {title}
+      </h4>
+      {unit && (
+        <p className="mt-1 font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground">
+          {unit}
+        </p>
+      )}
+      <div className="mt-4">{children}</div>
+    </div>
+  );
+}
+
+// Rendered as recharts' legend content so it sits inside the ChartContainer
+// and can read the scoped --color-* variables ChartStyle emits.
+function DotLegend({ config, keys }: { config: ChartConfig; keys: string[] }) {
+  return (
+    <div className="flex flex-wrap items-center gap-x-7 gap-y-2 pb-5 pl-1">
+      {keys.map((key) => (
+        <div key={key} className="flex items-center gap-2">
+          <span
+            className="size-2.5 shrink-0 rounded-full"
+            style={{ backgroundColor: `var(--color-${key})` }}
+          />
+          <span className="text-[12.5px] text-foreground/80">{config[key].label}</span>
+        </div>
+      ))}
+    </div>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/* Fig 3 (fluent) — cost vs accuracy, all nine arms, log-scale cost   */
+/* Fig 2 (fluency) — accuracy of all nine arms, grouped by model tier  */
+/* ------------------------------------------------------------------ */
+
+const accuracyConfig: ChartConfig = {
+  baseline: { label: "Baseline", theme: SALMON },
+  verified: { label: "Verified", theme: PERIWINKLE },
+  loop: { label: "Verified + loop", theme: PALE_BLUE },
+};
+
+const accuracyData = [
+  { label: "Opus 4.8", baseline: 54, verified: 100, loop: 100 },
+  { label: "Fable 5", baseline: 61, verified: 100, loop: 100 },
+  { label: "Haiku 4.5", baseline: 3, verified: 82, loop: 85 },
+];
+
+export function AccuracyByArmChart() {
+  return (
+    <ChartFrame title="Accuracy by arm" unit="Correct answers out of 100 RuleArena cases">
+      <ChartContainer config={accuracyConfig} className="aspect-[16/10] w-full">
+        <BarChart
+          data={accuracyData}
+          barCategoryGap="30%"
+          maxBarSize={44}
+          margin={{ top: 4, right: 8, left: 0, bottom: 0 }}
+        >
+          <XAxis dataKey="label" {...AXIS} />
+          <YAxis
+            {...AXIS}
+            domain={[0, 100]}
+            ticks={[0, 25, 50, 75, 100]}
+            tickFormatter={(v) => `${v}%`}
+            width={46}
+          />
+          <ChartTooltip
+            cursor={tooltipCursor}
+            content={
+              <ChartTooltipContent formatter={(value, name) => tooltipRow(name, `${value}%`)} />
+            }
+          />
+          <ChartLegend
+            verticalAlign="top"
+            content={
+              <DotLegend config={accuracyConfig} keys={["baseline", "verified", "loop"]} />
+            }
+          />
+          <Bar dataKey="baseline" fill="var(--color-baseline)" radius={[2, 2, 0, 0]} />
+          <Bar dataKey="verified" fill="var(--color-verified)" radius={[2, 2, 0, 0]} />
+          <Bar dataKey="loop" fill="var(--color-loop)" radius={[2, 2, 0, 0]} />
+        </BarChart>
+      </ChartContainer>
+    </ChartFrame>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Fig 3 (fluency) — cost against accuracy, one connected path per     */
+/* model tier, cost on a log scale                                     */
 /* ------------------------------------------------------------------ */
 
 const paretoConfig: ChartConfig = {
-  opus: { label: "Claude Opus 4.8", theme: AMBER },
-  fable: { label: "Claude Fable 5", theme: TEAL },
-  haiku: { label: "Claude Haiku 4.5", theme: NEUTRAL },
+  opus: { label: "Claude Opus 4.8", theme: SALMON },
+  fable: { label: "Claude Fable 5", theme: PERIWINKLE },
+  haiku: { label: "Claude Haiku 4.5", theme: BLUSH },
 };
 
+// Ordered by cost so each tier's path reads left to right.
 const opusArms = [
-  { cost: 18.08, acc: 54.0, arm: "Opus 4.8 · unaided" },
-  { cost: 1.32, acc: 100.0, arm: "Opus 4.8 · verified" },
-  { cost: 4.44, acc: 100.0, arm: "Opus 4.8 · verified + self-consistency" },
+  { cost: 1.32, acc: 100.0, perCorrect: 0.013, arm: "Opus 4.8 · verified" },
+  { cost: 4.44, acc: 100.0, perCorrect: 0.044, arm: "Opus 4.8 · verified + loop" },
+  { cost: 18.08, acc: 54.0, perCorrect: 0.335, arm: "Opus 4.8 · baseline" },
 ];
 const fableArms = [
-  { cost: 16.92, acc: 61.0, arm: "Fable 5 · unaided" },
-  { cost: 3.63, acc: 100.0, arm: "Fable 5 · verified" },
-  { cost: 11.44, acc: 100.0, arm: "Fable 5 · verified + self-consistency" },
+  { cost: 3.63, acc: 100.0, perCorrect: 0.036, arm: "Fable 5 · verified" },
+  { cost: 11.44, acc: 100.0, perCorrect: 0.114, arm: "Fable 5 · verified + loop" },
+  { cost: 16.92, acc: 61.0, perCorrect: 0.277, arm: "Fable 5 · baseline" },
 ];
 const haikuArms = [
-  { cost: 2.05, acc: 3.0, arm: "Haiku 4.5 · unaided" },
-  { cost: 0.22, acc: 82.0, arm: "Haiku 4.5 · verified" },
-  { cost: 1.1, acc: 85.0, arm: "Haiku 4.5 · verified + self-consistency" },
+  { cost: 0.22, acc: 82.0, perCorrect: 0.003, arm: "Haiku 4.5 · verified" },
+  { cost: 1.1, acc: 85.0, perCorrect: 0.013, arm: "Haiku 4.5 · verified + loop" },
+  { cost: 2.05, acc: 3.0, perCorrect: 0.682, arm: "Haiku 4.5 · baseline" },
 ];
 
 function ParetoTooltip({ active, payload }: any) {
@@ -121,9 +196,10 @@ function ParetoTooltip({ active, payload }: any) {
   return (
     <div className="rounded-sm border border-border bg-background px-3 py-2 text-xs shadow-lg">
       <div className="font-medium text-foreground">{p.arm}</div>
-      <div className="mt-1 flex gap-3 font-mono text-[11px] text-muted-foreground">
-        <span>${p.cost.toFixed(2)}/run</span>
-        <span>{p.acc}% correct</span>
+      <div className="mt-1.5 space-y-0.5 font-mono text-[11px] tabular-nums text-muted-foreground">
+        <div>{p.acc}% correct</div>
+        <div>${p.cost.toFixed(2)} per run</div>
+        <div>${p.perCorrect.toFixed(3)} per correct answer</div>
       </div>
     </div>
   );
@@ -131,268 +207,105 @@ function ParetoTooltip({ active, payload }: any) {
 
 export function CostAccuracyParetoChart() {
   return (
-    <ChartContainer config={paretoConfig} className="aspect-[16/11] w-full">
-      <ScatterChart margin={{ top: 8, right: 16, left: -8, bottom: 0 }}>
-        <CartesianGrid />
-        <XAxis
-          type="number"
-          dataKey="cost"
-          scale="log"
-          domain={[0.15, 22]}
-          tickFormatter={(v) => `$${v}`}
-          tickLine={false}
-          axisLine={false}
-          fontSize={12}
-          label={{ value: "Cost per full run (log scale)", position: "insideBottom", offset: -2, fontSize: 11 }}
-        />
-        <YAxis
-          type="number"
-          dataKey="acc"
-          domain={[0, 100]}
-          tickFormatter={(v) => `${v}%`}
-          tickLine={false}
-          axisLine={false}
-          width={40}
-          fontSize={12}
-        />
-        <ChartTooltip content={<ParetoTooltip />} cursor={{ strokeDasharray: "3 3" }} />
-        {/* Scatter doesn't report a dataKey ChartLegendContent can match back
-            to paretoConfig, so the legend is rendered directly from it. */}
-        <ChartLegend
-          content={() => (
-            <div className="flex flex-wrap items-center justify-center gap-4 pt-3 text-xs">
-              {(["opus", "fable", "haiku"] as const).map((key) => (
-                <div key={key} className="flex items-center gap-1.5">
-                  <span
-                    className="h-2 w-2 shrink-0 rounded-[2px]"
-                    style={{ backgroundColor: `var(--color-${key})` }}
-                  />
-                  <span className="text-muted-foreground">{paretoConfig[key].label}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        />
-        <Scatter name="Claude Opus 4.8" data={opusArms} fill="var(--color-opus)" />
-        <Scatter name="Claude Fable 5" data={fableArms} fill="var(--color-fable)" />
-        <Scatter name="Claude Haiku 4.5" data={haikuArms} fill="var(--color-haiku)" />
-      </ScatterChart>
-    </ChartContainer>
+    <ChartFrame title="Cost against accuracy" unit="Cost per 100-case run, log scale">
+      <ChartContainer config={paretoConfig} className="aspect-[16/11] w-full">
+        <ScatterChart margin={{ top: 12, right: 20, left: 0, bottom: 4 }}>
+          <XAxis
+            {...AXIS}
+            type="number"
+            dataKey="cost"
+            scale="log"
+            domain={[0.15, 26]}
+            ticks={[0.25, 1, 4, 16]}
+            tickFormatter={(v) => `$${v}`}
+          />
+          <YAxis
+            {...AXIS}
+            type="number"
+            dataKey="acc"
+            // Headroom above 100% so the markers sitting on the ceiling are
+            // drawn whole rather than clipped by the plot edge.
+            domain={[0, 106]}
+            ticks={[0, 25, 50, 75, 100]}
+            tickFormatter={(v) => `${v}%`}
+            width={46}
+          />
+          <ZAxis range={[72, 72]} />
+          <ChartTooltip content={<ParetoTooltip />} cursor={{ strokeDasharray: "3 3" }} />
+          <ChartLegend
+            verticalAlign="top"
+            content={<DotLegend config={paretoConfig} keys={["opus", "fable", "haiku"]} />}
+          />
+          <Scatter
+            name="Claude Opus 4.8"
+            data={opusArms}
+            fill="var(--color-opus)"
+            line={{ stroke: "var(--color-opus)", strokeWidth: 1.5 }}
+          />
+          <Scatter
+            name="Claude Fable 5"
+            data={fableArms}
+            fill="var(--color-fable)"
+            line={{ stroke: "var(--color-fable)", strokeWidth: 1.5 }}
+          />
+          <Scatter
+            name="Claude Haiku 4.5"
+            data={haikuArms}
+            fill="var(--color-haiku)"
+            line={{ stroke: "var(--color-haiku)", strokeWidth: 1.5 }}
+          />
+        </ScatterChart>
+      </ChartContainer>
+    </ChartFrame>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/* Fig 4 (fluent) — latency by arm, stacked LLM + kernel time          */
+/* Fig 4 (fluency) — latency by arm, stacked model + kernel time       */
 /* ------------------------------------------------------------------ */
 
 const latencyConfig: ChartConfig = {
-  llm: { label: "Model reasoning", theme: AMBER },
-  kernel: { label: "Kernel", color: "var(--accent)" },
+  llm: { label: "Model", theme: SALMON },
+  kernel: { label: "Kernel", theme: PERIWINKLE },
 };
 
 const latencyData = [
-  { label: "Opus 4.8 · unaided", llm: 68.08, kernel: 0 },
+  { label: "Opus 4.8 · baseline", llm: 68.08, kernel: 0 },
   { label: "Opus 4.8 · verified", llm: 3.32, kernel: 2.78 },
-  { label: "Fable 5 · unaided", llm: 25.91, kernel: 0 },
+  { label: "Fable 5 · baseline", llm: 25.91, kernel: 0 },
   { label: "Fable 5 · verified", llm: 7.59, kernel: 3.75 },
-  { label: "Haiku 4.5 · unaided", llm: 23.75, kernel: 0 },
+  { label: "Haiku 4.5 · baseline", llm: 23.75, kernel: 0 },
   { label: "Haiku 4.5 · verified", llm: 1.92, kernel: 3.63 },
 ];
 
 export function LatencyByArmChart() {
   return (
-    <ChartContainer config={latencyConfig} className="aspect-[16/13] w-full">
-      <BarChart
-        data={latencyData}
-        layout="vertical"
-        margin={{ top: 8, right: 16, left: 8, bottom: 0 }}
-      >
-        <CartesianGrid horizontal={false} />
-        <XAxis
-          type="number"
-          tickFormatter={(v) => `${v}s`}
-          tickLine={false}
-          axisLine={false}
-          fontSize={12}
-        />
-        <YAxis
-          type="category"
-          dataKey="label"
-          tickLine={false}
-          axisLine={false}
-          width={130}
-          fontSize={11}
-        />
-        <ChartTooltip
-          cursor={tooltipCursor}
-          content={<ChartTooltipContent formatter={(value, name) => tooltipRow(name, `${value}s`)} />}
-        />
-        <ChartLegend content={<ChartLegendContent />} />
-        <Bar dataKey="llm" stackId="t" fill="var(--color-llm)" radius={[0, 0, 0, 0]} />
-        <Bar dataKey="kernel" stackId="t" fill="var(--color-kernel)" radius={[0, 3, 3, 0]} />
-      </BarChart>
-    </ChartContainer>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Fig 5 (fluent) — bag count has no relationship to failure           */
-/* ------------------------------------------------------------------ */
-/* The source data is the two reported aggregates (mean bag count on   */
-/* wrong vs. right cases, and the Pearson r) — not a fabricated        */
-/* per-case scatter. */
-
-const bagCountConfig: ChartConfig = {
-  wrong: { label: "Cases got wrong", theme: NEGATIVE },
-  right: { label: "Cases got right", color: "var(--accent)" },
-};
-
-const bagCountData = [
-  { label: "Claude Opus 4.8", wrong: 9.78, wrongN: 46, right: 9.91, rightN: 54 },
-  { label: "Claude Fable 5", wrong: 9.87, wrongN: 39, right: 9.84, rightN: 61 },
-];
-
-export function BagCountAggregateChart() {
-  return (
-    <ChartContainer config={bagCountConfig} className="aspect-[16/10] w-full">
-      <BarChart data={bagCountData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
-        <CartesianGrid vertical={false} />
-        <XAxis dataKey="label" tickLine={false} axisLine={false} fontSize={12} />
-        <YAxis
-          tickLine={false}
-          axisLine={false}
-          domain={[0, 12]}
-          tickCount={5}
-          width={30}
-          fontSize={12}
-        />
-        <ChartTooltip
-          cursor={tooltipCursor}
-          content={
-            <ChartTooltipContent
-              formatter={(value, name, item) => {
-                const n = item.dataKey === "wrong" ? item.payload.wrongN : item.payload.rightN;
-                return tooltipRow(name, `${value} avg (n=${n})`);
-              }}
-            />
-          }
-        />
-        <ChartLegend content={<ChartLegendContent />} />
-        <Bar dataKey="wrong" fill="var(--color-wrong)" radius={[3, 3, 0, 0]} />
-        <Bar dataKey="right" fill="var(--color-right)" radius={[3, 3, 0, 0]} />
-      </BarChart>
-    </ChartContainer>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Fig 6 (fluent) — failure rate by number of complimentary slots (K)  */
-/* ------------------------------------------------------------------ */
-
-const kSlotsConfig: ChartConfig = {
-  opus: { label: "Claude Opus 4.8", theme: AMBER },
-  fable: { label: "Claude Fable 5", theme: TEAL },
-};
-
-const kSlotsData = [
-  { label: "K = 0", opus: 0, opusFrac: "0 of 23", fable: 0, fableFrac: "0 of 23" },
-  { label: "K = 1", opus: 92.3, opusFrac: "12 of 13", fable: 61.5, fableFrac: "8 of 13" },
-  { label: "K = 2", opus: 62.5, opusFrac: "30 of 48", fable: 56.3, fableFrac: "27 of 48" },
-  { label: "K = 3", opus: 25.0, opusFrac: "4 of 16", fable: 25.0, fableFrac: "4 of 16" },
-];
-
-export function FailureByKChart() {
-  return (
-    <ChartContainer config={kSlotsConfig} className="aspect-[16/10] w-full">
-      <BarChart data={kSlotsData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
-        <CartesianGrid vertical={false} />
-        <XAxis dataKey="label" tickLine={false} axisLine={false} fontSize={12} />
-        <YAxis
-          tickLine={false}
-          axisLine={false}
-          domain={[0, 100]}
-          tickFormatter={(v) => `${v}%`}
-          width={40}
-          fontSize={12}
-        />
-        <ChartTooltip
-          cursor={tooltipCursor}
-          content={
-            <ChartTooltipContent
-              formatter={(value, name, item) => {
-                const frac = item.dataKey === "opus" ? item.payload.opusFrac : item.payload.fableFrac;
-                return tooltipRow(name, `${frac} failed`);
-              }}
-            />
-          }
-        />
-        <ChartLegend content={<ChartLegendContent />} />
-        <Bar dataKey="opus" fill="var(--color-opus)" radius={[3, 3, 0, 0]} />
-        <Bar dataKey="fable" fill="var(--color-fable)" radius={[3, 3, 0, 0]} />
-      </BarChart>
-    </ChartContainer>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Fig 7 (fluent) — failure rate by cabin class                        */
-/* ------------------------------------------------------------------ */
-
-const cabinConfig: ChartConfig = {
-  opus: { label: "Claude Opus 4.8", theme: AMBER },
-  fable: { label: "Claude Fable 5", theme: TEAL },
-};
-
-const cabinData = [
-  { label: "Basic Economy", opus: 0, opusFrac: "0 of 14", fable: 0, fableFrac: "0 of 14" },
-  { label: "Main Cabin", opus: 41.2, opusFrac: "7 of 17", fable: 17.6, fableFrac: "3 of 17" },
-  { label: "First", opus: 25.0, opusFrac: "5 of 20", fable: 35.0, fableFrac: "7 of 20" },
-  { label: "Business", opus: 52.0, opusFrac: "13 of 25", fable: 28.0, fableFrac: "7 of 25" },
-  { label: "Premium Economy", opus: 78.6, opusFrac: "11 of 14", fable: 85.7, fableFrac: "12 of 14" },
-  { label: "Main Plus", opus: 100.0, opusFrac: "10 of 10", fable: 100.0, fableFrac: "10 of 10" },
-];
-
-export function FailureByCabinClassChart() {
-  return (
-    <ChartContainer config={cabinConfig} className="aspect-[16/14] w-full">
-      <BarChart
-        data={cabinData}
-        layout="vertical"
-        margin={{ top: 8, right: 16, left: 8, bottom: 0 }}
-      >
-        <CartesianGrid horizontal={false} />
-        <XAxis
-          type="number"
-          domain={[0, 100]}
-          tickFormatter={(v) => `${v}%`}
-          tickLine={false}
-          axisLine={false}
-          fontSize={12}
-        />
-        <YAxis
-          type="category"
-          dataKey="label"
-          tickLine={false}
-          axisLine={false}
-          width={110}
-          fontSize={11}
-        />
-        <ChartTooltip
-          cursor={tooltipCursor}
-          content={
-            <ChartTooltipContent
-              formatter={(value, name, item) => {
-                const frac = item.dataKey === "opus" ? item.payload.opusFrac : item.payload.fableFrac;
-                return tooltipRow(name, `${frac} failed`);
-              }}
-            />
-          }
-        />
-        <ChartLegend content={<ChartLegendContent />} />
-        <Bar dataKey="opus" fill="var(--color-opus)" radius={[0, 3, 3, 0]} />
-        <Bar dataKey="fable" fill="var(--color-fable)" radius={[0, 3, 3, 0]} />
-      </BarChart>
-    </ChartContainer>
+    <ChartFrame title="Latency by arm" unit="Mean seconds per answer">
+      <ChartContainer config={latencyConfig} className="aspect-[16/10] w-full">
+        <BarChart
+          data={latencyData}
+          layout="vertical"
+          barCategoryGap="22%"
+          maxBarSize={26}
+          margin={{ top: 4, right: 20, left: 8, bottom: 0 }}
+        >
+          <XAxis {...AXIS} type="number" ticks={[0, 20, 40, 60]} tickFormatter={(v) => `${v}s`} />
+          <YAxis {...AXIS} type="category" dataKey="label" width={150} />
+          <ChartTooltip
+            cursor={tooltipCursor}
+            content={
+              <ChartTooltipContent formatter={(value, name) => tooltipRow(name, `${value}s`)} />
+            }
+          />
+          <ChartLegend
+            verticalAlign="top"
+            content={<DotLegend config={latencyConfig} keys={["llm", "kernel"]} />}
+          />
+          <Bar dataKey="llm" stackId="t" fill="var(--color-llm)" radius={[0, 0, 0, 0]} />
+          <Bar dataKey="kernel" stackId="t" fill="var(--color-kernel)" radius={[0, 2, 2, 0]} />
+        </BarChart>
+      </ChartContainer>
+    </ChartFrame>
   );
 }
 
@@ -466,7 +379,7 @@ const categoryData = [
 export function CategoryAccuracyChart() {
   return (
     <ChartContainer config={categoryConfig} className="aspect-[16/12] w-full">
-      <BarChart data={categoryData} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
+      <BarChart data={categoryData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
         <CartesianGrid vertical={false} />
         <XAxis dataKey="label" tickLine={false} axisLine={false} fontSize={10.5} interval={0} />
         <YAxis
@@ -474,7 +387,7 @@ export function CategoryAccuracyChart() {
           axisLine={false}
           domain={[80, 100]}
           tickFormatter={(v) => `${v}%`}
-          width={40}
+          width={46}
           fontSize={12}
         />
         <ReferenceLine
