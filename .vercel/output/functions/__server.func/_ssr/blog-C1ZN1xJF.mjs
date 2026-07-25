@@ -1,10 +1,9 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as clsx } from "../_libs/clsx.mjs";
-import { _ as ResponsiveContainer, a as YAxis, c as Line, d as Bar, f as Radar, g as Cell, h as PolarGrid, i as LineChart, l as CartesianGrid, m as PolarRadiusAxis, n as RadarChart, o as XAxis, p as PolarAngleAxis, r as BarChart, s as Scatter, t as ScatterChart, u as ReferenceLine, v as Tooltip, y as Legend } from "../_libs/recharts+[...].mjs";
+import { _ as Cell, a as YAxis, b as Legend, c as ZAxis, d as ReferenceLine, f as Bar, g as PolarGrid, h as PolarRadiusAxis, i as LineChart, l as Line, m as PolarAngleAxis, n as RadarChart, o as XAxis, p as Radar, r as BarChart, s as Scatter, t as ScatterChart, u as CartesianGrid, v as ResponsiveContainer, y as Tooltip } from "../_libs/recharts+[...].mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/blog-CKUsRWAJ.js
+//#region node_modules/.nitro/vite/services/ssr/assets/blog-C1ZN1xJF.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function Prose({ children }) {
@@ -84,63 +83,8 @@ function Figure({ n, caption, children }) {
 		})]
 	});
 }
-function Details({ summary, children }) {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("details", {
-		className: "group mb-6 rounded-sm border border-border bg-muted/30 px-4 py-3",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("summary", {
-			className: "cursor-pointer list-none font-display text-[14.5px] font-medium text-foreground",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-				className: "mr-2 inline-block text-muted-foreground transition-transform group-open:rotate-90",
-				children: "›"
-			}), summary]
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "mt-3 text-[14.5px] leading-relaxed text-foreground/80 [&>p:last-child]:mb-0",
-			children
-		})]
-	});
-}
 function Hr() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("hr", { className: "my-12 border-border" });
-}
-function FootnoteRef({ id }) {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("sup", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
-		href: `#fn-${id}`,
-		id: `fnref-${id}`,
-		className: "text-accent no-underline",
-		children: [
-			"[",
-			id,
-			"]"
-		]
-	}) });
-}
-function Notes({ children }) {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ol", {
-		className: "space-y-3 text-[13.5px] leading-relaxed text-muted-foreground",
-		children
-	});
-}
-function Note({ id, children }) {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
-		id: `fn-${id}`,
-		className: "flex gap-2",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-			className: "shrink-0 text-foreground/60",
-			children: [
-				"[",
-				id,
-				"]"
-			]
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
-			children,
-			" ",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-				href: `#fnref-${id}`,
-				className: "ml-1 text-accent",
-				children: "↩"
-			})
-		] })]
-	});
 }
 function References({ children }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ol", {
@@ -367,21 +311,37 @@ var AMBER = {
 	light: "oklch(0.58 0.16 40)",
 	dark: "oklch(0.75 0.15 45)"
 };
-var TEAL = {
-	light: "oklch(0.44 0.1 165)",
-	dark: "oklch(0.7 0.12 165)"
-};
 var NEUTRAL = {
 	light: "oklch(0.55 0.02 250)",
 	dark: "oklch(0.65 0.02 250)"
 };
-var NEGATIVE = {
-	light: "oklch(0.55 0.18 25)",
-	dark: "oklch(0.7 0.16 25)"
+var SALMON = {
+	light: "oklch(0.6 0.17 38)",
+	dark: "oklch(0.74 0.15 42)"
+};
+var PERIWINKLE = {
+	light: "oklch(0.5 0.15 266)",
+	dark: "oklch(0.73 0.13 268)"
+};
+var BLUSH = {
+	light: "oklch(0.59 0.13 350)",
+	dark: "oklch(0.8 0.1 350)"
+};
+var PALE_BLUE = {
+	light: "oklch(0.64 0.09 250)",
+	dark: "oklch(0.87 0.06 245)"
 };
 var tooltipCursor = {
 	fill: "var(--muted)",
 	opacity: .4
+};
+var AXIS = {
+	tickLine: false,
+	axisLine: { stroke: "var(--border)" },
+	tick: {
+		fontSize: 11,
+		className: "font-mono"
+	}
 };
 function tooltipRow(label, value) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -395,145 +355,228 @@ function tooltipRow(label, value) {
 		})]
 	});
 }
-var headlineAccuracyConfig = {
-	unaided: {
-		label: "Unaided",
-		theme: AMBER
+function ChartFrame({ title, unit, children }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
+			className: "font-display text-[15px] font-semibold tracking-tight text-foreground",
+			children: title
+		}),
+		unit && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			className: "mt-1 font-mono text-[10.5px] uppercase tracking-[0.16em] text-muted-foreground",
+			children: unit
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "mt-4",
+			children
+		})
+	] });
+}
+function DotLegend({ config, keys }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "flex flex-wrap items-center gap-x-7 gap-y-2 pb-5 pl-1",
+		children: keys.map((key) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "flex items-center gap-2",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "size-2.5 shrink-0 rounded-full",
+				style: { backgroundColor: `var(--color-${key})` }
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "text-[12.5px] text-foreground/80",
+				children: config[key].label
+			})]
+		}, key))
+	});
+}
+var accuracyConfig = {
+	baseline: {
+		label: "Baseline",
+		theme: SALMON
 	},
-	kernel: {
-		label: "Behind the kernel",
-		color: "var(--accent)"
+	verified: {
+		label: "Verified",
+		theme: PERIWINKLE
+	},
+	loop: {
+		label: "Verified + loop",
+		theme: PALE_BLUE
 	}
 };
-var headlineAccuracyData = [{
-	label: "Claude Opus 4.8",
-	unaided: 54,
-	kernel: 100
-}, {
-	label: "Claude Fable 5",
-	unaided: 61,
-	kernel: 100
-}];
-function HeadlineAccuracyChart() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartContainer, {
-		config: headlineAccuracyConfig,
-		className: "aspect-[16/10] w-full",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(BarChart, {
-			data: headlineAccuracyData,
-			margin: {
-				top: 8,
-				right: 8,
-				left: -12,
-				bottom: 0
-			},
-			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CartesianGrid, { vertical: false }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(XAxis, {
-					dataKey: "label",
-					tickLine: false,
-					axisLine: false,
-					fontSize: 12
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(YAxis, {
-					tickLine: false,
-					axisLine: false,
-					domain: [0, 100],
-					tickFormatter: (v) => `${v}%`,
-					width: 40,
-					fontSize: 12
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltip, {
-					cursor: tooltipCursor,
-					content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltipContent, { formatter: (value, name) => tooltipRow(name, `${value}%`) })
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartLegend, { content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartLegendContent, {}) }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
-					dataKey: "unaided",
-					fill: "var(--color-unaided)",
-					radius: [
-						3,
-						3,
-						0,
-						0
-					]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
-					dataKey: "kernel",
-					fill: "var(--color-kernel)",
-					radius: [
-						3,
-						3,
-						0,
-						0
-					]
-				})
-			]
+var accuracyData = [
+	{
+		label: "Opus 4.8",
+		baseline: 54,
+		verified: 100,
+		loop: 100
+	},
+	{
+		label: "Fable 5",
+		baseline: 61,
+		verified: 100,
+		loop: 100
+	},
+	{
+		label: "Haiku 4.5",
+		baseline: 3,
+		verified: 82,
+		loop: 85
+	}
+];
+function AccuracyByArmChart() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartFrame, {
+		title: "Accuracy by arm",
+		unit: "Correct answers out of 100 RuleArena cases",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartContainer, {
+			config: accuracyConfig,
+			className: "aspect-[16/10] w-full",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(BarChart, {
+				data: accuracyData,
+				barCategoryGap: "30%",
+				maxBarSize: 44,
+				margin: {
+					top: 4,
+					right: 8,
+					left: 0,
+					bottom: 0
+				},
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(XAxis, {
+						dataKey: "label",
+						...AXIS
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(YAxis, {
+						...AXIS,
+						domain: [0, 100],
+						ticks: [
+							0,
+							25,
+							50,
+							75,
+							100
+						],
+						tickFormatter: (v) => `${v}%`,
+						width: 46
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltip, {
+						cursor: tooltipCursor,
+						content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltipContent, { formatter: (value, name) => tooltipRow(name, `${value}%`) })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartLegend, {
+						verticalAlign: "top",
+						content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DotLegend, {
+							config: accuracyConfig,
+							keys: [
+								"baseline",
+								"verified",
+								"loop"
+							]
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
+						dataKey: "baseline",
+						fill: "var(--color-baseline)",
+						radius: [
+							2,
+							2,
+							0,
+							0
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
+						dataKey: "verified",
+						fill: "var(--color-verified)",
+						radius: [
+							2,
+							2,
+							0,
+							0
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
+						dataKey: "loop",
+						fill: "var(--color-loop)",
+						radius: [
+							2,
+							2,
+							0,
+							0
+						]
+					})
+				]
+			})
 		})
 	});
 }
 var paretoConfig = {
 	opus: {
 		label: "Claude Opus 4.8",
-		theme: AMBER
+		theme: SALMON
 	},
 	fable: {
 		label: "Claude Fable 5",
-		theme: TEAL
+		theme: PERIWINKLE
 	},
 	haiku: {
 		label: "Claude Haiku 4.5",
-		theme: NEUTRAL
+		theme: BLUSH
 	}
 };
 var opusArms = [
 	{
-		cost: 18.08,
-		acc: 54,
-		arm: "Opus 4.8 · unaided"
-	},
-	{
 		cost: 1.32,
 		acc: 100,
+		perCorrect: .013,
 		arm: "Opus 4.8 · verified"
 	},
 	{
 		cost: 4.44,
 		acc: 100,
-		arm: "Opus 4.8 · verified + self-consistency"
+		perCorrect: .044,
+		arm: "Opus 4.8 · verified + loop"
+	},
+	{
+		cost: 18.08,
+		acc: 54,
+		perCorrect: .335,
+		arm: "Opus 4.8 · baseline"
 	}
 ];
 var fableArms = [
 	{
-		cost: 16.92,
-		acc: 61,
-		arm: "Fable 5 · unaided"
-	},
-	{
 		cost: 3.63,
 		acc: 100,
+		perCorrect: .036,
 		arm: "Fable 5 · verified"
 	},
 	{
 		cost: 11.44,
 		acc: 100,
-		arm: "Fable 5 · verified + self-consistency"
+		perCorrect: .114,
+		arm: "Fable 5 · verified + loop"
+	},
+	{
+		cost: 16.92,
+		acc: 61,
+		perCorrect: .277,
+		arm: "Fable 5 · baseline"
 	}
 ];
 var haikuArms = [
 	{
-		cost: 2.05,
-		acc: 3,
-		arm: "Haiku 4.5 · unaided"
-	},
-	{
 		cost: .22,
 		acc: 82,
+		perCorrect: .003,
 		arm: "Haiku 4.5 · verified"
 	},
 	{
 		cost: 1.1,
 		acc: 85,
-		arm: "Haiku 4.5 · verified + self-consistency"
+		perCorrect: .013,
+		arm: "Haiku 4.5 · verified + loop"
+	},
+	{
+		cost: 2.05,
+		acc: 3,
+		perCorrect: .682,
+		arm: "Haiku 4.5 · baseline"
 	}
 ];
 function ParetoTooltip({ active, payload }) {
@@ -545,107 +588,128 @@ function ParetoTooltip({ active, payload }) {
 			className: "font-medium text-foreground",
 			children: p.arm
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "mt-1 flex gap-3 font-mono text-[11px] text-muted-foreground",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [
-				"$",
-				p.cost.toFixed(2),
-				"/run"
-			] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [p.acc, "% correct"] })]
+			className: "mt-1.5 space-y-0.5 font-mono text-[11px] tabular-nums text-muted-foreground",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [p.acc, "% correct"] }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+					"$",
+					p.cost.toFixed(2),
+					" per run"
+				] }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+					"$",
+					p.perCorrect.toFixed(3),
+					" per correct answer"
+				] })
+			]
 		})]
 	});
 }
 function CostAccuracyParetoChart() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartContainer, {
-		config: paretoConfig,
-		className: "aspect-[16/11] w-full",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(ScatterChart, {
-			margin: {
-				top: 8,
-				right: 16,
-				left: -8,
-				bottom: 0
-			},
-			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CartesianGrid, {}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(XAxis, {
-					type: "number",
-					dataKey: "cost",
-					scale: "log",
-					domain: [.15, 22],
-					tickFormatter: (v) => `$${v}`,
-					tickLine: false,
-					axisLine: false,
-					fontSize: 12,
-					label: {
-						value: "Cost per full run (log scale)",
-						position: "insideBottom",
-						offset: -2,
-						fontSize: 11
-					}
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(YAxis, {
-					type: "number",
-					dataKey: "acc",
-					domain: [0, 100],
-					tickFormatter: (v) => `${v}%`,
-					tickLine: false,
-					axisLine: false,
-					width: 40,
-					fontSize: 12
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltip, {
-					content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ParetoTooltip, {}),
-					cursor: { strokeDasharray: "3 3" }
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartLegend, { content: () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					className: "flex flex-wrap items-center justify-center gap-4 pt-3 text-xs",
-					children: [
-						"opus",
-						"fable",
-						"haiku"
-					].map((key) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "flex items-center gap-1.5",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "h-2 w-2 shrink-0 rounded-[2px]",
-							style: { backgroundColor: `var(--color-${key})` }
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "text-muted-foreground",
-							children: paretoConfig[key].label
-						})]
-					}, key))
-				}) }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Scatter, {
-					name: "Claude Opus 4.8",
-					data: opusArms,
-					fill: "var(--color-opus)"
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Scatter, {
-					name: "Claude Fable 5",
-					data: fableArms,
-					fill: "var(--color-fable)"
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Scatter, {
-					name: "Claude Haiku 4.5",
-					data: haikuArms,
-					fill: "var(--color-haiku)"
-				})
-			]
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartFrame, {
+		title: "Cost against accuracy",
+		unit: "Cost per 100-case run, log scale",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartContainer, {
+			config: paretoConfig,
+			className: "aspect-[16/11] w-full",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(ScatterChart, {
+				margin: {
+					top: 12,
+					right: 20,
+					left: 0,
+					bottom: 4
+				},
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(XAxis, {
+						...AXIS,
+						type: "number",
+						dataKey: "cost",
+						scale: "log",
+						domain: [.15, 26],
+						ticks: [
+							.25,
+							1,
+							4,
+							16
+						],
+						tickFormatter: (v) => `$${v}`
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(YAxis, {
+						...AXIS,
+						type: "number",
+						dataKey: "acc",
+						domain: [0, 106],
+						ticks: [
+							0,
+							25,
+							50,
+							75,
+							100
+						],
+						tickFormatter: (v) => `${v}%`,
+						width: 46
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ZAxis, { range: [72, 72] }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltip, {
+						content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ParetoTooltip, {}),
+						cursor: { strokeDasharray: "3 3" }
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartLegend, {
+						verticalAlign: "top",
+						content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DotLegend, {
+							config: paretoConfig,
+							keys: [
+								"opus",
+								"fable",
+								"haiku"
+							]
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Scatter, {
+						name: "Claude Opus 4.8",
+						data: opusArms,
+						fill: "var(--color-opus)",
+						line: {
+							stroke: "var(--color-opus)",
+							strokeWidth: 1.5
+						}
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Scatter, {
+						name: "Claude Fable 5",
+						data: fableArms,
+						fill: "var(--color-fable)",
+						line: {
+							stroke: "var(--color-fable)",
+							strokeWidth: 1.5
+						}
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Scatter, {
+						name: "Claude Haiku 4.5",
+						data: haikuArms,
+						fill: "var(--color-haiku)",
+						line: {
+							stroke: "var(--color-haiku)",
+							strokeWidth: 1.5
+						}
+					})
+				]
+			})
 		})
 	});
 }
 var latencyConfig = {
 	llm: {
-		label: "Model reasoning",
-		theme: AMBER
+		label: "Model",
+		theme: SALMON
 	},
 	kernel: {
 		label: "Kernel",
-		color: "var(--accent)"
+		theme: PERIWINKLE
 	}
 };
 var latencyData = [
 	{
-		label: "Opus 4.8 · unaided",
+		label: "Opus 4.8 · baseline",
 		llm: 68.08,
 		kernel: 0
 	},
@@ -655,7 +719,7 @@ var latencyData = [
 		kernel: 2.78
 	},
 	{
-		label: "Fable 5 · unaided",
+		label: "Fable 5 · baseline",
 		llm: 25.91,
 		kernel: 0
 	},
@@ -665,7 +729,7 @@ var latencyData = [
 		kernel: 3.75
 	},
 	{
-		label: "Haiku 4.5 · unaided",
+		label: "Haiku 4.5 · baseline",
 		llm: 23.75,
 		kernel: 0
 	},
@@ -676,360 +740,76 @@ var latencyData = [
 	}
 ];
 function LatencyByArmChart() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartContainer, {
-		config: latencyConfig,
-		className: "aspect-[16/13] w-full",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(BarChart, {
-			data: latencyData,
-			layout: "vertical",
-			margin: {
-				top: 8,
-				right: 16,
-				left: 8,
-				bottom: 0
-			},
-			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CartesianGrid, { horizontal: false }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(XAxis, {
-					type: "number",
-					tickFormatter: (v) => `${v}s`,
-					tickLine: false,
-					axisLine: false,
-					fontSize: 12
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(YAxis, {
-					type: "category",
-					dataKey: "label",
-					tickLine: false,
-					axisLine: false,
-					width: 130,
-					fontSize: 11
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltip, {
-					cursor: tooltipCursor,
-					content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltipContent, { formatter: (value, name) => tooltipRow(name, `${value}s`) })
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartLegend, { content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartLegendContent, {}) }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
-					dataKey: "llm",
-					stackId: "t",
-					fill: "var(--color-llm)",
-					radius: [
-						0,
-						0,
-						0,
-						0
-					]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
-					dataKey: "kernel",
-					stackId: "t",
-					fill: "var(--color-kernel)",
-					radius: [
-						0,
-						3,
-						3,
-						0
-					]
-				})
-			]
-		})
-	});
-}
-var bagCountConfig = {
-	wrong: {
-		label: "Cases got wrong",
-		theme: NEGATIVE
-	},
-	right: {
-		label: "Cases got right",
-		color: "var(--accent)"
-	}
-};
-var bagCountData = [{
-	label: "Claude Opus 4.8",
-	wrong: 9.78,
-	wrongN: 46,
-	right: 9.91,
-	rightN: 54
-}, {
-	label: "Claude Fable 5",
-	wrong: 9.87,
-	wrongN: 39,
-	right: 9.84,
-	rightN: 61
-}];
-function BagCountAggregateChart() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartContainer, {
-		config: bagCountConfig,
-		className: "aspect-[16/10] w-full",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(BarChart, {
-			data: bagCountData,
-			margin: {
-				top: 8,
-				right: 8,
-				left: -12,
-				bottom: 0
-			},
-			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CartesianGrid, { vertical: false }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(XAxis, {
-					dataKey: "label",
-					tickLine: false,
-					axisLine: false,
-					fontSize: 12
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(YAxis, {
-					tickLine: false,
-					axisLine: false,
-					domain: [0, 12],
-					tickCount: 5,
-					width: 30,
-					fontSize: 12
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltip, {
-					cursor: tooltipCursor,
-					content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltipContent, { formatter: (value, name, item) => {
-						return tooltipRow(name, `${value} avg (n=${item.dataKey === "wrong" ? item.payload.wrongN : item.payload.rightN})`);
-					} })
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartLegend, { content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartLegendContent, {}) }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
-					dataKey: "wrong",
-					fill: "var(--color-wrong)",
-					radius: [
-						3,
-						3,
-						0,
-						0
-					]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
-					dataKey: "right",
-					fill: "var(--color-right)",
-					radius: [
-						3,
-						3,
-						0,
-						0
-					]
-				})
-			]
-		})
-	});
-}
-var kSlotsConfig = {
-	opus: {
-		label: "Claude Opus 4.8",
-		theme: AMBER
-	},
-	fable: {
-		label: "Claude Fable 5",
-		theme: TEAL
-	}
-};
-var kSlotsData = [
-	{
-		label: "K = 0",
-		opus: 0,
-		opusFrac: "0 of 23",
-		fable: 0,
-		fableFrac: "0 of 23"
-	},
-	{
-		label: "K = 1",
-		opus: 92.3,
-		opusFrac: "12 of 13",
-		fable: 61.5,
-		fableFrac: "8 of 13"
-	},
-	{
-		label: "K = 2",
-		opus: 62.5,
-		opusFrac: "30 of 48",
-		fable: 56.3,
-		fableFrac: "27 of 48"
-	},
-	{
-		label: "K = 3",
-		opus: 25,
-		opusFrac: "4 of 16",
-		fable: 25,
-		fableFrac: "4 of 16"
-	}
-];
-function FailureByKChart() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartContainer, {
-		config: kSlotsConfig,
-		className: "aspect-[16/10] w-full",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(BarChart, {
-			data: kSlotsData,
-			margin: {
-				top: 8,
-				right: 8,
-				left: -12,
-				bottom: 0
-			},
-			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CartesianGrid, { vertical: false }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(XAxis, {
-					dataKey: "label",
-					tickLine: false,
-					axisLine: false,
-					fontSize: 12
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(YAxis, {
-					tickLine: false,
-					axisLine: false,
-					domain: [0, 100],
-					tickFormatter: (v) => `${v}%`,
-					width: 40,
-					fontSize: 12
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltip, {
-					cursor: tooltipCursor,
-					content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltipContent, { formatter: (value, name, item) => {
-						return tooltipRow(name, `${item.dataKey === "opus" ? item.payload.opusFrac : item.payload.fableFrac} failed`);
-					} })
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartLegend, { content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartLegendContent, {}) }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
-					dataKey: "opus",
-					fill: "var(--color-opus)",
-					radius: [
-						3,
-						3,
-						0,
-						0
-					]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
-					dataKey: "fable",
-					fill: "var(--color-fable)",
-					radius: [
-						3,
-						3,
-						0,
-						0
-					]
-				})
-			]
-		})
-	});
-}
-var cabinConfig = {
-	opus: {
-		label: "Claude Opus 4.8",
-		theme: AMBER
-	},
-	fable: {
-		label: "Claude Fable 5",
-		theme: TEAL
-	}
-};
-var cabinData = [
-	{
-		label: "Basic Economy",
-		opus: 0,
-		opusFrac: "0 of 14",
-		fable: 0,
-		fableFrac: "0 of 14"
-	},
-	{
-		label: "Main Cabin",
-		opus: 41.2,
-		opusFrac: "7 of 17",
-		fable: 17.6,
-		fableFrac: "3 of 17"
-	},
-	{
-		label: "First",
-		opus: 25,
-		opusFrac: "5 of 20",
-		fable: 35,
-		fableFrac: "7 of 20"
-	},
-	{
-		label: "Business",
-		opus: 52,
-		opusFrac: "13 of 25",
-		fable: 28,
-		fableFrac: "7 of 25"
-	},
-	{
-		label: "Premium Economy",
-		opus: 78.6,
-		opusFrac: "11 of 14",
-		fable: 85.7,
-		fableFrac: "12 of 14"
-	},
-	{
-		label: "Main Plus",
-		opus: 100,
-		opusFrac: "10 of 10",
-		fable: 100,
-		fableFrac: "10 of 10"
-	}
-];
-function FailureByCabinClassChart() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartContainer, {
-		config: cabinConfig,
-		className: "aspect-[16/14] w-full",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(BarChart, {
-			data: cabinData,
-			layout: "vertical",
-			margin: {
-				top: 8,
-				right: 16,
-				left: 8,
-				bottom: 0
-			},
-			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CartesianGrid, { horizontal: false }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(XAxis, {
-					type: "number",
-					domain: [0, 100],
-					tickFormatter: (v) => `${v}%`,
-					tickLine: false,
-					axisLine: false,
-					fontSize: 12
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(YAxis, {
-					type: "category",
-					dataKey: "label",
-					tickLine: false,
-					axisLine: false,
-					width: 110,
-					fontSize: 11
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltip, {
-					cursor: tooltipCursor,
-					content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltipContent, { formatter: (value, name, item) => {
-						return tooltipRow(name, `${item.dataKey === "opus" ? item.payload.opusFrac : item.payload.fableFrac} failed`);
-					} })
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartLegend, { content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartLegendContent, {}) }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
-					dataKey: "opus",
-					fill: "var(--color-opus)",
-					radius: [
-						0,
-						3,
-						3,
-						0
-					]
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
-					dataKey: "fable",
-					fill: "var(--color-fable)",
-					radius: [
-						0,
-						3,
-						3,
-						0
-					]
-				})
-			]
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartFrame, {
+		title: "Latency by arm",
+		unit: "Mean seconds per answer",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartContainer, {
+			config: latencyConfig,
+			className: "aspect-[16/10] w-full",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(BarChart, {
+				data: latencyData,
+				layout: "vertical",
+				barCategoryGap: "22%",
+				maxBarSize: 26,
+				margin: {
+					top: 4,
+					right: 20,
+					left: 8,
+					bottom: 0
+				},
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(XAxis, {
+						...AXIS,
+						type: "number",
+						ticks: [
+							0,
+							20,
+							40,
+							60
+						],
+						tickFormatter: (v) => `${v}s`
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(YAxis, {
+						...AXIS,
+						type: "category",
+						dataKey: "label",
+						width: 150
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltip, {
+						cursor: tooltipCursor,
+						content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltipContent, { formatter: (value, name) => tooltipRow(name, `${value}s`) })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartLegend, {
+						verticalAlign: "top",
+						content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DotLegend, {
+							config: latencyConfig,
+							keys: ["llm", "kernel"]
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
+						dataKey: "llm",
+						stackId: "t",
+						fill: "var(--color-llm)",
+						radius: [
+							0,
+							0,
+							0,
+							0
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
+						dataKey: "kernel",
+						stackId: "t",
+						fill: "var(--color-kernel)",
+						radius: [
+							0,
+							2,
+							2,
+							0
+						]
+					})
+				]
+			})
 		})
 	});
 }
@@ -1174,7 +954,7 @@ function CategoryAccuracyChart() {
 			margin: {
 				top: 8,
 				right: 8,
-				left: -12,
+				left: 0,
 				bottom: 0
 			},
 			children: [
@@ -1191,7 +971,7 @@ function CategoryAccuracyChart() {
 					axisLine: false,
 					domain: [80, 100],
 					tickFormatter: (v) => `${v}%`,
-					width: 40,
+					width: 46,
 					fontSize: 12
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ReferenceLine, {
@@ -1470,99 +1250,121 @@ function RunVerdictFigure() {
 		] })]
 	});
 }
-function FluentIsNotTheSameAsCorrect() {
+function FluencyIsNotCorrectness() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Thomas is flying First Class from Montreal to Portland with ten checked bags. Apply the airline's own published fee schedule to his itinerary, in full, and the total is $3,445. Hand a frontier language model the same published rules, in full, and ask it to compute the same total, and it answers $3,185. Hand the identical question, the identical rules, to a second, newer, more capable model from the same lab, and it also answers $3,185." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
+			id: "tldr",
+			children: "TL;DR"
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Large language models exhibit strong natural-language fluency but remain unreliable at executing formal rule systems. We evaluate whether separating semantic extraction from deterministic execution improves correctness on RuleArena, an open evaluation benchmark for rule-guided reasoning, using its airline baggage fee domain. We compare three tiers of Claude models, first unaided and then within a two-stage verification stack in which the language model acts only as an autoformalizer, translating each itinerary into a machine-checkable formal representation, while a deterministic solver, written in Catala, executes the policy." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Verification raises frontier accuracy from 54% and 61% to 100% while simultaneously reducing inference cost by roughly a factor of fourteen and latency by an order of magnitude. Unaided, two frontier generations of the same model family return the identical wrong dollar amount on shared failure cases, which indicates that the errors originate in shared learned priors rather than insufficient inference-time reasoning. Most notably, a verified budget model outperforms unaided frontier models, suggesting that deterministic execution can compensate for substantial differences in model capability on rule-governed tasks." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hr, {}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
+			id: "where-models-go-wrong",
+			children: "Where language models quietly go wrong"
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Modern language models have become remarkably capable at interpreting natural-language instructions. Whether they correctly execute the semantics of those instructions remains substantially less understood. A model can restate a policy accurately, walk through its application step by step, and still return a number the policy does not license." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "This distinction matters because many practical domains, including taxation, healthcare, finance, and regulatory compliance, depend not on fluent explanations but on faithful execution of explicit rules. In these domains an answer is either derivable from the governing specification or it is not, and a persuasive derivation of a wrong answer is worse than no answer, because it disarms the reader's skepticism." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "We investigate this question using RuleArena, a published evaluation benchmark in which real-world policies must be applied to concrete scenarios, and we focus on its airline baggage fee domain. A single case from that benchmark illustrates the phenomenon this report is about. Thomas is flying First Class from Montreal to Portland with ten checked bags, ranging from 55 to 99 pounds. Applying American Airlines' published fee schedule to his itinerary yields $3,445. A current frontier model, given the full published rules and an explicit note about the one difficult step, answers $3,185. The newest and most capable model in the same family, a full generation later and given more room for inference-time reasoning, also answers $3,185." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The two models do not merely fail. They fail identically, down to the dollar. If these failures were caused by limited reasoning capacity, the stronger model should miss differently or stop missing. It does neither. This observation motivated the experiment reported here: the failure appears to live in the model family's learned priors rather than in its inference-time effort, and if that is true, no amount of additional reasoning will remove it. A different system boundary might." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
+			id: "the-question",
+			children: "The question we wanted to answer"
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "We investigate whether failures on this benchmark arise primarily from faulty semantic execution rather than from limited reasoning capacity or limited language understanding." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H3, {
+			id: "hypothesis",
+			children: "Hypothesis"
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "A hypothesis is only useful if it makes predictions that can be tested, and ours makes two. First, replacing probabilistic rule execution with deterministic execution should eliminate most observed failures without requiring a stronger language model. Concretely, a two-stage system in which the language model only produces a structured semantic representation of the input, and an executable specification makes every normative decision, should reach near-perfect accuracy even when the underlying model is weak, and the residual errors should be attributable to semantic parsing rather than to rule execution." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The second prediction is sharper. If execution is the bottleneck, then a budget model behind a deterministic decision procedure should outperform a frontier model reasoning unaided, because the difficult computation has been moved out of the probabilistic component entirely." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H3, {
+			id: "putting-it-to-the-test",
+			children: "Putting the idea to the test"
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "To test these predictions, we used the 100 hardest (\"Level 3\") problems from RuleArena's airline domain. Each problem is a realistic American Airlines itinerary: a ticket price, a cabin class, a route, and up to eleven items including one free personal item. Ground truth is computed by the benchmark's own reference implementation rather than by human annotation, a property that turns out to matter a great deal, as the next section explains." }),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
-			"Two different models. One wrong number, shared exactly. That agreement is the finding this post is built around. When we set out to test our verification architecture on a domain we did not design it for, we expected some rate of unaided error - models make mistakes. We did not expect the mistakes to be ",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "the same" }),
+			"We compared three tiers of Claude:",
 			" ",
-			"mistake, down to the dollar, on the majority of cases both models got wrong. That is not the signature of noise. It is the signature of a rule that both models are misreading in the same specific way."
-		] }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
-			"This is a follow-on to our earlier work formalizing clinical diagnostic criteria in Lean 4",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FootnoteRef, { id: "1" }),
-			". That project showed the architecture works on rules we chose, in a domain we understood deeply, against a benchmark we built ourselves. This one asks a less comfortable question: does it survive contact with a benchmark somebody else designed, ground truth we did not author, ninety-five rules across a real airline's actual fee schedule, and the newest models Anthropic has shipped? We think the honest answer, laid out below with the numbers that support it, is yes - and the way it fails is at least as informative as the way it succeeds."
-		] }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
-			id: "measuring-the-case",
-			children: "Measuring the case, not the average"
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Start with a distinction that shapes everything downstream, because it is easy to blur and the whole architecture depends on keeping it sharp." }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
-			"A benchmark score is a statement about a sample. Run a model over a hundred problems, count how many it gets right, and you have learned something true and useful about the model ",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "in aggregate" }),
-			" - but nothing at all about the one problem a real customer is asking about right now. Evaluation, in this sense, measures the average."
-		] }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
-			"Verification asks a narrower, more useful question of a single case: does ",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "this" }),
-			" conclusion follow from ",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "these" }),
-			" rules, applied to ",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "these" }),
-			" facts, without a gap? A deterministic program can answer that question the same way every time, for any one case, independent of whatever the aggregate accuracy across a thousand other cases happens to be. That is the property we are actually after - not a higher score, but a guarantee that travels with the individual answer."
-		] }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The architecture we test below is the same one we've used before: a language model reads unstructured input and proposes a structured set of facts - nothing more - and a small, independently checkable program takes those facts and derives the answer. The model's only job is reading. The deciding is done by code a domain expert can open and read line by line." }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
-			id: "borrowing-a-harder-exam",
-			children: "Borrowing a harder exam"
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "A benchmark and a verification kernel built by the same team, at the same time, will tend to agree with each other - that's true regardless of domain, and it's a fair objection to any hand-built test. We wanted a test we couldn't be accused of having set up to pass: a benchmark we did not write, with ground truth we did not compute ourselves." }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
-			"So we went looking for a benchmark we had no hand in: independently authored, independently graded, and hard enough that published results already showed frontier models struggling with it. We settled on ",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "RuleArena" }),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FootnoteRef, { id: "2" }),
-			", a 2025 benchmark purpose-built to probe exactly this failure mode - language models applying real-world rules that ",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "read" }),
-			" like simple lookups but are quietly procedural. RuleArena spans three domains - airline baggage fees, NBA transaction legality, and tax - each graded by the benchmark's own reference implementation rather than by a human rater. We chose the airline domain specifically because that reference implementation is executable: a Python program we could run ourselves, case by case, to check our own re-encoding of the rules against an authority we did not write."
-		] }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
-			"We took the 100 hardest problems in that domain - RuleArena's own \"Level 3\" tier - and ran them against ",
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InlineCode, { children: "claude-opus-4-8" }),
+			" (frontier),",
 			" ",
-			"and ",
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InlineCode, { children: "claude-fable-5" }),
-			", Anthropic's current frontier and most-capable models, unaided, with the airline's actual published fee rules supplied as the system prompt. Then we built an extractor-plus-kernel architecture in Catala - a language model that only reads, a deterministic program that only decides - and ran the same 100 cases through it."
+			" (Anthropic's newest and most capable model), and ",
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InlineCode, { children: "claude-haiku-4-5" }),
+			" ",
+			"(budget). Every tier was evaluated under the same three conditions, or arms, on the same 100 cases. In the ",
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "baseline" }),
+			" arm, the model receives the complete published fee rules verbatim as its system prompt, plus the itinerary, and produces the total fee directly. In the ",
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "verified" }),
+			" arm, the model performs autoformalization only, translating the itinerary into a machine-checkable formal representation, and a deterministic solver kernel, described below, executes the policy: the language model never computes a fee, and the kernel never interprets prose. The ",
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "loop" }),
+			" arm extends the verified arm with self-consistency voting, an assertion-retry round, and round-trip back-translation, escalating unresolved cases to the frontier model."
 		] }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Details, {
-			summary: "Why RuleArena and not another benchmark we checked",
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Before settling on RuleArena, we tested SARA, the Statutory Reasoning Assessment built from the US Internal Revenue Code - a well-cited, rigorously constructed benchmark. Run against current frontier models with a properly structured evaluation, it turned out to be close to saturated: 99 of 100 numeric cases correct for Opus 4.8, 100 of 100 for Fable 5. A saturated benchmark can't demonstrate what a verification layer buys you, because there's no unaided error left to fix. We report this rather than quietly dropping it, because a benchmark choice that isn't defensible on its own terms undercuts everything measured afterward." })
-		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "We deliberately made the baseline hard to beat. The unaided models receive the full policy text, not a paraphrase, and the prompt explicitly states that the free-bag assignment is an optimization rather than a positional lookup. Whatever failures the baseline shows cannot be blamed on missing information: the model is handed the rules and told exactly where the difficulty lies." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Across every arm we measured four things: accuracy against the reference implementation's ground truth, mean language-model latency per case (plus kernel latency where the kernel runs), total cost per run, and cost per correct answer." }),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
-			id: "clause-optimization",
-			children: "The clause that turns a table into an optimization"
+			id: "why-rulearena",
+			children: "Why RuleArena?"
 		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The published fee policy reads like a spreadsheet: a base fee by bag position - first, second, third, and beyond - that varies by route and cabin class; a surcharge if a bag is oversized; a surcharge if it's overweight; and, for some route-and-class combinations, the first bag or two are complimentary. Read left to right, bag by bag, and you'd apply it exactly the way you'd fill in a spreadsheet." }),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
-			"The airline's own reference computation does something the table never states outright. When a passenger's route and class entitle them to, say, two complimentary bag slots, the airline does not hand that complimentary status to whichever two bags happen to be listed first on the itinerary. It assigns the free slots to whichever bags would otherwise have cost the ",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "most" }),
-			" in oversize and overweight surcharges - a small combinatorial optimization, minimizing the passenger's total, sitting quietly underneath a policy that reads like plain data entry. It is exactly the kind of clause a fluent reader glides past, because nothing about the table's formatting flags it as a decision rather than a fact."
+			"We selected",
+			" ",
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+				href: "https://arxiv.org/abs/2412.08972",
+				target: "_blank",
+				rel: "noreferrer",
+				className: "text-accent underline underline-offset-2",
+				children: "RuleArena"
+			}),
+			" ",
+			"(Zhou et al., ACL 2025, MIT license) because it provides executable ground truth through a reference implementation rather than human annotation. This property isolates semantic execution errors from annotation ambiguity: when a model disagrees with the benchmark, the disagreement can be traced to a specific step of a runnable program rather than to a label whose provenance is unknown. RuleArena covers three domains, airline baggage fees, NBA transaction legality, and tax. We used the airline domain because its executable ground truth allowed us to validate our own re-encoding of the policy directly against it."
 		] }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
-			id: "translator-not-judge",
-			children: "A translator, not a judge"
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H3, {
+			id: "implicit-optimization",
+			children: "The implicit optimization problem"
 		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The design places a hard boundary between the one probabilistic step and everything after it." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The published policy reads like a lookup table. There is a base fee by bag position (1st, 2nd, 3rd, 4th and beyond), by route, and by cabin class. There is a surcharge if a bag is oversized, and another if it is overweight. Some route and class combinations make the first one or two bags free. A human interpreting the policy would apply it left to right, bag by bag." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The reference implementation does something the tables never state explicitly. When N bags are free (\"complimentary\") for a given route and class, the airline does not grant that status to whichever bags happen to be listed first. It assigns the free slots to whichever N bags would otherwise incur the highest oversize or overweight surcharges, minimizing the total charge. The benchmark therefore implicitly requires solving a constrained optimization problem that is absent from the textual policy but present in the executable specification. It is exactly the kind of step a fluent reader glides past, and it is where, as the results below show, the unaided models fail." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
+			id: "system-boundary",
+			children: "A different system boundary"
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Our system runs a minimal path through our verification stack, which pairs an autoformalizer with provers and domain-specific solvers. For this experiment it decomposes the task into two computational stages." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Stage 1: autoformalization." }), " A language model reads the passenger's itinerary and formalizes it into a structured, machine-checkable representation: the ticket price, the cabin class, the route, and for every checked bag (skipping the free personal item), its size and weight. It performs no normative computation. It does not compute a fee, apply a threshold, or decide which bag is free."] }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Stage 2: deterministic solving." }), " A deterministic decision procedure, written in Catala and hereafter called the verification kernel, acts as the solver over that formal representation, executing the policy: base fees by position, oversize and overweight surcharges per bag, and the optimal assignment of complimentary slots, solved as a genuine top-K selection rather than a guess."] }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H3, {
+			id: "why-decomposition-works",
+			children: "Why this decomposition works"
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "This decomposition deliberately assigns language understanding to the language model while reserving all normative decision-making for the executable specification. The boundary minimizes the amount of computation delegated to probabilistic inference. Interpreting an itinerary is a task language models are demonstrably good at. Executing a policy with an embedded optimization is, as the results below show, a task they are demonstrably unreliable at, regardless of scale. The architecture places each task with the component that can be trusted to perform it. It is also the smallest useful slice of the full stack: the same boundary supports provers that return proof artifacts and counterexamples rather than a single number, and solvers for constraint systems far richer than a fee schedule." }),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Figure, {
 			n: 1,
-			caption: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "RuleArena's rules and its own reference script are the ground truth we build against. The Catala kernel is hand-written from the rules text and checked against that reference script on all 100 cases before being trusted for anything downstream. Every number in this post is generated directly from one logged experiment run - nothing here is hand-recomputed." }),
+			caption: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+				"RuleArena's own rules and reference script are the source of truth. We hand-wrote the Catala kernel from the rules text and cross-checked it against the reference implementation on all 100 cases before trusting it. That cross-check is what makes the kernel usable as ground truth in everything downstream.",
+				" ",
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("code", {
+					className: "font-mono text-[12.5px]",
+					children: "run_experiment.py"
+				}),
+				" ",
+				"then runs all nine arms (three models across baseline, verified, and loop) over the same 100 cases. Every output, from the scores to the summary table to the per case response PDF, is generated from that run's logged data."
+			] }),
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TrustBoundaryDiagram, {
 				probabilistic: [{
-					title: "Language model",
-					detail: "Reads a passenger's itinerary - fare, cabin class, route, and every checked bag - and extracts those facts as a structured record. It does not total a fee, and it is told explicitly not to."
+					title: "Stage 1 - autoformalization",
+					detail: "A language model reads the passenger's itinerary and formalizes it into a structured, machine-checkable representation: ticket price, cabin class, route, and the size and weight of every checked bag. It performs no normative computation."
 				}],
 				verified: [{
-					title: "Catala kernel",
-					detail: "Derives the total: the base fee at each bag position, every oversize and overweight surcharge, and the free-slot assignment - computed as an actual optimization, not assumed to fall on the first N bags."
+					title: "Stage 2 - Catala kernel",
+					detail: "A deterministic decision procedure executes the policy over that formal representation: base fees by position, oversize and overweight surcharges per bag, and the optimal assignment of complimentary slots as a genuine top-K selection."
 				}, {
 					title: "Cross-checked vs. reference script",
-					detail: "Validated against RuleArena's own reference implementation on all 100 cases before a single number produced by the kernel was trusted for this post."
+					detail: "The kernel was validated case by case against RuleArena's own reference implementation on all 100 cases before being trusted as ground truth for anything downstream."
 				}]
 			})
 		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "A language model reads a passenger's itinerary - the fare, the cabin class, the route, and the size and weight of every checked bag - and extracts those facts as a structured record. It does not total a fee, and it is told explicitly not to. A Catala program takes that record and derives the total: the base fee owed at each bag position, every oversize and overweight surcharge, and the free-slot assignment, computed as an actual optimization rather than assumed to fall on the first N bags." }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "That optimization is three lines:" }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The kernel's treatment of the optimization is compact enough to show in full:" }),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CodeBlock, {
 			lang: "catala",
 			children: `declaration insert_top3
@@ -1574,360 +1376,162 @@ function FluentIsNotTheSameAsCorrect() {
     else if x > acc.v3 then Top3 { -- v1: acc.v1 -- v2: acc.v2 -- v3: x }
     else acc`
 		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InlineCode, { children: "Top3" }), " tracks the three largest surcharges seen so far as the kernel folds over a passenger's bags; folding it to the end yields exactly the bags that should receive the complimentary slots, because this fee schedule never grants more than three. It's a bounded insertion rather than a call to a sort function, because Catala's list primitives don't include one - the constraint that a proof-checkable language keeps its primitives small is a feature, not a limitation, here. We validated this re-encoding the only way that means anything: running it against RuleArena's own reference script on all 100 cases before trusting a single number it produced."] }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InlineCode, { children: "Top3" }), " tracks the three largest values seen so far. Folding it over every bag's oversize or overweight surcharge finds the K bags (at most three, per this fee schedule) that should receive the free slots. It is the same computation the reference implementation performs with Python's sort, done here as a bounded insertion because Catala's list primitives have no built-in sort. We validated the re-encoding case by case against RuleArena's reference implementation before trusting it, and all 100 cases matched exactly on the first clean run."] }),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
-			id: "what-we-measured",
-			children: "What we measured"
+			id: "what-we-observed",
+			children: "What we observed"
 		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Three tiers, each run once unaided and once behind the kernel, over the same 100 cases." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H3, {
+			id: "correctness",
+			children: "Correctness"
+		}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DataTable, {
 			headers: [
-				"",
-				"Claude Opus 4.8",
-				"Claude Fable 5"
+				"Arm",
+				"Accuracy",
+				"LLM s/case",
+				"$/run",
+				"$/correct"
 			],
 			rows: [
 				[
-					"Unaided, full rules supplied",
-					"54 / 100 correct",
-					"61 / 100 correct"
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "frontier baseline" }, "a"),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "54.0%" }, "b"),
+					"68.08",
+					"$18.08",
+					"$0.335"
 				],
 				[
-					"Behind the kernel",
-					"100 / 100 correct",
-					"100 / 100 correct"
+					"frontier verified",
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "100.0%" }, "c"),
+					"3.32 (+2.78 kernel)",
+					"$1.32",
+					"$0.013"
 				],
 				[
-					"Cost per full run",
-					"$18.08 → $1.32",
-					"$16.92 → $3.63"
+					"frontier loop",
+					"100.0%",
+					"10.67",
+					"$4.44",
+					"$0.044"
 				],
 				[
-					"Time per case",
-					"68.1s → 6.1s",
-					"25.9s → 11.3s"
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "fable baseline" }, "d"),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "61.0%" }, "e"),
+					"25.91",
+					"$16.92",
+					"$0.277"
+				],
+				[
+					"fable verified",
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "100.0%" }, "f"),
+					"7.59 (+3.75 kernel)",
+					"$3.63",
+					"$0.036"
+				],
+				[
+					"fable loop",
+					"100.0%",
+					"22.52",
+					"$11.44",
+					"$0.114"
+				],
+				[
+					"cheap baseline",
+					"3.0%",
+					"23.75",
+					"$2.05",
+					"$0.682"
+				],
+				[
+					"cheap verified",
+					"82.0%",
+					"1.92 (+3.63 kernel)",
+					"$0.22",
+					"$0.003"
+				],
+				[
+					"cheap loop",
+					"85.0%",
+					"6.12",
+					"$1.10",
+					"$0.013"
 				]
-			]
+			],
+			note: "Frontier is Opus 4.8, fable is Fable 5, cheap is Haiku 4.5."
 		}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Figure, {
 			n: 2,
-			caption: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Unaided accuracy sits well under perfect for both frontier tiers; every kernel-backed arm reaches it, with one informative exception discussed below." }),
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HeadlineAccuracyChart, {})
+			caption: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Unaided accuracy for all three models sits well under 100%. Every frontier verified and loop arm reaches it. Haiku's verified and loop arms reach 82% and 85%." }),
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AccuracyByArmChart, {})
 		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Both frontier models fail this benchmark unaided at a rate that isn't close to zero - 46 of 100 cases for Opus 4.8, 39 of 100 for Fable 5 - even with the complete published rules in front of them and an explicit sentence telling them the free-slot assignment is a choice, not a default. This wasn't a case of the models lacking information. The kernel, reading the identical facts, is exact on all 100." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Unaided, the frontier models fail at a substantial rate: 46% of cases for Opus 4.8 and 39% for Fable 5, despite receiving the complete published rules and an explicit statement that the free-slot assignment is an optimization. Both verified frontier arms reach 100%. The budget model fails almost entirely unaided, at 3%, and reaches 82% verified and 85% with the loop." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The aggregate numbers tell the overall story, but individual failures are often more revealing. We've made the benchmark interactive so you can compare unaided model outputs with verified outputs on the same RuleArena cases." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
+			"Explore the live playground:",
+			" ",
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+				href: "https://playground.boundlessintuition.com/",
+				target: "_blank",
+				rel: "noreferrer",
+				className: "text-accent underline underline-offset-2",
+				children: "playground.boundlessintuition.com"
+			})
+		] }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H3, {
+			id: "efficiency",
+			children: "Efficiency"
+		}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Figure, {
 			n: 3,
-			caption: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "The kernel-backed systems win on accuracy and cost at the same time here - there's no tradeoff to negotiate. Hover a point for the exact arm, cost, and accuracy." }),
+			caption: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Accuracy against cost per run, on a log scale. The verified systems exceed the baselines on accuracy and cost simultaneously. Hover a point for the exact arm, its cost per run, and its cost per correct answer." }),
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CostAccuracyParetoChart, {})
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The verified frontier system is roughly 14 times cheaper per run than its unaided counterpart and about 25 times cheaper per correct answer. The cheapest configuration that beats every unaided baseline, the verified budget model, costs $0.22 per 100-case run, against $18.08 for the unaided frontier baseline." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H3, {
+			id: "latency",
+			children: "Latency"
 		}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Figure, {
 			n: 4,
-			caption: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "The unaided models spend tens of seconds reasoning through the bag-assignment problem in natural language; extraction is fast regardless of how hard that underlying optimization is, because the kernel - not the model - solves it, in milliseconds." }),
+			caption: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Mean latency per answer. The unaided baselines spend tens of seconds on inference-time reasoning through the assignment problem. Semantic parsing is fast regardless of how hard that problem is, because the kernel, not the model, executes it." }),
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LatencyByArmChart, {})
 		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Details, {
-			summary: "The full nine-arm table, including the cheap tier and the self-consistency variant",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DataTable, {
-				headers: [
-					"Arm",
-					"Accuracy",
-					"LLM time/case",
-					"Cost/run",
-					"Cost/correct answer"
-				],
-				rows: [
-					[
-						"Opus 4.8, unaided",
-						"54.0%",
-						"68.08s",
-						"$18.08",
-						"$0.335"
-					],
-					[
-						"Opus 4.8, verified",
-						"100.0%",
-						"3.32s + 2.78s kernel",
-						"$1.32",
-						"$0.013"
-					],
-					[
-						"Opus 4.8, verified + self-consistency loop",
-						"100.0%",
-						"10.67s",
-						"$4.44",
-						"$0.044"
-					],
-					[
-						"Fable 5, unaided",
-						"61.0%",
-						"25.91s",
-						"$16.92",
-						"$0.277"
-					],
-					[
-						"Fable 5, verified",
-						"100.0%",
-						"7.59s + 3.75s kernel",
-						"$3.63",
-						"$0.036"
-					],
-					[
-						"Fable 5, verified + self-consistency loop",
-						"100.0%",
-						"22.52s",
-						"$11.44",
-						"$0.114"
-					],
-					[
-						"Haiku 4.5, unaided",
-						"3.0%",
-						"23.75s",
-						"$2.05",
-						"$0.682"
-					],
-					[
-						"Haiku 4.5, verified",
-						"82.0%",
-						"1.92s + 3.63s kernel",
-						"$0.22",
-						"$0.003"
-					],
-					[
-						"Haiku 4.5, verified + self-consistency loop",
-						"85.0%",
-						"6.12s",
-						"$1.10",
-						"$0.013"
-					]
-				]
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The cheap tier is the honest exception to a clean story: Haiku 4.5 nearly fails outright unaided, and behind the kernel it reaches 82-85%, not 100. Every one of those residual misses is an extraction error - a misread bag weight, one bag dropped from a list of ten - not a kernel failure. That's the correct way to read a verification system's limits: the kernel is exact by construction whenever the facts it receives are correct, so the only place risk still lives is a narrow, measurable reading step, not an open-ended reasoning one." })]
-		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The verified frontier system answers in roughly 6 seconds end to end against 68 seconds of unaided reasoning. Extracting a bag's dimensions is a short task regardless of how hard the underlying optimization is, and the kernel executes that optimization in milliseconds." }),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
-			id: "wrong-number",
-			children: "The wrong number that wouldn't average away"
+			id: "why-failures-matter",
+			children: "Why the failures matter"
 		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Three observations from the results bear directly on the hypothesis." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Identical errors across model generations." }), " On cases both frontier models miss, they frequently return the identical wrong dollar amount, including the $3,185 answer to the Thomas case described in the introduction. The persistence of identical errors across model generations suggests that these failures originate from shared learned priors rather than insufficient inference-time reasoning. Increased reasoning capacity improved explanation quality without correcting the underlying semantic execution. This is the pattern the hypothesis predicts: a prior about how a rule \"should\" work does not shrink as models get stronger, whereas a reasoning gap should."] }),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
-			"The first time we ran this benchmark, before we'd added any hint about the free-slot rule, both frontier models made the",
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Verification eliminates frontier failures completely." }),
 			" ",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "opposite" }),
-			" error: they overcharged, and 34 of Opus 4.8's 36 misses on that pass were clean multiples of $70, $140, or $210 - the price of assigning a free slot to the wrong bag. That's a legible signature on its own, but we wanted to know whether simply stating the rule would fix it."
+			"Both frontier models move from 54% and 61% to 100% behind the kernel, with no change to the models themselves. The 46-point and 39-point failure rates were therefore not caused by an inability to interpret the itinerary. The models could always read the input. What they could not reliably do was execute the policy, and removing that responsibility removed the failures."
 		] }),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
-			"We added one sentence to the system prompt: when N bags are complimentary, the free slots go to the N bags with the highest surcharge, not to whichever bags come first. The overcharging pattern vanished - not one remaining miss was a multiple of $70. But a new pattern replaced it. Both models now ",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "undercharge" }),
-			" on every single failure, in both models' 39-to-46 misses, no exceptions. And on 31 of the cases both models got wrong, they landed on the",
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Residual budget-tier error is confined to semantic parsing." }),
 			" ",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "identical" }),
-			" wrong dollar figure - including Thomas's $3,185 against a correct $3,445."
+			"The verified budget model reaches 82% rather than 100%, and every remaining miss is a parsing failure: an occasionally misread bag weight, or a bag dropped from a list of ten. None are kernel failures. Execution is exact by construction whenever the structured representation is correct, so the residual risk is narrow and measurable rather than open-ended. This is the error profile the hypothesis predicts for a weak parser in front of a sound decision procedure."
 		] }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Telling a model the rule exists changed the direction of its error. It did not change the fact of it. That's worth sitting with, because it rules out the easiest explanation - that the models simply hadn't been told - and points at something more structural underneath." }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
-			id: "chasing-the-predictor",
-			children: "Chasing the actual predictor of failure"
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The intuitive next hypothesis is the one most people would reach for first: harder cases have more moving parts, so a ten-bag itinerary should break down more often, and more badly, than a three-bag one. We had this hypothesis before we had the data, wrote it down, and then checked it directly rather than assuming it." }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Figure, {
-			n: 5,
-			caption: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "The reported aggregates: mean bag count barely moves between the cases each model got wrong and the cases it got right, for either model. The correlation between bag count and error size, restricted to wrong answers, is r = 0.10 for both models - statistically indistinguishable from no relationship at all." }),
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BagCountAggregateChart, {})
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "It doesn't hold. Average bag count on cases Opus 4.8 got wrong was 9.78, against 9.91 on cases it got right - the same, within noise. Fable 5: 9.87 wrong, 9.84 right. More facts to extract did not make either model more likely to fail, or fail by a larger margin. The number of atomic facts in a case is not what breaks unaided reasoning here." }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "What does predict a failure, cleanly, is whether the case has any complimentary slot to assign in the first place:" }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Figure, {
-			n: 6,
-			caption: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "K is the number of bag positions that are free for a given route and cabin class - zero, one, two, or three under this fee schedule. Both models are flawless when K is zero and fail roughly six times in ten whenever K is one or more. Hover a bar for the exact fraction." }),
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(FailureByKChart, {})
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DataTable, {
-			headers: [
-				"Complimentary slots (K)",
-				"Opus 4.8 fails",
-				"Fable 5 fails"
-			],
-			rows: [
-				[
-					"K = 0 (nothing free)",
-					"0 of 23",
-					"0 of 23"
-				],
-				[
-					"K = 1",
-					"12 of 13",
-					"8 of 13"
-				],
-				[
-					"K = 2",
-					"30 of 48",
-					"27 of 48"
-				],
-				[
-					"K = 3",
-					"4 of 16",
-					"4 of 16"
-				]
-			]
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Taken together, the evidence supports the hypothesis. The dominant failure mode of the unaided models is semantic execution, not language understanding, and substituting deterministic execution removes it without requiring a stronger model." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H3, {
+			id: "deterministic-execution",
+			children: "What changes when execution becomes deterministic"
 		}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
-			"Zero failures, either model, across all 23 cases with no complimentary slot at all - regardless of bag count, weight, or size. The moment a case requires ",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "choosing" }),
-			" which bag gets the free slot, the failure rate jumps immediately. This was never a test of whether a model can add up ten line items. It's a test of whether it notices that one clause quietly redefines the task from arithmetic to assignment - and that's the one clause a fluent reader is most likely to skate past, because nothing in the formatting marks it as different from every other line in the table."
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Deterministic execution changes which model you need." }),
+			" ",
+			"The verified budget model, at 82%, outperforms both unaided frontier models, at 54% and 61%, while costing about $0.22 per run against roughly $18 and answering in about 6 seconds against 68. A budget model with a verification layer beats a frontier model without one. The practical consequence is that on rule-governed tasks, capability spending and correctness are not the same axis: moving the normative computation into an executable specification buys more accuracy than moving up a model tier, at a small fraction of the price."
 		] }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Cabin class sharpens this into something closer to a mechanism:" }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Figure, {
-			n: 7,
-			caption: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: "Basic Economy - which never carries a complimentary bag under this schedule - is perfect for both models. Main Plus, which does carry one and a footnote about it, is wrong for both models on every case." }),
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(FailureByCabinClassChart, {})
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DataTable, {
-			headers: [
-				"Cabin class",
-				"Opus 4.8 fails",
-				"Fable 5 fails"
-			],
-			rows: [
-				[
-					"Basic Economy",
-					"0 of 14",
-					"0 of 14"
-				],
-				[
-					"Main Cabin",
-					"7 of 17",
-					"3 of 17"
-				],
-				[
-					"First",
-					"5 of 20",
-					"7 of 20"
-				],
-				[
-					"Business",
-					"13 of 25",
-					"7 of 25"
-				],
-				[
-					"Premium Economy",
-					"11 of 14",
-					"12 of 14"
-				],
-				[
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Main Plus" }, "mp"),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "10 of 10" }, "mp1"),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "10 of 10" }, "mp2")
-				]
-			]
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
-			"Main Plus is a perfect 0-for-10 for both models, on every Main Plus case either one saw. The published rule table carries a footnote on that column: ",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "\"Main Plus includes 1 extra free checked bag in addition to the Main Cabin allowance.\"" }),
-			" The table's own numbers already price that bag in - reading the table correctly needs nothing more than the figures it contains. But a model that treats the footnote as a second, additive instruction has an obvious way to double-count it: work out the table's free slots, and then wave through one ",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "more" }),
-			" bag on top, because the footnote says \"extra.\""
-		] }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The errors fit that story precisely. The ten Main Plus misses aren't one repeated dollar amount - they're $400, $300, $900, $360, $900, and so on, tracking whatever that one extra bag's own size and weight happened to cost. A single misread table cell would produce the same wrong number every time; a whole additional bag being waived produces exactly this variable pattern. We can't see either model's internal reasoning - it isn't exposed in the API - but the shape of the evidence is specific enough to trust: not \"the model gets worse as a problem grows,\" but \"the model misses the one clause that turns a lookup into an optimization, and a second, easily-conflated clause makes that worse for exactly one cabin class.\" A kernel has no footnote to double-count. Its free-slot count comes from the same table cells its total does, computed once, the same way, every time." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Verification is not a tradeoff in this domain." }), " The usual expectation is that additional checking costs money or time. Here it saves both, because the expensive resource was never the check. It was the tens of seconds of inference-time reasoning the unaided model spends attempting an optimization it cannot reliably perform. Replacing that reasoning with a millisecond-scale execution shortens the language model's task to semantic parsing, which is fast and cheap at every tier."] }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Where the approach applies." }), " The architecture requires that the governing rules be expressible as an executable specification and that the inputs be extractable as a structured semantic representation. Fee schedules, tax computations, benefit eligibility, and compliance thresholds fit this shape. Tasks whose difficulty lies in the interpretation itself, such as ambiguous clinical narratives or contested legal readings, do not, because the hard part cannot be moved across the trust boundary."] }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "When verification does not help." }), " The kernel cannot repair a wrong structured representation. If the parser misreads a weight, the kernel will execute the policy exactly, on the wrong facts. The budget tier's residual 18% is precisely this case. Verification narrows the failure surface to the parsing stage. It does not close it."] }),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
-			id: "field-notes",
-			children: "Field notes from building this pipeline"
+			id: "bigger-picture",
+			children: "The bigger picture"
 		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Details, {
-			summary: "Bug one - self-consistency voting assumed every fact was a scalar",
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
-				"Our self-consistency mode re-extracts a case several times and takes a majority vote, using a hashable form of the extracted facts to compare runs. We had designed that comparison around flat, scalar facts - a fare, a boolean, a headcount - so a plain per-field key seemed sufficient. The airline domain's facts include a ",
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "list" }),
-				" of bag records, and a list isn't hashable. The fix was a small recursive hashing function; the lesson was that \"atomic facts\" is a schema decision that gets more demanding as the domain does, and the plumbing underneath has to be general enough to keep up."
-			] })
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Details, {
-			summary: "Bug two - a paraphrase quietly deletes the rule it's summarizing",
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
-				"Our first full run showed the unaided frontier model failing on nearly every case - 0% for Opus 4.8, 7% for Fable 5. That wasn't a real result; it was ours to fix. We'd summarized the fee schedule into a paragraph, assuming a short prose statement would carry enough of the rule to be a fair test. It doesn't, once a rule has more than a handful of numeric constants: this fee schedule has dozens of dollar figures across regions, classes, and bag positions, and a paraphrase silently drops most of them. The fix was to vendor the benchmark's actual rules text verbatim rather than summarize it - a discipline we already applied to the",
-				" ",
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "kernel" }),
-				", just extended to the ",
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "prompt" }),
-				", and easy to overlook until a domain is large enough that it matters."
-			] })
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Details, {
-			summary: "Bug three - a harder problem needs a bigger thinking budget",
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "With the full rules text in the prompt and the model genuinely reasoning through a combinatorial assignment, one case spent 7,999 of its 8,000-token thinking budget and returned nothing at all. Raising the ceiling to 16,000 tokens fixed it. The general point survives the specific number: a token budget tuned for one problem's reasoning depth silently fails on a harder one, and the failure mode isn't a wrong answer - it's no answer." })
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
-			id: "what-this-buys-us",
-			children: "What this buys us, and what it doesn't"
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "This result answers a specific, falsifiable question: whether a proof-carrying verification architecture - a model that only reads, a kernel that only decides - survives being pointed at a benchmark, a domain, and a set of models it was never built for. It does - and not marginally. A 46-point and a 39-point unaided failure rate, on the two newest Claude models, on a real, independently authored, real-world fee schedule, collapsed to zero by a kernel we could check case-by-case against someone else's reference implementation before trusting a single output." }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
-			"It's worth stating the limit as plainly as the result. Verification guarantees that a specific set of extracted facts was correctly turned into an answer under the encoded rules. It does not, by itself, guarantee that the facts were read correctly in the first place - that residual risk is real, and the Haiku tier's 82-85% (against a kernel that is otherwise exact) is where we show it rather than hide it. What verification changes is the ",
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "shape" }),
-			" of that risk: instead of an open-ended \"was this multi-step reasoning sound,\" which you cannot check case by case, you're left with \"was this one field read correctly,\" a narrow question you can measure, retry, or hand to a second pass."
-		] }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The pattern in this result isn't \"language models are bad at arithmetic.\" It's narrower, and this time it comes with a clean quantitative test behind it rather than a hunch: models are bad at noticing when a rule that reads like a lookup table is quietly asking for an optimization, a branch, or a composition - not because the surrounding case is large, but because one specific clause is easy to read past - and when they miss that clause, they miss it fluently, with nothing in the answer to flag that anything went wrong, and no more often on a ten-fact case than a three-fact one. A kernel doesn't need to notice the trap. It just runs the rule, the same way, every time." }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Notes, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Note, {
-			id: "1",
-			children: [
-				"See our companion post,",
-				" ",
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-					to: "/blog/$slug",
-					params: { slug: "a-diagnosis-should-be-a-proof-not-a-probability" },
-					className: "text-accent",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "A Diagnosis Should Be a Proof, Not a Probability" })
-				}),
-				", which formalizes the 2019 EULAR/ACR lupus classification criteria in Lean 4 and runs the same evaluation-versus-verification comparison on a clinical benchmark."
-			]
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Note, {
-			id: "2",
-			children: [
-				"Zhou et al. ",
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "RuleArena: A Benchmark for Rule-Guided Reasoning with LLMs in Real-World Scenarios." }),
-				" ACL 2025; arXiv:2412.08972. MIT license. Covers airline baggage fees, NBA transaction legality, and tax; this post uses the airline domain."
-			]
-		})] }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hr, {}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
-			id: "references",
-			children: "References"
-		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(References, { children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", { children: [
-				"Merigoux D, Chataing N, Protzenko J.",
-				" ",
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Catala: A Programming Language for the Law." }),
-				" ICFP 2021. ",
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "The domain-specific language the verification kernel is written in - designed specifically so statutory and regulatory rules can be transcribed into checkable code rather than paraphrased." })
-			] }),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", { children: [
-				"Dziri N, Lu X, Sclar M, et al.",
-				" ",
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Faith and Fate: Limits of Transformers on Compositionality." }),
-				" NeurIPS 2023.",
-				" ",
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "Documents the broader, scale-resistant class of compositional failure this result is one concrete instance of." })
-			] }),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", { children: [
-				"Holzenberger N, Van Durme B.",
-				" ",
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Factoring Statutory Reasoning as Language Understanding Challenges." }),
-				" ACL 2021.",
-				" ",
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "SARA, the statutory benchmark we evaluated before RuleArena; see the disclosure above for why we moved past it." })
-			] })
-		] }),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Details, {
-			summary: "Benchmark provenance, exact optimization definition, and how to reproduce this",
-			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Dataset." }), " RuleArena's airline domain, \"Level 3\" (hardest) tier, 100 problems, each a real itinerary - fare, cabin class, route, and up to eleven checked-bag items - with ground truth from the benchmark's own reference implementation, not a human label. We vendored the benchmark's published fee-schedule text verbatim rather than paraphrasing it, and cross-checked our Catala kernel against the reference script on all 100 cases before treating it as ground truth for anything in this post."] }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "The optimization, precisely." }),
-					" For a given route, cabin class, and bag position, the published base fee is either a fixed amount or zero (\"complimentary\"). When K positions are complimentary, the reference computation assigns those K free slots to the K bags with the highest ",
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InlineCode, { children: "max(oversize fee, overweight fee)" }),
-					", minimizing the passenger's total. K never exceeds 3 under this fee schedule. The kernel computes this with the bounded top-3 fold shown above rather than a general sort, since Catala's list primitives don't include one."
-				] }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Method." }), " The K-value and cabin-class breakdowns are computed directly from each case's route and class against the same fee-table logic the kernel itself uses, cross-tabulated against each arm's logged per-case correctness - not estimated or sampled after the fact. The bag-count correlation is the Pearson correlation between bag count and absolute dollar error, restricted to incorrect cases, computed separately per model."] }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Code." }), " The pipeline - the Catala kernel, the dataset-construction and cross-check scripts, the experiment harness, and the figure generation - is being prepared for an open-source release. A repository link will be added here once it's public."] })
-			]
-		})
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Our results suggest that the principal bottleneck in rule-governed reasoning is not language understanding but semantic execution. Two generations of frontier models, given the complete policy and told where the difficulty lies, fail on 39% to 46% of cases and frequently fail identically, which points to shared learned priors that additional inference-time reasoning does not dislodge. Separating the two functions, so that the language model performs interpretation and an executable specification performs every normative decision, eliminates the frontier failures entirely while reducing inference cost by roughly a factor of fourteen and latency by an order of magnitude, and it lifts a budget model above the unaided frontier. More broadly, these findings support a design paradigm in which language models perform interpretation, while executable specifications remain responsible for normative decision-making. The kernel in this experiment is the simplest instance of that paradigm; the same architecture extends to provers and solvers that return not only the answer but its derivation - which rule applied, which assumptions were made, and which constraints were checked." })
 	] });
 }
 function ADiagnosisShouldBeAProof() {
@@ -2457,16 +2061,16 @@ var BLOG_TAGS = [
 	"Research"
 ];
 var BLOG_POSTS = [{
-	slug: "fluent-is-not-the-same-as-correct",
-	title: "Fluent Is Not the Same as Correct",
-	subtitle: "Stress-testing a proof-carrying verification architecture on a benchmark we didn't build, a domain we didn't design it for, and two frontier Claude models that land on the identical wrong dollar figure.",
-	description: "Two frontier Claude models fail an independently authored airline fee benchmark on the same cases, landing on the same wrong dollar figure - and a proof-carrying kernel takes both to 100%.",
+	slug: "fluency-is-not-correctness",
+	title: "Fluency Is Not Correctness",
+	subtitle: "Separating semantic parsing from deterministic execution in rule-governed reasoning.",
+	description: "On RuleArena's airline domain, verification lifts two frontier Claude models from 54% and 61% to 100% while cutting cost roughly fourteenfold - and a verified budget model beats both unaided frontier models.",
 	tag: "Research",
 	author: "Boundless Intuition Research",
 	date: "2026-07-17",
-	readingTime: "18 min read",
+	readingTime: "12 min read",
 	image: "/blog/fluent-hero.webp",
-	Content: FluentIsNotTheSameAsCorrect
+	Content: FluencyIsNotCorrectness
 }, {
 	slug: "a-diagnosis-should-be-a-proof-not-a-probability",
 	title: "A Diagnosis Should Be a Proof, Not a Probability",

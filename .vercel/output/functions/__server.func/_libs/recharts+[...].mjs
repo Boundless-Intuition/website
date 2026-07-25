@@ -14987,4 +14987,4 @@ var ScatterChart = generateCategoricalChart({
 	formatAxisMap
 });
 //#endregion
-export { ResponsiveContainer as _, YAxis as a, Line as c, Bar as d, Radar as f, Cell as g, PolarGrid as h, LineChart as i, CartesianGrid as l, PolarRadiusAxis as m, RadarChart as n, XAxis as o, PolarAngleAxis as p, BarChart as r, Scatter as s, ScatterChart as t, ReferenceLine as u, Tooltip as v, Legend as y };
+export { Cell as _, YAxis as a, Legend as b, ZAxis as c, ReferenceLine as d, Bar as f, PolarGrid as g, PolarRadiusAxis as h, LineChart as i, Line as l, PolarAngleAxis as m, RadarChart as n, XAxis as o, Radar as p, BarChart as r, Scatter as s, ScatterChart as t, CartesianGrid as u, ResponsiveContainer as v, Tooltip as y };
