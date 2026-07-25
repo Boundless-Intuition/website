@@ -5,12 +5,6 @@ import { Prose } from "./prose";
 import { TableOfContents } from "./TableOfContents";
 import { ListenToArticle, ShareButton } from "./PostActions";
 
-// The header dissolves into the article rather than ending on a rule: the
-// artwork is masked to transparent at its lower edge so the page background
-// takes over gradually.
-const HERO_FADE =
-  "linear-gradient(to bottom, black 0%, black 42%, rgba(0,0,0,0.55) 74%, transparent 100%)";
-
 export function BlogPostPage({ post }: { post: BlogPost }) {
   const morePosts = BLOG_POSTS.filter((p) => p.slug !== post.slug);
   const { Content } = post;
@@ -18,71 +12,73 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
 
   return (
     <>
-      <section className="relative -mt-16">
-        <div className="relative overflow-hidden">
+      <section className="relative -mt-16 overflow-hidden">
+        {post.image ? (
+          <div aria-hidden className="absolute inset-0">
+            <img
+              src={post.image}
+              alt=""
+              className="blog-cover-img h-full w-full object-cover opacity-50 dark:opacity-45"
+            />
+            {/* even scrim for the centered copy */}
+            <div className="absolute inset-0 bg-background/60 dark:bg-background/65" />
+            <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/80 to-transparent" />
+            {/* long dissolve into the article below - a gradient runs
+                through in place of a hard divider */}
+            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/70 to-transparent" />
+          </div>
+        ) : (
           <div className="blueprint-grid absolute inset-0" aria-hidden />
-          <div className="relative mx-auto max-w-4xl px-6 pt-24 pb-10 text-center lg:pt-32">
-            <div className="mb-8 flex items-center justify-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-              <Link
-                to="/blog"
-                className="text-foreground/70 transition-colors hover:text-foreground"
-              >
-                ← Blog
-              </Link>
-              <span className="text-muted-foreground/50">·</span>
-              <span>{formatBlogDate(post.date)}</span>
-              <span className="text-muted-foreground/50">·</span>
-              <span className="border border-border px-2 py-0.5 text-foreground/70">
-                {post.tag}
-              </span>
+        )}
+        <div className="relative mx-auto max-w-4xl px-6 pt-24 pb-16 text-center lg:pt-32">
+          <div className="mb-8 flex items-center justify-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
+            <Link
+              to="/blog"
+              className="text-foreground/70 transition-colors hover:text-foreground"
+            >
+              ← Blog
+            </Link>
+            <span className="text-muted-foreground/50">·</span>
+            <span>{formatBlogDate(post.date)}</span>
+            <span className="text-muted-foreground/50">·</span>
+            <span className="border border-border px-2 py-0.5 text-foreground/70">
+              {post.tag}
+            </span>
+          </div>
+          <h1 className="mx-auto max-w-[42ch] font-display text-[2.3rem] font-light leading-[1.1] tracking-[-0.02em] text-foreground md:text-[3rem]">
+            {post.title}
+          </h1>
+          <p className="mx-auto mt-6 max-w-[60ch] text-[17px] leading-[1.6] text-foreground/80">
+            {post.subtitle}
+          </p>
+          <div className="mx-auto mt-8 flex flex-wrap items-center justify-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+            <span>{post.author}</span>
+            <span className="text-muted-foreground/50">·</span>
+            <span>{post.readingTime}</span>
+          </div>
+          {/* The listen pill only mounts client-side; the flex slots keep
+              Share anchored right either way. */}
+          <div className="mx-auto mt-8 flex min-h-[2.6rem] max-w-lg items-center gap-4 border-t border-border pt-4">
+            <div className="flex flex-1 justify-start">
+              <ListenToArticle containerRef={contentRef} />
             </div>
-            <h1 className="mx-auto max-w-[42ch] font-display text-[2.3rem] font-light leading-[1.1] tracking-[-0.02em] text-foreground md:text-[3rem]">
-              {post.title}
-            </h1>
-            <p className="mx-auto mt-6 max-w-[60ch] text-[17px] leading-[1.6] text-foreground/80">
-              {post.subtitle}
-            </p>
-            <div className="mx-auto mt-8 flex flex-wrap items-center justify-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-              <span>{post.author}</span>
-              <span className="text-muted-foreground/50">·</span>
-              <span>{post.readingTime}</span>
-            </div>
-            {/* The listen pill only mounts client-side; the flex slots keep
-                Share anchored right either way. */}
-            <div className="mx-auto mt-8 flex min-h-[2.6rem] max-w-lg items-center gap-4 border-t border-border pt-4">
-              <div className="flex flex-1 justify-start">
-                <ListenToArticle containerRef={contentRef} />
-              </div>
-              <ShareButton title={post.title} />
-            </div>
+            <ShareButton title={post.title} />
           </div>
         </div>
-
-        {post.image && (
-          <div className="relative mx-auto max-w-6xl px-6">
-            <div
-              className="overflow-hidden rounded-sm"
-              style={{ maskImage: HERO_FADE, WebkitMaskImage: HERO_FADE }}
-            >
-              <img
-                src={post.image}
-                alt=""
-                className="blog-cover-img h-[clamp(200px,34vw,420px)] w-full object-cover saturate-[0.92] dark:opacity-85 dark:saturate-[0.8]"
-              />
-            </div>
-          </div>
-        )}
       </section>
 
-      <article
-        className={`bg-background pb-16 md:pb-20 ${post.image ? "pt-6" : "pt-16 md:pt-20"}`}
-      >
-        <div className="mx-auto flex max-w-6xl items-start gap-12 px-6">
-          <TableOfContents containerRef={contentRef} />
-          <div ref={contentRef} className="min-w-0 flex-1">
-            <Prose>
-              <Content />
-            </Prose>
+      <article className="bg-background pt-6 pb-16 md:pb-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="lg:grid lg:grid-cols-[13rem_minmax(0,1fr)_13rem] lg:items-start lg:gap-8">
+            <TableOfContents containerRef={contentRef} />
+            <div ref={contentRef} className="mx-auto w-full min-w-0 max-w-[70ch]">
+              <Prose>
+                <Content />
+              </Prose>
+            </div>
+            {/* mirrors the TOC column so the reading column sits dead
+                center in the page rather than hugging the sidebar */}
+            <div aria-hidden className="hidden lg:block" />
           </div>
         </div>
       </article>

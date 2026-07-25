@@ -1,15 +1,22 @@
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
-import { Check, Link2, Pause, Play } from "lucide-react";
+import { Check, Link2, Pause, Play, RotateCcw, RotateCw } from "lucide-react";
 
 const WORDS_PER_MINUTE = 175;
 // Chrome truncates long utterances, so the article is queued as short
 // sentence-sized chunks rather than one continuous string.
 const MAX_CHUNK_CHARS = 180;
+const SKIP_SECONDS = 15;
+const RATES = [1, 1.25, 1.5, 2] as const;
 
 function formatClock(seconds: number): string {
-  const m = Math.floor(seconds / 60);
-  const s = Math.round(seconds % 60);
+  const total = Math.max(0, Math.round(seconds));
+  const m = Math.floor(total / 60);
+  const s = total % 60;
   return `${m}:${String(s).padStart(2, "0")}`;
+}
+
+function wordCount(text: string): number {
+  return text.split(/\s+/).filter(Boolean).length;
 }
 
 // Reads the prose only: headings and body paragraphs, skipping figures,
@@ -46,11 +53,60 @@ export function ListenToArticle({
 }) {
   const [supported, setSupported] = useState(false);
   const [status, setStatus] = useState<"idle" | "playing" | "paused">("idle");
-  const [duration, setDuration] = useState<number | null>(null);
-  const [progress, setProgress] = useState(0);
+  const [rateIndex, setRateIndex] = useState(0);
+  // Real wall-clock seconds played so far, independent of rate; the baseline
+  // (1x) position used for chunk lookups is derived as elapsed * rate.
+  const [elapsed, setElapsed] = useState(0);
+  const [totalBaseline, setTotalBaseline] = useState(0);
 
   const chunksRef = useRef<string[]>([]);
+  const chunkStartsRef = useRef<number[]>([]);
   const indexRef = useRef(0);
+  const rateRef = useRef<number>(RATES[0]);
+  const tickRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const rate = RATES[rateIndex];
+
+  useEffect(() => {
+    rateRef.current = rate;
+  }, [rate]);
+
+  const stopTicking = useCallback(() => {
+    if (tickRef.current) {
+      clearInterval(tickRef.current);
+      tickRef.current = null;
+    }
+  }, []);
+
+  const startTicking = useCallback(() => {
+    stopTicking();
+    tickRef.current = setInterval(() => {
+      setElapsed((prev) => prev + 0.25);
+    }, 250);
+  }, [stopTicking]);
+
+  // Held in a ref so the recursive onend handler always calls the latest
+  // version rather than one closed over stale rate/status values.
+  const speakFromRef = useRef<(index: number) => void>(() => {});
+  speakFromRef.current = (index: number) => {
+    const chunks = chunksRef.current;
+    if (index >= chunks.length) {
+      indexRef.current = 0;
+      setElapsed(0);
+      setStatus("idle");
+      stopTicking();
+      return;
+    }
+    indexRef.current = index;
+    const utterance = new SpeechSynthesisUtterance(chunks[index]);
+    utterance.rate = rateRef.current;
+    utterance.onend = () => speakFromRef.current(index + 1);
+    utterance.onerror = () => {
+      setStatus("idle");
+      stopTicking();
+    };
+    window.speechSynthesis.speak(utterance);
+  };
 
   useEffect(() => {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
@@ -60,80 +116,170 @@ export function ListenToArticle({
     const text = collectSpeakableText(root);
     if (!text) return;
 
-    chunksRef.current = splitIntoChunks(text);
-    setDuration((text.split(/\s+/).length / WORDS_PER_MINUTE) * 60);
+    const chunks = splitIntoChunks(text);
+    chunksRef.current = chunks;
+
+    const starts: number[] = [];
+    let acc = 0;
+    for (const chunk of chunks) {
+      starts.push(acc);
+      acc += (wordCount(chunk) / WORDS_PER_MINUTE) * 60;
+    }
+    chunkStartsRef.current = starts;
+    setTotalBaseline(acc);
     setSupported(true);
 
-    return () => window.speechSynthesis.cancel();
-  }, [containerRef]);
-
-  const speakFrom = useCallback((index: number) => {
-    const chunks = chunksRef.current;
-    if (index >= chunks.length) {
-      indexRef.current = 0;
-      setProgress(0);
-      setStatus("idle");
-      return;
-    }
-    indexRef.current = index;
-    setProgress(index / chunks.length);
-
-    const utterance = new SpeechSynthesisUtterance(chunks[index]);
-    utterance.rate = 1;
-    utterance.onend = () => speakFrom(index + 1);
-    utterance.onerror = () => setStatus("idle");
-    window.speechSynthesis.speak(utterance);
-  }, []);
+    return () => {
+      window.speechSynthesis.cancel();
+      stopTicking();
+    };
+  }, [containerRef, stopTicking]);
 
   const toggle = useCallback(() => {
     const synth = window.speechSynthesis;
     if (status === "playing") {
       synth.pause();
       setStatus("paused");
+      stopTicking();
     } else if (status === "paused") {
       synth.resume();
       setStatus("playing");
+      startTicking();
     } else {
       synth.cancel();
+      setElapsed(0);
       setStatus("playing");
-      speakFrom(0);
+      startTicking();
+      speakFromRef.current(0);
     }
-  }, [status, speakFrom]);
+  }, [status, startTicking, stopTicking]);
+
+  const skip = useCallback(
+    (deltaSeconds: number) => {
+      if (status === "idle" || !chunkStartsRef.current.length) return;
+      const currentRate = rateRef.current;
+      const totalReal = totalBaseline / currentRate;
+      const targetReal = Math.min(Math.max(elapsed + deltaSeconds, 0), totalReal);
+      const targetBaseline = targetReal * currentRate;
+
+      const starts = chunkStartsRef.current;
+      let index = 0;
+      for (let i = 0; i < starts.length; i++) {
+        if (starts[i] <= targetBaseline) index = i;
+        else break;
+      }
+
+      window.speechSynthesis.cancel();
+      setElapsed(starts[index] / currentRate);
+      speakFromRef.current(index);
+      if (status === "paused") window.speechSynthesis.pause();
+    },
+    [status, elapsed, totalBaseline],
+  );
+
+  const cycleRate = useCallback(() => {
+    if (status === "idle") {
+      setRateIndex((prev) => (prev + 1) % RATES.length);
+      return;
+    }
+    setRateIndex((prev) => {
+      const next = (prev + 1) % RATES.length;
+      rateRef.current = RATES[next];
+      window.speechSynthesis.cancel();
+      speakFromRef.current(indexRef.current);
+      if (status === "paused") window.speechSynthesis.pause();
+      return next;
+    });
+  }, [status]);
 
   if (!supported) return null;
 
   const playing = status === "playing";
 
-  return (
-    <button
-      type="button"
-      onClick={toggle}
-      aria-label={playing ? "Pause article narration" : "Listen to article"}
-      className="group relative flex items-center gap-3 overflow-hidden rounded-full border border-border px-4 py-2 transition-colors hover:bg-foreground/5"
-    >
-      <span className="grid size-6 shrink-0 place-items-center rounded-full bg-foreground text-background">
-        {playing ? (
-          <Pause className="size-3 fill-current" />
-        ) : (
+  if (status === "idle") {
+    return (
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label="Listen to article"
+        className="group flex items-center gap-3 rounded-full border border-border px-4 py-2 transition-colors hover:bg-foreground/5"
+      >
+        <span className="grid size-6 shrink-0 place-items-center rounded-full bg-foreground text-background">
           <Play className="size-3 translate-x-px fill-current" />
-        )}
-      </span>
-      <span className="font-display text-[13px] font-medium text-foreground">
-        {status === "idle" ? "Listen to article" : playing ? "Pause" : "Resume"}
-      </span>
-      {duration !== null && (
-        <span className="font-mono text-[12px] tabular-nums text-muted-foreground">
-          {formatClock(duration)}
         </span>
-      )}
-      {status !== "idle" && (
-        <span
-          aria-hidden
-          className="absolute inset-x-0 bottom-0 h-px origin-left bg-accent transition-transform duration-500"
-          style={{ transform: `scaleX(${progress})` }}
+        <span className="font-display text-[13px] font-medium text-foreground">
+          Listen to article
+        </span>
+        {totalBaseline > 0 && (
+          <span className="font-mono text-[12px] tabular-nums text-muted-foreground">
+            {formatClock(totalBaseline)}
+          </span>
+        )}
+      </button>
+    );
+  }
+
+  const progressPct =
+    totalBaseline > 0 ? Math.min(100, ((elapsed * rate) / totalBaseline) * 100) : 0;
+
+  return (
+    <div className="relative flex w-full max-w-[19rem] items-center gap-1">
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label={playing ? "Pause article narration" : "Resume article narration"}
+        className="grid size-9 shrink-0 place-items-center rounded-full bg-foreground text-background transition-transform active:scale-95"
+      >
+        {playing ? (
+          <Pause className="size-3.5 fill-current" />
+        ) : (
+          <Play className="size-3.5 translate-x-px fill-current" />
+        )}
+      </button>
+      <span className="ml-2 w-[3ch] shrink-0 font-mono text-[13px] tabular-nums text-foreground/80">
+        {formatClock(elapsed)}
+      </span>
+      <span className="mx-1 h-4 w-px shrink-0 bg-border" aria-hidden />
+      <button
+        type="button"
+        onClick={() => skip(-SKIP_SECONDS)}
+        aria-label={`Back ${SKIP_SECONDS} seconds`}
+        className="relative grid size-7 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
+      >
+        <RotateCcw className="size-4" />
+        <span className="pointer-events-none absolute font-mono text-[7px] font-bold leading-none">
+          {SKIP_SECONDS}
+        </span>
+      </button>
+      <button
+        type="button"
+        onClick={() => skip(SKIP_SECONDS)}
+        aria-label={`Forward ${SKIP_SECONDS} seconds`}
+        className="relative grid size-7 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
+      >
+        <RotateCw className="size-4" />
+        <span className="pointer-events-none absolute font-mono text-[7px] font-bold leading-none">
+          {SKIP_SECONDS}
+        </span>
+      </button>
+      <button
+        type="button"
+        onClick={cycleRate}
+        aria-label="Playback speed"
+        className="ml-1 shrink-0 rounded-full border border-border px-2.5 py-1 font-mono text-[11px] font-medium text-foreground transition-colors hover:bg-foreground/5"
+      >
+        {rate}x
+      </button>
+      <div
+        aria-hidden
+        className="absolute inset-x-0 -bottom-2 h-0.5 overflow-hidden rounded-full bg-border/60"
+      >
+        <div
+          className="h-full bg-accent transition-[width] duration-300"
+          style={{ width: `${progressPct}%` }}
         />
-      )}
-    </button>
+      </div>
+    </div>
   );
 }
 
@@ -141,6 +287,8 @@ export function ShareButton({ title }: { title: string }) {
   const [copied, setCopied] = useState(false);
 
   const share = useCallback(async () => {
+    // window.location.href reflects the live origin the page is served from
+    // (localhost in dev, the real domain once deployed) - never hard-coded.
     const url = window.location.href;
     if (navigator.share) {
       try {

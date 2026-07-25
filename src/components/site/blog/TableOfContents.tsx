@@ -49,20 +49,20 @@ export function TableOfContents({ containerRef }: { containerRef: RefObject<HTML
   return (
     <nav
       aria-label="Table of contents"
-      className="sticky top-24 hidden max-h-[calc(100vh-7rem)] w-52 shrink-0 overflow-y-auto pr-2 lg:block"
+      className="sticky top-24 hidden max-h-[calc(100vh-7rem)] w-52 shrink-0 overflow-y-auto lg:block"
     >
       <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
         On this page
       </div>
-      <ul className="space-y-1.5 border-l border-border">
+      <ul className="space-y-2.5">
         {headings.map((h) => (
           <li key={h.id} className={h.level === 3 ? "ml-3" : ""}>
             <a
               href={`#${h.id}`}
-              className={`-ml-px block border-l-2 py-0.5 pl-3 text-[12.5px] leading-snug transition-colors ${
+              className={`block text-[12.5px] leading-snug transition-colors ${
                 activeId === h.id
-                  ? "border-accent font-medium text-foreground"
-                  : "border-transparent text-muted-foreground hover:text-foreground"
+                  ? "font-medium text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {h.text}
