@@ -1,12 +1,17 @@
 import type { ComponentType } from "react";
 import { FluencyIsNotCorrectness } from "@/components/site/blog/content/FluencyIsNotCorrectness";
 import { ADiagnosisShouldBeAProof } from "@/components/site/blog/content/ADiagnosisShouldBeAProof";
+import narrationManifest from "@/content/blog/narration.json";
 
 export type BlogTag = "Announcements" | "Partnerships" | "Research";
 
 // Every tag the filter bar shows, in display order - kept even when a tag
 // currently has zero posts, so the filter surface doesn't grow later.
-export const BLOG_TAGS: BlogTag[] = ["Announcements", "Partnerships", "Research"];
+export const BLOG_TAGS: BlogTag[] = [
+  "Announcements",
+  "Partnerships",
+  "Research",
+];
 
 export interface BlogPost {
   slug: string;
@@ -55,6 +60,27 @@ export const BLOG_POSTS: BlogPost[] = [
 
 export function getBlogPost(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((p) => p.slug === slug);
+}
+
+export interface Narration {
+  /** pre-rendered MP3 under /public */
+  audio: string;
+  /** length in seconds at 1x, measured by ffprobe when the file was written */
+  duration: number;
+}
+
+/**
+ * Pre-rendered narration for a post, if one has been generated.
+ *
+ * The manifest is written by `bun run narrate` (see `scripts/README.md`), which
+ * drives a local Voicebox instance - nothing is synthesised at request time.
+ * A post with no entry falls back to the browser's own speech synthesis.
+ */
+export function getNarration(slug: string): Narration | undefined {
+  const entry = (narrationManifest as Record<string, Narration | undefined>)[
+    slug
+  ];
+  return entry?.audio && entry.duration > 0 ? entry : undefined;
 }
 
 export function formatBlogDate(iso: string): string {

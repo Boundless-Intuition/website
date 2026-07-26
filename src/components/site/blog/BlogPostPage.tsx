@@ -1,6 +1,11 @@
 import { useRef } from "react";
 import { Link } from "@tanstack/react-router";
-import { BLOG_POSTS, formatBlogDate, type BlogPost } from "@/lib/blog";
+import {
+  BLOG_POSTS,
+  formatBlogDate,
+  getNarration,
+  type BlogPost,
+} from "@/lib/blog";
 import { Prose } from "./prose";
 import { TableOfContents } from "./TableOfContents";
 import { ListenToArticle, ShareButton } from "./PostActions";
@@ -60,7 +65,10 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
               Share anchored right either way. */}
           <div className="mx-auto mt-8 flex min-h-[2.6rem] max-w-lg items-center gap-4 border-t border-border pt-4">
             <div className="flex flex-1 justify-start">
-              <ListenToArticle containerRef={contentRef} />
+              <ListenToArticle
+                containerRef={contentRef}
+                narration={getNarration(post.slug)}
+              />
             </div>
             <ShareButton title={post.title} />
           </div>
@@ -71,7 +79,13 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
         <div className="mx-auto max-w-7xl px-6">
           <div className="lg:grid lg:grid-cols-[13rem_minmax(0,1fr)_13rem] lg:items-start lg:gap-8">
             <TableOfContents containerRef={contentRef} />
-            <div ref={contentRef} className="mx-auto w-full min-w-0 max-w-[70ch]">
+            {/* data-post-body is the handle scripts/narrate.ts scopes to when
+                it pulls narration text out of the server-rendered HTML. */}
+            <div
+              ref={contentRef}
+              data-post-body
+              className="mx-auto w-full min-w-0 max-w-[70ch]"
+            >
               <Prose>
                 <Content />
               </Prose>
@@ -103,7 +117,10 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                 >
                   {/* cover art drifting behind the card copy */}
                   {p.image && (
-                    <div aria-hidden className="absolute inset-0 overflow-hidden">
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 overflow-hidden"
+                    >
                       <img
                         src={p.image}
                         alt=""

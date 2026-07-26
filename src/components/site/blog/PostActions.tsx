@@ -1,5 +1,12 @@
-import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type RefObject,
+} from "react";
 import { Check, Link2, Pause, Play, RotateCcw, RotateCw } from "lucide-react";
+import type { Narration } from "@/lib/blog";
 
 const WORDS_PER_MINUTE = 175;
 // Chrome truncates long utterances, so the article is queued as short
@@ -7,6 +14,8 @@ const WORDS_PER_MINUTE = 175;
 const MAX_CHUNK_CHARS = 180;
 const SKIP_SECONDS = 15;
 const RATES = [1, 1.25, 1.5, 2] as const;
+
+type Status = "idle" | "playing" | "paused";
 
 function formatClock(seconds: number): string {
   const total = Math.max(0, Math.round(seconds));
@@ -21,6 +30,8 @@ function wordCount(text: string): number {
 
 // Reads the prose only: headings and body paragraphs, skipping figures,
 // tables, code, and collapsed asides, which do not narrate well.
+// scripts/narrate.ts applies the same rule to the server-rendered HTML, so
+// the pre-generated audio and this fallback cover the same words.
 function collectSpeakableText(root: HTMLElement): string {
   const nodes = Array.from(root.querySelectorAll<HTMLElement>("h2, h3, p"));
   return nodes
@@ -46,13 +57,214 @@ function splitIntoChunks(text: string): string[] {
   return chunks;
 }
 
-export function ListenToArticle({
+interface PlayerShellProps {
+  status: Status;
+  /** position within the article, in 1x seconds */
+  position: number;
+  /** full narration length in 1x seconds; 0 while still unknown */
+  duration: number;
+  rate: number;
+  onToggle: () => void;
+  onSkip: (deltaSeconds: number) => void;
+  onCycleRate: () => void;
+}
+
+/**
+ * The transport controls, shared by both narration sources so the pill looks
+ * and behaves the same whether it is playing a file or the browser's voice.
+ */
+function PlayerShell({
+  status,
+  position,
+  duration,
+  rate,
+  onToggle,
+  onSkip,
+  onCycleRate,
+}: PlayerShellProps) {
+  if (status === "idle") {
+    return (
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-label="Listen to article"
+        className="group flex items-center gap-3 rounded-full border border-border px-4 py-2 transition-colors hover:bg-foreground/5"
+      >
+        <span className="grid size-6 shrink-0 place-items-center rounded-full bg-foreground text-background">
+          <Play className="size-3 translate-x-px fill-current" />
+        </span>
+        <span className="font-display text-[13px] font-medium text-foreground">
+          Listen to article
+        </span>
+        {duration > 0 && (
+          <span className="font-mono text-[12px] tabular-nums text-muted-foreground">
+            {formatClock(duration)}
+          </span>
+        )}
+      </button>
+    );
+  }
+
+  const playing = status === "playing";
+  const progressPct =
+    duration > 0 ? Math.min(100, (position / duration) * 100) : 0;
+
+  return (
+    <div className="relative flex w-full max-w-[19rem] items-center gap-1">
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-label={
+          playing ? "Pause article narration" : "Resume article narration"
+        }
+        className="grid size-9 shrink-0 place-items-center rounded-full bg-foreground text-background transition-transform active:scale-95"
+      >
+        {playing ? (
+          <Pause className="size-3.5 fill-current" />
+        ) : (
+          <Play className="size-3.5 translate-x-px fill-current" />
+        )}
+      </button>
+      <span className="ml-2 w-[5ch] shrink-0 font-mono text-[13px] tabular-nums text-foreground/80">
+        {formatClock(position)}
+      </span>
+      <span className="mx-1 h-4 w-px shrink-0 bg-border" aria-hidden />
+      <button
+        type="button"
+        onClick={() => onSkip(-SKIP_SECONDS)}
+        aria-label={`Back ${SKIP_SECONDS} seconds`}
+        className="relative grid size-7 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
+      >
+        <RotateCcw className="size-4" />
+        <span className="pointer-events-none absolute font-mono text-[7px] font-bold leading-none">
+          {SKIP_SECONDS}
+        </span>
+      </button>
+      <button
+        type="button"
+        onClick={() => onSkip(SKIP_SECONDS)}
+        aria-label={`Forward ${SKIP_SECONDS} seconds`}
+        className="relative grid size-7 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
+      >
+        <RotateCw className="size-4" />
+        <span className="pointer-events-none absolute font-mono text-[7px] font-bold leading-none">
+          {SKIP_SECONDS}
+        </span>
+      </button>
+      <button
+        type="button"
+        onClick={onCycleRate}
+        aria-label="Playback speed"
+        className="ml-1 shrink-0 rounded-full border border-border px-2.5 py-1 font-mono text-[11px] font-medium text-foreground transition-colors hover:bg-foreground/5"
+      >
+        {rate}x
+      </button>
+      <div
+        aria-hidden
+        className="absolute inset-x-0 -bottom-2 h-0.5 overflow-hidden rounded-full bg-border/60"
+      >
+        <div
+          className="h-full bg-accent transition-[width] duration-300"
+          style={{ width: `${progressPct}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Plays a pre-rendered MP3. Position, duration, and rate all come from the
+ * media element itself, so the clock is real rather than estimated.
+ */
+function AudioNarration({ audio, duration: knownDuration }: Narration) {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [status, setStatus] = useState<Status>("idle");
+  const [position, setPosition] = useState(0);
+  // Seeded from the build-time manifest so the idle pill can show the runtime
+  // before any of the file has been fetched; the element's own metadata wins
+  // once it arrives.
+  const [duration, setDuration] = useState(knownDuration);
+  const [rateIndex, setRateIndex] = useState(0);
+
+  const rate = RATES[rateIndex];
+
+  const toggle = useCallback(() => {
+    const el = audioRef.current;
+    if (!el) return;
+    if (!el.paused) {
+      el.pause();
+      return;
+    }
+    // Some browsers reset playbackRate when a fresh source starts loading.
+    el.playbackRate = rate;
+    void el.play().catch(() => setStatus("idle"));
+  }, [rate]);
+
+  const skip = useCallback((deltaSeconds: number) => {
+    const el = audioRef.current;
+    if (!el) return;
+    const total = Number.isFinite(el.duration) ? el.duration : 0;
+    const target = Math.min(Math.max(el.currentTime + deltaSeconds, 0), total);
+    el.currentTime = target;
+    setPosition(target);
+  }, []);
+
+  const cycleRate = useCallback(() => {
+    setRateIndex((prev) => {
+      const next = (prev + 1) % RATES.length;
+      if (audioRef.current) audioRef.current.playbackRate = RATES[next];
+      return next;
+    });
+  }, []);
+
+  return (
+    <>
+      <audio
+        ref={audioRef}
+        src={audio}
+        preload="metadata"
+        className="hidden"
+        onLoadedMetadata={(event) => {
+          const value = event.currentTarget.duration;
+          if (Number.isFinite(value) && value > 0) setDuration(value);
+        }}
+        onTimeUpdate={(event) => setPosition(event.currentTarget.currentTime)}
+        onPlay={() => setStatus("playing")}
+        // `pause` also fires on some browsers when playback ends; the guard
+        // keeps the finished state from flipping back to paused whichever
+        // order the two events arrive in.
+        onPause={() => setStatus((prev) => (prev === "idle" ? prev : "paused"))}
+        onEnded={(event) => {
+          event.currentTarget.currentTime = 0;
+          setPosition(0);
+          setStatus("idle");
+        }}
+      />
+      <PlayerShell
+        status={status}
+        position={position}
+        duration={duration}
+        rate={rate}
+        onToggle={toggle}
+        onSkip={skip}
+        onCycleRate={cycleRate}
+      />
+    </>
+  );
+}
+
+/**
+ * Fallback for posts with no generated audio: the browser's own voice, reading
+ * the rendered prose. Whatever voice the visitor's OS ships, and silent on the
+ * browsers that implement no voices at all - hence the pre-rendered path above.
+ */
+function SpeechNarration({
   containerRef,
 }: {
   containerRef: RefObject<HTMLElement | null>;
 }) {
   const [supported, setSupported] = useState(false);
-  const [status, setStatus] = useState<"idle" | "playing" | "paused">("idle");
+  const [status, setStatus] = useState<Status>("idle");
   const [rateIndex, setRateIndex] = useState(0);
   // Real wall-clock seconds played so far, independent of rate; the baseline
   // (1x) position used for chunk lookups is derived as elapsed * rate.
@@ -159,7 +371,10 @@ export function ListenToArticle({
       if (status === "idle" || !chunkStartsRef.current.length) return;
       const currentRate = rateRef.current;
       const totalReal = totalBaseline / currentRate;
-      const targetReal = Math.min(Math.max(elapsed + deltaSeconds, 0), totalReal);
+      const targetReal = Math.min(
+        Math.max(elapsed + deltaSeconds, 0),
+        totalReal,
+      );
       const targetBaseline = targetReal * currentRate;
 
       const starts = chunkStartsRef.current;
@@ -194,93 +409,28 @@ export function ListenToArticle({
 
   if (!supported) return null;
 
-  const playing = status === "playing";
-
-  if (status === "idle") {
-    return (
-      <button
-        type="button"
-        onClick={toggle}
-        aria-label="Listen to article"
-        className="group flex items-center gap-3 rounded-full border border-border px-4 py-2 transition-colors hover:bg-foreground/5"
-      >
-        <span className="grid size-6 shrink-0 place-items-center rounded-full bg-foreground text-background">
-          <Play className="size-3 translate-x-px fill-current" />
-        </span>
-        <span className="font-display text-[13px] font-medium text-foreground">
-          Listen to article
-        </span>
-        {totalBaseline > 0 && (
-          <span className="font-mono text-[12px] tabular-nums text-muted-foreground">
-            {formatClock(totalBaseline)}
-          </span>
-        )}
-      </button>
-    );
-  }
-
-  const progressPct =
-    totalBaseline > 0 ? Math.min(100, ((elapsed * rate) / totalBaseline) * 100) : 0;
-
   return (
-    <div className="relative flex w-full max-w-[19rem] items-center gap-1">
-      <button
-        type="button"
-        onClick={toggle}
-        aria-label={playing ? "Pause article narration" : "Resume article narration"}
-        className="grid size-9 shrink-0 place-items-center rounded-full bg-foreground text-background transition-transform active:scale-95"
-      >
-        {playing ? (
-          <Pause className="size-3.5 fill-current" />
-        ) : (
-          <Play className="size-3.5 translate-x-px fill-current" />
-        )}
-      </button>
-      <span className="ml-2 w-[3ch] shrink-0 font-mono text-[13px] tabular-nums text-foreground/80">
-        {formatClock(elapsed)}
-      </span>
-      <span className="mx-1 h-4 w-px shrink-0 bg-border" aria-hidden />
-      <button
-        type="button"
-        onClick={() => skip(-SKIP_SECONDS)}
-        aria-label={`Back ${SKIP_SECONDS} seconds`}
-        className="relative grid size-7 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
-      >
-        <RotateCcw className="size-4" />
-        <span className="pointer-events-none absolute font-mono text-[7px] font-bold leading-none">
-          {SKIP_SECONDS}
-        </span>
-      </button>
-      <button
-        type="button"
-        onClick={() => skip(SKIP_SECONDS)}
-        aria-label={`Forward ${SKIP_SECONDS} seconds`}
-        className="relative grid size-7 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
-      >
-        <RotateCw className="size-4" />
-        <span className="pointer-events-none absolute font-mono text-[7px] font-bold leading-none">
-          {SKIP_SECONDS}
-        </span>
-      </button>
-      <button
-        type="button"
-        onClick={cycleRate}
-        aria-label="Playback speed"
-        className="ml-1 shrink-0 rounded-full border border-border px-2.5 py-1 font-mono text-[11px] font-medium text-foreground transition-colors hover:bg-foreground/5"
-      >
-        {rate}x
-      </button>
-      <div
-        aria-hidden
-        className="absolute inset-x-0 -bottom-2 h-0.5 overflow-hidden rounded-full bg-border/60"
-      >
-        <div
-          className="h-full bg-accent transition-[width] duration-300"
-          style={{ width: `${progressPct}%` }}
-        />
-      </div>
-    </div>
+    <PlayerShell
+      status={status}
+      position={Math.min(elapsed * rate, totalBaseline)}
+      duration={totalBaseline}
+      rate={rate}
+      onToggle={toggle}
+      onSkip={skip}
+      onCycleRate={cycleRate}
+    />
   );
+}
+
+export function ListenToArticle({
+  containerRef,
+  narration,
+}: {
+  containerRef: RefObject<HTMLElement | null>;
+  narration?: Narration;
+}) {
+  if (narration) return <AudioNarration {...narration} />;
+  return <SpeechNarration containerRef={containerRef} />;
 }
 
 export function ShareButton({ title }: { title: string }) {
