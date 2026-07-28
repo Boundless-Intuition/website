@@ -2,7 +2,8 @@ import { n as require_jsx_runtime, t as QueryClientProvider } from "../_libs/rea
 import { c as HeadContent, d as Outlet, f as lazyRouteComponent, g as useRouter, h as Link, m as createRootRouteWithContext, p as createFileRoute, s as Scripts, u as createRouter } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as Route$7 } from "../_slug-BJmZJfvm.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-CZk0gSIZ.js
+import { t as Analytics } from "../_libs/vercel__analytics.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/router-B1Gw2P4C.js
 var import_jsx_runtime = require_jsx_runtime();
 var styles_default = "/assets/styles-sydOvQAU.css";
 function NotFoundComponent() {
@@ -160,6 +161,7 @@ function RootShell({ children }) {
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("head", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HeadContent, {}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("body", { children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("script", { dangerouslySetInnerHTML: { __html: `(function(){try{var t=localStorage.getItem('bi-theme');if(t!=='light')document.documentElement.classList.add('dark');}catch(e){document.documentElement.classList.add('dark');}})();` } }),
 			children,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Analytics, {}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Scripts, {})
 		] })]
 	});

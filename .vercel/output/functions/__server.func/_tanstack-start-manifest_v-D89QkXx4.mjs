@@ -1,4 +1,4 @@
-//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-CyiK-Uyo.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-D89QkXx4.js
 var tsrStartManifest = () => ({ routes: {
 	__root__: {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/__root.tsx",
@@ -11,19 +11,19 @@ var tsrStartManifest = () => ({ routes: {
 			"/blog/$slug",
 			"/blog/"
 		],
-		preloads: ["/assets/index-qE2AJr6a.js", "/assets/link-XQBsacVG.js"],
+		preloads: ["/assets/index-DVWRcwDQ.js", "/assets/link-XQBsacVG.js"],
 		scripts: [{ attrs: {
 			type: "module",
 			async: !0,
-			src: "/assets/index-qE2AJr6a.js"
+			src: "/assets/index-DVWRcwDQ.js"
 		} }]
 	},
 	"/": {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/index.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/routes-CBRkniD0.js",
-			"/assets/SiteFooter-DVQ2XG5C.js",
+			"/assets/routes-IX1_bcoQ.js",
+			"/assets/SiteFooter-egLPbqRW.js",
 			"/assets/MethodVisual-DWUZBZXC.js",
 			"/assets/useDomainCanvas-B6Fj0yDH.js"
 		]
@@ -32,8 +32,8 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/engage.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/engage-LGs973c6.js",
-			"/assets/SiteFooter-DVQ2XG5C.js",
+			"/assets/engage-B-LIGzzp.js",
+			"/assets/SiteFooter-egLPbqRW.js",
 			"/assets/MethodVisual-DWUZBZXC.js",
 			"/assets/useDomainCanvas-B6Fj0yDH.js"
 		]
@@ -41,7 +41,7 @@ var tsrStartManifest = () => ({ routes: {
 	"/legal": {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/legal.tsx",
 		children: void 0,
-		preloads: ["/assets/legal-DZxKVHbG.js", "/assets/SiteFooter-DVQ2XG5C.js"]
+		preloads: ["/assets/legal-uWTYWfdN.js", "/assets/SiteFooter-egLPbqRW.js"]
 	},
 	"/subscribed": {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/subscribed.tsx",
@@ -56,14 +56,14 @@ var tsrStartManifest = () => ({ routes: {
 	"/blog/$slug": {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/blog/$slug.tsx",
 		children: void 0,
-		preloads: ["/assets/_slug-BeSH27wE.js", "/assets/SiteFooter-DVQ2XG5C.js"]
+		preloads: ["/assets/_slug-2IToOqrK.js", "/assets/SiteFooter-egLPbqRW.js"]
 	},
 	"/blog/": {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/blog/index.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/blog-M7vUCTfc.js",
-			"/assets/SiteFooter-DVQ2XG5C.js",
+			"/assets/blog-CpOWOyLK.js",
+			"/assets/SiteFooter-egLPbqRW.js",
 			"/assets/useDomainCanvas-B6Fj0yDH.js"
 		]
 	}
