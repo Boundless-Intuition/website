@@ -22,6 +22,13 @@ import {
 
 const PLAYGROUND = "https://playground.boundlessintuition.com/";
 
+/**
+ * Publication date shown in the byline. Static on purpose - this is when the
+ * overview was last revised, not when the page happens to be rendered. Bump it
+ * whenever the numbers or domains change.
+ */
+const PUBLISHED = "Jul 30, 2026";
+
 /* ------------------------------------------------------------------ */
 /* Building blocks                                                     */
 /* ------------------------------------------------------------------ */
@@ -403,6 +410,45 @@ export function OverviewPage() {
               <TaxCostAccuracyChart />
             </Plate>
           </Benchmark>
+
+          {/* Work in flight. Deliberately unnumbered - it sits alongside the
+              three benchmarks rather than claiming to be a fourth result. */}
+          <section className="mt-20">
+            <header className="mb-7">
+              <div className="font-mono text-[10.5px] uppercase tracking-[0.2em] text-muted-foreground">
+                Ongoing research
+              </div>
+              <h3 className="mt-3 font-display text-[27px] font-light leading-[1.15] tracking-[-0.02em] text-foreground md:text-[32px]">
+                Domains in progress
+              </h3>
+            </header>
+            <div className="max-w-[68ch]">
+              <P>
+                The three domains above are the ones we have taken far enough to
+                report. The same pipeline is now being applied to other areas
+                whose rules are already close to a formal specification -
+                security control systems, where access and firewall policy is
+                written as rules long before anyone writes code, and payment
+                authorization, where every control has to be auditable
+                regardless.
+              </P>
+              <P>
+                That work is earlier than what is on this page, so we are not
+                putting numbers to it yet. A domain gets published when it
+                clears the same bar as the three above: a kernel checked by hand
+                against the source rules, a full run across the benchmark, and
+                every figure generated from that run's logged data. Early
+                results are promising, and we will keep adding them here as they
+                land.
+              </P>
+            </div>
+          </section>
+
+          {/* Byline */}
+          <div className="mt-16 flex flex-col gap-1.5 border-t border-border pt-6 font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+            <span className="text-foreground/70">Team Boundless Intuition</span>
+            <span>{PUBLISHED}</span>
+          </div>
         </section>
 
         {/* Closing band - bookends the masthead, but cut from the foot of the

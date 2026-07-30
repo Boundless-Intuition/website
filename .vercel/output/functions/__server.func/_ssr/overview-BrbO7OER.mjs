@@ -2,7 +2,7 @@ import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.m
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { h as P, m as Lead, t as AccuracyByArmChart, u as HeadlineMetricsRadar, y as TaxCostAccuracyChart } from "./charts-C6lQQitl.mjs";
 import { n as TopBar, t as SiteFooter } from "./SiteFooter-Cgrkd3Pp.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/overview-BuQdh-8Q.js
+//#region node_modules/.nitro/vite/services/ssr/assets/overview-BrbO7OER.js
 var import_jsx_runtime = require_jsx_runtime();
 /**
 * The shareable overview - an unlisted one-pager carrying the same content as
@@ -15,6 +15,12 @@ var import_jsx_runtime = require_jsx_runtime();
 * `noindex, nofollow` so it stays out of search results.
 */
 var PLAYGROUND = "https://playground.boundlessintuition.com/";
+/**
+* Publication date shown in the byline. Static on purpose - this is when the
+* overview was last revised, not when the page happens to be rendered. Bump it
+* whenever the numbers or domains change.
+*/
+var PUBLISHED = "Jul 30, 2026";
 function ResourceRow({ label, href, children, internal }) {
 	const className = "font-display text-[14.5px] font-medium text-foreground underline decoration-accent/50 decoration-1 underline-offset-4 transition-colors hover:text-accent hover:decoration-accent";
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -355,6 +361,29 @@ function OverviewPage() {
 								caption: "Cost per correct answer against accuracy. Verification (blue) and iterative verification (green) dominate the unaided baselines (red): every verified arm is both cheaper and more accurate than the frontier baseline.",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TaxCostAccuracyChart, {})
 							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+							className: "mt-20",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("header", {
+								className: "mb-7",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "font-mono text-[10.5px] uppercase tracking-[0.2em] text-muted-foreground",
+									children: "Ongoing research"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+									className: "mt-3 font-display text-[27px] font-light leading-[1.15] tracking-[-0.02em] text-foreground md:text-[32px]",
+									children: "Domains in progress"
+								})]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "max-w-[68ch]",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The three domains above are the ones we have taken far enough to report. The same pipeline is now being applied to other areas whose rules are already close to a formal specification - security control systems, where access and firewall policy is written as rules long before anyone writes code, and payment authorization, where every control has to be auditable regardless." }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "That work is earlier than what is on this page, so we are not putting numbers to it yet. A domain gets published when it clears the same bar as the three above: a kernel checked by hand against the source rules, a full run across the benchmark, and every figure generated from that run's logged data. Early results are promising, and we will keep adding them here as they land." })]
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "mt-16 flex flex-col gap-1.5 border-t border-border pt-6 font-mono text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground sm:flex-row sm:items-center sm:justify-between",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "text-foreground/70",
+								children: "Team Boundless Intuition"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: PUBLISHED })]
 						})
 					]
 				}),

@@ -1,4 +1,4 @@
-//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-0KVxhBWc.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-BwuvG6N9.js
 var tsrStartManifest = () => ({ routes: {
 	__root__: {
 		filePath: "C:/main/New Projects/Boundless Intuition/website_main/website/src/routes/__root.tsx",
@@ -12,19 +12,19 @@ var tsrStartManifest = () => ({ routes: {
 			"/blog/$slug",
 			"/blog/"
 		],
-		preloads: ["/assets/index-iBOAPcwd.js", "/assets/link-XQBsacVG.js"],
+		preloads: ["/assets/index-B-f41SN2.js", "/assets/link-XQBsacVG.js"],
 		scripts: [{ attrs: {
 			type: "module",
 			async: !0,
-			src: "/assets/index-iBOAPcwd.js"
+			src: "/assets/index-B-f41SN2.js"
 		} }]
 	},
 	"/": {
 		filePath: "C:/main/New Projects/Boundless Intuition/website_main/website/src/routes/index.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/routes-D-m-Ujfh.js",
-			"/assets/SiteFooter-WSiqH5xK.js",
+			"/assets/routes-2g4KpvUN.js",
+			"/assets/SiteFooter-BuDfsLSV.js",
 			"/assets/MethodVisual-DWUZBZXC.js",
 			"/assets/useDomainCanvas-B6Fj0yDH.js"
 		]
@@ -33,8 +33,8 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "C:/main/New Projects/Boundless Intuition/website_main/website/src/routes/engage.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/engage-D1eGvA0E.js",
-			"/assets/SiteFooter-WSiqH5xK.js",
+			"/assets/engage-C1KsuRLw.js",
+			"/assets/SiteFooter-BuDfsLSV.js",
 			"/assets/MethodVisual-DWUZBZXC.js",
 			"/assets/useDomainCanvas-B6Fj0yDH.js"
 		]
@@ -42,12 +42,12 @@ var tsrStartManifest = () => ({ routes: {
 	"/legal": {
 		filePath: "C:/main/New Projects/Boundless Intuition/website_main/website/src/routes/legal.tsx",
 		children: void 0,
-		preloads: ["/assets/legal-B710MquU.js", "/assets/SiteFooter-WSiqH5xK.js"]
+		preloads: ["/assets/legal-RAGY0P04.js", "/assets/SiteFooter-BuDfsLSV.js"]
 	},
 	"/overview": {
 		filePath: "C:/main/New Projects/Boundless Intuition/website_main/website/src/routes/overview.tsx",
 		children: void 0,
-		preloads: ["/assets/overview-CJGBc3vX.js", "/assets/SiteFooter-WSiqH5xK.js"]
+		preloads: ["/assets/overview-CJMuws9P.js", "/assets/SiteFooter-BuDfsLSV.js"]
 	},
 	"/subscribed": {
 		filePath: "C:/main/New Projects/Boundless Intuition/website_main/website/src/routes/subscribed.tsx",
@@ -62,14 +62,14 @@ var tsrStartManifest = () => ({ routes: {
 	"/blog/$slug": {
 		filePath: "C:/main/New Projects/Boundless Intuition/website_main/website/src/routes/blog/$slug.tsx",
 		children: void 0,
-		preloads: ["/assets/_slug-tFu7XYk8.js", "/assets/SiteFooter-WSiqH5xK.js"]
+		preloads: ["/assets/_slug-BKBWQNDu.js", "/assets/SiteFooter-BuDfsLSV.js"]
 	},
 	"/blog/": {
 		filePath: "C:/main/New Projects/Boundless Intuition/website_main/website/src/routes/blog/index.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/blog-CwdhCrt2.js",
-			"/assets/SiteFooter-WSiqH5xK.js",
+			"/assets/blog-CQ47GDsS.js",
+			"/assets/SiteFooter-BuDfsLSV.js",
 			"/assets/useDomainCanvas-B6Fj0yDH.js"
 		]
 	}
