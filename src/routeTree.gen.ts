@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UnsubscribedRouteImport } from './routes/unsubscribed'
 import { Route as SubscribedRouteImport } from './routes/subscribed'
+import { Route as OverviewRouteImport } from './routes/overview'
 import { Route as LegalRouteImport } from './routes/legal'
 import { Route as EngageRouteImport } from './routes/engage'
 import { Route as IndexRouteImport } from './routes/index'
@@ -25,6 +26,11 @@ const UnsubscribedRoute = UnsubscribedRouteImport.update({
 const SubscribedRoute = SubscribedRouteImport.update({
   id: '/subscribed',
   path: '/subscribed',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OverviewRoute = OverviewRouteImport.update({
+  id: '/overview',
+  path: '/overview',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LegalRoute = LegalRouteImport.update({
@@ -57,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/engage': typeof EngageRoute
   '/legal': typeof LegalRoute
+  '/overview': typeof OverviewRoute
   '/subscribed': typeof SubscribedRoute
   '/unsubscribed': typeof UnsubscribedRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/engage': typeof EngageRoute
   '/legal': typeof LegalRoute
+  '/overview': typeof OverviewRoute
   '/subscribed': typeof SubscribedRoute
   '/unsubscribed': typeof UnsubscribedRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/engage': typeof EngageRoute
   '/legal': typeof LegalRoute
+  '/overview': typeof OverviewRoute
   '/subscribed': typeof SubscribedRoute
   '/unsubscribed': typeof UnsubscribedRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/engage'
     | '/legal'
+    | '/overview'
     | '/subscribed'
     | '/unsubscribed'
     | '/blog/$slug'
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
     | '/'
     | '/engage'
     | '/legal'
+    | '/overview'
     | '/subscribed'
     | '/unsubscribed'
     | '/blog/$slug'
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/engage'
     | '/legal'
+    | '/overview'
     | '/subscribed'
     | '/unsubscribed'
     | '/blog/$slug'
@@ -115,6 +127,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EngageRoute: typeof EngageRoute
   LegalRoute: typeof LegalRoute
+  OverviewRoute: typeof OverviewRoute
   SubscribedRoute: typeof SubscribedRoute
   UnsubscribedRoute: typeof UnsubscribedRoute
   BlogSlugRoute: typeof BlogSlugRoute
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/subscribed'
       fullPath: '/subscribed'
       preLoaderRoute: typeof SubscribedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/overview': {
+      id: '/overview'
+      path: '/overview'
+      fullPath: '/overview'
+      preLoaderRoute: typeof OverviewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/legal': {
@@ -179,6 +199,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EngageRoute: EngageRoute,
   LegalRoute: LegalRoute,
+  OverviewRoute: OverviewRoute,
   SubscribedRoute: SubscribedRoute,
   UnsubscribedRoute: UnsubscribedRoute,
   BlogSlugRoute: BlogSlugRoute,

@@ -1,11 +1,11 @@
 import { n as require_jsx_runtime, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
 import { c as HeadContent, d as Outlet, f as lazyRouteComponent, g as useRouter, h as Link, m as createRootRouteWithContext, p as createFileRoute, s as Scripts, u as createRouter } from "../_libs/@tanstack/react-router+[...].mjs";
-import { t as Route$7 } from "../_slug-BJmZJfvm.mjs";
+import { t as Route$8 } from "../_slug-CLb3TFJV.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { t as Analytics } from "../_libs/vercel__analytics.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-B1Gw2P4C.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-TZZLdSrL.js
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-sydOvQAU.css";
+var styles_default = "/assets/styles-BQmxGmEi.css";
 function NotFoundComponent() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "flex min-h-screen items-center justify-center bg-background px-4",
@@ -71,7 +71,7 @@ function ErrorComponent({ error, reset }) {
 		})
 	});
 }
-var Route$6 = createRootRouteWithContext()({
+var Route$7 = createRootRouteWithContext()({
 	head: () => ({
 		meta: [
 			{ charSet: "utf-8" },
@@ -167,14 +167,14 @@ function RootShell({ children }) {
 	});
 }
 function RootComponent() {
-	const { queryClient } = Route$6.useRouteContext();
+	const { queryClient } = Route$7.useRouteContext();
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(QueryClientProvider, {
 		client: queryClient,
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {})
 	});
 }
-var $$splitComponentImporter$5 = () => import("./unsubscribed-Dngxr8ok.mjs");
-var Route$5 = createFileRoute("/unsubscribed")({
+var $$splitComponentImporter$6 = () => import("./unsubscribed-Dngxr8ok.mjs");
+var Route$6 = createFileRoute("/unsubscribed")({
 	head: () => ({
 		meta: [{ title: "Unsubscribed · Boundless Intuition" }, {
 			name: "robots",
@@ -185,10 +185,10 @@ var Route$5 = createFileRoute("/unsubscribed")({
 			href: "https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Shadows+Into+Light&display=swap"
 		}]
 	}),
-	component: lazyRouteComponent($$splitComponentImporter$5, "component")
+	component: lazyRouteComponent($$splitComponentImporter$6, "component")
 });
-var $$splitComponentImporter$4 = () => import("./subscribed-C5SeB-fG.mjs");
-var Route$4 = createFileRoute("/subscribed")({
+var $$splitComponentImporter$5 = () => import("./subscribed-C5SeB-fG.mjs");
+var Route$5 = createFileRoute("/subscribed")({
 	head: () => ({
 		meta: [{ title: "You're in · Boundless Intuition" }, {
 			name: "robots",
@@ -199,6 +199,46 @@ var Route$4 = createFileRoute("/subscribed")({
 			href: "https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Shadows+Into+Light&display=swap"
 		}]
 	}),
+	component: lazyRouteComponent($$splitComponentImporter$5, "component")
+});
+var $$splitComponentImporter$4 = () => import("./overview-BuQdh-8Q.mjs");
+/**
+* /overview - the unlisted overview one-pager.
+*
+* Nothing on the site links here: it is not in TopBar, SiteFooter, or the blog
+* index, and it is not a blog post, so it never appears in BLOG_POSTS. The
+* robots meta below keeps it out of search results, which is what makes the
+* page effectively private - anyone with the URL can read it, and only people
+* given the URL will find it.
+*/
+var Route$4 = createFileRoute("/overview")({
+	head: () => ({ meta: [
+		{ title: "Boundless Intuition - Overview" },
+		{
+			name: "description",
+			content: "Boundless Intuition builds the verification layer for AI - domains, benchmarks, and results."
+		},
+		{
+			name: "robots",
+			content: "noindex, nofollow, noarchive"
+		},
+		{
+			name: "googlebot",
+			content: "noindex, nofollow"
+		},
+		{
+			property: "og:title",
+			content: "Boundless Intuition - Overview"
+		},
+		{
+			property: "og:description",
+			content: "The verification layer for AI: domains, benchmarks, and results."
+		},
+		{
+			property: "og:type",
+			content: "article"
+		}
+	] }),
 	component: lazyRouteComponent($$splitComponentImporter$4, "component")
 });
 var $$splitComponentImporter$3 = () => import("./legal-Bj4x0jNo.mjs");
@@ -230,7 +270,7 @@ var Route$2 = createFileRoute("/engage")({
 });
 var $$splitComponentImporter$1 = () => import("./routes-DjDYMW57.mjs");
 var Route$1 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
-var $$splitComponentImporter = () => import("./blog-CRnc7meI.mjs");
+var $$splitComponentImporter = () => import("./blog-qvPsRit3.mjs");
 var Route = createFileRoute("/blog/")({
 	head: () => ({ meta: [
 		{ title: "Blog - Boundless Intuition" },
@@ -253,50 +293,56 @@ var Route = createFileRoute("/blog/")({
 	] }),
 	component: lazyRouteComponent($$splitComponentImporter, "component")
 });
-var UnsubscribedRoute = Route$5.update({
+var UnsubscribedRoute = Route$6.update({
 	id: "/unsubscribed",
 	path: "/unsubscribed",
-	getParentRoute: () => Route$6
+	getParentRoute: () => Route$7
 });
-var SubscribedRoute = Route$4.update({
+var SubscribedRoute = Route$5.update({
 	id: "/subscribed",
 	path: "/subscribed",
-	getParentRoute: () => Route$6
+	getParentRoute: () => Route$7
+});
+var OverviewRoute = Route$4.update({
+	id: "/overview",
+	path: "/overview",
+	getParentRoute: () => Route$7
 });
 var LegalRoute = Route$3.update({
 	id: "/legal",
 	path: "/legal",
-	getParentRoute: () => Route$6
+	getParentRoute: () => Route$7
 });
 var EngageRoute = Route$2.update({
 	id: "/engage",
 	path: "/engage",
-	getParentRoute: () => Route$6
+	getParentRoute: () => Route$7
 });
 var IndexRoute = Route$1.update({
 	id: "/",
 	path: "/",
-	getParentRoute: () => Route$6
+	getParentRoute: () => Route$7
 });
 var BlogIndexRoute = Route.update({
 	id: "/blog/",
 	path: "/blog/",
-	getParentRoute: () => Route$6
+	getParentRoute: () => Route$7
 });
 var rootRouteChildren = {
 	IndexRoute,
 	EngageRoute,
 	LegalRoute,
+	OverviewRoute,
 	SubscribedRoute,
 	UnsubscribedRoute,
-	BlogSlugRoute: Route$7.update({
+	BlogSlugRoute: Route$8.update({
 		id: "/blog/$slug",
 		path: "/blog/$slug",
-		getParentRoute: () => Route$6
+		getParentRoute: () => Route$7
 	}),
 	BlogIndexRoute
 };
-var routeTree = Route$6._addFileChildren(rootRouteChildren)._addFileTypes();
+var routeTree = Route$7._addFileChildren(rootRouteChildren)._addFileTypes();
 var getRouter = () => {
 	return createRouter({
 		routeTree,

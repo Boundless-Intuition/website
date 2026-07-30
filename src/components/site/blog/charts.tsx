@@ -22,6 +22,7 @@ import {
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
+  ChartStyle,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
@@ -37,9 +38,18 @@ const NEUTRAL = { light: "oklch(0.55 0.02 250)", dark: "oklch(0.65 0.02 250)" };
 // Airline-post palette: one hue per model tier, held constant across every
 // figure so a reader can carry the colour from one chart to the next.
 const SALMON = { light: "oklch(0.6 0.17 38)", dark: "oklch(0.74 0.15 42)" };
-const PERIWINKLE = { light: "oklch(0.5 0.15 266)", dark: "oklch(0.73 0.13 268)" };
+const PERIWINKLE = {
+  light: "oklch(0.5 0.15 266)",
+  dark: "oklch(0.73 0.13 268)",
+};
 const BLUSH = { light: "oklch(0.59 0.13 350)", dark: "oklch(0.8 0.1 350)" };
-const PALE_BLUE = { light: "oklch(0.64 0.09 250)", dark: "oklch(0.87 0.06 245)" };
+const PALE_BLUE = {
+  light: "oklch(0.64 0.09 250)",
+  dark: "oklch(0.87 0.06 245)",
+};
+// The site accent, spelled out as a theme pair so it can sit beside the
+// airline hues in a shared ChartConfig.
+const SEA = { light: "oklch(0.47 0.115 170)", dark: "oklch(0.79 0.115 170)" };
 
 const tooltipCursor = { fill: "var(--muted)", opacity: 0.4 };
 
@@ -58,7 +68,9 @@ function tooltipRow(label: ReactNode, value: ReactNode) {
   return (
     <div className="flex w-full items-center justify-between gap-4">
       <span className="text-muted-foreground">{label}</span>
-      <span className="font-mono font-medium tabular-nums text-foreground">{value}</span>
+      <span className="font-mono font-medium tabular-nums text-foreground">
+        {value}
+      </span>
     </div>
   );
 }
@@ -100,7 +112,9 @@ function DotLegend({ config, keys }: { config: ChartConfig; keys: string[] }) {
             className="size-2.5 shrink-0 rounded-full"
             style={{ backgroundColor: `var(--color-${key})` }}
           />
-          <span className="text-[12.5px] text-foreground/80">{config[key].label}</span>
+          <span className="text-[12.5px] text-foreground/80">
+            {config[key].label}
+          </span>
         </div>
       ))}
     </div>
@@ -125,7 +139,10 @@ const accuracyData = [
 
 export function AccuracyByArmChart() {
   return (
-    <ChartFrame title="Accuracy by arm" unit="Correct answers out of 100 RuleArena cases">
+    <ChartFrame
+      title="Accuracy by arm"
+      unit="Correct answers out of 100 RuleArena cases"
+    >
       <ChartContainer config={accuracyConfig} className="aspect-[16/10] w-full">
         <BarChart
           data={accuracyData}
@@ -144,17 +161,30 @@ export function AccuracyByArmChart() {
           <ChartTooltip
             cursor={tooltipCursor}
             content={
-              <ChartTooltipContent formatter={(value, name) => tooltipRow(name, `${value}%`)} />
+              <ChartTooltipContent
+                formatter={(value, name) => tooltipRow(name, `${value}%`)}
+              />
             }
           />
           <ChartLegend
             verticalAlign="top"
             content={
-              <DotLegend config={accuracyConfig} keys={["baseline", "verified", "loop"]} />
+              <DotLegend
+                config={accuracyConfig}
+                keys={["baseline", "verified", "loop"]}
+              />
             }
           />
-          <Bar dataKey="baseline" fill="var(--color-baseline)" radius={[2, 2, 0, 0]} />
-          <Bar dataKey="verified" fill="var(--color-verified)" radius={[2, 2, 0, 0]} />
+          <Bar
+            dataKey="baseline"
+            fill="var(--color-baseline)"
+            radius={[2, 2, 0, 0]}
+          />
+          <Bar
+            dataKey="verified"
+            fill="var(--color-verified)"
+            radius={[2, 2, 0, 0]}
+          />
           <Bar dataKey="loop" fill="var(--color-loop)" radius={[2, 2, 0, 0]} />
         </BarChart>
       </ChartContainer>
@@ -176,17 +206,32 @@ const paretoConfig: ChartConfig = {
 // Ordered by cost so each tier's path reads left to right.
 const opusArms = [
   { cost: 1.32, acc: 100.0, perCorrect: 0.013, arm: "Opus 4.8 · verified" },
-  { cost: 4.44, acc: 100.0, perCorrect: 0.044, arm: "Opus 4.8 · verified + loop" },
+  {
+    cost: 4.44,
+    acc: 100.0,
+    perCorrect: 0.044,
+    arm: "Opus 4.8 · verified + loop",
+  },
   { cost: 18.08, acc: 54.0, perCorrect: 0.335, arm: "Opus 4.8 · baseline" },
 ];
 const fableArms = [
   { cost: 3.63, acc: 100.0, perCorrect: 0.036, arm: "Fable 5 · verified" },
-  { cost: 11.44, acc: 100.0, perCorrect: 0.114, arm: "Fable 5 · verified + loop" },
+  {
+    cost: 11.44,
+    acc: 100.0,
+    perCorrect: 0.114,
+    arm: "Fable 5 · verified + loop",
+  },
   { cost: 16.92, acc: 61.0, perCorrect: 0.277, arm: "Fable 5 · baseline" },
 ];
 const haikuArms = [
   { cost: 0.22, acc: 82.0, perCorrect: 0.003, arm: "Haiku 4.5 · verified" },
-  { cost: 1.1, acc: 85.0, perCorrect: 0.013, arm: "Haiku 4.5 · verified + loop" },
+  {
+    cost: 1.1,
+    acc: 85.0,
+    perCorrect: 0.013,
+    arm: "Haiku 4.5 · verified + loop",
+  },
   { cost: 2.05, acc: 3.0, perCorrect: 0.682, arm: "Haiku 4.5 · baseline" },
 ];
 
@@ -207,7 +252,10 @@ function ParetoTooltip({ active, payload }: any) {
 
 export function CostAccuracyParetoChart() {
   return (
-    <ChartFrame title="Cost against accuracy" unit="Cost per 100-case run, log scale">
+    <ChartFrame
+      title="Cost against accuracy"
+      unit="Cost per 100-case run, log scale"
+    >
       <ChartContainer config={paretoConfig} className="aspect-[16/11] w-full">
         <ScatterChart margin={{ top: 12, right: 20, left: 0, bottom: 4 }}>
           <XAxis
@@ -231,10 +279,18 @@ export function CostAccuracyParetoChart() {
             width={46}
           />
           <ZAxis range={[72, 72]} />
-          <ChartTooltip content={<ParetoTooltip />} cursor={{ strokeDasharray: "3 3" }} />
+          <ChartTooltip
+            content={<ParetoTooltip />}
+            cursor={{ strokeDasharray: "3 3" }}
+          />
           <ChartLegend
             verticalAlign="top"
-            content={<DotLegend config={paretoConfig} keys={["opus", "fable", "haiku"]} />}
+            content={
+              <DotLegend
+                config={paretoConfig}
+                keys={["opus", "fable", "haiku"]}
+              />
+            }
           />
           <Scatter
             name="Claude Opus 4.8"
@@ -256,6 +312,238 @@ export function CostAccuracyParetoChart() {
           />
         </ScatterChart>
       </ChartContainer>
+    </ChartFrame>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Tax code — cost per correct answer against accuracy, six arms       */
+/* ------------------------------------------------------------------ */
+
+const taxConfig: ChartConfig = {
+  baseline: { label: "Baseline", theme: SALMON },
+  verified: { label: "Verified", theme: PERIWINKLE },
+  loop: { label: "Verified + loop", theme: SEA },
+};
+
+// Each point carries its own label offset and text anchor. The two frontier
+// arms sit ~2% apart on the log axis, so they are separated vertically (one
+// label above, one below) rather than horizontally, and the leftmost arm
+// labels to its right so the text doesn't run off the plot.
+//
+// These offsets are in pixels and only clear each other once the plot is wide
+// enough, so the in-plot labels are hidden below `md` and the key underneath
+// the chart takes over.
+const taxBaselineArms = [
+  {
+    cost: 0.0119,
+    acc: 62.0,
+    series: "baseline",
+    arm: "Cheap · baseline",
+    label: "cheap baseline",
+    lx: 0,
+    ly: -14,
+    anchor: "middle",
+  },
+  {
+    cost: 0.0185,
+    acc: 98.9,
+    series: "baseline",
+    arm: "Frontier · baseline",
+    label: "frontier baseline",
+    lx: 0,
+    ly: 22,
+    anchor: "middle",
+  },
+];
+const taxVerifiedArms = [
+  {
+    cost: 0.00094,
+    acc: 98.9,
+    series: "verified",
+    arm: "Cheap · verified",
+    label: "cheap verified",
+    lx: 12,
+    ly: 4,
+    anchor: "start",
+  },
+  {
+    cost: 0.0059,
+    acc: 100,
+    series: "verified",
+    arm: "Frontier · verified",
+    label: "frontier verified",
+    lx: 12,
+    ly: 4,
+    anchor: "start",
+  },
+];
+const taxLoopArms = [
+  {
+    cost: 0.0044,
+    acc: 100,
+    series: "loop",
+    arm: "Cheap · verified + loop",
+    label: "cheap loop",
+    lx: -12,
+    ly: 4,
+    anchor: "end",
+  },
+  {
+    cost: 0.02,
+    acc: 100,
+    series: "loop",
+    arm: "Frontier · verified + loop",
+    label: "frontier loop",
+    lx: 0,
+    ly: -14,
+    anchor: "middle",
+  },
+];
+
+// Cheapest arm first, so the key reads along the x axis.
+const taxKeyRows = [
+  ...taxBaselineArms,
+  ...taxVerifiedArms,
+  ...taxLoopArms,
+].sort((a, b) => a.cost - b.cost);
+
+const fmtCost = (c: number) => `$${c.toFixed(c < 0.001 ? 5 : 4)}`;
+const fmtAcc = (a: number) => `${a.toFixed(a % 1 === 0 ? 0 : 1)}%`;
+
+function TaxDot(props: any) {
+  const { cx, cy, payload, fill } = props;
+  if (cx == null || cy == null) return null;
+  return (
+    <g>
+      <circle
+        cx={cx}
+        cy={cy}
+        r={6.5}
+        fill={fill}
+        stroke="var(--background)"
+        strokeWidth={1.5}
+      />
+      <text
+        x={cx + payload.lx}
+        y={cy + payload.ly}
+        textAnchor={payload.anchor}
+        fontSize={10}
+        className="font-mono [display:none] md:[display:inline]"
+        fill="var(--muted-foreground)"
+      >
+        {payload.label}
+      </text>
+    </g>
+  );
+}
+
+function TaxTooltip({ active, payload }: any) {
+  if (!active || !payload?.length) return null;
+  const p = payload[0].payload;
+  return (
+    <div className="rounded-sm border border-border bg-background px-3 py-2 text-xs shadow-lg">
+      <div className="font-medium text-foreground">{p.arm}</div>
+      <div className="mt-1.5 space-y-0.5 font-mono text-[11px] tabular-nums text-muted-foreground">
+        <div>{fmtAcc(p.acc)} correct</div>
+        <div>{fmtCost(p.cost)} per correct answer</div>
+      </div>
+    </div>
+  );
+}
+
+// Fixed id so ChartStyle's `--color-*` variables reach the key below the plot
+// as well as the chart itself - the key sits outside ChartContainer, which
+// scopes those variables to its own `data-chart` element.
+const TAX_CHART_ID = "chart-tax-arms";
+
+export function TaxCostAccuracyChart() {
+  return (
+    <ChartFrame
+      title="Cost against accuracy"
+      unit="Cost per correct answer (USD, log scale)"
+    >
+      <div data-chart={TAX_CHART_ID}>
+        <ChartStyle id={TAX_CHART_ID} config={taxConfig} />
+        <ChartContainer config={taxConfig} className="aspect-[16/11] w-full">
+          <ScatterChart margin={{ top: 20, right: 24, left: 0, bottom: 4 }}>
+            <XAxis
+              {...AXIS}
+              type="number"
+              dataKey="cost"
+              scale="log"
+              domain={[0.0006, 0.03]}
+              ticks={[0.001, 0.003, 0.01, 0.03]}
+              tickFormatter={(v) => `$${v}`}
+            />
+            <YAxis
+              {...AXIS}
+              type="number"
+              dataKey="acc"
+              // Truncated at 55% - every arm except the cheap baseline sits in
+              // the top few points, so a zero-based axis would flatten them
+              // into one line. Headroom above 100% keeps the ceiling markers
+              // and their labels inside the plot.
+              domain={[55, 108]}
+              ticks={[60, 70, 80, 90, 100]}
+              tickFormatter={(v) => `${v}%`}
+              width={46}
+            />
+            <ZAxis range={[72, 72]} />
+            <ChartTooltip
+              content={<TaxTooltip />}
+              cursor={{ strokeDasharray: "3 3" }}
+            />
+            <ChartLegend
+              verticalAlign="top"
+              content={
+                <DotLegend
+                  config={taxConfig}
+                  keys={["baseline", "verified", "loop"]}
+                />
+              }
+            />
+            <Scatter
+              name="Baseline"
+              data={taxBaselineArms}
+              fill="var(--color-baseline)"
+              shape={<TaxDot />}
+            />
+            <Scatter
+              name="Verified"
+              data={taxVerifiedArms}
+              fill="var(--color-verified)"
+              shape={<TaxDot />}
+            />
+            <Scatter
+              name="Verified + loop"
+              data={taxLoopArms}
+              fill="var(--color-loop)"
+              shape={<TaxDot />}
+            />
+          </ScatterChart>
+        </ChartContainer>
+
+        {/* Narrow screens: the in-plot labels are hidden, so name each arm
+            here instead. */}
+        <dl className="mt-4 space-y-1.5 border-t border-border pt-4 md:hidden">
+          {taxKeyRows.map((r) => (
+            <div key={r.arm} className="flex items-baseline gap-2.5">
+              <span
+                aria-hidden
+                className="size-2 shrink-0 rounded-full"
+                style={{ backgroundColor: `var(--color-${r.series})` }}
+              />
+              <dt className="flex-1 text-[12.5px] leading-snug text-foreground/80">
+                {r.arm}
+              </dt>
+              <dd className="shrink-0 font-mono text-[11px] tabular-nums text-muted-foreground">
+                {fmtAcc(r.acc)} · {fmtCost(r.cost)}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </ChartFrame>
   );
 }
@@ -289,20 +577,39 @@ export function LatencyByArmChart() {
           maxBarSize={26}
           margin={{ top: 4, right: 20, left: 8, bottom: 0 }}
         >
-          <XAxis {...AXIS} type="number" ticks={[0, 20, 40, 60]} tickFormatter={(v) => `${v}s`} />
+          <XAxis
+            {...AXIS}
+            type="number"
+            ticks={[0, 20, 40, 60]}
+            tickFormatter={(v) => `${v}s`}
+          />
           <YAxis {...AXIS} type="category" dataKey="label" width={150} />
           <ChartTooltip
             cursor={tooltipCursor}
             content={
-              <ChartTooltipContent formatter={(value, name) => tooltipRow(name, `${value}s`)} />
+              <ChartTooltipContent
+                formatter={(value, name) => tooltipRow(name, `${value}s`)}
+              />
             }
           />
           <ChartLegend
             verticalAlign="top"
-            content={<DotLegend config={latencyConfig} keys={["llm", "kernel"]} />}
+            content={
+              <DotLegend config={latencyConfig} keys={["llm", "kernel"]} />
+            }
           />
-          <Bar dataKey="llm" stackId="t" fill="var(--color-llm)" radius={[0, 0, 0, 0]} />
-          <Bar dataKey="kernel" stackId="t" fill="var(--color-kernel)" radius={[0, 2, 2, 0]} />
+          <Bar
+            dataKey="llm"
+            stackId="t"
+            fill="var(--color-llm)"
+            radius={[0, 0, 0, 0]}
+          />
+          <Bar
+            dataKey="kernel"
+            stackId="t"
+            fill="var(--color-kernel)"
+            radius={[0, 2, 2, 0]}
+          />
         </BarChart>
       </ChartContainer>
     </ChartFrame>
@@ -330,13 +637,24 @@ const radarData = [
 
 export function HeadlineMetricsRadar() {
   return (
-    <ChartContainer config={radarConfig} className="mx-auto aspect-square max-h-[380px] w-full">
+    <ChartContainer
+      config={radarConfig}
+      className="mx-auto aspect-square max-h-[380px] w-full"
+    >
       <RadarChart data={radarData}>
         <PolarGrid />
         <PolarAngleAxis dataKey="metric" fontSize={11} />
-        <PolarRadiusAxis domain={[80, 100]} tickFormatter={(v) => `${v}%`} fontSize={10} />
+        <PolarRadiusAxis
+          domain={[80, 100]}
+          tickFormatter={(v) => `${v}%`}
+          fontSize={10}
+        />
         <ChartTooltip
-          content={<ChartTooltipContent formatter={(value, name) => tooltipRow(name, `${value}%`)} />}
+          content={
+            <ChartTooltipContent
+              formatter={(value, name) => tooltipRow(name, `${value}%`)}
+            />
+          }
         />
         <ChartLegend content={<ChartLegendContent />} />
         <Radar
@@ -379,9 +697,18 @@ const categoryData = [
 export function CategoryAccuracyChart() {
   return (
     <ChartContainer config={categoryConfig} className="aspect-[16/12] w-full">
-      <BarChart data={categoryData} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+      <BarChart
+        data={categoryData}
+        margin={{ top: 8, right: 8, left: 0, bottom: 0 }}
+      >
         <CartesianGrid vertical={false} />
-        <XAxis dataKey="label" tickLine={false} axisLine={false} fontSize={10.5} interval={0} />
+        <XAxis
+          dataKey="label"
+          tickLine={false}
+          axisLine={false}
+          fontSize={10.5}
+          interval={0}
+        />
         <YAxis
           tickLine={false}
           axisLine={false}
@@ -394,7 +721,12 @@ export function CategoryAccuracyChart() {
           y={100}
           stroke="var(--accent)"
           strokeDasharray="4 4"
-          label={{ value: "Verified · 100% across all categories", position: "insideTopLeft", fontSize: 10.5, fill: "var(--accent)" }}
+          label={{
+            value: "Verified · 100% across all categories",
+            position: "insideTopLeft",
+            fontSize: 10.5,
+            fill: "var(--accent)",
+          }}
         />
         <ChartTooltip
           cursor={tooltipCursor}
@@ -402,14 +734,22 @@ export function CategoryAccuracyChart() {
             <ChartTooltipContent
               hideIndicator
               formatter={(value, _name, item) =>
-                tooltipRow("Baseline accuracy", `${value}% (n=${item.payload.n})`)
+                tooltipRow(
+                  "Baseline accuracy",
+                  `${value}% (n=${item.payload.n})`,
+                )
               }
             />
           }
         />
         <Bar dataKey="acc" radius={[3, 3, 0, 0]}>
           {categoryData.map((d) => (
-            <Cell key={d.label} fill={d.kind === "mimic" ? "var(--color-mimic)" : "var(--color-clear)"} />
+            <Cell
+              key={d.label}
+              fill={
+                d.kind === "mimic" ? "var(--color-mimic)" : "var(--color-clear)"
+              }
+            />
           ))}
         </Bar>
       </BarChart>
@@ -442,9 +782,13 @@ function MatrixCell({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className={`relative flex flex-1 flex-col items-center justify-center gap-1 border p-3 text-center transition-transform ${toneClasses} ${hover ? "scale-[1.03]" : ""}`}
-      style={{ "--chart-negative": "oklch(0.55 0.18 25)" } as React.CSSProperties}
+      style={
+        { "--chart-negative": "oklch(0.55 0.18 25)" } as React.CSSProperties
+      }
     >
-      <span className="font-display text-[22px] font-medium leading-none text-foreground">{value}</span>
+      <span className="font-display text-[22px] font-medium leading-none text-foreground">
+        {value}
+      </span>
       <span className="font-mono text-[9.5px] uppercase tracking-[0.12em] text-muted-foreground">
         {label}
       </span>
@@ -473,10 +817,18 @@ function ConfusionMatrix({
       <div className="flex flex-col gap-px overflow-hidden rounded-sm border border-border bg-border">
         <div className="flex gap-px">
           <MatrixCell label="True positive" value={tp} tone="good" />
-          <MatrixCell label="False negative" value={fn} tone={fn > 0 ? "bad" : "neutral"} />
+          <MatrixCell
+            label="False negative"
+            value={fn}
+            tone={fn > 0 ? "bad" : "neutral"}
+          />
         </div>
         <div className="flex gap-px">
-          <MatrixCell label="False positive" value={fp} tone={fp > 0 ? "bad" : "neutral"} />
+          <MatrixCell
+            label="False positive"
+            value={fp}
+            tone={fp > 0 ? "bad" : "neutral"}
+          />
           <MatrixCell label="True negative" value={tn} tone="good" />
         </div>
       </div>
@@ -487,8 +839,20 @@ function ConfusionMatrix({
 export function ConfusionMatrixFigure() {
   return (
     <div className="flex flex-col gap-8 sm:flex-row sm:gap-6">
-      <ConfusionMatrix title="Baseline (LLM only)" tp={18} fn={2} fp={0} tn={30} />
-      <ConfusionMatrix title="Verified (autoformalization + Lean)" tp={20} fn={0} fp={0} tn={30} />
+      <ConfusionMatrix
+        title="Baseline (LLM only)"
+        tp={18}
+        fn={2}
+        fp={0}
+        tn={30}
+      />
+      <ConfusionMatrix
+        title="Verified (autoformalization + Lean)"
+        tp={20}
+        fn={0}
+        fp={0}
+        tn={30}
+      />
     </div>
   );
 }
@@ -530,9 +894,15 @@ function CaseATooltip({ active, payload }: any) {
   const correct = p.verdict === "positive";
   return (
     <div className="rounded-sm border border-border bg-background px-3 py-2 text-xs shadow-lg">
-      <div className="font-medium text-foreground">{p.run} · score {p.score}</div>
-      <div className={`mt-1 font-mono text-[11px] ${correct ? "text-accent" : ""}`} style={!correct ? { color: "oklch(0.58 0.18 25)" } : undefined}>
-        verdict: {p.verdict} {correct ? "(correct)" : "(wrong — this is genuine lupus)"}
+      <div className="font-medium text-foreground">
+        {p.run} · score {p.score}
+      </div>
+      <div
+        className={`mt-1 font-mono text-[11px] ${correct ? "text-accent" : ""}`}
+        style={!correct ? { color: "oklch(0.58 0.18 25)" } : undefined}
+      >
+        verdict: {p.verdict}{" "}
+        {correct ? "(correct)" : "(wrong — this is genuine lupus)"}
       </div>
     </div>
   );
@@ -550,18 +920,44 @@ export function RunVerdictFigure() {
             Verified: positive, all 5 runs
           </span>
         </div>
-        <ChartContainer config={runScoreConfig} className="aspect-[16/7] w-full">
-          <LineChart data={caseAData} margin={{ top: 8, right: 16, left: 0, bottom: 0 }}>
+        <ChartContainer
+          config={runScoreConfig}
+          className="aspect-[16/7] w-full"
+        >
+          <LineChart
+            data={caseAData}
+            margin={{ top: 8, right: 16, left: 0, bottom: 0 }}
+          >
             <CartesianGrid vertical={false} />
-            <XAxis dataKey="run" tickLine={false} axisLine={false} fontSize={11} padding={{ left: 16, right: 16 }} />
-            <YAxis domain={[0, 20]} tickLine={false} axisLine={false} width={28} fontSize={11} />
+            <XAxis
+              dataKey="run"
+              tickLine={false}
+              axisLine={false}
+              fontSize={11}
+              padding={{ left: 16, right: 16 }}
+            />
+            <YAxis
+              domain={[0, 20]}
+              tickLine={false}
+              axisLine={false}
+              width={28}
+              fontSize={11}
+            />
             <ReferenceLine
               y={10}
               stroke="var(--muted-foreground)"
               strokeDasharray="4 4"
-              label={{ value: "classification threshold", position: "insideTopRight", fontSize: 10, fill: "var(--muted-foreground)" }}
+              label={{
+                value: "classification threshold",
+                position: "insideTopRight",
+                fontSize: 10,
+                fill: "var(--muted-foreground)",
+              }}
             />
-            <ChartTooltip content={<CaseATooltip />} cursor={{ strokeDasharray: "3 3" }} />
+            <ChartTooltip
+              content={<CaseATooltip />}
+              cursor={{ strokeDasharray: "3 3" }}
+            />
             <Line
               dataKey="score"
               stroke="var(--muted-foreground)"
@@ -588,19 +984,26 @@ export function RunVerdictFigure() {
             <div
               key={run}
               className="flex flex-col items-center gap-1.5 rounded-sm border p-2.5 text-center"
-              style={{ borderColor: "oklch(0.58 0.18 25 / 0.4)", background: "oklch(0.58 0.18 25 / 0.08)" }}
+              style={{
+                borderColor: "oklch(0.58 0.18 25 / 0.4)",
+                background: "oklch(0.58 0.18 25 / 0.08)",
+              }}
             >
               <span className="font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted-foreground">
                 {run}
               </span>
-              <span className="text-[12px] font-medium" style={{ color: "oklch(0.58 0.18 25)" }}>
+              <span
+                className="text-[12px] font-medium"
+                style={{ color: "oklch(0.58 0.18 25)" }}
+              >
                 Negative
               </span>
             </div>
           ))}
         </div>
         <p className="mt-2 text-[12px] text-muted-foreground">
-          Consistent this time, and consistently wrong — a stable derivation, not a drifting one.
+          Consistent this time, and consistently wrong — a stable derivation,
+          not a drifting one.
         </p>
       </div>
     </div>
