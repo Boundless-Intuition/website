@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ThemeToggle } from "./ThemeToggle";
+import { track } from "@/lib/analytics";
 
 const SECTIONS = [
   { href: "/#doctrine", label: "Doctrine" },
@@ -78,13 +79,17 @@ export function TopBar() {
             </span>
           </Link>
           <div className="hidden gap-8 font-display text-[12px] font-medium text-muted-foreground md:flex">
-            <Link to="/blog" className="transition-colors hover:text-foreground">
+            <Link
+              to="/blog"
+              className="transition-colors hover:text-foreground"
+            >
               Blog
             </Link>
             <a
               href="https://playground.boundlessintuition.com/"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => track("outbound_playground", { from: "topbar" })}
               className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
             >
               Playground
@@ -95,7 +100,6 @@ export function TopBar() {
           </div>
         </div>
         <div className="flex items-center gap-5">
-
           {/* Engage - styled as a soft CTA, not a loud button */}
           <Link
             to="/engage"
@@ -163,7 +167,10 @@ export function TopBar() {
               href="https://playground.boundlessintuition.com/"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                setOpen(false);
+                track("outbound_playground", { from: "topbar-mobile" });
+              }}
               className="flex items-center justify-between py-3 font-display text-[15px] font-medium text-foreground/85 transition-colors hover:text-foreground"
             >
               Playground
@@ -182,7 +189,6 @@ export function TopBar() {
               </span>
             </Link>
           </div>
-
         </div>
       </div>
     </nav>

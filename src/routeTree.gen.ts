@@ -11,12 +11,15 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UnsubscribedRouteImport } from './routes/unsubscribed'
 import { Route as SubscribedRouteImport } from './routes/subscribed'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as OverviewRouteImport } from './routes/overview'
 import { Route as LegalRouteImport } from './routes/legal'
 import { Route as EngageRouteImport } from './routes/engage'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as ApiSignalRouteImport } from './routes/api/signal'
 
 const UnsubscribedRoute = UnsubscribedRouteImport.update({
   id: '/unsubscribed',
@@ -26,6 +29,16 @@ const UnsubscribedRoute = UnsubscribedRouteImport.update({
 const SubscribedRoute = SubscribedRouteImport.update({
   id: '/subscribed',
   path: '/subscribed',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OverviewRoute = OverviewRouteImport.update({
@@ -58,14 +71,22 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiSignalRoute = ApiSignalRouteImport.update({
+  id: '/api/signal',
+  path: '/api/signal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/engage': typeof EngageRoute
   '/legal': typeof LegalRoute
   '/overview': typeof OverviewRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/subscribed': typeof SubscribedRoute
   '/unsubscribed': typeof UnsubscribedRoute
+  '/api/signal': typeof ApiSignalRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -74,8 +95,11 @@ export interface FileRoutesByTo {
   '/engage': typeof EngageRoute
   '/legal': typeof LegalRoute
   '/overview': typeof OverviewRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/subscribed': typeof SubscribedRoute
   '/unsubscribed': typeof UnsubscribedRoute
+  '/api/signal': typeof ApiSignalRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog': typeof BlogIndexRoute
 }
@@ -85,8 +109,11 @@ export interface FileRoutesById {
   '/engage': typeof EngageRoute
   '/legal': typeof LegalRoute
   '/overview': typeof OverviewRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/subscribed': typeof SubscribedRoute
   '/unsubscribed': typeof UnsubscribedRoute
+  '/api/signal': typeof ApiSignalRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -97,8 +124,11 @@ export interface FileRouteTypes {
     | '/engage'
     | '/legal'
     | '/overview'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/subscribed'
     | '/unsubscribed'
+    | '/api/signal'
     | '/blog/$slug'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
@@ -107,8 +137,11 @@ export interface FileRouteTypes {
     | '/engage'
     | '/legal'
     | '/overview'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/subscribed'
     | '/unsubscribed'
+    | '/api/signal'
     | '/blog/$slug'
     | '/blog'
   id:
@@ -117,8 +150,11 @@ export interface FileRouteTypes {
     | '/engage'
     | '/legal'
     | '/overview'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/subscribed'
     | '/unsubscribed'
+    | '/api/signal'
     | '/blog/$slug'
     | '/blog/'
   fileRoutesById: FileRoutesById
@@ -128,8 +164,11 @@ export interface RootRouteChildren {
   EngageRoute: typeof EngageRoute
   LegalRoute: typeof LegalRoute
   OverviewRoute: typeof OverviewRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SubscribedRoute: typeof SubscribedRoute
   UnsubscribedRoute: typeof UnsubscribedRoute
+  ApiSignalRoute: typeof ApiSignalRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
@@ -148,6 +187,20 @@ declare module '@tanstack/react-router' {
       path: '/subscribed'
       fullPath: '/subscribed'
       preLoaderRoute: typeof SubscribedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/overview': {
@@ -192,6 +245,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/signal': {
+      id: '/api/signal'
+      path: '/api/signal'
+      fullPath: '/api/signal'
+      preLoaderRoute: typeof ApiSignalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -200,8 +260,11 @@ const rootRouteChildren: RootRouteChildren = {
   EngageRoute: EngageRoute,
   LegalRoute: LegalRoute,
   OverviewRoute: OverviewRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SubscribedRoute: SubscribedRoute,
   UnsubscribedRoute: UnsubscribedRoute,
+  ApiSignalRoute: ApiSignalRoute,
   BlogSlugRoute: BlogSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
 }

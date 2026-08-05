@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { track } from "@/lib/analytics";
 import { ProcessFlow } from "./ProcessFlow";
 import {
   EngageHeroBackdrop,
@@ -81,6 +82,9 @@ export function EngagePage() {
     const body = encodeURIComponent(
       `Name: ${formState.name}\nCompany: ${formState.company}\nDomain: ${formState.domain}\n\n${formState.message}`,
     );
+    // Recorded before the handoff: `mailto:` navigates away to the OS mail
+    // client, so this is the last moment we can observe anything at all.
+    track("engage_submitted", { domain: formState.domain || "unspecified" });
     window.location.href = `mailto:research@boundlessintuition.com?subject=${subject}&body=${body}`;
     setSubmitted(true);
   };
@@ -371,6 +375,7 @@ export function EngagePage() {
               <div className="mt-10">
                 <a
                   href="mailto:research@boundlessintuition.com"
+                  onClick={() => track("contact_mailto", { from: "engage" })}
                   className="group inline-flex items-center gap-3 border-b border-foreground/40 pb-1 font-display text-[13px] font-medium text-foreground transition-colors hover:border-foreground"
                 >
                   research@boundlessintuition.com

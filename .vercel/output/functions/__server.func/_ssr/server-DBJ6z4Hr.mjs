@@ -1,11 +1,11 @@
 import "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { A as isNotFound, C as resolveManifestAssetLink, D as isResolvedRedirect, E as isRedirect, N as invariant, S as getStylesheetHref, T as executeRewriteInput, a as replaceSsrResponse, i as normalizeSsrResponse, k as rootRouteId, l as RouterProvider, n as defineHandlerCallback, o as stripSsrResponseBody, r as isSsrResponse, t as renderRouterToStream, w as resolveManifestCssLink, x as getScriptPreloadAttrs } from "../_libs/@tanstack/react-router+[...].mjs";
+import { A as isResolvedRedirect, D as resolveManifestCssLink, E as resolveManifestAssetLink, I as invariant, M as rootRouteId, N as isNotFound, O as executeRewriteInput, T as getStylesheetHref, a as isSsrResponse, c as stripSsrResponseBody, f as RouterProvider, i as defineHandlerCallback, k as isRedirect, l as renderRouterToString, n as transformPipeableStreamWithRouter, o as normalizeSsrResponse, r as transformReadableStreamWithRouter, s as replaceSsrResponse, t as renderRouterToStream, w as getScriptPreloadAttrs } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as createMemoryHistory } from "../_libs/tanstack__history.mjs";
-import { d as su, i as mergeHeaders, l as Pu, n as getNormalizedURL, o as createRawStreamRPCPlugin, r as getOrigin, s as createSerializationAdapter, t as attachRouterServerSsrUtils, u as iu } from "../_libs/@tanstack/router-core+[...].mjs";
-import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-DDgF3BC-.mjs";
+import { a as mergeHeaders, c as createSerializationAdapter, d as iu, f as su, i as getOrigin, n as attachRouterServerSsrUtils, r as getNormalizedURL, s as createRawStreamRPCPlugin, t as createRequestHandler, u as Pu } from "../_libs/@tanstack/router-core+[...].mjs";
+import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-Af86u9st.mjs";
 import { a as X_TSS_RAW_RESPONSE, c as createNullProtoObject, d as getDefaultSerovalPlugins, f as getStartContext, i as TSS_SERVER_FUNCTION, m as safeObjectMerge, n as TSS_CONTENT_TYPE_FRAMED_VERSIONED, o as X_TSS_SERIALIZED, p as runWithStartContext, r as TSS_FORMDATA_CONTEXT, s as createCsrfMiddleware, t as FrameType, u as flattenMiddlewares } from "./esm-Dova13aH.mjs";
-import { n as toResponse, t as H3Event } from "../_libs/h3-v2+srvx.mjs";
+import { _ as updateSession, a as getRequestIP, c as getSession, d as sanitizeStatusCode, f as sanitizeStatusMessage, g as unsealSession, h as toResponse, i as getRequestHost, l as getValidatedQuery, m as setCookie, n as clearSession, o as getRequestProtocol, p as sealSession, r as deleteCookie, s as getRequestURL, t as H3Event, u as parseCookies, v as useSession } from "../_libs/h3-v2+srvx.mjs";
 import { AsyncLocalStorage } from "node:async_hooks";
 require_react();
 var import_jsx_runtime = require_jsx_runtime();
@@ -14,6 +14,11 @@ function StartServer(props) {
 }
 var defaultStreamHandler = defineHandlerCallback(({ request, router, responseHeaders }) => renderRouterToStream({
 	request,
+	router,
+	responseHeaders,
+	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StartServer, { router })
+}));
+var defaultRenderHandler = defineHandlerCallback(({ router, responseHeaders }) => renderRouterToString({
 	router,
 	responseHeaders,
 	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StartServer, { router })
@@ -68,8 +73,178 @@ function getH3Event() {
 	if (!event) throw new Error(`No StartEvent found in AsyncLocalStorage. Make sure you are using the function within the server runtime.`);
 	return event.h3Event;
 }
+function getRequest() {
+	return getH3Event().req;
+}
+function getRequestHeaders() {
+	return getH3Event().req.headers;
+}
+function getRequestHeader(name) {
+	return getRequestHeaders().get(name) || void 0;
+}
+function getRequestIP$1(opts) {
+	return getRequestIP(getH3Event(), opts);
+}
+/**
+* Get the request hostname.
+*
+* If `xForwardedHost` is `true`, it will use the `x-forwarded-host` header if it exists.
+*
+* If no host header is found, it will default to "localhost".
+*/
+function getRequestHost$1(opts) {
+	return getRequestHost(getH3Event(), opts);
+}
+/**
+* Get the full incoming request URL.
+*
+* If `xForwardedHost` is `true`, it will use the `x-forwarded-host` header if it exists.
+*
+* If `xForwardedProto` is `false`, it will not use the `x-forwarded-proto` header.
+*/
+function getRequestUrl(opts) {
+	return getRequestURL(getH3Event(), opts);
+}
+/**
+* Get the request protocol.
+*
+* If `x-forwarded-proto` header is set to "https", it will return "https". You can disable this behavior by setting `xForwardedProto` to `false`.
+*
+* If protocol cannot be determined, it will default to "http".
+*/
+function getRequestProtocol$1(opts) {
+	return getRequestProtocol(getH3Event(), opts);
+}
+function setResponseHeaders(headers) {
+	const event = getH3Event();
+	for (const [name, value] of Object.entries(headers)) event.res.headers.set(name, value);
+}
+function getResponseHeaders() {
+	return getH3Event().res.headers;
+}
+function getResponseHeader(name) {
+	return getH3Event().res.headers.get(name) || void 0;
+}
+function setResponseHeader(name, value) {
+	const event = getH3Event();
+	if (Array.isArray(value)) {
+		event.res.headers.delete(name);
+		for (const valueItem of value) event.res.headers.append(name, valueItem);
+	} else event.res.headers.set(name, value);
+}
+function removeResponseHeader(name) {
+	getH3Event().res.headers.delete(name);
+}
+function clearResponseHeaders(headerNames) {
+	const event = getH3Event();
+	if (headerNames && headerNames.length > 0) for (const name of headerNames) event.res.headers.delete(name);
+	else for (const name of event.res.headers.keys()) event.res.headers.delete(name);
+}
+function getResponseStatus() {
+	return getH3Event().res.status || 200;
+}
+function setResponseStatus(code, text) {
+	const event = getH3Event();
+	if (code) event.res.status = sanitizeStatusCode(code, event.res.status);
+	if (text) event.res.statusText = sanitizeStatusMessage(text);
+}
+/**
+* Parse the request to get HTTP Cookie header string and return an object of all cookie name-value pairs.
+* @returns Object of cookie name-value pairs
+* ```ts
+* const cookies = getCookies()
+* ```
+*/
+function getCookies() {
+	const cookies = parseCookies(getH3Event());
+	const definedCookies = Object.create(null);
+	for (const [name, value] of Object.entries(cookies)) if (value !== void 0) definedCookies[name] = value;
+	return definedCookies;
+}
+/**
+* Get a cookie value by name.
+* @param name Name of the cookie to get
+* @returns {*} Value of the cookie (String or undefined)
+* ```ts
+* const authorization = getCookie('Authorization')
+* ```
+*/
+function getCookie(name) {
+	return getCookies()[name];
+}
+/**
+* Set a cookie value by name.
+* @param name Name of the cookie to set
+* @param value Value of the cookie to set
+* @param options {CookieSerializeOptions} Options for serializing the cookie
+* ```ts
+* setCookie('Authorization', '1234567')
+* ```
+*/
+function setCookie$1(name, value, options) {
+	setCookie(getH3Event(), name, value, options);
+}
+/**
+* Remove a cookie by name.
+* @param name Name of the cookie to delete
+* @param serializeOptions {CookieSerializeOptions} Cookie options
+* ```ts
+* deleteCookie('SessionId')
+* ```
+*/
+function deleteCookie$1(name, options) {
+	deleteCookie(getH3Event(), name, options);
+}
+function getDefaultSessionConfig(config) {
+	return {
+		name: "start",
+		...config
+	};
+}
+/**
+* Create a session manager for the current request.
+*/
+function useSession$1(config) {
+	return useSession(getH3Event(), getDefaultSessionConfig(config));
+}
+/**
+* Get the session for the current request
+*/
+function getSession$1(config) {
+	return getSession(getH3Event(), getDefaultSessionConfig(config));
+}
+/**
+* Update the session data for the current request.
+*/
+function updateSession$1(config, update) {
+	return updateSession(getH3Event(), getDefaultSessionConfig(config), update);
+}
+/**
+* Encrypt and sign the session data for the current request.
+*/
+function sealSession$1(config) {
+	return sealSession(getH3Event(), getDefaultSessionConfig(config));
+}
+/**
+* Decrypt and verify the session data for the current request.
+*/
+function unsealSession$1(config, sealed) {
+	return unsealSession(getH3Event(), getDefaultSessionConfig(config), sealed);
+}
+/**
+* Clear the session data for the current request.
+*/
+function clearSession$1(config) {
+	return clearSession(getH3Event(), {
+		name: "start",
+		...config
+	});
+}
 function getResponse() {
 	return getH3Event().res;
+}
+function getValidatedQuery$1(schema) {
+	return getValidatedQuery(getH3Event(), schema);
 }
 var HEADERS = { TSS_SHELL: "X-TSS_SHELL" };
 /**
@@ -82,7 +257,7 @@ var HEADERS = { TSS_SHELL: "X-TSS_SHELL" };
 * the dev styles URL for route-scoped CSS collection.
 */
 async function getStartManifest(matchedRoutes) {
-	const { tsrStartManifest } = await import("../_tanstack-start-manifest_v-BwuvG6N9.mjs");
+	const { tsrStartManifest } = await import("../_tanstack-start-manifest_v-CXeTrrue.mjs");
 	const startManifest = tsrStartManifest();
 	let routes = startManifest.routes;
 	routes[rootRouteId];
@@ -1022,8 +1197,8 @@ var getBaseManifest = getProdBaseManifest;
 var createEarlyHintsForRequest = createEarlyHintsCollector;
 async function loadEntries() {
 	const [routerEntry, startEntry, pluginAdapters] = await Promise.all([
-		import("./router-CT0XOylL.mjs"),
-		import("./start-Ok9K6Nid.mjs"),
+		import("./router-BsqqR64q.mjs"),
+		import("./start-CbSYJ3DM.mjs"),
 		import("./empty-plugin-adapters-D9UWiqvJ.mjs")
 	]);
 	return {
@@ -1399,6 +1574,11 @@ async function handleServerRoutes({ getRouter, request, url, executeRouter, cont
 	}
 	return normalizeSsrResponse(response);
 }
+var VIRTUAL_MODULES = {
+	startManifest: "tanstack-start-manifest:v",
+	serverFnResolver: "#tanstack-start-server-fn-resolver",
+	pluginAdapters: "#tanstack-start-plugin-adapters"
+};
 var fetch = createStartHandler(defaultStreamHandler);
 function createServerEntry(entry) {
 	return { async fetch(...args) {
@@ -1407,4 +1587,4 @@ function createServerEntry(entry) {
 }
 var server_default = createServerEntry({ fetch });
 //#endregion
-export { createServerEntry, server_default as default };
+export { setCookie$1 as A, getResponseHeaders as C, removeResponseHeader as D, getValidatedQuery$1 as E, updateSession$1 as F, useSession$1 as I, defaultRenderHandler as L, setResponseHeaders as M, setResponseStatus as N, requestHandler as O, unsealSession$1 as P, defaultStreamHandler as R, getResponseHeader as S, getSession$1 as T, getRequestHost$1 as _, transformReadableStreamWithRouter as a, getRequestUrl as b, HEADERS as c, createServerEntry, deleteCookie$1 as d, server_default as default, getCookie as f, getRequestHeaders as g, getRequestHeader as h, transformPipeableStreamWithRouter as i, setResponseHeader as j, sealSession$1 as k, clearResponseHeaders as l, getRequest as m, createRequestHandler as n, VIRTUAL_MODULES as o, getCookies as p, defineHandlerCallback as r, createStartHandler as s, attachRouterServerSsrUtils as t, clearSession$1 as u, getRequestIP$1 as v, getResponseStatus as w, getResponse as x, getRequestProtocol$1 as y, StartServer as z };

@@ -1,10 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { track } from "@/lib/analytics";
 import { ProofMark } from "./ProofMark";
 import type { Tint } from "./domain-visuals/engine";
-import {
-  proverField,
-  type ProverStatus,
-} from "./domain-visuals/proverField";
+import { proverField, type ProverStatus } from "./domain-visuals/proverField";
 import { useDomainCanvas } from "./domain-visuals/useDomainCanvas";
 
 /**
@@ -241,6 +239,7 @@ export function VerifyWidget() {
       verdict: r.proven ? "unsat" : "sat",
       ms,
     });
+    track("demo_run", { domain: c.domain, proven: r.proven });
 
     setStatus("running");
     setStep(0);
@@ -300,7 +299,10 @@ export function VerifyWidget() {
               <button
                 key={cl.domain}
                 type="button"
-                onClick={() => setSel(idx)}
+                onClick={() => {
+                  setSel(idx);
+                  track("demo_claim_switched", { domain: cl.domain });
+                }}
                 className={`group rounded-sm border p-4 text-left transition-all ${
                   idx === sel
                     ? "border-foreground/40 bg-foreground/[0.04]"
@@ -323,6 +325,7 @@ export function VerifyWidget() {
                 href="https://playground.boundlessintuition.com/"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => track("outbound_playground", { from: "demo" })}
                 className="inline-flex items-center gap-1 text-foreground underline decoration-foreground/30 underline-offset-4 transition-colors hover:decoration-foreground"
               >
                 playground
@@ -409,7 +412,10 @@ export function VerifyWidget() {
                 </span>
               </div>
               {/* The provable envelope — drag into the amber and the proof breaks */}
-              <div className="relative mt-3 h-[3px] overflow-hidden rounded-full" aria-hidden>
+              <div
+                className="relative mt-3 h-[3px] overflow-hidden rounded-full"
+                aria-hidden
+              >
                 <div
                   className="absolute inset-0"
                   style={{

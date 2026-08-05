@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react";
+import { SECTIONS } from "@/lib/sections";
 
 // The on-page sections, moved off the top bar and onto a quiet vertical rail
-// pinned to the right edge of the viewport. Ids must match the section anchors
-// rendered on the home page (see the hrefs the TopBar/footer point at).
-const SECTIONS = [
-  { id: "doctrine", label: "Doctrine" },
-  { id: "method", label: "Method" },
-  { id: "try", label: "Demonstration" },
-  { id: "domains", label: "Domains" },
-  { id: "value", label: "Value" },
-  { id: "walkthrough", label: "Walkthrough" },
-  { id: "lab", label: "Lab" },
-] as const;
+// pinned to the right edge of the viewport. The id/label list lives in
+// `@/lib/sections` so the analytics scroll-depth hook observes exactly the
+// same anchors this rail highlights.
 
 export function SectionRail() {
   const [active, setActive] = useState<string>(SECTIONS[0].id);

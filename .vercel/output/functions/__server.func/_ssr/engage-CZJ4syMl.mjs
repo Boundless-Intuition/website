@@ -1,9 +1,10 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-Cgrkd3Pp.mjs";
+import { r as track$1 } from "./analytics-DLNB7xJd.mjs";
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-yHT9nGkk.mjs";
 import { a as smoothstep, i as rng, n as mix, o as tone, r as oklcha, s as useDomainCanvas, t as field } from "./useDomainCanvas-BjzCv2zR.mjs";
 import { n as PipelineBackdrop, p as ruleLattice, r as asciiFlow, s as claimMorph } from "./MethodVisual-tZ0ZgSgY.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/engage-BzGwV6Bt.js
+//#region node_modules/.nitro/vite/services/ssr/assets/engage-CZJ4syMl.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -850,6 +851,7 @@ function EngagePage() {
 		e.preventDefault();
 		const subject = encodeURIComponent(`Verification inquiry - ${formState.company || "General"}`);
 		const body = encodeURIComponent(`Name: ${formState.name}\nCompany: ${formState.company}\nDomain: ${formState.domain}\n\n${formState.message}`);
+		track$1("engage_submitted", { domain: formState.domain || "unspecified" });
 		window.location.href = `mailto:research@boundlessintuition.com?subject=${subject}&body=${body}`;
 		setSubmitted(true);
 	};
@@ -1147,6 +1149,7 @@ function EngagePage() {
 							className: "mt-10",
 							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
 								href: "mailto:research@boundlessintuition.com",
+								onClick: () => track$1("contact_mailto", { from: "engage" }),
 								className: "group inline-flex items-center gap-3 border-b border-foreground/40 pb-1 font-display text-[13px] font-medium text-foreground transition-colors hover:border-foreground",
 								children: ["research@boundlessintuition.com", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 									"aria-hidden": true,

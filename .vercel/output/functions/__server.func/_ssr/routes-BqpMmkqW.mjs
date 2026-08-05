@@ -1,42 +1,13 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-Cgrkd3Pp.mjs";
+import { a as useSectionViews, r as track$1, t as SECTIONS } from "./analytics-DLNB7xJd.mjs";
+import { v as Link } from "../_libs/@tanstack/react-router+[...].mjs";
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-yHT9nGkk.mjs";
 import { a as smoothstep, n as mix, o as tone, r as oklcha, s as useDomainCanvas, t as field } from "./useDomainCanvas-BjzCv2zR.mjs";
 import { a as candlestick, c as dataFlowNet, d as radarSweep, f as redactionRain, i as asciiScan, l as dnaHelix, n as PipelineBackdrop, o as citationArcs, r as asciiFlow, t as MethodVisual, u as ecgMonitor } from "./MethodVisual-tZ0ZgSgY.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-DjDYMW57.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-BqpMmkqW.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-var SECTIONS = [
-	{
-		id: "doctrine",
-		label: "Doctrine"
-	},
-	{
-		id: "method",
-		label: "Method"
-	},
-	{
-		id: "try",
-		label: "Demonstration"
-	},
-	{
-		id: "domains",
-		label: "Domains"
-	},
-	{
-		id: "value",
-		label: "Value"
-	},
-	{
-		id: "walkthrough",
-		label: "Walkthrough"
-	},
-	{
-		id: "lab",
-		label: "Lab"
-	}
-];
 function SectionRail() {
 	const [active, setActive] = (0, import_react.useState)(SECTIONS[0].id);
 	(0, import_react.useEffect)(() => {
@@ -1467,6 +1438,10 @@ function VerifyWidget() {
 			verdict: r.proven ? "unsat" : "sat",
 			ms
 		});
+		track$1("demo_run", {
+			domain: c.domain,
+			proven: r.proven
+		});
 		setStatus("running");
 		setStep(0);
 		if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -1518,7 +1493,10 @@ function VerifyWidget() {
 					className: "flex flex-col gap-3",
 					children: [CLAIMS.map((cl, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 						type: "button",
-						onClick: () => setSel(idx),
+						onClick: () => {
+							setSel(idx);
+							track$1("demo_claim_switched", { domain: cl.domain });
+						},
 						className: `group rounded-sm border p-4 text-left transition-all ${idx === sel ? "border-foreground/40 bg-foreground/[0.04]" : "border-border bg-background hover:border-foreground/25"}`,
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "mb-1.5 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground",
@@ -1543,6 +1521,7 @@ function VerifyWidget() {
 								href: "https://playground.boundlessintuition.com/",
 								target: "_blank",
 								rel: "noopener noreferrer",
+								onClick: () => track$1("outbound_playground", { from: "demo" }),
 								className: "inline-flex items-center gap-1 text-foreground underline decoration-foreground/30 underline-offset-4 transition-colors hover:decoration-foreground",
 								children: ["playground", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 									"aria-hidden": true,
@@ -2889,6 +2868,7 @@ function Origin() {
 					className: "mt-8",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
 						href: "mailto:research@boundlessintuition.com",
+						onClick: () => track$1("contact_mailto", { from: "lab" }),
 						className: "group inline-flex items-center gap-3 border-b border-foreground/40 pb-1 font-display text-[13px] font-medium text-foreground transition-colors hover:border-foreground",
 						children: ["research@boundlessintuition.com", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 							"aria-hidden": true,
@@ -2902,6 +2882,7 @@ function Origin() {
 	});
 }
 function Index() {
+	useSectionViews();
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "min-h-screen bg-background text-foreground",
 		children: [

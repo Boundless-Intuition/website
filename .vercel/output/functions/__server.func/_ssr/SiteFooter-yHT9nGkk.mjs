@@ -1,10 +1,11 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-DDgF3BC-.mjs";
+import { n as getAttribution, r as track$1 } from "./analytics-DLNB7xJd.mjs";
+import { v as Link } from "../_libs/@tanstack/react-router+[...].mjs";
+import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-Af86u9st.mjs";
 import { i as TSS_SERVER_FUNCTION, l as createServerFn } from "./esm-Dova13aH.mjs";
-import { n as objectType, r as stringType, t as arrayType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-Cgrkd3Pp.js
+import { c as objectType, t as arrayType, u as stringType } from "../_libs/zod.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-yHT9nGkk.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function apply(theme) {
@@ -136,6 +137,7 @@ function TopBar() {
 						href: "https://playground.boundlessintuition.com/",
 						target: "_blank",
 						rel: "noopener noreferrer",
+						onClick: () => track$1("outbound_playground", { from: "topbar" }),
 						className: "inline-flex items-center gap-1 transition-colors hover:text-foreground",
 						children: ["Playground", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 							"aria-hidden": true,
@@ -193,7 +195,10 @@ function TopBar() {
 							href: "https://playground.boundlessintuition.com/",
 							target: "_blank",
 							rel: "noopener noreferrer",
-							onClick: () => setOpen(false),
+							onClick: () => {
+								setOpen(false);
+								track$1("outbound_playground", { from: "topbar-mobile" });
+							},
 							className: "flex items-center justify-between py-3 font-display text-[15px] font-medium text-foreground/85 transition-colors hover:text-foreground",
 							children: ["Playground", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 								"aria-hidden": true,
@@ -231,8 +236,25 @@ var createSsrRpc = (functionId) => {
 };
 var SubscribeInput = objectType({
 	email: stringType().email("That doesn't look like a valid email."),
-	topics: arrayType(stringType()).max(12).default([])
+	topics: arrayType(stringType()).max(12).default([]),
+	attribution: objectType({
+		referrer: stringType().max(300).optional(),
+		utm_source: stringType().max(100).optional(),
+		utm_medium: stringType().max(100).optional(),
+		utm_campaign: stringType().max(100).optional()
+	}).optional()
 });
+/**
+* Records a completed signup: a Vercel custom event and an ntfy alert.
+*
+* Deliberately server-side rather than fired from the browser. A signup is the
+* highest-intent thing that happens on this site, and the client-side path is
+* the unreliable one - `/_vercel/insights` is a common ad-blocker target, and
+* a technical audience blocks it at a meaningful rate. Running it here also
+* means the notification carries the request's geo headers.
+*
+* Never throws: reporting a signup must not fail the signup.
+*/
 var subscribeToWaitlist = createServerFn({ method: "POST" }).validator(SubscribeInput).handler(createSsrRpc("a09665e0a5ccb55e8be2ca52267403dc2b5094c9b6be00c64cbe098f9682d591"));
 var UPDATES = [
 	{
@@ -275,7 +297,8 @@ function Waitlist() {
 		try {
 			const result = await subscribeToWaitlist({ data: {
 				email,
-				topics: []
+				topics: [],
+				attribution: getAttribution()
 			} });
 			if (result.ok) {
 				setMessage(result.status === "already" ? "You're already subscribed. Nothing to do." : "");
@@ -611,6 +634,7 @@ function SiteFooter() {
 								href: "https://playground.boundlessintuition.com/",
 								target: "_blank",
 								rel: "noopener noreferrer",
+								onClick: () => track$1("outbound_playground", { from: "footer" }),
 								className: "inline-flex items-center gap-1 hover:text-foreground",
 								children: ["Playground", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 									"aria-hidden": true,
@@ -620,6 +644,7 @@ function SiteFooter() {
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
 								href: "mailto:research@boundlessintuition.com",
+								onClick: () => track$1("contact_mailto", { from: "footer" }),
 								className: "hover:text-foreground",
 								children: "Contact"
 							}),

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { subscribeToWaitlist } from "@/lib/waitlist";
+import { getAttribution } from "@/lib/analytics";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
@@ -50,10 +51,14 @@ export function Waitlist() {
     setStatus("submitting");
     setMessage("");
     try {
+      // First-touch campaign travels with the subscriber, so Buttondown keeps a
+      // permanent record of where they came from.
       const result = await subscribeToWaitlist({
-        data: { email, topics: [] },
+        data: { email, topics: [], attribution: getAttribution() },
       });
       if (result.ok) {
+        // No client-side event here on purpose: the server function reports the
+        // signup itself, which survives ad blockers and page-aways.
         setMessage(
           result.status === "already"
             ? "You're already subscribed. Nothing to do."
@@ -106,8 +111,8 @@ export function Waitlist() {
             The work, as we publish it.
           </h2>
           <p className="mt-4 max-w-[48ch] text-[15px] leading-relaxed text-muted-foreground">
-            New benchmarks, verification results, and tooling, sent when we
-            have a real finding to share rather than on a schedule. Technical,
+            New benchmarks, verification results, and tooling, sent when we have
+            a real finding to share rather than on a schedule. Technical,
             infrequent, and no marketing.
           </p>
 

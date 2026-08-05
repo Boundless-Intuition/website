@@ -7,6 +7,7 @@ import {
 } from "react";
 import { Check, Link2, Pause, Play, RotateCcw, RotateCw } from "lucide-react";
 import type { Narration } from "@/lib/blog";
+import { track } from "@/lib/analytics";
 
 const WORDS_PER_MINUTE = 175;
 // Chrome truncates long utterances, so the article is queued as short
@@ -176,8 +177,14 @@ function PlayerShell({
  * Plays a pre-rendered MP3. Position, duration, and rate all come from the
  * media element itself, so the clock is real rather than estimated.
  */
-function AudioNarration({ audio, duration: knownDuration }: Narration) {
+function AudioNarration({
+  audio,
+  duration: knownDuration,
+  slug,
+}: Narration & { slug: string }) {
   const audioRef = useRef<HTMLAudioElement>(null);
+  // Only the first play is worth reporting; pause/resume is not a new signal.
+  const reported = useRef(false);
   const [status, setStatus] = useState<Status>("idle");
   const [position, setPosition] = useState(0);
   // Seeded from the build-time manifest so the idle pill can show the runtime
@@ -195,10 +202,14 @@ function AudioNarration({ audio, duration: knownDuration }: Narration) {
       el.pause();
       return;
     }
+    if (!reported.current) {
+      reported.current = true;
+      track("narration_play", { slug, source: "audio" });
+    }
     // Some browsers reset playbackRate when a fresh source starts loading.
     el.playbackRate = rate;
     void el.play().catch(() => setStatus("idle"));
-  }, [rate]);
+  }, [rate, slug]);
 
   const skip = useCallback((deltaSeconds: number) => {
     const el = audioRef.current;
@@ -260,10 +271,14 @@ function AudioNarration({ audio, duration: knownDuration }: Narration) {
  */
 function SpeechNarration({
   containerRef,
+  slug,
 }: {
   containerRef: RefObject<HTMLElement | null>;
+  slug: string;
 }) {
   const [supported, setSupported] = useState(false);
+  // Only the first play is worth reporting; pause/resume is not a new signal.
+  const reported = useRef(false);
   const [status, setStatus] = useState<Status>("idle");
   const [rateIndex, setRateIndex] = useState(0);
   // Real wall-clock seconds played so far, independent of rate; the baseline
@@ -349,6 +364,10 @@ function SpeechNarration({
 
   const toggle = useCallback(() => {
     const synth = window.speechSynthesis;
+    if (status !== "playing" && !reported.current) {
+      reported.current = true;
+      track("narration_play", { slug, source: "speech" });
+    }
     if (status === "playing") {
       synth.pause();
       setStatus("paused");
@@ -364,7 +383,7 @@ function SpeechNarration({
       startTicking();
       speakFromRef.current(0);
     }
-  }, [status, startTicking, stopTicking]);
+  }, [status, startTicking, stopTicking, slug]);
 
   const skip = useCallback(
     (deltaSeconds: number) => {
@@ -425,15 +444,17 @@ function SpeechNarration({
 export function ListenToArticle({
   containerRef,
   narration,
+  slug,
 }: {
   containerRef: RefObject<HTMLElement | null>;
   narration?: Narration;
+  slug: string;
 }) {
-  if (narration) return <AudioNarration {...narration} />;
-  return <SpeechNarration containerRef={containerRef} />;
+  if (narration) return <AudioNarration {...narration} slug={slug} />;
+  return <SpeechNarration containerRef={containerRef} slug={slug} />;
 }
 
-export function ShareButton({ title }: { title: string }) {
+export function ShareButton({ title, slug }: { title: string; slug: string }) {
   const [copied, setCopied] = useState(false);
 
   const share = useCallback(async () => {
@@ -443,15 +464,17 @@ export function ShareButton({ title }: { title: string }) {
     if (navigator.share) {
       try {
         await navigator.share({ title, url });
+        track("post_shared", { slug, method: "webshare" });
         return;
       } catch {
         // Dismissed share sheets fall through to the clipboard copy below.
       }
     }
     await navigator.clipboard.writeText(url);
+    track("post_shared", { slug, method: "clipboard" });
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  }, [title]);
+  }, [title, slug]);
 
   return (
     <button

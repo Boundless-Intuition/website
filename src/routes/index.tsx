@@ -10,12 +10,17 @@ import { DomainGrid } from "@/components/site/DomainGrid";
 import { ProofWalkthrough } from "@/components/site/ProofWalkthrough";
 import { Origin } from "@/components/site/Origin";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { useSectionViews } from "@/lib/analytics";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 function Index() {
+  // Scroll depth over the anchors the SectionRail highlights, so we can tell
+  // whether the long-form argument gets read or everyone stops at the hero.
+  useSectionViews();
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <TopBar />

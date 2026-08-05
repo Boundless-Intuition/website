@@ -1,4 +1,5 @@
-import { M as createLRUCache, N as invariant, P as decodePath, S as getStylesheetHref, _ as GLOBAL_TSR, b as createInlineCssStyleAsset, k as rootRouteId, v as TSR_SCRIPT_BARRIER_ID, y as createInlineCssPlaceholderAsset } from "./react-router+[...].mjs";
+import { C as createInlineCssStyleAsset, F as createLRUCache, I as invariant, L as decodePath, M as rootRouteId, S as createInlineCssPlaceholderAsset, T as getStylesheetHref, b as GLOBAL_TSR, o as normalizeSsrResponse, x as TSR_SCRIPT_BARRIER_ID } from "./react-router+[...].mjs";
+import { n as createMemoryHistory } from "../tanstack__history.mjs";
 //#region node_modules/seroval/dist/esm/production/index.mjs
 var M = ((i) => (i[i.AggregateError = 1] = "AggregateError", i[i.ArrowFunction = 2] = "ArrowFunction", i[i.ErrorPrototypeStack = 4] = "ErrorPrototypeStack", i[i.ObjectAssign = 8] = "ObjectAssign", i[i.BigIntTypedArray = 16] = "BigIntTypedArray", i[i.RegExp = 32] = "RegExp", i))(M || {});
 var v$1 = Symbol.asyncIterator, pr = Symbol.hasInstance, R = Symbol.isConcatSpreadable, C = Symbol.iterator, dr = Symbol.match, gr = Symbol.matchAll, yr = Symbol.replace, Nr = Symbol.search, br = Symbol.species, vr = Symbol.split, Cr = Symbol.toPrimitive, P$1 = Symbol.toStringTag, Ar = Symbol.unscopables;
@@ -2922,4 +2923,43 @@ function getNormalizedURL(url, base) {
 	};
 }
 //#endregion
-export { defaultSerovalPlugins as a, makeSerovalPlugin as c, su as d, mergeHeaders as i, Pu as l, getNormalizedURL as n, createRawStreamRPCPlugin as o, getOrigin as r, createSerializationAdapter as s, attachRouterServerSsrUtils as t, iu as u };
+//#region node_modules/@tanstack/router-core/dist/esm/ssr/createRequestHandler.js
+function createRequestHandler({ createRouter, request, getRouterManifest }) {
+	return async (cb) => {
+		const router = createRouter();
+		let responseOwnsCleanup = false;
+		try {
+			attachRouterServerSsrUtils({
+				router,
+				manifest: await getRouterManifest?.()
+			});
+			const { url } = getNormalizedURL(request.url, "http://localhost");
+			const origin = getOrigin(request);
+			const history = createMemoryHistory({ initialEntries: [url.href.replace(url.origin, "")] });
+			router.update({
+				history,
+				origin: router.options.origin ?? origin
+			});
+			await router.load();
+			await router.serverSsr?.dehydrate();
+			const ssrResponse = normalizeSsrResponse(await cb({
+				request,
+				router,
+				responseHeaders: getRequestHeaders({ router })
+			}));
+			responseOwnsCleanup = ssrResponse.serverSsrCleanup === "stream";
+			return ssrResponse.response;
+		} finally {
+			if (!responseOwnsCleanup) router.serverSsr?.cleanup();
+		}
+	};
+}
+function getRequestHeaders(opts) {
+	const matchHeaders = [];
+	for (const match of opts.router.stores.matches.get()) matchHeaders.push(match.headers);
+	const redirect = opts.router.stores.redirect.get();
+	if (redirect) matchHeaders.push(redirect.headers);
+	return mergeHeaders({ "Content-Type": "text/html; charset=UTF-8" }, ...matchHeaders);
+}
+//#endregion
+export { mergeHeaders as a, createSerializationAdapter as c, iu as d, su as f, getOrigin as i, makeSerovalPlugin as l, attachRouterServerSsrUtils as n, defaultSerovalPlugins as o, getNormalizedURL as r, createRawStreamRPCPlugin as s, createRequestHandler as t, Pu as u };

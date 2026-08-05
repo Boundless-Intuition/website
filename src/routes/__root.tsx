@@ -9,9 +9,20 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import appCss from "../styles.css?url";
+import { track, useVisitDigest } from "@/lib/analytics";
+
 function NotFoundComponent() {
+  // Broken inbound links are worth knowing about; folded into the visit digest
+  // rather than pushed on its own.
+  useEffect(() => {
+    track("page_not_found", {
+      path: typeof window === "undefined" ? "" : window.location.pathname,
+    });
+  }, []);
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
@@ -38,6 +49,13 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
+
+  // The SSR path already has elaborate error handling (see `src/server.ts`),
+  // but client-side render failures were previously invisible in production.
+  useEffect(() => {
+    track("render_error", { message: error.message.slice(0, 200) });
+  }, [error]);
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
@@ -143,6 +161,7 @@ function RootShell({ children }: { children: ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         {children}
         <Analytics />
+        <SpeedInsights />
         <Scripts />
       </body>
     </html>
@@ -151,6 +170,9 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  // Sends the end-of-visit summary when the tab goes away.
+  useVisitDigest();
 
   return (
     <QueryClientProvider client={queryClient}>

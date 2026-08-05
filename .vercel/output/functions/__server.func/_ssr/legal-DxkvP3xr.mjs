@@ -1,6 +1,6 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-Cgrkd3Pp.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/legal-Bj4x0jNo.js
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-yHT9nGkk.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/legal-DxkvP3xr.js
 var import_jsx_runtime = require_jsx_runtime();
 var SECTIONS = [
 	{
@@ -16,15 +16,20 @@ var SECTIONS = [
 	{
 		n: "03",
 		title: "Privacy",
-		body: "We collect only the information you send us directly - for example, when you submit an inquiry through the Engage page, which opens your own email client. We do not sell personal data. Materials you share for a verification engagement are treated as confidential under the terms of that engagement."
+		body: "We collect what you send us directly - for example, when you submit an inquiry through the Engage page, which opens your own email client, or when you subscribe to research updates. We do not sell personal data. Materials you share for a verification engagement are treated as confidential under the terms of that engagement."
 	},
 	{
 		n: "04",
+		title: "What this site measures",
+		body: "We keep anonymous, aggregate measurements of how the site is used: which pages and sections are read, whether the demonstration is run, approximate location from your IP address, and which site referred you. There is no advertising, no cross-site tracking, no session recording, and nothing here identifies you personally or is shared with third parties for their own purposes. The site sets one functional cookie, bi_seen, used solely to avoid notifying us twice about the same browser. Analytics are provided by Vercel without advertising cookies. If you would rather not be measured at all, any standard tracker blocker will stop it."
+	},
+	{
+		n: "05",
 		title: "Intellectual property",
 		body: "The content, marks, and design of this site are the property of Boundless Intuition. Formal artifacts produced during an engagement are owned as set out in the applicable agreement."
 	},
 	{
-		n: "05",
+		n: "06",
 		title: "Contact",
 		body: "Questions about these terms can be directed to research@boundlessintuition.com. This notice may be updated from time to time; the version published here is the current one."
 	}

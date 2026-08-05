@@ -1,3 +1,5 @@
+import { track } from "@/lib/analytics";
+
 export function Origin() {
   return (
     <section id="lab" className="relative bg-background">
@@ -48,6 +50,7 @@ export function Origin() {
           <div className="mt-8">
             <a
               href="mailto:research@boundlessintuition.com"
+              onClick={() => track("contact_mailto", { from: "lab" })}
               className="group inline-flex items-center gap-3 border-b border-foreground/40 pb-1 font-display text-[13px] font-medium text-foreground transition-colors hover:border-foreground"
             >
               research@boundlessintuition.com

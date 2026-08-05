@@ -9,11 +9,16 @@ import {
 import { Prose } from "./prose";
 import { TableOfContents } from "./TableOfContents";
 import { ListenToArticle, ShareButton } from "./PostActions";
+import { useReadProgress } from "@/lib/analytics";
 
 export function BlogPostPage({ post }: { post: BlogPost }) {
   const morePosts = BLOG_POSTS.filter((p) => p.slug !== post.slug);
   const { Content } = post;
   const contentRef = useRef<HTMLDivElement>(null);
+
+  // Depth is measured against the article body, so the footer and signup strip
+  // below it don't count as "read".
+  useReadProgress(post.slug, contentRef);
 
   return (
     <>
@@ -68,9 +73,10 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
               <ListenToArticle
                 containerRef={contentRef}
                 narration={getNarration(post.slug)}
+                slug={post.slug}
               />
             </div>
-            <ShareButton title={post.title} />
+            <ShareButton title={post.title} slug={post.slug} />
           </div>
         </div>
       </section>

@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Waitlist } from "./Waitlist";
+import { track } from "@/lib/analytics";
 
 function SwissFlag({ className = "" }: { className?: string }) {
   return (
@@ -78,6 +79,7 @@ export function SiteFooter() {
               href="https://playground.boundlessintuition.com/"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => track("outbound_playground", { from: "footer" })}
               className="inline-flex items-center gap-1 hover:text-foreground"
             >
               Playground
@@ -87,6 +89,7 @@ export function SiteFooter() {
             </a>
             <a
               href="mailto:research@boundlessintuition.com"
+              onClick={() => track("contact_mailto", { from: "footer" })}
               className="hover:text-foreground"
             >
               Contact

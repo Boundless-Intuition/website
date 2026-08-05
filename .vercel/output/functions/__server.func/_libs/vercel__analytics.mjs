@@ -1,5 +1,60 @@
-import { i as __toESM } from "../_runtime.mjs";
+import { i as __toESM, n as __exportAll } from "../_runtime.mjs";
 import { r as require_react } from "./react+tanstack__react-query.mjs";
+//#region node_modules/@vercel/analytics/dist/index.mjs
+function isBrowser$2() {
+	return typeof window !== "undefined";
+}
+function detectEnvironment$2() {
+	return "production";
+}
+function getMode$2() {
+	return (isBrowser$2() ? window.vam : detectEnvironment$2()) || "production";
+}
+function isProduction$1() {
+	return getMode$2() === "production";
+}
+function isDevelopment$1() {
+	return getMode$2() === "development";
+}
+function removeKey$1(key, { [key]: _, ...rest }) {
+	return rest;
+}
+function parseProperties$1(properties, options) {
+	if (!properties) return void 0;
+	let props = properties;
+	const errorProperties = [];
+	for (const [key, value] of Object.entries(properties)) if (typeof value === "object" && value !== null) if (options.strip) props = removeKey$1(key, props);
+	else errorProperties.push(key);
+	if (errorProperties.length > 0 && !options.strip) throw Error(`The following properties are not valid: ${errorProperties.join(", ")}. Only strings, numbers, booleans, and null are allowed.`);
+	return props;
+}
+function track$1(name2, properties, options) {
+	var _a, _b;
+	if (!isBrowser$2()) {
+		const msg = "[Vercel Web Analytics] Please import `track` from `@vercel/analytics/server` when using this function in a server environment";
+		if (isProduction$1()) console.warn(msg);
+		else throw new Error(msg);
+		return;
+	}
+	if (!properties) {
+		(_a = window.va) == null || _a.call(window, "event", {
+			name: name2,
+			options
+		});
+		return;
+	}
+	try {
+		const props = parseProperties$1(properties, { strip: isProduction$1() });
+		(_b = window.va) == null || _b.call(window, "event", {
+			name: name2,
+			data: props,
+			options
+		});
+	} catch (err) {
+		if (err instanceof Error && isDevelopment$1()) console.error(err);
+	}
+}
+//#endregion
 //#region node_modules/@vercel/analytics/dist/react/index.mjs
 var import_react = /* @__PURE__ */ __toESM(require_react(), 1);
 var initQueue = () => {
@@ -9,26 +64,26 @@ var initQueue = () => {
 		window.vaq.push(params);
 	};
 };
-var name = "@vercel/analytics";
-var version = "2.0.1";
-function isBrowser() {
+var name$1 = "@vercel/analytics";
+var version$1 = "2.0.1";
+function isBrowser$1() {
 	return typeof window !== "undefined";
 }
-function detectEnvironment() {
+function detectEnvironment$1() {
 	return "production";
 }
 function setMode(mode = "auto") {
 	if (mode === "auto") {
-		window.vam = detectEnvironment();
+		window.vam = detectEnvironment$1();
 		return;
 	}
 	window.vam = mode;
 }
-function getMode() {
-	return (isBrowser() ? window.vam : detectEnvironment()) || "production";
+function getMode$1() {
+	return (isBrowser$1() ? window.vam : detectEnvironment$1()) || "production";
 }
 function isDevelopment() {
-	return getMode() === "development";
+	return getMode$1() === "development";
 }
 function getScriptSrc(props) {
 	if (props.scriptSrc) return makeAbsolute(props.scriptSrc);
@@ -47,8 +102,8 @@ function loadProps(explicitProps, confString) {
 	} catch {}
 	setMode(props.mode);
 	const dataset = {
-		sdkn: name + (props.framework ? `/${props.framework}` : ""),
-		sdkv: version
+		sdkn: name$1 + (props.framework ? `/${props.framework}` : ""),
+		sdkv: version$1
 	};
 	if (props.disableAutoTrack) dataset.disableAutoTrack = "1";
 	if (props.viewEndpoint) dataset.viewEndpoint = makeAbsolute(props.viewEndpoint);
@@ -69,7 +124,7 @@ function makeAbsolute(url) {
 }
 function inject(props = { debug: true }, confString) {
 	var _a;
-	if (!isBrowser()) return;
+	if (!isBrowser$1()) return;
 	const { beforeSend, src, dataset } = loadProps(props, confString);
 	initQueue();
 	if (beforeSend) (_a = window.va) == null || _a.call(window, "beforeSend", beforeSend);
@@ -121,4 +176,114 @@ function Analytics(props) {
 	return null;
 }
 //#endregion
-export { Analytics as t };
+//#region node_modules/@vercel/analytics/dist/server/index.mjs
+var server_exports = /* @__PURE__ */ __exportAll({ track: () => track });
+var name = "@vercel/analytics";
+var version = "2.0.1";
+function isBrowser() {
+	return typeof window !== "undefined";
+}
+function detectEnvironment() {
+	return "production";
+}
+function getMode() {
+	return (isBrowser() ? window.vam : detectEnvironment()) || "production";
+}
+function isProduction() {
+	return getMode() === "production";
+}
+function removeKey(key, { [key]: _, ...rest }) {
+	return rest;
+}
+function parseProperties(properties, options) {
+	if (!properties) return void 0;
+	let props = properties;
+	const errorProperties = [];
+	for (const [key, value] of Object.entries(properties)) if (typeof value === "object" && value !== null) if (options.strip) props = removeKey(key, props);
+	else errorProperties.push(key);
+	if (errorProperties.length > 0 && !options.strip) throw Error(`The following properties are not valid: ${errorProperties.join(", ")}. Only strings, numbers, booleans, and null are allowed.`);
+	return props;
+}
+function isHeaders(headers) {
+	if (!headers) return false;
+	return typeof headers.entries === "function";
+}
+var symbol = Symbol.for("@vercel/request-context");
+var logPrefix = "[Vercel Web Analytics]";
+async function track(eventName, properties, options) {
+	var _a;
+	const ENDPOINT = process.env.VERCEL_WEB_ANALYTICS_ENDPOINT || process.env.VERCEL_URL;
+	const DISABLE_LOGS = Boolean(process.env.VERCEL_WEB_ANALYTICS_DISABLE_LOGS);
+	const BYPASS_SECRET = process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
+	if (typeof window !== "undefined") {
+		if (!isProduction()) throw new Error(`${logPrefix} It seems like you imported the \`track\` function from \`@vercel/web-analytics/server\` in a browser environment. This function is only meant to be used in a server environment.`);
+		return;
+	}
+	const props = parseProperties(properties, { strip: isProduction() });
+	if (!ENDPOINT) {
+		if (isProduction()) console.log(`${logPrefix} Can't find VERCEL_URL in environment variables.`);
+		else if (!DISABLE_LOGS) console.log(`${logPrefix} Track "${eventName}" ${props ? `with data ${JSON.stringify(props)}` : ""}`);
+		return;
+	}
+	try {
+		const requestContext = (_a = globalThis[symbol]) == null ? void 0 : _a.get();
+		let headers;
+		if (options && "headers" in options) headers = options.headers;
+		else if (options == null ? void 0 : options.request) headers = options.request.headers;
+		else if (requestContext == null ? void 0 : requestContext.headers) headers = requestContext.headers;
+		let tmp = {};
+		if (headers && isHeaders(headers)) headers.forEach((value, key) => {
+			tmp[key] = value;
+		});
+		else if (headers) tmp = headers;
+		const url = ENDPOINT.startsWith("http") ? ENDPOINT : new URL("/_vercel/insights/event", `https://${ENDPOINT}`).toString();
+		const body = {
+			o: (requestContext == null ? void 0 : requestContext.url) || tmp.referer || new URL(url).origin,
+			ts: Date.now(),
+			sdkn: `${name}/server`,
+			sdkv: version,
+			r: "",
+			en: eventName,
+			ed: props,
+			f: safeGetFlags(options == null ? void 0 : options.flags, requestContext)
+		};
+		const hasHeaders = Boolean(headers);
+		if (!hasHeaders) throw new Error("No session context found. Pass `request` or `headers` to the `track` function.");
+		const promise = fetch(url, {
+			headers: {
+				"content-type": "application/json",
+				...hasHeaders ? {
+					"user-agent": tmp["user-agent"],
+					"x-vercel-ip": tmp["x-forwarded-for"],
+					"x-va-server": "1",
+					cookie: tmp.cookie
+				} : { "x-va-server": "2" },
+				...BYPASS_SECRET ? { "x-vercel-protection-bypass": BYPASS_SECRET } : {}
+			},
+			body: JSON.stringify(body),
+			method: "POST"
+		}).then((response) => response.text()).catch((err) => {
+			if (err instanceof Error && "response" in err) console.error(err.response);
+			else console.error(err);
+		});
+		if (requestContext == null ? void 0 : requestContext.waitUntil) requestContext.waitUntil(promise);
+		else await promise;
+		return;
+	} catch (err) {
+		console.error(err);
+	}
+}
+function safeGetFlags(flags, requestContext) {
+	var _a;
+	try {
+		if (flags && !Array.isArray(flags)) return { p: flags };
+		if (!requestContext || !flags) return;
+		const plainFlags = {};
+		const resolvedPlainFlags = ((_a = requestContext.flags) == null ? void 0 : _a.getValues()) ?? {};
+		for (const flag of flags) if (typeof flag === "string") plainFlags[flag] = resolvedPlainFlags[flag];
+		else Object.assign(plainFlags, flag);
+		return { p: plainFlags };
+	} catch {}
+}
+//#endregion
+export { Analytics as n, track$1 as r, server_exports as t };
