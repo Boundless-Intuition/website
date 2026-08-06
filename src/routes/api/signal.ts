@@ -32,7 +32,6 @@ const ATTRIBUTION = {
 const PUSHED_EVENTS = [
   "engage_submitted",
   "contact_mailto",
-  "demo_run",
   "render_error",
   "outbound_playground",
   "post_shared",
@@ -69,7 +68,6 @@ const DigestPayload = z.object({
   dwellSeconds: z.number().int().min(0).max(86_400),
   sections: z.array(z.string().max(40)).max(20),
   sectionsTotal: z.number().int().min(0).max(50),
-  demoRuns: z.array(z.string().max(60)).max(30),
   postProgress: z.record(z.number().min(0).max(100)),
   narrated: z.array(z.string().max(120)).max(20),
   shared: z.array(z.string().max(120)).max(20),
@@ -152,8 +150,6 @@ function describeEvent(data: z.infer<typeof EventPayload>): string {
       return "Engage form submitted - their mail client is open";
     case "contact_mailto":
       return `Contact email opened (from ${props.from ?? "unknown"})`;
-    case "demo_run":
-      return `Demo run: ${props.domain} ${props.proven === false ? "✗ refuted" : "✓ proved"}`;
     case "render_error":
       return `Client render error: ${props.message ?? "unknown"}`;
     case "outbound_playground":
@@ -236,12 +232,6 @@ async function handle(request: Request): Promise<Response> {
         `**Sections** ${data.sections.join(" → ")} (${data.sections.length}/${data.sectionsTotal})`,
       );
     }
-    if (data.demoRuns.length > 0) {
-      lines.push(
-        `**Demo** ${data.demoRuns.length} run${data.demoRuns.length === 1 ? "" : "s"} — ${data.demoRuns.join(", ")}`,
-      );
-    }
-
     const reading = Object.entries(data.postProgress).map(
       ([slug, pct]) => `${slug} ${pct}%`,
     );

@@ -7,10 +7,8 @@
 export const SECTIONS = [
   { id: "doctrine", label: "Doctrine" },
   { id: "method", label: "Method" },
-  { id: "try", label: "Demonstration" },
   { id: "domains", label: "Domains" },
   { id: "value", label: "Value" },
-  { id: "walkthrough", label: "Walkthrough" },
   { id: "lab", label: "Lab" },
 ] as const;
 

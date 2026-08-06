@@ -6,10 +6,8 @@ import { track } from "@/lib/analytics";
 const SECTIONS = [
   { href: "/#doctrine", label: "Doctrine" },
   { href: "/#method", label: "Method" },
-  { href: "/#try", label: "Demonstration" },
   { href: "/#domains", label: "Domains" },
   { href: "/#value", label: "Value" },
-  { href: "/#walkthrough", label: "Walkthrough" },
   { href: "/#lab", label: "Lab" },
 ];
 
@@ -50,7 +48,7 @@ export function TopBar() {
             : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+      <div className="mx-auto flex h-16 max-w-shell items-center justify-between px-6 lg:px-10">
         <div className="flex items-center gap-12">
           <Link
             to="/"
@@ -144,7 +142,7 @@ export function TopBar() {
             : "max-h-0"
         }`}
       >
-        <div className="mx-auto max-w-7xl px-6 py-4">
+        <div className="mx-auto max-w-shell px-6 lg:px-10 py-4">
           <div className="flex flex-col divide-y divide-border">
             {SECTIONS.map((s) => (
               <a

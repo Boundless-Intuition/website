@@ -3,26 +3,21 @@ import { track } from "@/lib/analytics";
 export function Origin() {
   return (
     <section id="lab" className="relative bg-background">
-      <div className="relative mx-auto grid max-w-7xl gap-16 px-6 pt-28 pb-20 lg:grid-cols-[1.1fr_1fr]">
+      <div className="relative mx-auto grid max-w-shell gap-16 px-6 lg:px-10 pt-28 pb-20 lg:grid-cols-[1.1fr_1fr]">
         <div>
-          <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-            <span>Lab</span>
-          </div>
           <h2 className="mb-8 max-w-[18ch] font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]">
             Built at the edge of what's verifiable.
           </h2>
           <div className="max-w-[56ch] space-y-5 text-[16px] leading-[1.65] text-foreground/80">
             <p>
-              Founded in 2026 by research software and computing engineers at
-              CERN - where systems must be correct, not just tested. We bring
-              the engineering discipline of building mission-critical research
-              infrastructure to artificial intelligence: no result without a
+              Founded in 2026 by research software and computing engineers from
+              CERN, where systems must be correct, not just tested. We bring
+              that discipline to artificial intelligence: no result without a
               check, no claim without a derivation.
             </p>
             <p className="text-muted-foreground">
-              The lab operates from Geneva, within the gravitational field of
-              the world's largest research computing infrastructure. We build
-              tools that hold AI to the same standard we hold our own systems.
+              The lab operates from Geneva. We hold AI to the same standard we
+              hold our own systems.
             </p>
           </div>
         </div>

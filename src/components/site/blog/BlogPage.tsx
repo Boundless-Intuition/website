@@ -1,6 +1,11 @@
 import { useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { BLOG_POSTS, BLOG_TAGS, formatBlogDate, type BlogTag } from "@/lib/blog";
+import {
+  BLOG_POSTS,
+  BLOG_TAGS,
+  formatBlogDate,
+  type BlogTag,
+} from "@/lib/blog";
 import { BlogHeroBackdrop } from "@/components/site/domain-visuals/BlogVisual";
 
 const FILTERS: Array<"All" | BlogTag> = ["All", ...BLOG_TAGS];
@@ -9,7 +14,10 @@ export function BlogPage() {
   const [filter, setFilter] = useState<"All" | BlogTag>("All");
 
   const posts = useMemo(
-    () => (filter === "All" ? BLOG_POSTS : BLOG_POSTS.filter((p) => p.tag === filter)),
+    () =>
+      filter === "All"
+        ? BLOG_POSTS
+        : BLOG_POSTS.filter((p) => p.tag === filter),
     [filter],
   );
 
@@ -23,7 +31,7 @@ export function BlogPage() {
         {/* legibility scrims — heavier on the left where the copy sits */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/85 via-background/45 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background/80 to-transparent" />
-        <div className="pointer-events-none relative mx-auto max-w-7xl px-6 pt-24 pb-16 lg:pt-32">
+        <div className="pointer-events-none relative mx-auto max-w-shell px-6 lg:px-10 pt-24 pb-16 lg:pt-32">
           <div className="mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
             <span>Blog</span>
           </div>
@@ -32,13 +40,13 @@ export function BlogPage() {
           </h1>
           <p className="max-w-[58ch] text-[17px] leading-[1.6] text-foreground/85">
             Benchmarks, verification results, and the failures we found along
-            the way - published as we finish a report, not on a schedule.
+            the way, published as we finish a report, not on a schedule.
           </p>
         </div>
       </section>
 
       <div className="sticky top-16 z-40 border-b border-border bg-background/95 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl flex-wrap gap-2 px-6 py-5">
+        <div className="mx-auto flex max-w-shell flex-wrap gap-2 px-6 lg:px-10 py-5">
           {FILTERS.map((f) => (
             <button
               key={f}
@@ -58,7 +66,7 @@ export function BlogPage() {
       </div>
 
       <section className="bg-background">
-        <div className="mx-auto max-w-7xl px-6 py-16">
+        <div className="mx-auto max-w-shell px-6 lg:px-10 py-16">
           {posts.length === 0 ? (
             <p className="py-16 text-center text-[15px] text-muted-foreground">
               No posts under &ldquo;{filter}&rdquo; yet.
@@ -75,7 +83,10 @@ export function BlogPage() {
                   {/* cover art drifting behind the title; the scrim keeps the
                       copy side readable and lets the art breathe on the right */}
                   {post.image && (
-                    <div aria-hidden className="absolute inset-0 overflow-hidden">
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 overflow-hidden"
+                    >
                       <img
                         src={post.image}
                         alt=""

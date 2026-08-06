@@ -11,11 +11,11 @@ export const Route = createFileRoute("/blog/$slug")({
   head: ({ params }) => {
     const post = getBlogPost(params.slug);
     if (!post) {
-      return { meta: [{ title: "Blog - Boundless Intuition" }] };
+      return { meta: [{ title: "Blog · Boundless Intuition" }] };
     }
     return {
       meta: [
-        { title: `${post.title} - Boundless Intuition` },
+        { title: `${post.title} · Boundless Intuition` },
         { name: "description", content: post.description },
         { property: "og:title", content: post.title },
         { property: "og:description", content: post.description },

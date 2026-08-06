@@ -45,7 +45,6 @@ const EVENT_TIER = {
   engage_submitted: "alert",
   contact_mailto: "alert",
 
-  demo_run: "normal",
   render_error: "normal",
 
   outbound_playground: "quiet",
@@ -54,7 +53,6 @@ const EVENT_TIER = {
 
   section_viewed: "digest",
   post_progress: "digest",
-  demo_claim_switched: "digest",
   page_not_found: "digest",
 } as const satisfies Record<string, Tier>;
 
@@ -104,7 +102,6 @@ interface Visit {
   startedAt: number;
   entryPath: string;
   sections: SectionId[];
-  demoRuns: string[];
   postProgress: Record<string, number>;
   narrated: string[];
   shared: string[];
@@ -122,7 +119,6 @@ function getVisit(): Visit {
       startedAt: Date.now(),
       entryPath: typeof window === "undefined" ? "/" : window.location.pathname,
       sections: [],
-      demoRuns: [],
       postProgress: {},
       narrated: [],
       shared: [],
@@ -153,7 +149,6 @@ function accumulate(event: BiEvent, props: EventProps) {
       if (!v.notFound.includes(path)) v.notFound.push(path);
       break;
     }
-    // `demo_claim_switched` is noise on its own - the runs are what matter.
     default:
       break;
   }
@@ -163,11 +158,7 @@ function accumulate(event: BiEvent, props: EventProps) {
 function noteInDigest(event: BiEvent, props: EventProps) {
   const v = getVisit();
   v.events += 1;
-  if (event === "demo_run") {
-    v.demoRuns.push(
-      `${props.domain}${props.proven === false ? " ✗" : " ✓"}`.trim(),
-    );
-  } else if (event === "narration_play") {
+  if (event === "narration_play") {
     const slug = String(props.slug);
     if (!v.narrated.includes(slug)) v.narrated.push(slug);
   } else if (event === "post_shared") {
@@ -261,7 +252,6 @@ export function flushDigest() {
       dwellSeconds,
       sections: v.sections,
       sectionsTotal: SECTIONS.length,
-      demoRuns: v.demoRuns,
       postProgress: v.postProgress,
       narrated: v.narrated,
       shared: v.shared,

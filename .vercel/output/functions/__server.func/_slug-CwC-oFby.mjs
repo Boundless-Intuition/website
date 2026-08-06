@@ -1,13 +1,13 @@
 import { i as __toESM } from "./_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "./_libs/react+tanstack__react-query.mjs";
-import { i as useReadProgress, r as track$1 } from "./_ssr/analytics-DLNB7xJd.mjs";
-import { v as Link } from "./_libs/@tanstack/react-router+[...].mjs";
+import { c as useReadProgress, s as track$1 } from "./_ssr/theme-0hrIaw_O.mjs";
+import { y as Link } from "./_libs/@tanstack/react-router+[...].mjs";
 import { g as Prose } from "./_ssr/charts-C6lQQitl.mjs";
-import { a as getNarration, i as getBlogPost, r as formatBlogDate, t as BLOG_POSTS } from "./_ssr/blog-BnN9onms.mjs";
-import { t as Route } from "./_slug-DlM2rp5C.mjs";
-import { n as TopBar, t as SiteFooter } from "./_ssr/SiteFooter-DZpVXVBF.mjs";
+import { a as getNarration, i as getBlogPost, r as formatBlogDate, t as BLOG_POSTS } from "./_ssr/blog-ByrEdZ1c.mjs";
+import { t as Route } from "./_slug-CAnzjEMR.mjs";
+import { n as TopBar, t as SiteFooter } from "./_ssr/SiteFooter-Dr4S4eQG.mjs";
 import { a as Link2, i as Pause, n as RotateCcw, o as Check, r as Play, t as RotateCw } from "./_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/_slug-Dj8xxb8d.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_slug-CwC-oFby.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function TableOfContents({ containerRef }) {
@@ -523,7 +523,7 @@ function BlogPostPage({ post }) {
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("article", {
 			className: "bg-background pt-6 pb-16 md:pb-20",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "mx-auto max-w-7xl px-6",
+				className: "mx-auto max-w-shell px-6 lg:px-10",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "lg:grid lg:grid-cols-[13rem_minmax(0,1fr)_13rem] lg:items-start lg:gap-8",
 					children: [
@@ -545,7 +545,7 @@ function BlogPostPage({ post }) {
 		morePosts.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 			className: "border-t border-border bg-muted/20 py-16",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "mx-auto max-w-7xl px-6",
+				className: "mx-auto max-w-shell px-6 lg:px-10",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "mb-8 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "More from the lab" })

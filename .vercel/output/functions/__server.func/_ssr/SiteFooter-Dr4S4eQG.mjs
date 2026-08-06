@@ -1,38 +1,36 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { n as getAttribution, r as track$1 } from "./analytics-DLNB7xJd.mjs";
-import { v as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-CBMeL_zT.mjs";
+import { a as storeTheme, i as getAttribution, n as allowsLight, o as themeForPath, r as applyTheme, s as track$1 } from "./theme-0hrIaw_O.mjs";
+import { f as useLocation, y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
+import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-UKpMdhdU.mjs";
 import { i as TSS_SERVER_FUNCTION, l as createServerFn } from "./esm-Dova13aH.mjs";
 import { c as objectType, t as arrayType, u as stringType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-DZpVXVBF.js
+//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-Dr4S4eQG.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-function apply(theme) {
-	if (typeof document === "undefined") return;
-	document.documentElement.classList.toggle("dark", theme === "dark");
-}
+/**
+* Only rendered on the blog — the rest of the site is dark-only, so there is
+* nothing to toggle there. See `@/lib/theme`.
+*/
 function ThemeToggle() {
+	const pathname = useLocation({ select: (l) => l.pathname });
 	const [theme, setTheme] = (0, import_react.useState)("dark");
 	const [mounted, setMounted] = (0, import_react.useState)(false);
 	(0, import_react.useEffect)(() => {
-		const initial = (typeof window !== "undefined" && window.localStorage.getItem("bi-theme") || null) ?? "dark";
-		setTheme(initial);
-		apply(initial);
+		setTheme(themeForPath(pathname));
 		setMounted(true);
-	}, []);
+	}, [pathname]);
+	if (!allowsLight(pathname)) return null;
 	const toggle = () => {
 		const next = theme === "dark" ? "light" : "dark";
 		setTheme(next);
-		apply(next);
-		try {
-			window.localStorage.setItem("bi-theme", next);
-		} catch {}
+		applyTheme(next);
+		storeTheme(next);
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 		type: "button",
 		onClick: toggle,
-		"aria-label": `Switch to ${theme === "dark" ? "light" : "dark"} mode`,
+		"aria-label": `Switch to ${theme === "dark" ? "light" : "dark"} reading mode`,
 		className: "grid size-8 place-items-center rounded-sm border border-border text-foreground/70 transition-colors hover:border-foreground/60 hover:text-foreground",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 			className: "font-mono text-[13px]",
@@ -51,20 +49,12 @@ var SECTIONS = [
 		label: "Method"
 	},
 	{
-		href: "/#try",
-		label: "Demonstration"
-	},
-	{
 		href: "/#domains",
 		label: "Domains"
 	},
 	{
 		href: "/#value",
 		label: "Value"
-	},
-	{
-		href: "/#walkthrough",
-		label: "Walkthrough"
 	},
 	{
 		href: "/#lab",
@@ -91,7 +81,7 @@ function TopBar() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("nav", {
 		className: `sticky top-0 z-50 w-full transition-[background-color,backdrop-filter] duration-300 ${open ? "bg-background/85 backdrop-blur-md" : scrolled ? "bg-transparent backdrop-blur-[2px]" : "bg-transparent"}`,
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "mx-auto flex h-16 max-w-7xl items-center justify-between px-6",
+			className: "mx-auto flex h-16 max-w-shell items-center justify-between px-6 lg:px-10",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "flex items-center gap-12",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
@@ -175,7 +165,7 @@ function TopBar() {
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 			className: `overflow-hidden transition-[max-height] duration-300 md:hidden ${open ? "max-h-96 border-t border-border bg-background/95 backdrop-blur-md" : "max-h-0"}`,
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "mx-auto max-w-7xl px-6 py-4",
+				className: "mx-auto max-w-shell px-6 lg:px-10 py-4",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "flex flex-col divide-y divide-border",
 					children: [
@@ -325,7 +315,7 @@ function Waitlist() {
 				className: "pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent"
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-[1fr_0.92fr] lg:gap-20",
+				className: "relative mx-auto grid max-w-shell items-center gap-12 px-6 lg:px-10 py-20 lg:grid-cols-[1fr_0.92fr] lg:gap-20",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "mb-5 flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground",
@@ -561,7 +551,6 @@ var SECTION_LINKS = [
 	["/#method", "Method"],
 	["/#domains", "Domains"],
 	["/#value", "Value"],
-	["/#walkthrough", "Walkthrough"],
 	["/#lab", "Lab"]
 ];
 function SiteFooter() {
@@ -574,7 +563,7 @@ function SiteFooter() {
 				"aria-hidden": true
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative z-10 mx-auto max-w-7xl px-6 py-14",
+				className: "relative z-10 mx-auto max-w-shell px-6 lg:px-10 py-14",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "flex flex-col items-start justify-between gap-10 md:flex-row md:items-end",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -611,7 +600,7 @@ function SiteFooter() {
 						] })]
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 						className: "mt-3 max-w-sm text-[14.5px] leading-relaxed text-muted-foreground",
-						children: "The trust layer for artificial intelligence."
+						children: "Foundational layer for Verified Intelligence"
 					})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "grid grid-cols-2 gap-x-14 gap-y-3 font-display text-[12px] font-medium text-muted-foreground sm:grid-cols-3",
 						children: [

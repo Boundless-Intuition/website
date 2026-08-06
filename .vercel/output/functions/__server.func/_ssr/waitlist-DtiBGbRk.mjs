@@ -1,6 +1,6 @@
 import { i as TSS_SERVER_FUNCTION, l as createServerFn } from "./esm-Dova13aH.mjs";
 import { c as objectType, t as arrayType, u as stringType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/waitlist-C6VibKOH.js
+//#region node_modules/.nitro/vite/services/ssr/assets/waitlist-DtiBGbRk.js
 var createServerRpc = (serverFnMeta, splitImportFn) => {
 	const url = "/_serverFn/" + serverFnMeta.id;
 	return Object.assign(splitImportFn, {
@@ -34,7 +34,7 @@ async function announceSignup(status, attribution) {
 	try {
 		const [{ track }, { getRequest }, { sendNtfy, visitorContext }] = await Promise.all([
 			import("../_libs/vercel__analytics.mjs").then((n) => n.t),
-			import("./server-Bu2CoRzk.mjs"),
+			import("./server-xdD_9AaX.mjs"),
 			import("./ssr.mjs").then((n) => n.t)
 		]);
 		await track("waitlist_subscribed", {

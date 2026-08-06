@@ -6,13 +6,13 @@ const PENALTIES = [
   {
     figure: "€20M · 4%",
     label: "GDPR",
-    body: "The maximum fine is €20 million or 4% of global annual turnover - whichever is greater. A single unlawful data flow, or one hallucinated disclosure of personal data, is enough to trigger it.",
+    body: "€20 million or 4% of global annual turnover, whichever is greater. One unlawful data flow, or one hallucinated disclosure of personal data, is enough to trigger it.",
     source: { cite: "Art. 83 GDPR", href: "https://gdpr-info.eu/art-83-gdpr/" },
   },
   {
     figure: "$2M / yr",
     label: "HIPAA",
-    body: "Per-violation annual caps on mishandled health data - before the mandatory breach notifications, the OCR investigation, and the class action that follows a leak.",
+    body: "Per-violation annual caps on mishandled health data, before the breach notifications, the OCR investigation, and the class action.",
     source: {
       cite: "HHS OCR enforcement",
       href: "https://www.hhs.gov/hipaa/for-professionals/compliance-enforcement/index.html",
@@ -21,7 +21,7 @@ const PENALTIES = [
   {
     figure: "Personal",
     label: "SOX · SEC",
-    body: "Executives personally attest to their controls. A materially wrong AI-generated disclosure is not just a corporate fine - it is individual, criminal-adjacent liability.",
+    body: "Executives personally attest to their controls. A materially wrong AI-generated disclosure is individual, criminal-adjacent liability, not just a corporate fine.",
     source: {
       cite: "18 U.S.C. § 1350",
       href: "https://www.law.cornell.edu/uscode/text/18/1350",
@@ -30,7 +30,7 @@ const PENALTIES = [
   {
     figure: "Precedent",
     label: "Litigation",
-    body: "A fabricated citation, an unsafe instruction, a discriminatory decision - once a wrong answer reaches a customer, the cost is discovery, settlement, and case law written against you.",
+    body: "A fabricated citation, an unsafe instruction, a discriminatory decision. Once it reaches a customer, the cost is discovery, settlement, and case law written against you.",
     source: {
       cite: "Mata v. Avianca",
       href: "https://www.law.berkeley.edu/wp-content/uploads/archive/2025/12/Mata-v-Avianca-Inc.pdf",
@@ -42,12 +42,12 @@ const STAKES = [
   {
     tag: "Healthcare",
     head: "Measured in lives",
-    body: "A wrong dose is not a bug ticket. Verification proves the safety envelope holds for every patient in the label window - before the answer ever reaches a clinician.",
+    body: "A wrong dose is not a bug ticket. We prove the safety envelope holds for every patient in the label window, before a clinician ever sees the answer.",
   },
   {
     tag: "Finance",
     head: "Measured in mandates",
-    body: "A breached covenant or a misfiled disclosure costs fines, restitution, and trust - orders of magnitude beyond the price of proving the trade admissible first.",
+    body: "A breached covenant costs fines, restitution, and trust, orders of magnitude beyond the price of proving the trade admissible first.",
   },
   {
     tag: "Security",
@@ -59,15 +59,15 @@ const STAKES = [
 const EFFICIENCY = [
   {
     head: "Fewer model calls",
-    body: "Teams paper over unreliability with brute force - retries, self-consistency sampling, ensembles, LLM-as-judge chains - burning tokens to average out errors that never fully vanish. One verified answer replaces a fistful of speculative ones. A proof is deterministic and cacheable; it does not need to be re-rolled.",
+    body: "Teams paper over unreliability with brute force: retries, self-consistency sampling, LLM-as-judge chains, all burning tokens to average out errors that never fully vanish. One verified answer replaces a fistful of speculative ones, and a proof is deterministic and cacheable.",
   },
   {
     head: "Errors die before they ship",
-    body: "A mistake is cheap at proof time and ruinous in production. No rollbacks, no post-hoc audits, no war rooms. Verification deletes the expensive tail of a wrong answer - everything that happens after it escapes.",
+    body: "A mistake is cheap at proof time and ruinous in production. Verification deletes the expensive tail of a wrong answer: the rollbacks, the audits, the war rooms.",
   },
   {
     head: "Auditable by construction",
-    body: "Every certified answer arrives with its proof attached. The evidence your auditors ask for is a by-product of running the system, not a quarterly scramble.",
+    body: "Every certified answer arrives with its proof attached. The evidence auditors ask for is a by-product of running the system, not a quarterly scramble.",
   },
 ];
 
@@ -75,22 +75,22 @@ const PRODUCTIVITY = [
   {
     n: "01",
     head: "Ship at the speed of CI",
-    body: "Manual review is the throttle on every AI feature. When correctness is proved automatically, teams merge and deploy without a compliance queue in the critical path.",
+    body: "Manual review is the throttle on every AI feature. Prove correctness automatically and the compliance queue leaves the critical path.",
   },
   {
     n: "02",
     head: "Engineers build, not babysit",
-    body: "No brittle test suites chasing edge cases, no hand-tuned guardrail prompts. The rules are formalized once; the prover covers every case, forever.",
+    body: "No brittle test suites chasing edge cases, no hand-tuned guardrail prompts. The rules are formalized once; the prover covers every case.",
   },
   {
     n: "03",
     head: "Audits in minutes, not quarters",
-    body: "Certification becomes a query against signed proofs. Re-certifying after a change is automatic - the evidence regenerates itself.",
+    body: "Certification becomes a query against signed proofs. After a change, the evidence regenerates itself.",
   },
   {
     n: "04",
     head: "Automate the high-stakes work",
-    body: "Once answers are provably safe, the decisions that were too risky to hand to AI - the ones that actually move the business - can finally be automated.",
+    body: "Once answers are provably safe, the decisions too risky to hand to AI, the ones that move the business, can finally be automated.",
   },
 ];
 
@@ -164,21 +164,17 @@ export function VerificationValue() {
       id="value"
       className="relative border-b border-border bg-background"
     >
-      <div className="relative mx-auto max-w-7xl px-6 py-28">
+      <div className="relative mx-auto max-w-shell px-6 lg:px-10 py-28">
         <div className="mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div className="max-w-2xl">
-            <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-              <span>Value</span>
-            </div>
             <h2 className="font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]">
               Cheaper than being wrong.
             </h2>
           </div>
           <p className="max-w-sm text-[15px] leading-relaxed text-muted-foreground">
             Compliance is already one of the largest line items in a regulated
-            business - and a single hallucinated answer can turn it into a
-            lawsuit. Verification is a fixed, modest cost set against an
-            open-ended one.
+            business, and one hallucinated answer can turn it into a lawsuit.
+            Verification is a fixed cost set against an open-ended one.
           </p>
         </div>
 
@@ -221,10 +217,10 @@ export function VerificationValue() {
             ))}
           </div>
           <p className="mt-6 max-w-[70ch] text-[14px] leading-relaxed text-muted-foreground">
-            And that is before the standing cost of staying compliant: the
-            reviewers, the outside counsel, the audit consultants, the quarterly
-            evidence-gathering. Formal verification turns that recurring manual
-            tax into a check that runs itself.
+            And that is before the standing cost of staying compliant:
+            reviewers, outside counsel, audit consultants, quarterly
+            evidence-gathering. Verification turns that recurring manual tax
+            into a check that runs itself.
           </p>
         </div>
 
@@ -269,56 +265,56 @@ export function VerificationValue() {
               />
             </div>
             <div className="relative grid gap-4 p-4 sm:gap-6 sm:p-6 lg:grid-cols-2 lg:gap-8 lg:p-8">
-            {/* The downside cost */}
-            <div className="border border-border/60 bg-background/85 p-8 backdrop-blur-[2px] lg:p-10">
-              <div className="mb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                The cost of a wrong answer
-              </div>
-              <div className="flex flex-col divide-y divide-border">
-                {STAKES.map((s) => (
-                  <div
-                    key={s.tag}
-                    className="flex flex-col gap-2 py-5 first:pt-0 last:pb-0"
-                  >
-                    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                      <span
-                        className={`font-mono text-[10px] uppercase tracking-[0.16em] ${ACCENT}`}
-                      >
-                        {s.tag}
-                      </span>
-                      <h3 className="font-display text-[17px] font-medium tracking-tight text-foreground">
-                        {s.head}
-                      </h3>
+              {/* The downside cost */}
+              <div className="border border-border/60 bg-background/85 p-8 backdrop-blur-[2px] lg:p-10">
+                <div className="mb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                  The cost of a wrong answer
+                </div>
+                <div className="flex flex-col divide-y divide-border">
+                  {STAKES.map((s) => (
+                    <div
+                      key={s.tag}
+                      className="flex flex-col gap-2 py-5 first:pt-0 last:pb-0"
+                    >
+                      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                        <span
+                          className={`font-mono text-[10px] uppercase tracking-[0.16em] ${ACCENT}`}
+                        >
+                          {s.tag}
+                        </span>
+                        <h3 className="font-display text-[17px] font-medium tracking-tight text-foreground">
+                          {s.head}
+                        </h3>
+                      </div>
+                      <p className="text-[14px] leading-relaxed text-muted-foreground">
+                        {s.body}
+                      </p>
                     </div>
-                    <p className="text-[14px] leading-relaxed text-muted-foreground">
-                      {s.body}
-                    </p>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* The efficiency cost */}
-            <div className="border border-border/60 bg-background/85 p-8 backdrop-blur-[2px] lg:p-10">
-              <div className="mb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                The cost of guessing around it
+              {/* The efficiency cost */}
+              <div className="border border-border/60 bg-background/85 p-8 backdrop-blur-[2px] lg:p-10">
+                <div className="mb-8 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                  The cost of guessing around it
+                </div>
+                <div className="flex flex-col divide-y divide-border">
+                  {EFFICIENCY.map((e) => (
+                    <div
+                      key={e.head}
+                      className="flex flex-col gap-2 py-5 first:pt-0 last:pb-0"
+                    >
+                      <h3 className="font-display text-[17px] font-medium tracking-tight text-foreground">
+                        {e.head}
+                      </h3>
+                      <p className="text-[14px] leading-relaxed text-muted-foreground">
+                        {e.body}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="flex flex-col divide-y divide-border">
-                {EFFICIENCY.map((e) => (
-                  <div
-                    key={e.head}
-                    className="flex flex-col gap-2 py-5 first:pt-0 last:pb-0"
-                  >
-                    <h3 className="font-display text-[17px] font-medium tracking-tight text-foreground">
-                      {e.head}
-                    </h3>
-                    <p className="text-[14px] leading-relaxed text-muted-foreground">
-                      {e.body}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
             </div>
           </div>
         </div>
@@ -354,10 +350,9 @@ export function VerificationValue() {
 
         <p className="mt-14 max-w-[66ch] text-[15px] leading-relaxed text-muted-foreground">
           A proof runs once and holds forever. Set against the penalties it
-          averts, the tokens spent second-guessing a model, and the audits it
-          pre-empts, the verification layer is not a cost center - it is the
-          cheapest insurance in the stack, and it makes everything downstream of
-          it faster.
+          averts and the audits it pre-empts, verification is the cheapest
+          insurance in the stack, and it makes everything downstream of it
+          faster.
         </p>
       </div>
     </section>

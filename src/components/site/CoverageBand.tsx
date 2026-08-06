@@ -122,10 +122,6 @@ export function CoverageBand() {
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/35 to-transparent md:h-48" />
       </div>
       <div className="relative mx-auto max-w-4xl px-6 py-32 text-center md:py-36">
-        <div className="mb-8 flex items-center justify-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-white/45">
-          <span>Coverage</span>
-        </div>
-
         <p className="mb-7 font-display text-[1.5rem] font-light leading-tight tracking-tight text-white/85 md:text-[2rem]">
           How one proof holds across
         </p>
@@ -162,9 +158,8 @@ export function CoverageBand() {
         </svg>
 
         <p className="mx-auto mt-8 max-w-[48ch] text-[15px] leading-relaxed text-white/60">
-          possible inputs — every value of a single 64-bit parameter. A test
-          suite samples a few thousand. A proof covers all of them, and lets
-          zero escape.
+          possible inputs, every value of a single 64-bit parameter. A test
+          suite samples a few thousand. A proof covers all of them.
         </p>
         <div className="mt-5 font-mono text-[11px] uppercase tracking-[0.2em] text-white/35">
           2<sup>64</sup> · exhaustive, not sampled

@@ -1,17 +1,17 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
 import { n as Analytics } from "../_libs/vercel__analytics.mjs";
-import { o as useVisitDigest, r as track$1 } from "./analytics-DLNB7xJd.mjs";
-import { _ as createRootRouteWithContext, d as HeadContent, g as createFileRoute, h as lazyRouteComponent, m as Outlet, p as createRouter, u as Scripts, v as Link, y as useRouter } from "../_libs/@tanstack/react-router+[...].mjs";
-import { t as BLOG_POSTS } from "./blog-BnN9onms.mjs";
-import { t as Route$11 } from "../_slug-DlM2rp5C.mjs";
+import { o as themeForPath, r as applyTheme, s as track$1, u as useVisitDigest } from "./theme-0hrIaw_O.mjs";
+import { _ as createFileRoute, b as useRouter, d as HeadContent, f as useLocation, g as lazyRouteComponent, h as Outlet, m as createRouter, u as Scripts, v as createRootRouteWithContext, y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
+import { t as BLOG_POSTS } from "./blog-ByrEdZ1c.mjs";
+import { t as Route$11 } from "../_slug-CAnzjEMR.mjs";
 import { a as literalType, c as objectType, d as unionType, i as enumType, l as recordType, n as booleanType, o as nullType, r as discriminatedUnionType, s as numberType, t as arrayType, u as stringType } from "../_libs/zod.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { t as SpeedInsights } from "../_libs/vercel__speed-insights.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-DL9ULcoA.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-D-ooKkw3.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-D8PJk3Qu.css";
+var styles_default = "/assets/styles-DLI79Hdg.css";
 function NotFoundComponent() {
 	(0, import_react.useEffect)(() => {
 		track$1("page_not_found", { path: typeof window === "undefined" ? "" : window.location.pathname });
@@ -91,10 +91,10 @@ var Route$10 = createRootRouteWithContext()({
 				name: "viewport",
 				content: "width=device-width, initial-scale=1"
 			},
-			{ title: "Boundless Intuition - The trust layer for AI" },
+			{ title: "Boundless Intuition · Foundational layer for Verified Intelligence" },
 			{
 				name: "description",
-				content: "Boundless Intuition builds verification for artificial intelligence - formalizing domain rules into machine-checkable form and proving every AI answer correct before it reaches production. Founded 2026 in Geneva by research software engineers from CERN."
+				content: "Boundless Intuition builds the foundational layer for verified intelligence, formalizing domain rules into machine-checkable form and proving every AI answer correct before it reaches production. Founded 2026 in Geneva by research software engineers from CERN."
 			},
 			{
 				name: "author",
@@ -102,7 +102,7 @@ var Route$10 = createRootRouteWithContext()({
 			},
 			{
 				property: "og:title",
-				content: "Boundless Intuition - The trust layer for AI"
+				content: "Boundless Intuition · Foundational layer for Verified Intelligence"
 			},
 			{
 				property: "og:description",
@@ -126,7 +126,7 @@ var Route$10 = createRootRouteWithContext()({
 			},
 			{
 				property: "og:image:alt",
-				content: "\"Wandering the Immeasurable\" at CERN - engraved equations on steel"
+				content: "\"Wandering the Immeasurable\" at CERN, engraved equations on steel"
 			},
 			{
 				name: "twitter:card",
@@ -171,7 +171,7 @@ function RootShell({ children }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("html", {
 		lang: "en",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("head", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HeadContent, {}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("body", { children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("script", { dangerouslySetInnerHTML: { __html: `(function(){try{var t=localStorage.getItem('bi-theme');if(t!=='light')document.documentElement.classList.add('dark');}catch(e){document.documentElement.classList.add('dark');}})();` } }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("script", { dangerouslySetInnerHTML: { __html: `(function(){try{var p=location.pathname;var blog=p==='/blog'||p.indexOf('/blog/')===0;var t=localStorage.getItem('bi-theme');if(!(blog&&t==='light'))document.documentElement.classList.add('dark');}catch(e){document.documentElement.classList.add('dark');}})();` } }),
 			children,
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Analytics, {}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SpeedInsights, {}),
@@ -181,7 +181,11 @@ function RootShell({ children }) {
 }
 function RootComponent() {
 	const { queryClient } = Route$10.useRouteContext();
+	const pathname = useLocation({ select: (l) => l.pathname });
 	useVisitDigest();
+	(0, import_react.useEffect)(() => {
+		applyTheme(themeForPath(pathname));
+	}, [pathname]);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(QueryClientProvider, {
 		client: queryClient,
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {})
@@ -273,7 +277,7 @@ var Route$6 = createFileRoute("/robots.txt")({ server: { handlers: { GET: () => 
 	"content-type": "text/plain; charset=utf-8",
 	"cache-control": "public, max-age=86400"
 } }) } } });
-var $$splitComponentImporter$4 = () => import("./overview-bqnOLuDt.mjs");
+var $$splitComponentImporter$4 = () => import("./overview-DJIxvD_7.mjs");
 /**
 * /overview - the unlisted overview one-pager.
 *
@@ -285,10 +289,10 @@ var $$splitComponentImporter$4 = () => import("./overview-bqnOLuDt.mjs");
 */
 var Route$5 = createFileRoute("/overview")({
 	head: () => ({ meta: [
-		{ title: "Boundless Intuition - Overview" },
+		{ title: "Boundless Intuition · Overview" },
 		{
 			name: "description",
-			content: "Boundless Intuition builds the verification layer for AI - domains, benchmarks, and results."
+			content: "Boundless Intuition builds the foundational layer for verified intelligence: domains, benchmarks, and results."
 		},
 		{
 			name: "robots",
@@ -300,7 +304,7 @@ var Route$5 = createFileRoute("/overview")({
 		},
 		{
 			property: "og:title",
-			content: "Boundless Intuition - Overview"
+			content: "Boundless Intuition · Overview"
 		},
 		{
 			property: "og:description",
@@ -313,25 +317,25 @@ var Route$5 = createFileRoute("/overview")({
 	] }),
 	component: lazyRouteComponent($$splitComponentImporter$4, "component")
 });
-var $$splitComponentImporter$3 = () => import("./legal-BfPNjDbd.mjs");
+var $$splitComponentImporter$3 = () => import("./legal-Blelk1Ns.mjs");
 var Route$4 = createFileRoute("/legal")({
-	head: () => ({ meta: [{ title: "Legal - Boundless Intuition" }, {
+	head: () => ({ meta: [{ title: "Legal · Boundless Intuition" }, {
 		name: "description",
-		content: "Terms of use and privacy notice for Boundless Intuition - the verification layer for artificial intelligence."
+		content: "Terms of use and privacy notice for Boundless Intuition, the foundational layer for verified intelligence."
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-var $$splitComponentImporter$2 = () => import("./engage-hbKQECts.mjs");
+var $$splitComponentImporter$2 = () => import("./engage-iiIK9BSt.mjs");
 var Route$3 = createFileRoute("/engage")({
 	head: () => ({ meta: [
-		{ title: "Engage - Boundless Intuition" },
+		{ title: "Engage · Boundless Intuition" },
 		{
 			name: "description",
-			content: "Bring us the rules that govern your domain - standards, policies, regulations - and we build the verification layer that proves every decision conforms to them. Work with Boundless Intuition."
+			content: "Bring us the rules that govern your domain, from standards to policies to regulations, and we build the verification layer that proves every decision conforms to them. Work with Boundless Intuition."
 		},
 		{
 			property: "og:title",
-			content: "Engage - Boundless Intuition"
+			content: "Engage · Boundless Intuition"
 		},
 		{
 			property: "og:description",
@@ -340,19 +344,19 @@ var Route$3 = createFileRoute("/engage")({
 	] }),
 	component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-var $$splitComponentImporter$1 = () => import("./routes-pbtEgJYc.mjs");
+var $$splitComponentImporter$1 = () => import("./routes-B1Lujo7v.mjs");
 var Route$2 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
-var $$splitComponentImporter = () => import("./blog-37E2SDTy.mjs");
+var $$splitComponentImporter = () => import("./blog-BSNSYSOW.mjs");
 var Route$1 = createFileRoute("/blog/")({
 	head: () => ({ meta: [
-		{ title: "Blog - Boundless Intuition" },
+		{ title: "Blog · Boundless Intuition" },
 		{
 			name: "description",
-			content: "Research, benchmarks, and verification results from Boundless Intuition - published as we finish a report, not on a schedule."
+			content: "Research, benchmarks, and verification results from Boundless Intuition, published as we finish a report, not on a schedule."
 		},
 		{
 			property: "og:title",
-			content: "Blog - Boundless Intuition"
+			content: "Blog · Boundless Intuition"
 		},
 		{
 			property: "og:description",
@@ -375,7 +379,6 @@ var ATTRIBUTION = {
 var PUSHED_EVENTS = [
 	"engage_submitted",
 	"contact_mailto",
-	"demo_run",
 	"render_error",
 	"outbound_playground",
 	"post_shared",
@@ -405,7 +408,6 @@ var Payload = discriminatedUnionType("kind", [objectType({
 	dwellSeconds: numberType().int().min(0).max(86400),
 	sections: arrayType(stringType().max(40)).max(20),
 	sectionsTotal: numberType().int().min(0).max(50),
-	demoRuns: arrayType(stringType().max(60)).max(30),
 	postProgress: recordType(numberType().min(0).max(100)),
 	narrated: arrayType(stringType().max(120)).max(20),
 	shared: arrayType(stringType().max(120)).max(20),
@@ -463,7 +465,6 @@ function describeEvent(data) {
 	switch (event) {
 		case "engage_submitted": return "Engage form submitted - their mail client is open";
 		case "contact_mailto": return `Contact email opened (from ${props.from ?? "unknown"})`;
-		case "demo_run": return `Demo run: ${props.domain} ${props.proven === false ? "✗ refuted" : "✓ proved"}`;
 		case "render_error": return `Client render error: ${props.message ?? "unknown"}`;
 		case "outbound_playground": return `Clicked through to the playground (from ${props.from ?? "unknown"})`;
 		case "post_shared": return `Shared "${props.slug}" (${props.method})`;
@@ -508,7 +509,6 @@ async function handle(request) {
 		lines.push(`**Path** ${path}`);
 		lines.push(...attributionLines(data));
 		if (data.sections.length > 0) lines.push(`**Sections** ${data.sections.join(" → ")} (${data.sections.length}/${data.sectionsTotal})`);
-		if (data.demoRuns.length > 0) lines.push(`**Demo** ${data.demoRuns.length} run${data.demoRuns.length === 1 ? "" : "s"} — ${data.demoRuns.join(", ")}`);
 		const reading = Object.entries(data.postProgress).map(([slug, pct]) => `${slug} ${pct}%`);
 		if (reading.length > 0) lines.push(`**Blog** ${reading.join(", ")}`);
 		if (data.narrated.length > 0) lines.push(`**Narration** ${data.narrated.join(", ")}`);

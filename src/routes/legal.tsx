@@ -5,11 +5,11 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 export const Route = createFileRoute("/legal")({
   head: () => ({
     meta: [
-      { title: "Legal - Boundless Intuition" },
+      { title: "Legal · Boundless Intuition" },
       {
         name: "description",
         content:
-          "Terms of use and privacy notice for Boundless Intuition - the verification layer for artificial intelligence.",
+          "Terms of use and privacy notice for Boundless Intuition, the foundational layer for verified intelligence.",
       },
     ],
   }),
@@ -30,7 +30,7 @@ const SECTIONS = [
   {
     n: "03",
     title: "Privacy",
-    body: "We collect what you send us directly - for example, when you submit an inquiry through the Engage page, which opens your own email client, or when you subscribe to research updates. We do not sell personal data. Materials you share for a verification engagement are treated as confidential under the terms of that engagement.",
+    body: "We collect what you send us directly. For example, when you submit an inquiry through the Engage page, which opens your own email client, or when you subscribe to research updates. We do not sell personal data. Materials you share for a verification engagement are treated as confidential under the terms of that engagement.",
   },
   {
     n: "04",
@@ -57,7 +57,7 @@ function LegalRoute() {
         {/* -mt-16 pulls this under the transparent sticky header, matching
             the landing overlay; pt-24/pt-32 keeps the copy clear of the bar. */}
         <section className="relative -mt-16 overflow-hidden border-b border-border">
-          <div className="relative mx-auto max-w-7xl px-6 pt-24 pb-20 lg:pt-32">
+          <div className="relative mx-auto max-w-shell px-6 lg:px-10 pt-24 pb-20 lg:pt-32">
             <div className="mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
               <span>Legal</span>
             </div>
@@ -66,14 +66,14 @@ function LegalRoute() {
             </h1>
             <p className="max-w-[58ch] text-[17px] leading-[1.6] text-foreground/85">
               Plain terms for a lab that values precision. Nothing here replaces
-              the written agreement that governs an engagement - it exists so
-              you know where you stand before we ever talk.
+              the written agreement that governs an engagement. It exists so you
+              know where you stand before we ever talk.
             </p>
           </div>
         </section>
 
         <section className="bg-background">
-          <div className="mx-auto max-w-7xl px-6 py-24">
+          <div className="mx-auto max-w-shell px-6 lg:px-10 py-24">
             <div className="grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2">
               {SECTIONS.map((s) => (
                 <article

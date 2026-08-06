@@ -1,10 +1,10 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { v as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { n as BLOG_TAGS, r as formatBlogDate, t as BLOG_POSTS } from "./blog-BnN9onms.mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-DZpVXVBF.mjs";
+import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
+import { n as BLOG_TAGS, r as formatBlogDate, t as BLOG_POSTS } from "./blog-ByrEdZ1c.mjs";
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-Dr4S4eQG.mjs";
 import { a as smoothstep, n as mix, o as tone, r as oklcha, s as useDomainCanvas, t as field } from "./useDomainCanvas-wwM0K-cd.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/blog-37E2SDTy.js
+//#region node_modules/.nitro/vite/services/ssr/assets/blog-BSNSYSOW.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -205,7 +205,7 @@ function BlogPage() {
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-0 bg-gradient-to-r from-background/85 via-background/45 to-transparent" }),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background/80 to-transparent" }),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "pointer-events-none relative mx-auto max-w-7xl px-6 pt-24 pb-16 lg:pt-32",
+					className: "pointer-events-none relative mx-auto max-w-shell px-6 lg:px-10 pt-24 pb-16 lg:pt-32",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 							className: "mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
@@ -217,7 +217,7 @@ function BlogPage() {
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "max-w-[58ch] text-[17px] leading-[1.6] text-foreground/85",
-							children: "Benchmarks, verification results, and the failures we found along the way - published as we finish a report, not on a schedule."
+							children: "Benchmarks, verification results, and the failures we found along the way, published as we finish a report, not on a schedule."
 						})
 					]
 				})
@@ -226,7 +226,7 @@ function BlogPage() {
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 			className: "sticky top-16 z-40 border-b border-border bg-background/95 backdrop-blur-md",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "mx-auto flex max-w-7xl flex-wrap gap-2 px-6 py-5",
+				className: "mx-auto flex max-w-shell flex-wrap gap-2 px-6 lg:px-10 py-5",
 				children: FILTERS.map((f) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
 					type: "button",
 					onClick: () => setFilter(f),
@@ -239,7 +239,7 @@ function BlogPage() {
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 			className: "bg-background",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "mx-auto max-w-7xl px-6 py-16",
+				className: "mx-auto max-w-shell px-6 lg:px-10 py-16",
 				children: posts.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
 					className: "py-16 text-center text-[15px] text-muted-foreground",
 					children: [

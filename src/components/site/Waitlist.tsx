@@ -96,7 +96,7 @@ export function Waitlist() {
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent"
       />
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-[1fr_0.92fr] lg:gap-20">
+      <div className="relative mx-auto grid max-w-shell items-center gap-12 px-6 lg:px-10 py-20 lg:grid-cols-[1fr_0.92fr] lg:gap-20">
         {/* Left: pitch and capture */}
         <div>
           <div className="mb-5 flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">

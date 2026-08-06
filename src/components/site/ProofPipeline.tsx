@@ -35,8 +35,11 @@ dose_ok ≤ 37.4  <  45.0`,
 
 export function ProofPipeline() {
   return (
-    <section id="rite" className="relative border-b border-border bg-background">
-      <div className="mx-auto max-w-7xl px-6 py-28">
+    <section
+      id="rite"
+      className="relative border-b border-border bg-background"
+    >
+      <div className="mx-auto max-w-shell px-6 lg:px-10 py-28">
         {/* Preamble */}
         <div className="mx-auto mb-20 max-w-3xl text-center">
           <div className="mb-6 inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground">
@@ -48,9 +51,9 @@ export function ProofPipeline() {
             Three artefacts. One ordeal.
           </h2>
           <p className="mx-auto max-w-[58ch] font-body text-[16.5px] leading-relaxed text-muted-foreground">
-            Every answer the lab certifies is measured against three objects: what
-            the model said, what the domain requires, and a checkable proof that
-            the two agree. If the third does not exist, the answer does not
+            Every answer the lab certifies is measured against three objects:
+            what the model said, what the domain requires, and a checkable proof
+            that the two agree. If the third does not exist, the answer does not
             leave the temple.
           </p>
         </div>
@@ -61,7 +64,9 @@ export function ProofPipeline() {
             <div
               key={s.mark}
               className={`relative flex flex-col p-8 md:p-10 ${
-                i < STEPS.length - 1 ? "border-b border-border md:border-b-0 md:border-r" : ""
+                i < STEPS.length - 1
+                  ? "border-b border-border md:border-b-0 md:border-r"
+                  : ""
               } ${i === 1 ? "bg-[oklch(0.72_0.11_72/0.03)]" : ""}`}
             >
               <div className="mb-8 flex items-baseline justify-between">

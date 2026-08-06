@@ -1,7 +1,7 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { _ as References, a as CostAccuracyParetoChart, c as H2, d as Hr, f as InlineCode, h as P, i as ConfusionMatrixFigure, l as H3, n as CategoryAccuracyChart, o as DataTable, p as LatencyByArmChart, r as CodeBlock, s as Figure, t as AccuracyByArmChart, u as HeadlineMetricsRadar, v as RunVerdictFigure } from "./charts-C6lQQitl.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/blog-BnN9onms.js
+//#region node_modules/.nitro/vite/services/ssr/assets/blog-ByrEdZ1c.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function StepChip({ step, active, onHover, tone }) {
@@ -122,12 +122,12 @@ function FluencyIsNotCorrectness() {
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InlineCode, { children: "claude-fable-5" }),
 			" (Anthropic's newest and most capable model), and ",
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InlineCode, { children: "claude-haiku-4-5" }),
-			" ",
-			"(budget). Every tier was evaluated under the same three conditions, or arms, on the same 100 cases. In the ",
+			" (budget). Every tier was evaluated under the same three conditions, or arms, on the same 100 cases. In the ",
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "baseline" }),
 			" arm, the model receives the complete published fee rules verbatim as its system prompt, plus the itinerary, and produces the total fee directly. In the ",
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "verified" }),
-			" arm, the model performs autoformalization only, translating the itinerary into a machine-checkable formal representation, and a deterministic solver kernel, described below, executes the policy: the language model never computes a fee, and the kernel never interprets prose. The ",
+			" ",
+			"arm, the model performs autoformalization only, translating the itinerary into a machine-checkable formal representation, and a deterministic solver kernel, described below, executes the policy: the language model never computes a fee, and the kernel never interprets prose. The ",
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "loop" }),
 			" arm extends the verified arm with self-consistency voting, an assertion-retry round, and round-trip back-translation, escalating unresolved cases to the frontier model."
 		] }),
@@ -182,11 +182,11 @@ function FluencyIsNotCorrectness() {
 			] }),
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TrustBoundaryDiagram, {
 				probabilistic: [{
-					title: "Stage 1 - autoformalization",
+					title: "Stage 1 · autoformalization",
 					detail: "A language model reads the passenger's itinerary and formalizes it into a structured, machine-checkable representation: ticket price, cabin class, route, and the size and weight of every checked bag. It performs no normative computation."
 				}],
 				verified: [{
-					title: "Stage 2 - Catala kernel",
+					title: "Stage 2 · Catala kernel",
 					detail: "A deterministic decision procedure executes the policy over that formal representation: base fees by position, oversize and overweight surcharges per bag, and the optimal assignment of complimentary slots as a genuine top-K selection."
 				}, {
 					title: "Cross-checked vs. reference script",
@@ -361,7 +361,7 @@ function FluencyIsNotCorrectness() {
 			id: "bigger-picture",
 			children: "The bigger picture"
 		}),
-		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Our results suggest that the principal bottleneck in rule-governed reasoning is not language understanding but semantic execution. Two generations of frontier models, given the complete policy and told where the difficulty lies, fail on 39% to 46% of cases and frequently fail identically, which points to shared learned priors that additional inference-time reasoning does not dislodge. Separating the two functions, so that the language model performs interpretation and an executable specification performs every normative decision, eliminates the frontier failures entirely while reducing inference cost by roughly a factor of fourteen and latency by an order of magnitude, and it lifts a budget model above the unaided frontier. More broadly, these findings support a design paradigm in which language models perform interpretation, while executable specifications remain responsible for normative decision-making. The kernel in this experiment is the simplest instance of that paradigm; the same architecture extends to provers and solvers that return not only the answer but its derivation - which rule applied, which assumptions were made, and which constraints were checked." })
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Our results suggest that the principal bottleneck in rule-governed reasoning is not language understanding but semantic execution. Two generations of frontier models, given the complete policy and told where the difficulty lies, fail on 39% to 46% of cases and frequently fail identically, which points to shared learned priors that additional inference-time reasoning does not dislodge. Separating the two functions, so that the language model performs interpretation and an executable specification performs every normative decision, eliminates the frontier failures entirely while reducing inference cost by roughly a factor of fourteen and latency by an order of magnitude, and it lifts a budget model above the unaided frontier. More broadly, these findings support a design paradigm in which language models perform interpretation, while executable specifications remain responsible for normative decision-making. The kernel in this experiment is the simplest instance of that paradigm; the same architecture extends to provers and solvers that return not only the answer but its derivation: which rule applied, which assumptions were made, and which constraints were checked." })
 	] });
 }
 function ADiagnosisShouldBeAProof() {
@@ -417,14 +417,14 @@ function ADiagnosisShouldBeAProof() {
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TrustBoundaryDiagram, {
 				probabilistic: [{
 					title: "Autoformalizer (LLM)",
-					detail: "Reads the free-text chart and converts it into a structured term in a formal vocabulary - extracting the findings that are present, not reasoning about the disease. The only step allowed to be wrong."
+					detail: "Reads the free-text chart and converts it into a structured term in a formal vocabulary, extracting the findings that are present, not reasoning about the disease. The only step allowed to be wrong."
 				}],
 				verified: [{
 					title: "Formal rulebook (Lean 4)",
-					detail: "The 2019 EULAR/ACR criteria encoded as explicit, reviewable definitions - the entry gate, domain-maximum scoring, and the attribution rule."
+					detail: "The 2019 EULAR/ACR criteria encoded as explicit, reviewable definitions: the entry gate, domain-maximum scoring, and the attribution rule."
 				}, {
 					title: "Proof kernel",
-					detail: "Evaluates any concrete patient to a verdict and certifies it with a proof object. No sampling, no drift - the verdict is a theorem."
+					detail: "Evaluates any concrete patient to a verdict and certifies it with a proof object. No sampling, no drift. The verdict is a theorem."
 				}]
 			})
 		}),
@@ -459,7 +459,8 @@ function ADiagnosisShouldBeAProof() {
 			": an antinuclear antibody (ANA) titer of at least 1:80. If that gate fails, the patient cannot be classified as lupus, no matter what else is true. Second, a",
 			" ",
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "weighted additive score across ten organ domains" }),
-			", where each domain contributes only its single highest-weighted finding rather than the sum of its findings, classification requires a total of at least 10 points, and at least one of those points must come from a clinical rather than a purely laboratory domain. Third, an ",
+			", where each domain contributes only its single highest-weighted finding rather than the sum of its findings, classification requires a total of at least 10 points, and at least one of those points must come from a clinical rather than a purely laboratory domain. Third, an",
+			" ",
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "attribution rule" }),
 			": a finding counts only if there is no more likely explanation than lupus. That last clause is the crux of the diagnosis, because lupus has well-known impostors. Certain drugs (hydralazine, procainamide, minocycline, isoniazid) and certain chronic infections (endocarditis, HIV, hepatitis C, parvovirus B19) reproduce many of its findings."
 		] }),
@@ -535,10 +536,10 @@ def counts (p : Patient) (i : Item) : Bool :=
 			"We ran two systems over the same cases. The ",
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "baseline" }),
 			" ",
-			"receives the record and the full criteria in natural language and must produce both the score and the classification itself. We ran it as a frontier model with its strongest reasoning mode enabled, so this is a fair opponent rather than a strawman. The",
-			" ",
+			"receives the record and the full criteria in natural language and must produce both the score and the classification itself. We ran it as a frontier model with its strongest reasoning mode enabled, so this is a fair opponent rather than a strawman. The ",
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "verified" }),
-			" system receives the record, extracts the atomic findings only, with explicit instructions not to score or classify, and hands the structured term to the kernel."
+			" ",
+			"system receives the record, extracts the atomic findings only, with explicit instructions not to score or classify, and hands the structured term to the kernel."
 		] }),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Ground truth is the formal rulebook applied to each vignette's authored facts. That choice has a consequence we confront directly later. Every vignette was run five times in each system, 500 model calls in all, so that we could measure run-to-run consistency alongside accuracy." }),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
@@ -717,7 +718,8 @@ def counts (p : Patient) (i : Item) : Bool :=
 				"Aringer M, Costenbader K, Daikh D, et al.",
 				" ",
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "2019 European League Against Rheumatism / American College of Rheumatology classification criteria for systemic lupus erythematosus." }),
-				" Arthritis & Rheumatology, 2019; 71(9): 1400-1412.",
+				" ",
+				"Arthritis & Rheumatology, 2019; 71(9): 1400-1412.",
 				" ",
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "The clinical standard we formalized, including the entry criterion, weighted domains, and the attribution clause." })
 			] }),
@@ -731,9 +733,11 @@ def counts (p : Patient) (i : Item) : Bool :=
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "The proof assistant and kernel that form our trusted computing base." })
 			] }),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", { children: [
-				"Google DeepMind. ",
+				"Google DeepMind.",
+				" ",
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "AI achieves silver-medal standard solving International Mathematical Olympiad problems" }),
-				" (AlphaProof and AlphaGeometry 2), 2024.",
+				" ",
+				"(AlphaProof and AlphaGeometry 2), 2024.",
 				" ",
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "Evidence that machine-generated, formally checked proofs now reach expert-level reasoning, the foundation this approach builds on." })
 			] }),
@@ -759,7 +763,8 @@ def counts (p : Patient) (i : Item) : Bool :=
 				"Dziri N, Lu X, Sclar M, et al.",
 				" ",
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Faith and Fate: limits of transformers on compositionality." }),
-				" Advances in Neural Information Processing Systems (NeurIPS), 2023.",
+				" ",
+				"Advances in Neural Information Processing Systems (NeurIPS), 2023.",
 				" ",
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", { children: "Documents the systematic, scale-resistant failures of language models on multi-step compositional and arithmetic reasoning, the class of failure our results reproduce." })
 			] }),
@@ -854,14 +859,14 @@ def counts (p : Patient) (i : Item) : Bool :=
 		}),
 		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Verdict accuracy" }),
-			" is the fraction of cases whose predicted classification matches ground truth, averaged over five runs. ",
+			" is the fraction of cases whose predicted classification matches ground truth, averaged over five runs.",
+			" ",
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Sensitivity" }),
 			" is the true-positive rate over the 20 lupus-positive cases; ",
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "specificity" }),
 			" is the true-negative rate over the 30 negatives. ",
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Score exact-match" }),
-			" is the fraction of cases whose computed additive score equals the ground-truth score.",
-			" ",
+			" is the fraction of cases whose computed additive score equals the ground-truth score. ",
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Run-to-run consistency" }),
 			" is the fraction of cases for which a system returned the same verdict on all five runs. Confusion matrices and per-category figures use the",
 			" ",
@@ -902,7 +907,7 @@ var BLOG_POSTS = [{
 	slug: "fluency-is-not-correctness",
 	title: "Fluency Is Not Correctness",
 	subtitle: "Separating semantic parsing from deterministic execution in rule-governed reasoning.",
-	description: "On RuleArena's airline domain, verification lifts two frontier Claude models from 54% and 61% to 100% while cutting cost roughly fourteenfold - and a verified budget model beats both unaided frontier models.",
+	description: "On RuleArena's airline domain, verification lifts two frontier Claude models from 54% and 61% to 100% while cutting cost roughly fourteenfold, and a verified budget model beats both unaided frontier models.",
 	tag: "Research",
 	author: "Boundless Intuition Research",
 	date: "2026-07-17",

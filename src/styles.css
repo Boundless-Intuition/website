@@ -21,6 +21,13 @@
   --color-ink: var(--ink);
   --color-ink-foreground: var(--ink-foreground);
   --color-graphite: var(--graphite);
+  /* The page shell: every full-width band is `max-w-shell px-6 lg:px-10`, so the
+     side gutters come from this cap plus that padding and nothing else. Wider
+     than Tailwind's 7xl (80rem) on purpose — at 80rem a 1728px viewport left a
+     ~250px dead margin each side — but not edge-to-edge either. At 1728px the
+     gutter works out to ~136px; below 1536px the cap stops binding and the
+     padding alone carries it (40px from lg up, 24px on phones). */
+  --container-shell: 96rem;
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -748,44 +755,6 @@ body::after {
   .gear-cw,
   .gear-ccw {
     animation: none;
-  }
-}
-
-/* --- Hero headline · glitch decode → verified --- */
-/* The headline arrives as unstable "fluent but unverified" output and resolves
-   into clean, trusted text. The glitch IS the thesis — fluent, not correct —
-   being disproved in place. */
-@keyframes hero-chroma {
-  0%,
-  100% {
-    text-shadow: none;
-    transform: translate3d(0, 0, 0);
-  }
-  25% {
-    text-shadow:
-      -0.018em 0 0 oklch(0.62 0.19 25 / 0.5),
-      0.018em 0 0 oklch(0.7 0.13 170 / 0.5);
-  }
-  50% {
-    text-shadow: none;
-    transform: translate3d(0.4px, 0, 0);
-  }
-  75% {
-    text-shadow:
-      0.018em 0 0 oklch(0.62 0.19 25 / 0.45),
-      -0.018em 0 0 oklch(0.7 0.13 170 / 0.45);
-    transform: translate3d(-0.4px, 0, 0);
-  }
-}
-.hero-glitch {
-  animation: hero-chroma 0.42s steps(2, end) infinite;
-  will-change: text-shadow, transform;
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-glitch {
-    animation: none;
-    text-shadow: none;
-    transform: none;
   }
 }
 

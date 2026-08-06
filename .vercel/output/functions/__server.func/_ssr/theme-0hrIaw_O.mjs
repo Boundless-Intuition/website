@@ -1,7 +1,7 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { r as track } from "../_libs/vercel__analytics.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/analytics-DLNB7xJd.js
+//#region node_modules/.nitro/vite/services/ssr/assets/theme-0hrIaw_O.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var SECTIONS = [
 	{
@@ -13,20 +13,12 @@ var SECTIONS = [
 		label: "Method"
 	},
 	{
-		id: "try",
-		label: "Demonstration"
-	},
-	{
 		id: "domains",
 		label: "Domains"
 	},
 	{
 		id: "value",
 		label: "Value"
-	},
-	{
-		id: "walkthrough",
-		label: "Walkthrough"
 	},
 	{
 		id: "lab",
@@ -36,14 +28,12 @@ var SECTIONS = [
 var EVENT_TIER = {
 	engage_submitted: "alert",
 	contact_mailto: "alert",
-	demo_run: "normal",
 	render_error: "normal",
 	outbound_playground: "quiet",
 	post_shared: "quiet",
 	narration_play: "quiet",
 	section_viewed: "digest",
 	post_progress: "digest",
-	demo_claim_switched: "digest",
 	page_not_found: "digest"
 };
 var SIGNAL_ENDPOINT = "/api/signal";
@@ -73,7 +63,6 @@ function getVisit() {
 		startedAt: Date.now(),
 		entryPath: typeof window === "undefined" ? "/" : window.location.pathname,
 		sections: [],
-		demoRuns: [],
 		postProgress: {},
 		narrated: [],
 		shared: [],
@@ -109,8 +98,7 @@ function accumulate(event, props) {
 function noteInDigest(event, props) {
 	const v = getVisit();
 	v.events += 1;
-	if (event === "demo_run") v.demoRuns.push(`${props.domain}${props.proven === false ? " ✗" : " ✓"}`.trim());
-	else if (event === "narration_play") {
+	if (event === "narration_play") {
 		const slug = String(props.slug);
 		if (!v.narrated.includes(slug)) v.narrated.push(slug);
 	} else if (event === "post_shared") {
@@ -177,7 +165,6 @@ function flushDigest() {
 		dwellSeconds,
 		sections: v.sections,
 		sectionsTotal: SECTIONS.length,
-		demoRuns: v.demoRuns,
 		postProgress: v.postProgress,
 		narrated: v.narrated,
 		shared: v.shared,
@@ -258,5 +245,34 @@ function useReadProgress(slug, ref) {
 		return () => window.removeEventListener("scroll", onScroll);
 	}, [slug, ref]);
 }
+var THEME_KEY = "bi-theme";
+/** Whether a route is allowed to render in the light palette. */
+function allowsLight(pathname) {
+	return pathname === "/blog" || pathname.startsWith("/blog/");
+}
+function storedTheme() {
+	if (typeof window === "undefined") return null;
+	try {
+		const value = window.localStorage.getItem(THEME_KEY);
+		return value === "light" || value === "dark" ? value : null;
+	} catch {
+		return null;
+	}
+}
+function storeTheme(theme) {
+	if (typeof window === "undefined") return;
+	try {
+		window.localStorage.setItem(THEME_KEY, theme);
+	} catch {}
+}
+/** The theme a given path must render in. Dark unless the blog says otherwise. */
+function themeForPath(pathname) {
+	if (!allowsLight(pathname)) return "dark";
+	return storedTheme() ?? "dark";
+}
+function applyTheme(theme) {
+	if (typeof document === "undefined") return;
+	document.documentElement.classList.toggle("dark", theme === "dark");
+}
 //#endregion
-export { useSectionViews as a, useReadProgress as i, getAttribution as n, useVisitDigest as o, track$1 as r, SECTIONS as t };
+export { storeTheme as a, useReadProgress as c, getAttribution as i, useSectionViews as l, allowsLight as n, themeForPath as o, applyTheme as r, track$1 as s, SECTIONS as t, useVisitDigest as u };

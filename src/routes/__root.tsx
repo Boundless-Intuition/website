@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -13,6 +14,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import appCss from "../styles.css?url";
 import { track, useVisitDigest } from "@/lib/analytics";
+import { applyTheme, themeForPath } from "@/lib/theme";
 
 function NotFoundComponent() {
   // Broken inbound links are worth knowing about; folded into the visit digest
@@ -94,16 +96,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       meta: [
         { charSet: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
-        { title: "Boundless Intuition - The trust layer for AI" },
+        {
+          title:
+            "Boundless Intuition · Foundational layer for Verified Intelligence",
+        },
         {
           name: "description",
           content:
-            "Boundless Intuition builds verification for artificial intelligence - formalizing domain rules into machine-checkable form and proving every AI answer correct before it reaches production. Founded 2026 in Geneva by research software engineers from CERN.",
+            "Boundless Intuition builds the foundational layer for verified intelligence, formalizing domain rules into machine-checkable form and proving every AI answer correct before it reaches production. Founded 2026 in Geneva by research software engineers from CERN.",
         },
         { name: "author", content: "Boundless Intuition" },
         {
           property: "og:title",
-          content: "Boundless Intuition - The trust layer for AI",
+          content:
+            "Boundless Intuition · Foundational layer for Verified Intelligence",
         },
         {
           property: "og:description",
@@ -120,7 +126,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         {
           property: "og:image:alt",
           content:
-            '"Wandering the Immeasurable" at CERN - engraved equations on steel',
+            '"Wandering the Immeasurable" at CERN, engraved equations on steel',
         },
         { name: "twitter:card", content: "summary_large_image" },
         {
@@ -151,7 +157,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 );
 
 function RootShell({ children }: { children: ReactNode }) {
-  const themeScript = `(function(){try{var t=localStorage.getItem('bi-theme');if(t!=='light')document.documentElement.classList.add('dark');}catch(e){document.documentElement.classList.add('dark');}})();`;
+  // Pre-paint theme: dark everywhere. The light palette only survives on the
+  // blog, and only when the reader explicitly asked for it. Must stay in step
+  // with `themeForPath` in `@/lib/theme`.
+  const themeScript = `(function(){try{var p=location.pathname;var blog=p==='/blog'||p.indexOf('/blog/')===0;var t=localStorage.getItem('bi-theme');if(!(blog&&t==='light'))document.documentElement.classList.add('dark');}catch(e){document.documentElement.classList.add('dark');}})();`;
   return (
     <html lang="en">
       <head>
@@ -170,9 +179,16 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const pathname = useLocation({ select: (l) => l.pathname });
 
   // Sends the end-of-visit summary when the tab goes away.
   useVisitDigest();
+
+  // Client-side navigation doesn't re-run the inline script above, so leaving
+  // the blog has to put dark back.
+  useEffect(() => {
+    applyTheme(themeForPath(pathname));
+  }, [pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>

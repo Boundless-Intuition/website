@@ -6,13 +6,13 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 export const Route = createFileRoute("/engage")({
   head: () => ({
     meta: [
-      { title: "Engage - Boundless Intuition" },
+      { title: "Engage · Boundless Intuition" },
       {
         name: "description",
         content:
-          "Bring us the rules that govern your domain - standards, policies, regulations - and we build the verification layer that proves every decision conforms to them. Work with Boundless Intuition.",
+          "Bring us the rules that govern your domain, from standards to policies to regulations, and we build the verification layer that proves every decision conforms to them. Work with Boundless Intuition.",
       },
-      { property: "og:title", content: "Engage - Boundless Intuition" },
+      { property: "og:title", content: "Engage · Boundless Intuition" },
       {
         property: "og:description",
         content:

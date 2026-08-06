@@ -13,15 +13,15 @@ import { OverviewPage } from "@/components/site/overview/OverviewPage";
 export const Route = createFileRoute("/overview")({
   head: () => ({
     meta: [
-      { title: "Boundless Intuition - Overview" },
+      { title: "Boundless Intuition · Overview" },
       {
         name: "description",
         content:
-          "Boundless Intuition builds the verification layer for AI - domains, benchmarks, and results.",
+          "Boundless Intuition builds the foundational layer for verified intelligence: domains, benchmarks, and results.",
       },
       { name: "robots", content: "noindex, nofollow, noarchive" },
       { name: "googlebot", content: "noindex, nofollow" },
-      { property: "og:title", content: "Boundless Intuition - Overview" },
+      { property: "og:title", content: "Boundless Intuition · Overview" },
       {
         property: "og:description",
         content:

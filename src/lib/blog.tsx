@@ -34,7 +34,7 @@ export const BLOG_POSTS: BlogPost[] = [
     subtitle:
       "Separating semantic parsing from deterministic execution in rule-governed reasoning.",
     description:
-      "On RuleArena's airline domain, verification lifts two frontier Claude models from 54% and 61% to 100% while cutting cost roughly fourteenfold - and a verified budget model beats both unaided frontier models.",
+      "On RuleArena's airline domain, verification lifts two frontier Claude models from 54% and 61% to 100% while cutting cost roughly fourteenfold, and a verified budget model beats both unaided frontier models.",
     tag: "Research",
     author: "Boundless Intuition Research",
     date: "2026-07-17",

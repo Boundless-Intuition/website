@@ -1,9 +1,9 @@
 import "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { A as isResolvedRedirect, D as resolveManifestCssLink, E as resolveManifestAssetLink, I as invariant, M as rootRouteId, N as isNotFound, O as executeRewriteInput, T as getStylesheetHref, a as isSsrResponse, c as stripSsrResponseBody, f as RouterProvider, i as defineHandlerCallback, k as isRedirect, l as renderRouterToString, n as transformPipeableStreamWithRouter, o as normalizeSsrResponse, r as transformReadableStreamWithRouter, s as replaceSsrResponse, t as renderRouterToStream, w as getScriptPreloadAttrs } from "../_libs/@tanstack/react-router+[...].mjs";
+import { A as isRedirect, D as resolveManifestAssetLink, E as getStylesheetHref, L as invariant, N as rootRouteId, O as resolveManifestCssLink, P as isNotFound, T as getScriptPreloadAttrs, a as isSsrResponse, c as stripSsrResponseBody, i as defineHandlerCallback, j as isResolvedRedirect, k as executeRewriteInput, l as renderRouterToString, n as transformPipeableStreamWithRouter, o as normalizeSsrResponse, p as RouterProvider, r as transformReadableStreamWithRouter, s as replaceSsrResponse, t as renderRouterToStream } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as createMemoryHistory } from "../_libs/tanstack__history.mjs";
 import { a as mergeHeaders, c as createSerializationAdapter, d as iu, f as su, i as getOrigin, n as attachRouterServerSsrUtils, r as getNormalizedURL, s as createRawStreamRPCPlugin, t as createRequestHandler, u as Pu } from "../_libs/@tanstack/router-core+[...].mjs";
-import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-CBMeL_zT.mjs";
+import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-UKpMdhdU.mjs";
 import { a as X_TSS_RAW_RESPONSE, c as createNullProtoObject, d as getDefaultSerovalPlugins, f as getStartContext, i as TSS_SERVER_FUNCTION, m as safeObjectMerge, n as TSS_CONTENT_TYPE_FRAMED_VERSIONED, o as X_TSS_SERIALIZED, p as runWithStartContext, r as TSS_FORMDATA_CONTEXT, s as createCsrfMiddleware, t as FrameType, u as flattenMiddlewares } from "./esm-Dova13aH.mjs";
 import { _ as updateSession, a as getRequestIP, c as getSession, d as sanitizeStatusCode, f as sanitizeStatusMessage, g as unsealSession, h as toResponse, i as getRequestHost, l as getValidatedQuery, m as setCookie, n as clearSession, o as getRequestProtocol, p as sealSession, r as deleteCookie, s as getRequestURL, t as H3Event, u as parseCookies, v as useSession } from "../_libs/h3-v2+srvx.mjs";
 import { AsyncLocalStorage } from "node:async_hooks";
@@ -257,7 +257,7 @@ var HEADERS = { TSS_SHELL: "X-TSS_SHELL" };
 * the dev styles URL for route-scoped CSS collection.
 */
 async function getStartManifest(matchedRoutes) {
-	const { tsrStartManifest } = await import("../_tanstack-start-manifest_v-DUaxvnYZ.mjs");
+	const { tsrStartManifest } = await import("../_tanstack-start-manifest_v-bpdc2PE1.mjs");
 	const startManifest = tsrStartManifest();
 	let routes = startManifest.routes;
 	routes[rootRouteId];
@@ -1197,7 +1197,7 @@ var getBaseManifest = getProdBaseManifest;
 var createEarlyHintsForRequest = createEarlyHintsCollector;
 async function loadEntries() {
 	const [routerEntry, startEntry, pluginAdapters] = await Promise.all([
-		import("./router-DL9ULcoA.mjs"),
+		import("./router-D-ooKkw3.mjs"),
 		import("./start-CbSYJ3DM.mjs"),
 		import("./empty-plugin-adapters-D9UWiqvJ.mjs")
 	]);

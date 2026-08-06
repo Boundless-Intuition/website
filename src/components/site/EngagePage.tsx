@@ -12,29 +12,29 @@ const STEPS = [
   {
     n: "01",
     title: "Share your rules",
-    body: "Send us the standards, policies, or regulations that govern your domain - handbooks, compliance documents, protocol specifications. We start with what you already have.",
+    body: "Send us the standards, policies, or regulations that govern your domain: handbooks, compliance documents, protocol specifications. We start with what you already have.",
   },
   {
     n: "02",
     title: "We formalize them",
-    body: "Our team translates your rules into machine-checkable formal objects - precise mathematical representations that a theorem prover can reason about.",
+    body: "Our team translates your rules into machine-checkable formal objects, precise mathematical representations that a theorem prover can reason about.",
   },
   {
     n: "03",
     title: "Proofs run on every change",
-    body: "Verification integrates into your workflow. Every policy update, every configuration change is proved safe against your formalized rules - automatically, continuously.",
+    body: "Verification integrates into your workflow. Every policy update, every configuration change is proved safe against your formalized rules, automatically and continuously.",
   },
   {
     n: "04",
     title: "You get verifiable guarantees",
-    body: "Not assertions. Not test results. Mathematical proofs that your systems conform to the rules that govern them - auditable, reproducible, and independently checkable.",
+    body: "Not assertions. Not test results. Mathematical proofs that your systems conform to the rules that govern them, auditable, reproducible, and independently checkable.",
   },
 ];
 
 const DELIVERABLES = [
   {
     title: "Conflict Reports",
-    body: "When rules contradict each other - a firewall allows what a handbook forbids, a policy grants what a standard restricts - we surface it with a concrete witness.",
+    body: "When rules contradict each other, say a firewall allows what a handbook forbids or a policy grants what a standard restricts, we surface it with a concrete witness.",
   },
   {
     title: "Regression Proofs",
@@ -57,11 +57,11 @@ const PROFILES = [
   },
   {
     title: "Legal & Policy Organizations",
-    body: "Teams managing complex regulatory environments - GDPR, export control, sanctions - who need consistency between written rules and operational reality.",
+    body: "Teams managing complex regulatory environments such as GDPR, export control, and sanctions, who need consistency between written rules and operational reality.",
   },
   {
     title: "Research & Infrastructure",
-    body: "Organizations running mission-critical research infrastructure where configuration correctness is not optional - and testing alone is not sufficient.",
+    body: "Organizations running mission-critical research infrastructure where configuration correctness is not optional, and testing alone is not sufficient.",
   },
 ];
 
@@ -77,7 +77,7 @@ export function EngagePage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const subject = encodeURIComponent(
-      `Verification inquiry - ${formState.company || "General"}`,
+      `Verification inquiry · ${formState.company || "General"}`,
     );
     const body = encodeURIComponent(
       `Name: ${formState.name}\nCompany: ${formState.company}\nDomain: ${formState.domain}\n\n${formState.message}`,
@@ -99,7 +99,7 @@ export function EngagePage() {
         {/* legibility scrims — heavier on the left where the copy sits */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/85 via-background/45 to-transparent" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background/80 to-transparent" />
-        <div className="pointer-events-none relative mx-auto max-w-7xl px-6 pt-24 pb-28 lg:pt-32">
+        <div className="pointer-events-none relative mx-auto max-w-shell px-6 lg:px-10 pt-24 pb-28 lg:pt-32">
           <div className="mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
             <span>Engage</span>
           </div>
@@ -111,13 +111,13 @@ export function EngagePage() {
           <div className="max-w-[58ch] space-y-5 text-[17px] leading-[1.6] text-foreground/85">
             <p>
               We work with organizations to formalize the rules that govern
-              their domain - standards, policies, regulations, protocols - into
-              machine-checkable form. Then we build the verification layer that
-              proves every decision conforms to them.
+              their domain: standards, policies, regulations, protocols. We
+              build machine-checkable form. Then we build the verification layer
+              that proves every decision conforms to them.
             </p>
             <p className="text-muted-foreground">
               This is not consulting. It is engineering. The output is not a
-              report - it is a system that runs proofs, continuously, on every
+              report. It is a system that runs proofs, continuously, on every
               change, forever.
             </p>
           </div>
@@ -126,7 +126,7 @@ export function EngagePage() {
 
       {/* AI verification */}
       <section className="relative border-b border-border bg-muted/40">
-        <div className="relative mx-auto max-w-7xl px-6 py-28">
+        <div className="relative mx-auto max-w-shell px-6 lg:px-10 py-28">
           <div className="mb-14 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
             <div className="max-w-2xl">
               <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
@@ -146,16 +146,16 @@ export function EngagePage() {
             <p className="text-foreground/85">
               Copilots write configurations. Agents take actions. Models answer
               the questions your regulators care about. Each output is fluent,
-              fast - and, on its own, impossible to trust. That gap between what
-              an AI says and what your rules allow is the exposure formal
+              fast, and on its own impossible to trust. That gap between what an
+              AI says and what your rules allow is the exposure formal
               verification closes.
             </p>
             <p className="text-muted-foreground">
               We sit a proof engine between your AI and production. Every answer
               is checked against the rules we formalized from your domain, and
-              only the ones that pass - each carrying a signed, reproducible
-              certificate - are allowed through. The rest are blocked before
-              they ship, with the exact violation attached.
+              only the ones that pass, each carrying a signed, reproducible
+              certificate, are allowed through. The rest are blocked before they
+              ship, with the exact violation attached.
             </p>
           </div>
 
@@ -214,7 +214,7 @@ export function EngagePage() {
 
       {/* How It Works */}
       <section className="relative border-b border-border bg-background">
-        <div className="relative mx-auto max-w-7xl px-6 py-28">
+        <div className="relative mx-auto max-w-shell px-6 lg:px-10 py-28">
           <div className="mb-16">
             <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
               <span>Process</span>
@@ -265,7 +265,7 @@ export function EngagePage() {
 
       {/* Deliverables */}
       <section className="relative border-b border-border bg-muted/40">
-        <div className="relative mx-auto max-w-7xl px-6 py-28">
+        <div className="relative mx-auto max-w-shell px-6 lg:px-10 py-28">
           <div className="mb-16">
             <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
               <span>Deliverables</span>
@@ -303,7 +303,7 @@ export function EngagePage() {
 
       {/* Who This Is For */}
       <section className="relative border-b border-border bg-background">
-        <div className="relative mx-auto max-w-7xl px-6 py-28">
+        <div className="relative mx-auto max-w-shell px-6 lg:px-10 py-28">
           <div className="mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
             <div>
               <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
@@ -315,7 +315,7 @@ export function EngagePage() {
             </div>
             <p className="max-w-sm text-[15px] leading-relaxed text-muted-foreground">
               If your domain has written rules and your organization needs
-              provable assurance - not just test coverage - we should talk.
+              provable assurance, not just test coverage, we should talk.
             </p>
           </div>
 
@@ -352,7 +352,7 @@ export function EngagePage() {
           <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/70 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/80 to-transparent" />
         </div>
-        <div className="relative mx-auto max-w-7xl px-6 py-28">
+        <div className="relative mx-auto max-w-shell px-6 lg:px-10 py-28">
           <div className="grid gap-16 lg:grid-cols-[1.1fr_1fr]">
             <div>
               <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">

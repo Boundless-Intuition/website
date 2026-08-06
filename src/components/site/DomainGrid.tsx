@@ -5,37 +5,37 @@ const DOMAINS = [
   {
     n: "01",
     title: "Security & Compliance",
-    body: "Access-control policies, firewall rulesets, and organizational handbooks verified against compliance standards. Conflicts between policy-as-written and policy-as-enforced are surfaced automatically.",
+    body: "Access-control policies, firewall rulesets, and handbooks verified against compliance standards. Gaps between policy-as-written and policy-as-enforced surface automatically.",
   },
   {
     n: "02",
     title: "Healthcare & Clinical Safety",
-    body: "Dosing protocols, device specifications, and safety envelopes checked against regulatory requirements. Every critical parameter is verified - units, ranges, and boundary conditions included.",
+    body: "Dosing protocols, device specifications, and safety envelopes checked against regulatory requirements, including units, ranges, and boundary conditions.",
   },
   {
     n: "03",
     title: "Clinical Trials & Protocols",
-    body: "Eligibility criteria, contraindication logic, and dosing rules verified against peer-reviewed guidelines. Ambiguities in the protocol are identified before they affect patient outcomes.",
+    body: "Eligibility criteria, contraindication logic, and dosing rules verified against peer-reviewed guidelines. Protocol ambiguities surface before they reach patients.",
   },
   {
     n: "04",
     title: "Network & Infrastructure",
-    body: "Firewall rulesets, segmentation policies, and infrastructure configurations verified against PCI-DSS, IEC 62443, and internal security baselines. Changes are proved safe before deployment.",
+    body: "Rulesets, segmentation policies, and configurations verified against PCI-DSS, IEC 62443, and internal baselines. Changes are proved safe before deployment.",
   },
   {
     n: "05",
     title: "Finance & Risk",
-    body: "Solvency covenants, exposure limits, and margin invariants verified against mandate requirements. Violations are surfaced as concrete counterexamples, not post-hoc audit findings.",
+    body: "Solvency covenants, exposure limits, and margin invariants verified against the mandate. Violations arrive as concrete counterexamples, not audit findings.",
   },
   {
     n: "06",
     title: "Legal & Regulatory",
-    body: "Statutory text, regulatory obligations, and operational rules verified for internal consistency. Every derivation is traceable back to the source provision.",
+    body: "Statutory text, regulatory obligations, and operational rules verified for internal consistency. Every derivation traces back to its source provision.",
   },
   {
     n: "07",
     title: "Data Protection & Privacy",
-    body: "Processing records, data-transfer mechanisms, and lawful-basis logic verified against GDPR and regional frameworks. Compliance is proved, not merely asserted.",
+    body: "Processing records, transfer mechanisms, and lawful-basis logic verified against GDPR and regional frameworks. Compliance is proved, not asserted.",
   },
   {
     n: "08",
@@ -46,26 +46,25 @@ const DOMAINS = [
 
 export function DomainGrid() {
   return (
-    <section id="domains" className="relative border-b border-border bg-background">
-      <div className="relative mx-auto max-w-7xl px-6 pt-28">
+    <section
+      id="domains"
+      className="relative border-b border-border bg-background"
+    >
+      <div className="relative mx-auto max-w-shell px-6 lg:px-10 pt-28">
         <div className="mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div className="max-w-xl">
-            <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-              <span>Domains</span>
-            </div>
             <h2 className="font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]">
               Wherever the rules are written down.
             </h2>
           </div>
           <p className="max-w-sm text-[15px] leading-relaxed text-muted-foreground">
-            The same verification pipeline serves any domain governed by written
-            rules - standards, statutes, protocols, or policy. Eight active
-            fronts. One method.
+            One pipeline serves any domain governed by written rules: standards,
+            statutes, protocols, policy. Eight fronts, one method.
           </p>
         </div>
       </div>
 
-      <div className="relative mx-auto max-w-7xl border-t border-border">
+      <div className="relative mx-auto max-w-shell border-t border-border">
         <div className="grid grid-cols-1 border-l border-border md:grid-cols-2">
           {DOMAINS.map((d, i) => (
             <Link

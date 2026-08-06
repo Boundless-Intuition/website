@@ -1,8 +1,8 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
-import { v as Link } from "../_libs/@tanstack/react-router+[...].mjs";
+import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { h as P, m as Lead, t as AccuracyByArmChart, u as HeadlineMetricsRadar, y as TaxCostAccuracyChart } from "./charts-C6lQQitl.mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-DZpVXVBF.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/overview-bqnOLuDt.js
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-Dr4S4eQG.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/overview-DJIxvD_7.js
 var import_jsx_runtime = require_jsx_runtime();
 /**
 * The shareable overview - an unlisted one-pager carrying the same content as
@@ -195,7 +195,7 @@ function OverviewPage() {
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Lead, { children: "Boundless Intuition builds the verification layer for AI. We turn a company's policies, regulations, and domain's expert knowledge into machine-checkable logic, then verify every high-stakes AI action/output before it is trusted or executed." }),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "When an AI agent tries to perform a consequential action, such as approving a tax filing, calculating a clinical dosage, authorizing a payment, or changing a firewall rule." }),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Our formal verification engine either produces a mathematical proof that the action satisfies the required rules or blocks it. Instead of asking companies to trust AI because it sounds confident, we give them machine-checkable proof that its decisions are correct, auditable, and compliant." }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Our long-term vision is to become the trust layer for AI in high-stakes / mission-critical domains." })
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Our long-term vision is to become the foundational layer for verified intelligence in high-stakes / mission-critical domains." })
 						]
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "mt-12 grid grid-cols-2 gap-x-8 gap-y-9 md:grid-cols-4 md:gap-x-10",
@@ -276,7 +276,7 @@ function OverviewPage() {
 									children: [
 										/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Our pipeline increased raw accuracy from 61-79% across all four Claude tiers to 100% at 29 ms at marginal cost per question." }),
 										/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Our audit even found bugs in MedCalc-Bench's own ground truth (wrong methadone conversion factors; 5 of 12 \"impossible\" questions have debatable labels)." }),
-										/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Fable 5 (the most expensive model) scored below Sonnet and Opus; resampling flips only 11.7% of wrong answers - errors are systematic." })
+										/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Fable 5 (the most expensive model) scored below Sonnet and Opus; resampling flips only 11.7% of wrong answers. Errors are systematic." })
 									]
 								}),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Plate, {

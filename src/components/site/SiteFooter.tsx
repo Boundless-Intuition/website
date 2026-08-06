@@ -22,7 +22,6 @@ const SECTION_LINKS = [
   ["/#method", "Method"],
   ["/#domains", "Domains"],
   ["/#value", "Value"],
-  ["/#walkthrough", "Walkthrough"],
   ["/#lab", "Lab"],
 ] as const;
 
@@ -33,7 +32,7 @@ export function SiteFooter() {
       <Waitlist />
       {/* Divider between the waitlist band and the footer proper */}
       <div className="relative z-10 h-px w-full bg-border" aria-hidden />
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-14">
+      <div className="relative z-10 mx-auto max-w-shell px-6 lg:px-10 py-14">
         <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
           <div>
             <div className="flex items-center gap-2.5 font-display text-[15px] tracking-tight text-foreground">
@@ -60,7 +59,7 @@ export function SiteFooter() {
               </span>
             </div>
             <p className="mt-3 max-w-sm text-[14.5px] leading-relaxed text-muted-foreground">
-              The trust layer for artificial intelligence.
+              Foundational layer for Verified Intelligence
             </p>
           </div>
           <div className="grid grid-cols-2 gap-x-14 gap-y-3 font-display text-[12px] font-medium text-muted-foreground sm:grid-cols-3">

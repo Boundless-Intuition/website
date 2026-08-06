@@ -264,8 +264,8 @@ export function OverviewPage() {
               are correct, auditable, and compliant.
             </P>
             <P>
-              Our long-term vision is to become the trust layer for AI in
-              high-stakes / mission-critical domains.
+              Our long-term vision is to become the foundational layer for
+              verified intelligence in high-stakes / mission-critical domains.
             </P>
           </div>
 
@@ -341,7 +341,7 @@ export function OverviewPage() {
               </P>
               <P>
                 Fable 5 (the most expensive model) scored below Sonnet and Opus;
-                resampling flips only 11.7% of wrong answers - errors are
+                resampling flips only 11.7% of wrong answers. Errors are
                 systematic.
               </P>
             </div>

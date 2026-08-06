@@ -6,13 +6,13 @@ import { BlogPage } from "@/components/site/blog/BlogPage";
 export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
-      { title: "Blog - Boundless Intuition" },
+      { title: "Blog · Boundless Intuition" },
       {
         name: "description",
         content:
-          "Research, benchmarks, and verification results from Boundless Intuition - published as we finish a report, not on a schedule.",
+          "Research, benchmarks, and verification results from Boundless Intuition, published as we finish a report, not on a schedule.",
       },
-      { property: "og:title", content: "Blog - Boundless Intuition" },
+      { property: "og:title", content: "Blog · Boundless Intuition" },
       {
         property: "og:description",
         content:

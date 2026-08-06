@@ -5,9 +5,7 @@ import { Hero } from "@/components/site/Hero";
 import { VerificationMethod } from "@/components/site/VerificationMethod";
 import { CoverageBand } from "@/components/site/CoverageBand";
 import { VerificationValue } from "@/components/site/VerificationValue";
-import { VerifyWidget } from "@/components/site/VerifyWidget";
 import { DomainGrid } from "@/components/site/DomainGrid";
-import { ProofWalkthrough } from "@/components/site/ProofWalkthrough";
 import { Origin } from "@/components/site/Origin";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { useSectionViews } from "@/lib/analytics";
@@ -29,10 +27,8 @@ function Index() {
         <Hero />
         <VerificationMethod />
         <CoverageBand />
-        <VerifyWidget />
         <DomainGrid />
         <VerificationValue />
-        <ProofWalkthrough />
         <Origin />
       </main>
       <SiteFooter />

@@ -1,10 +1,10 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
-import { r as track$1 } from "./analytics-DLNB7xJd.mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-DZpVXVBF.mjs";
+import { s as track$1 } from "./theme-0hrIaw_O.mjs";
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-Dr4S4eQG.mjs";
 import { a as smoothstep, i as rng, n as mix, o as tone, r as oklcha, s as useDomainCanvas, t as field } from "./useDomainCanvas-wwM0K-cd.mjs";
 import { n as PipelineBackdrop, p as ruleLattice, r as asciiFlow, s as claimMorph } from "./MethodVisual-BAErQcRh.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/engage-hbKQECts.js
+//#region node_modules/.nitro/vite/services/ssr/assets/engage-iiIK9BSt.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -789,28 +789,28 @@ var STEPS = [
 	{
 		n: "01",
 		title: "Share your rules",
-		body: "Send us the standards, policies, or regulations that govern your domain - handbooks, compliance documents, protocol specifications. We start with what you already have."
+		body: "Send us the standards, policies, or regulations that govern your domain: handbooks, compliance documents, protocol specifications. We start with what you already have."
 	},
 	{
 		n: "02",
 		title: "We formalize them",
-		body: "Our team translates your rules into machine-checkable formal objects - precise mathematical representations that a theorem prover can reason about."
+		body: "Our team translates your rules into machine-checkable formal objects, precise mathematical representations that a theorem prover can reason about."
 	},
 	{
 		n: "03",
 		title: "Proofs run on every change",
-		body: "Verification integrates into your workflow. Every policy update, every configuration change is proved safe against your formalized rules - automatically, continuously."
+		body: "Verification integrates into your workflow. Every policy update, every configuration change is proved safe against your formalized rules, automatically and continuously."
 	},
 	{
 		n: "04",
 		title: "You get verifiable guarantees",
-		body: "Not assertions. Not test results. Mathematical proofs that your systems conform to the rules that govern them - auditable, reproducible, and independently checkable."
+		body: "Not assertions. Not test results. Mathematical proofs that your systems conform to the rules that govern them, auditable, reproducible, and independently checkable."
 	}
 ];
 var DELIVERABLES = [
 	{
 		title: "Conflict Reports",
-		body: "When rules contradict each other - a firewall allows what a handbook forbids, a policy grants what a standard restricts - we surface it with a concrete witness."
+		body: "When rules contradict each other, say a firewall allows what a handbook forbids or a policy grants what a standard restricts, we surface it with a concrete witness."
 	},
 	{
 		title: "Regression Proofs",
@@ -832,11 +832,11 @@ var PROFILES = [
 	},
 	{
 		title: "Legal & Policy Organizations",
-		body: "Teams managing complex regulatory environments - GDPR, export control, sanctions - who need consistency between written rules and operational reality."
+		body: "Teams managing complex regulatory environments such as GDPR, export control, and sanctions, who need consistency between written rules and operational reality."
 	},
 	{
 		title: "Research & Infrastructure",
-		body: "Organizations running mission-critical research infrastructure where configuration correctness is not optional - and testing alone is not sufficient."
+		body: "Organizations running mission-critical research infrastructure where configuration correctness is not optional, and testing alone is not sufficient."
 	}
 ];
 function EngagePage() {
@@ -849,7 +849,7 @@ function EngagePage() {
 	const [submitted, setSubmitted] = (0, import_react.useState)(false);
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const subject = encodeURIComponent(`Verification inquiry - ${formState.company || "General"}`);
+		const subject = encodeURIComponent(`Verification inquiry · ${formState.company || "General"}`);
 		const body = encodeURIComponent(`Name: ${formState.name}\nCompany: ${formState.company}\nDomain: ${formState.domain}\n\n${formState.message}`);
 		track$1("engage_submitted", { domain: formState.domain || "unspecified" });
 		window.location.href = `mailto:research@boundlessintuition.com?subject=${subject}&body=${body}`;
@@ -863,7 +863,7 @@ function EngagePage() {
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-0 bg-gradient-to-r from-background/85 via-background/45 to-transparent" }),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background/80 to-transparent" }),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "pointer-events-none relative mx-auto max-w-7xl px-6 pt-24 pb-28 lg:pt-32",
+					className: "pointer-events-none relative mx-auto max-w-shell px-6 lg:px-10 pt-24 pb-28 lg:pt-32",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 							className: "mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
@@ -875,9 +875,9 @@ function EngagePage() {
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "max-w-[58ch] space-y-5 text-[17px] leading-[1.6] text-foreground/85",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "We work with organizations to formalize the rules that govern their domain - standards, policies, regulations, protocols - into machine-checkable form. Then we build the verification layer that proves every decision conforms to them." }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "We work with organizations to formalize the rules that govern their domain: standards, policies, regulations, protocols. We build machine-checkable form. Then we build the verification layer that proves every decision conforms to them." }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 								className: "text-muted-foreground",
-								children: "This is not consulting. It is engineering. The output is not a report - it is a system that runs proofs, continuously, on every change, forever."
+								children: "This is not consulting. It is engineering. The output is not a report. It is a system that runs proofs, continuously, on every change, forever."
 							})]
 						})
 					]
@@ -887,7 +887,7 @@ function EngagePage() {
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 			className: "relative border-b border-border bg-muted/40",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative mx-auto max-w-7xl px-6 py-28",
+				className: "relative mx-auto max-w-shell px-6 lg:px-10 py-28",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "mb-14 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end",
@@ -909,10 +909,10 @@ function EngagePage() {
 						className: "mb-16 grid gap-10 text-[16px] leading-[1.65] lg:grid-cols-2",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "text-foreground/85",
-							children: "Copilots write configurations. Agents take actions. Models answer the questions your regulators care about. Each output is fluent, fast - and, on its own, impossible to trust. That gap between what an AI says and what your rules allow is the exposure formal verification closes."
+							children: "Copilots write configurations. Agents take actions. Models answer the questions your regulators care about. Each output is fluent, fast, and on its own impossible to trust. That gap between what an AI says and what your rules allow is the exposure formal verification closes."
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "text-muted-foreground",
-							children: "We sit a proof engine between your AI and production. Every answer is checked against the rules we formalized from your domain, and only the ones that pass - each carrying a signed, reproducible certificate - are allowed through. The rest are blocked before they ship, with the exact violation attached."
+							children: "We sit a proof engine between your AI and production. Every answer is checked against the rules we formalized from your domain, and only the ones that pass, each carrying a signed, reproducible certificate, are allowed through. The rest are blocked before they ship, with the exact violation attached."
 						})]
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -994,7 +994,7 @@ function EngagePage() {
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 			className: "relative border-b border-border bg-background",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative mx-auto max-w-7xl px-6 py-28",
+				className: "relative mx-auto max-w-shell px-6 lg:px-10 py-28",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "mb-16",
@@ -1046,7 +1046,7 @@ function EngagePage() {
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 			className: "relative border-b border-border bg-muted/40",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative mx-auto max-w-7xl px-6 py-28",
+				className: "relative mx-auto max-w-shell px-6 lg:px-10 py-28",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "mb-16",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
@@ -1081,7 +1081,7 @@ function EngagePage() {
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 			className: "relative border-b border-border bg-background",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative mx-auto max-w-7xl px-6 py-28",
+				className: "relative mx-auto max-w-shell px-6 lg:px-10 py-28",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
@@ -1092,7 +1092,7 @@ function EngagePage() {
 						children: "Who this is for."
 					})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 						className: "max-w-sm text-[15px] leading-relaxed text-muted-foreground",
-						children: "If your domain has written rules and your organization needs provable assurance - not just test coverage - we should talk."
+						children: "If your domain has written rules and your organization needs provable assurance, not just test coverage, we should talk."
 					})]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2",
@@ -1126,7 +1126,7 @@ function EngagePage() {
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/80 to-transparent" })
 				]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "relative mx-auto max-w-7xl px-6 py-28",
+				className: "relative mx-auto max-w-shell px-6 lg:px-10 py-28",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "grid gap-16 lg:grid-cols-[1.1fr_1fr]",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [

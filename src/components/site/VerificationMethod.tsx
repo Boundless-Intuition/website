@@ -1,33 +1,30 @@
-import {
-  MethodVisual,
-  PipelineBackdrop,
-} from "./domain-visuals/MethodVisual";
+import { MethodVisual, PipelineBackdrop } from "./domain-visuals/MethodVisual";
 
 const STEPS = [
   {
     n: "01",
     title: "The model answers",
-    body: "A copilot, agent, or model returns an answer, a decision, or an action. It is fluent and fast - and, on its own, impossible to trust. Today, this is where every system stops.",
+    body: "A copilot, agent, or model returns an answer. Fluent, fast, and on its own impossible to trust. Today this is where every system stops.",
   },
   {
     n: "02",
-    title: "The domain is formalized - once",
-    body: "Your rules, standards, and policies are compiled into machine-checkable formal objects. This is done a single time, up front. It is the asset that makes every later answer verifiable.",
+    title: "The domain is formalized, once",
+    body: "Your rules, standards, and policies are compiled into machine-checkable objects, once, up front. That asset is what makes every later answer verifiable.",
   },
   {
     n: "03",
     title: "The answer becomes a claim",
-    body: "Each answer is translated into a precise logical statement about what it asserts or does - a claim a theorem prover can reason about, stripped of the ambiguity of natural language.",
+    body: "Each answer is translated into a precise logical statement about what it asserts or does, with the ambiguity of natural language stripped out.",
   },
   {
     n: "04",
     title: "The prover checks it",
-    body: "A theorem prover checks the claim against the formalized rules. It either proves the answer conforms - or returns a concrete counterexample, a witness to exactly how it fails.",
+    body: "A theorem prover checks the claim against the formalized rules. Either it proves the answer conforms, or it returns a counterexample showing exactly how it fails.",
   },
   {
     n: "05",
     title: "Only proven answers ship",
-    body: "Verified answers proceed, carrying a signed, reproducible certificate. Refuted answers are blocked before they reach production, with the precise reason attached.",
+    body: "Verified answers proceed with a signed, reproducible certificate. Refuted answers are blocked before production, with the reason attached.",
   },
 ];
 
@@ -175,24 +172,18 @@ function Arrow({
 
 export function VerificationMethod() {
   return (
-    <section
-      id="method"
-      className="relative bg-background"
-    >
-      <div className="relative mx-auto max-w-7xl px-6 py-28">
+    <section id="method" className="relative bg-background">
+      <div className="relative mx-auto max-w-shell px-6 lg:px-10 py-28">
         <div className="mb-16 flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
           <div className="max-w-2xl">
-            <div className="mb-5 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
-              <span>Method</span>
-            </div>
             <h2 className="font-display text-[2.6rem] font-light leading-[1.05] tracking-[-0.02em] text-foreground md:text-[3.2rem]">
               How an AI answer becomes a proof.
             </h2>
           </div>
           <p className="max-w-sm text-[15px] leading-relaxed text-muted-foreground">
-            We do not grade the model, fine-tune it, or ask it to check itself.
-            We sit a proof engine between the AI and production, and let nothing
-            through that cannot be verified against your rules.
+            We do not grade the model or ask it to check itself. We sit a proof
+            engine between the AI and production, and let nothing through that
+            cannot be verified against your rules.
           </p>
         </div>
 
@@ -293,10 +284,9 @@ export function VerificationMethod() {
         </div>
 
         <p className="mt-12 max-w-[64ch] text-[15px] leading-relaxed text-muted-foreground">
-          The model proposes; the prover disposes. Verification is not another
-          model second-guessing the first - it is mathematics, checking a fluent
-          answer against rules that were written down long before the question
-          was asked.
+          The model proposes; the prover disposes. This is not another model
+          second-guessing the first. It is mathematics, checking a fluent answer
+          against rules written down long before the question was asked.
         </p>
       </div>
     </section>

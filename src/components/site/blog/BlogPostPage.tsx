@@ -82,7 +82,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
       </section>
 
       <article className="bg-background pt-6 pb-16 md:pb-20">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-shell px-6 lg:px-10">
           <div className="lg:grid lg:grid-cols-[13rem_minmax(0,1fr)_13rem] lg:items-start lg:gap-8">
             <TableOfContents containerRef={contentRef} />
             {/* data-post-body is the handle scripts/narrate.ts scopes to when
@@ -105,7 +105,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
 
       {morePosts.length > 0 && (
         <section className="border-t border-border bg-muted/20 py-16">
-          <div className="mx-auto max-w-7xl px-6">
+          <div className="mx-auto max-w-shell px-6 lg:px-10">
             <div className="mb-8 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
               <span>More from the lab</span>
             </div>

@@ -1,6 +1,6 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-DZpVXVBF.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/legal-BfPNjDbd.js
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-Dr4S4eQG.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/legal-Blelk1Ns.js
 var import_jsx_runtime = require_jsx_runtime();
 var SECTIONS = [
 	{
@@ -16,7 +16,7 @@ var SECTIONS = [
 	{
 		n: "03",
 		title: "Privacy",
-		body: "We collect what you send us directly - for example, when you submit an inquiry through the Engage page, which opens your own email client, or when you subscribe to research updates. We do not sell personal data. Materials you share for a verification engagement are treated as confidential under the terms of that engagement."
+		body: "We collect what you send us directly. For example, when you submit an inquiry through the Engage page, which opens your own email client, or when you subscribe to research updates. We do not sell personal data. Materials you share for a verification engagement are treated as confidential under the terms of that engagement."
 	},
 	{
 		n: "04",
@@ -42,7 +42,7 @@ function LegalRoute() {
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 				className: "relative -mt-16 overflow-hidden border-b border-border",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "relative mx-auto max-w-7xl px-6 pt-24 pb-20 lg:pt-32",
+					className: "relative mx-auto max-w-shell px-6 lg:px-10 pt-24 pb-20 lg:pt-32",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 							className: "mb-10 flex items-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
@@ -54,14 +54,14 @@ function LegalRoute() {
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "max-w-[58ch] text-[17px] leading-[1.6] text-foreground/85",
-							children: "Plain terms for a lab that values precision. Nothing here replaces the written agreement that governs an engagement - it exists so you know where you stand before we ever talk."
+							children: "Plain terms for a lab that values precision. Nothing here replaces the written agreement that governs an engagement. It exists so you know where you stand before we ever talk."
 						})
 					]
 				})
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 				className: "bg-background",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "mx-auto max-w-7xl px-6 py-24",
+					className: "mx-auto max-w-shell px-6 lg:px-10 py-24",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 						className: "grid grid-cols-1 gap-px border border-border bg-border md:grid-cols-2",
 						children: SECTIONS.map((s) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
