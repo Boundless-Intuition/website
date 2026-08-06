@@ -1,40 +1,75 @@
 import { Link } from "@tanstack/react-router";
 import { GlitchText } from "./GlitchText";
+import { HeroFilm } from "./HeroFilm";
+
+// The still and the film must crop identically or the cross-fade slides.
+// The plate's action — the basket and its pour — sits around 42% of the source
+// width, which is where the copy column falls, so from sm up the crop is held
+// well to the left: that nudges the pour and the wheel toward the right-hand
+// column and keeps open water and sky behind the text. The nudge is small — a
+// wide hero only crops ~8% of the plate's width, so there is little travel.
+//
+// Below sm the asset is a different file: a 52%-wide column of the plate already
+// cropped around the pour, so 52% here means "centre of that column", not 52% of
+// the whole plate. Centring on the pour is deliberate — the wheel and the figures
+// are static, and the falling water is the only thing in frame that moves.
+// The breakpoint must stay in step with HeroFilm and the <picture> below.
+//
+// Theme opacity lives on the wrapper, not here, so it cannot fight the film's
+// own fade-in.
+const PLATE_CROP =
+  "h-full w-full object-cover object-[52%_58%] sm:object-[14%_58%]";
 
 export function Hero() {
   return (
-    <section
-      id="doctrine"
-      className="relative -mt-16 overflow-hidden"
-    >
-      {/* Full-bleed plate — the sum of human knowledge, engraved and checkable
-          (CERN, "Wandering the Immeasurable", Meyrin) */}
+    <section id="doctrine" className="relative -mt-16 overflow-hidden">
+      {/* Full-bleed plate — a measured pour beside a temple under scaffolding:
+          the same water, drawn and returned, checked by lamplight. The still and
+          the film share one crop so the hand-off between them is invisible; see
+          HeroFilm for why the motion is opt-in. */}
       <div className="absolute inset-0 isolate" aria-hidden>
-        <picture>
-          <source
-            media="(max-width: 768px)"
-            srcSet="/artifact-hero-mobile.webp"
-          />
-          <img
-            src="/artifact-hero.webp"
-            alt=""
-            className="h-full w-full object-cover object-[62%_center] opacity-100 saturate-100 contrast-[1.03] dark:opacity-95 dark:saturate-[0.9]"
-          />
-        </picture>
-        {/* Navy wash to fuse the photograph into the vellum plate */}
-        <div className="absolute inset-0 bg-accent/5 mix-blend-multiply dark:bg-background/10 dark:mix-blend-normal" />
-        {/* Vertical scrim — carries readability on mobile / narrow viewports */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-transparent to-background/60 lg:from-background/25 lg:via-transparent lg:to-background/30" />
-        {/* Horizontal reading scrim — anchors the copy column on wide screens */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/55 to-transparent lg:via-background/30 lg:to-transparent" />
-        {/* Radial vignette — corners fall away into the page so the sculpture
-            holds the eye. Centred on the photograph's focal point (62%), the
-            same point object-position crops to. */}
+        {/* A night scene at full strength would read as a slab on pale vellum,
+            so the light theme holds the plate right back and lets the page show
+            through it. Dark is the plate's home register and needs little help.
+            This plate's sky is also a much louder blue than the page's own
+            palette, so it wants desaturating. The dark grade (saturation 0.78)
+            is baked into the video and poster pixels rather than applied here: a
+            CSS filter over a *playing* video makes the compositor render every
+            frame to an offscreen texture and run a shader pass, which on iOS
+            both stalls the film and starves the other composited layers on the
+            page. Opacity is fine to keep — a blend factor is nearly free.
+
+            Light has to go further (at half opacity that blue turns lavender
+            over warm vellum, a hue the palette does not contain), so it carries
+            the remainder — 0.5 / 0.78 ≈ 0.64 — but only from sm up. Phones get
+            no filter over the film in either theme. */}
+        <div className="absolute inset-0 opacity-[0.45] sm:contrast-[1.05] sm:saturate-[0.64] dark:opacity-[0.92] sm:dark:filter-none">
+          <picture>
+            <source
+              media="(max-width: 639.98px)"
+              srcSet="/hero-plate-poster-mobile.webp"
+            />
+            <img src="/hero-plate-poster.webp" alt="" className={PLATE_CROP} />
+          </picture>
+          <HeroFilm className={`absolute inset-0 ${PLATE_CROP}`} />
+        </div>
+        {/* Page-colour wash that fuses the plate into the vellum / obsidian */}
+        <div className="absolute inset-0 bg-background/25 dark:bg-background/10" />
+        {/* Vertical scrim — carries readability on mobile / narrow viewports.
+            Narrow screens keep a mid-height wash too, because the crop puts the
+            pour directly behind the body copy there rather than beside it. */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/40 to-background/60 lg:from-background/25 lg:via-transparent lg:to-background/30" />
+        {/* Horizontal reading scrim — anchors the copy column on wide screens.
+            Carries more weight than the last plate needed, because the pour
+            falls through the right-hand end of the body copy. */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/55 to-transparent lg:via-background/48 lg:to-transparent" />
+        {/* Radial vignette — corners fall away into the page so the instrument
+            holds the eye. Centred on the wheel and temple in the right column. */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse 78% 72% at 62% 45%, transparent 25%, color-mix(in oklab, var(--background) 80%, transparent) 100%)",
+              "radial-gradient(ellipse 78% 72% at 66% 55%, transparent 25%, color-mix(in oklab, var(--background) 80%, transparent) 100%)",
           }}
         />
         {/* Extra grain on the plate, on top of the global body::after layer —

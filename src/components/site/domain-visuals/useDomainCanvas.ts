@@ -44,7 +44,14 @@ export function useDomainCanvas(makeEngine: EngineFactory) {
     const measure = () => {
       const rect = canvas.getBoundingClientRect();
       if (rect.width === 0 || rect.height === 0) return;
-      dpr = Math.min(2, window.devicePixelRatio || 1);
+      // Phones report DPR 3 and carry ~19 of these canvases at once. At the 2x
+      // cap that is ~41MB of backing store competing with the hero film's video
+      // decode for GPU memory, which is enough for iOS to start discarding
+      // canvas buffers — they go blank and, being paused off-screen, never
+      // redraw. 1.5x nearly halves it and is indistinguishable on figures that
+      // are all soft gradients and thin strokes.
+      const cap = window.innerWidth < 640 ? 1.5 : 2;
+      dpr = Math.min(cap, window.devicePixelRatio || 1);
       w = Math.round(rect.width);
       h = Math.round(rect.height);
       canvas.width = Math.round(w * dpr);
