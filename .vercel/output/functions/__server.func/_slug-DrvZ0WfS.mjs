@@ -4,10 +4,10 @@ import { c as useReadProgress, s as track$1 } from "./_ssr/theme-0hrIaw_O.mjs";
 import { y as Link } from "./_libs/@tanstack/react-router+[...].mjs";
 import { g as Prose } from "./_ssr/charts-C6lQQitl.mjs";
 import { a as getNarration, i as getBlogPost, r as formatBlogDate, t as BLOG_POSTS } from "./_ssr/blog-CYul9FM9.mjs";
-import { t as Route } from "./_slug-BUmUwTS7.mjs";
-import { n as TopBar, t as SiteFooter } from "./_ssr/SiteFooter-Bc5x_INn.mjs";
+import { t as Route } from "./_slug-DcMhwCyE.mjs";
+import { n as TopBar, t as SiteFooter } from "./_ssr/SiteFooter-WfempdH_.mjs";
 import { a as Link2, i as Pause, n as RotateCcw, o as Check, r as Play, t as RotateCw } from "./_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/_slug-M0jPHHlR.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_slug-DrvZ0WfS.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function TableOfContents({ containerRef }) {

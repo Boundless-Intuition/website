@@ -2,10 +2,10 @@ import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { l as useSectionViews, s as track$1, t as SECTIONS } from "./theme-0hrIaw_O.mjs";
 import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-Bc5x_INn.mjs";
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-WfempdH_.mjs";
 import { s as useDomainCanvas } from "./useDomainCanvas-wwM0K-cd.mjs";
 import { a as candlestick, c as dataFlowNet, d as radarSweep, f as redactionRain, i as asciiScan, l as dnaHelix, n as PipelineBackdrop, o as citationArcs, r as asciiFlow, t as MethodVisual, u as ecgMonitor } from "./MethodVisual-BAErQcRh.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-CnD3oHmi.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-Cej-cAaA.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function SectionRail() {
