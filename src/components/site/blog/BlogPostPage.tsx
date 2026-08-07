@@ -28,19 +28,18 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
             <img
               src={post.image}
               alt=""
-              className="blog-cover-img h-full w-full object-cover opacity-50 dark:opacity-45"
+              className="blog-cover-img h-full w-full object-cover opacity-95 dark:opacity-80"
             />
-            {/* even scrim for the centered copy */}
-            <div className="absolute inset-0 bg-background/60 dark:bg-background/65" />
-            <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/80 to-transparent" />
-            {/* long dissolve into the article below - a gradient runs
-                through in place of a hard divider */}
-            <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/70 to-transparent" />
+            {/* Light scrim for the centered copy */}
+            <div className="absolute inset-0 bg-background/15 dark:bg-background/25" />
+            <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background via-background/65 to-transparent" />
+            {/* Gentle dissolve into the article below */}
+            <div className="absolute inset-x-0 bottom-0 h-[68%] bg-gradient-to-t from-background via-background/88 to-transparent" />
           </div>
         ) : (
           <div className="blueprint-grid absolute inset-0" aria-hidden />
         )}
-        <div className="relative mx-auto max-w-4xl px-6 pt-24 pb-16 text-center lg:pt-32">
+        <div className="relative mx-auto max-w-4xl px-6 pt-32 pb-24 text-center lg:pt-48">
           <div className="mb-8 flex items-center justify-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
             <Link
               to="/blog"
@@ -102,6 +101,27 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
           </div>
         </div>
       </article>
+
+      {/* Closing band - bookends the masthead, but cropped to the foot of the
+          cover art rather than repeating the opening. Purely decorative, and it
+          dissolves in and out again so what follows starts on clean
+          background. */}
+      {post.image && (
+        <section
+          aria-hidden
+          className="relative mt-4 h-[180px] overflow-hidden md:h-[340px]"
+        >
+          <img
+            src={post.image}
+            alt=""
+            loading="lazy"
+            className="blog-cover-img h-full w-full object-cover object-bottom opacity-90 dark:opacity-70"
+          />
+          <div className="absolute inset-0 bg-background/25 dark:bg-background/35" />
+          <div className="absolute inset-x-0 top-0 h-2/5 bg-gradient-to-b from-background via-background/70 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-background via-background/70 to-transparent" />
+        </section>
+      )}
 
       {morePosts.length > 0 && (
         <section className="border-t border-border bg-muted/20 py-16">

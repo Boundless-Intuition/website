@@ -1,8 +1,8 @@
 import { n as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { h as P, m as Lead, t as AccuracyByArmChart, u as HeadlineMetricsRadar, y as TaxCostAccuracyChart } from "./charts-C6lQQitl.mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-Dr4S4eQG.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/overview-DJIxvD_7.js
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-Bc5x_INn.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/overview-DECZv38H.js
 var import_jsx_runtime = require_jsx_runtime();
 /**
 * The shareable overview - an unlisted one-pager carrying the same content as

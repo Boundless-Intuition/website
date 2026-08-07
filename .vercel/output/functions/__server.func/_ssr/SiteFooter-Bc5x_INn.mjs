@@ -2,10 +2,10 @@ import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { a as storeTheme, i as getAttribution, n as allowsLight, o as themeForPath, r as applyTheme, s as track$1 } from "./theme-0hrIaw_O.mjs";
 import { f as useLocation, y as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-UKpMdhdU.mjs";
+import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-CSaFtlX6.mjs";
 import { i as TSS_SERVER_FUNCTION, l as createServerFn } from "./esm-Dova13aH.mjs";
 import { c as objectType, t as arrayType, u as stringType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-Dr4S4eQG.js
+//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-Bc5x_INn.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**

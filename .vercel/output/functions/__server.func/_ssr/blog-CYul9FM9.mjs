@@ -1,7 +1,7 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { _ as References, a as CostAccuracyParetoChart, c as H2, d as Hr, f as InlineCode, h as P, i as ConfusionMatrixFigure, l as H3, n as CategoryAccuracyChart, o as DataTable, p as LatencyByArmChart, r as CodeBlock, s as Figure, t as AccuracyByArmChart, u as HeadlineMetricsRadar, v as RunVerdictFigure } from "./charts-C6lQQitl.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/blog-ByrEdZ1c.js
+//#region node_modules/.nitro/vite/services/ssr/assets/blog-CYul9FM9.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function StepChip({ step, active, onHover, tone }) {
@@ -890,6 +890,61 @@ def counts (p : Patient) (i : Item) : Bool :=
 		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The repository contains the Lean formalization, the dataset with authored facts, the experimental harness, the figure-generation script, and the raw results. Running the harness recomputes ground truth from the rulebook, executes both systems over five runs, and regenerates the metrics and figures reproduced in this post." })
 	] });
 }
+function TowardsVerifiedSupertechnology() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Artificial intelligence is rapidly becoming the operating system of the modern world. It is writing code, making financial decisions, controlling critical infrastructure, conducting scientific research, and increasingly acting autonomously on our behalf." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
+			"Yet despite all this progress, one fundamental problem remains unsolved.",
+			" ",
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "We have no reliable way to know whether an AI system is actually correct." })
+		] }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Today's frontier models optimize for plausibility, not truth. They can reason, plan, and execute, but they can also hallucinate, violate policies, misinterpret regulations, or make subtle mistakes that humans fail to notice until it's too late." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Scaling intelligence without scaling trust is a dangerous trajectory." }) }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
+			id: "cost-of-unverified",
+			children: "The Cost of Unverified Intelligence"
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
+			"On ",
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "June 4, 1996" }),
+			", the ",
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Ariane 5" }),
+			" rocket exploded just ",
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "37 seconds" }),
+			" after launch, destroying a payload worth ",
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "$370 million" }),
+			". The official investigation revealed the cause: a software error inherited from Ariane 4. A 64-bit number was converted to a 16-bit one without bounds checking. The code worked exactly as it had been written, but the assumptions it relied on no longer held. No one had verified that those assumptions were still correct under the new conditions."
+		] }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Today, software still fails this way. The difference is that increasingly, software is being written, operated, and orchestrated by AI. As autonomous systems begin making decisions on our behalf, the cost of silent failures grows exponentially." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "We believe the next breakthrough in AI will not come from making models bigger." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "It will come from making intelligence verifiable." }) }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Every major computing revolution eventually acquired a trust layer. The internet required cryptography before it could power global commerce. Cloud computing required isolation before enterprises trusted it. Modern software evolved from simply running code to proving that critical systems behaved correctly." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "AI is approaching the same moment." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Today's safety approaches rely on prompts, classifiers, human review, and statistical evaluations. These methods improve behavior, but they cannot provide guarantees. In high-consequence domains, confidence is not enough." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Critical decisions require proof, not probability." }) }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
+			id: "our-thesis",
+			children: "Our Thesis"
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(P, { children: [
+			"At Boundless Intuition, we believe trust should become a property of AI systems, not a hope placed in them. Our conviction is simple:",
+			" ",
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "every important AI decision should be verifiable before it is trusted." })
+		] }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "As AI becomes responsible for interpreting regulations, enforcing security policies, writing software, conducting scientific research, and operating critical infrastructure, verification becomes more than a technical challenge. It becomes a prerequisite for deploying AI responsibly at scale." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "We believe the future of AI will not be defined by the models that generate the most convincing answers." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "It will be defined by the systems whose decisions can be trusted." }) }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(H2, {
+			id: "verified-superintelligence",
+			children: "Towards Verified Superintelligence"
+		}),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "As AI systems become more capable, society will increasingly depend on them for decisions that affect millions of people. The challenge is no longer generating intelligence. The challenge is ensuring that intelligence behaves correctly." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "As models continue to improve, the fraction of consequential AI decisions that a human can personally inspect approaches zero. Every assurance mechanism that depends on a person reading the output eventually reaches its limit." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "The future requires a different foundation: one where trust scales with intelligence, and correctness becomes a property of the system itself rather than an expectation placed on the user." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "We believe a world where advanced AI is safe to deploy is a world where consequential decisions can be verified before they are trusted. It is a world where correctness matters as much as capability, and where trust is earned through evidence rather than confidence." }),
+		/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "That is the future we are building toward. It is the foundation of trustworthy AI, and the path towards verified superintelligence." })
+	] });
+}
 var narration_default = { "fluency-is-not-correctness": {
 	"audio": "/blog/audio/fluency-is-not-correctness.mp3",
 	"duration": 765.4,
@@ -903,29 +958,44 @@ var BLOG_TAGS = [
 	"Partnerships",
 	"Research"
 ];
-var BLOG_POSTS = [{
-	slug: "fluency-is-not-correctness",
-	title: "Fluency Is Not Correctness",
-	subtitle: "Separating semantic parsing from deterministic execution in rule-governed reasoning.",
-	description: "On RuleArena's airline domain, verification lifts two frontier Claude models from 54% and 61% to 100% while cutting cost roughly fourteenfold, and a verified budget model beats both unaided frontier models.",
-	tag: "Research",
-	author: "Boundless Intuition Research",
-	date: "2026-07-17",
-	readingTime: "12 min read",
-	image: "/blog/fluent-hero.webp",
-	Content: FluencyIsNotCorrectness
-}, {
-	slug: "a-diagnosis-should-be-a-proof-not-a-probability",
-	title: "A Diagnosis Should Be a Proof, Not a Probability",
-	subtitle: "Formalizing the lupus classification criteria in Lean 4, and a 50-case benchmark against a frontier model.",
-	description: "A frontier model gave five different diagnoses to the same patient, five times. We built a clinical classifier whose verdicts are proven in Lean 4, not sampled, and benchmarked it head-to-head.",
-	tag: "Research",
-	author: "Boundless Intuition Research",
-	date: "2026-06-19",
-	readingTime: "15 min read",
-	image: "/blog/diagnosis-hero.webp",
-	Content: ADiagnosisShouldBeAProof
-}];
+var BLOG_POSTS = [
+	{
+		slug: "towards-verified-superintelligence",
+		title: "Towards Verified Superintelligence",
+		subtitle: "Why the next breakthrough in AI is not bigger models, but verifiable intelligence.",
+		description: "AI is becoming the operating system of the modern world, yet we have no reliable way to know whether an AI system is actually correct. Scaling intelligence without scaling trust is a dangerous trajectory.",
+		tag: "Research",
+		author: "Boundless Intuition Research",
+		date: "2026-08-06",
+		readingTime: "3 min read",
+		image: "/blog/thesis-hero.webp",
+		Content: TowardsVerifiedSupertechnology
+	},
+	{
+		slug: "fluency-is-not-correctness",
+		title: "Fluency Is Not Correctness",
+		subtitle: "Separating semantic parsing from deterministic execution in rule-governed reasoning.",
+		description: "On RuleArena's airline domain, verification lifts two frontier Claude models from 54% and 61% to 100% while cutting cost roughly fourteenfold, and a verified budget model beats both unaided frontier models.",
+		tag: "Research",
+		author: "Boundless Intuition Research",
+		date: "2026-07-17",
+		readingTime: "12 min read",
+		image: "/blog/fluent-hero.webp",
+		Content: FluencyIsNotCorrectness
+	},
+	{
+		slug: "a-diagnosis-should-be-a-proof-not-a-probability",
+		title: "A Diagnosis Should Be a Proof, Not a Probability",
+		subtitle: "Formalizing the lupus classification criteria in Lean 4, and a 50-case benchmark against a frontier model.",
+		description: "A frontier model gave five different diagnoses to the same patient, five times. We built a clinical classifier whose verdicts are proven in Lean 4, not sampled, and benchmarked it head-to-head.",
+		tag: "Research",
+		author: "Boundless Intuition Research",
+		date: "2026-06-19",
+		readingTime: "15 min read",
+		image: "/blog/diagnosis-hero.webp",
+		Content: ADiagnosisShouldBeAProof
+	}
+];
 function getBlogPost(slug) {
 	return BLOG_POSTS.find((p) => p.slug === slug);
 }

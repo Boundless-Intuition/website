@@ -3,11 +3,11 @@ import { n as require_jsx_runtime, r as require_react } from "./_libs/react+tans
 import { c as useReadProgress, s as track$1 } from "./_ssr/theme-0hrIaw_O.mjs";
 import { y as Link } from "./_libs/@tanstack/react-router+[...].mjs";
 import { g as Prose } from "./_ssr/charts-C6lQQitl.mjs";
-import { a as getNarration, i as getBlogPost, r as formatBlogDate, t as BLOG_POSTS } from "./_ssr/blog-ByrEdZ1c.mjs";
-import { t as Route } from "./_slug-CAnzjEMR.mjs";
-import { n as TopBar, t as SiteFooter } from "./_ssr/SiteFooter-Dr4S4eQG.mjs";
+import { a as getNarration, i as getBlogPost, r as formatBlogDate, t as BLOG_POSTS } from "./_ssr/blog-CYul9FM9.mjs";
+import { t as Route } from "./_slug-BUmUwTS7.mjs";
+import { n as TopBar, t as SiteFooter } from "./_ssr/SiteFooter-Bc5x_INn.mjs";
 import { a as Link2, i as Pause, n as RotateCcw, o as Check, r as Play, t as RotateCw } from "./_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/_slug-CwC-oFby.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_slug-M0jPHHlR.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function TableOfContents({ containerRef }) {
@@ -449,17 +449,17 @@ function BlogPostPage({ post }) {
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
 						src: post.image,
 						alt: "",
-						className: "blog-cover-img h-full w-full object-cover opacity-50 dark:opacity-45"
+						className: "blog-cover-img h-full w-full object-cover opacity-95 dark:opacity-80"
 					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-background/60 dark:bg-background/65" }),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/80 to-transparent" }),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/70 to-transparent" })
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-background/15 dark:bg-background/25" }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background via-background/65 to-transparent" }),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-x-0 bottom-0 h-[68%] bg-gradient-to-t from-background via-background/88 to-transparent" })
 				]
 			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				className: "blueprint-grid absolute inset-0",
 				"aria-hidden": true
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative mx-auto max-w-4xl px-6 pt-24 pb-16 text-center lg:pt-32",
+				className: "relative mx-auto max-w-4xl px-6 pt-32 pb-24 text-center lg:pt-48",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "mb-8 flex items-center justify-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
@@ -541,6 +541,21 @@ function BlogPostPage({ post }) {
 					]
 				})
 			})
+		}),
+		post.image && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+			"aria-hidden": true,
+			className: "relative mt-4 h-[180px] overflow-hidden md:h-[340px]",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+					src: post.image,
+					alt: "",
+					loading: "lazy",
+					className: "blog-cover-img h-full w-full object-cover object-bottom opacity-90 dark:opacity-70"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-0 bg-background/25 dark:bg-background/35" }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-x-0 top-0 h-2/5 bg-gradient-to-b from-background via-background/70 to-transparent" }),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: "absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-background via-background/70 to-transparent" })
+			]
 		}),
 		morePosts.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
 			className: "border-t border-border bg-muted/20 py-16",

@@ -1,6 +1,7 @@
 import type { ComponentType } from "react";
 import { FluencyIsNotCorrectness } from "@/components/site/blog/content/FluencyIsNotCorrectness";
 import { ADiagnosisShouldBeAProof } from "@/components/site/blog/content/ADiagnosisShouldBeAProof";
+import { TowardsVerifiedSupertechnology } from "@/components/site/blog/content/TowardsVerifiedSupertechnology";
 import narrationManifest from "@/content/blog/narration.json";
 
 export type BlogTag = "Announcements" | "Partnerships" | "Research";
@@ -28,6 +29,20 @@ export interface BlogPost {
 }
 
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    slug: "towards-verified-superintelligence",
+    title: "Towards Verified Superintelligence",
+    subtitle:
+      "Why the next breakthrough in AI is not bigger models, but verifiable intelligence.",
+    description:
+      "AI is becoming the operating system of the modern world, yet we have no reliable way to know whether an AI system is actually correct. Scaling intelligence without scaling trust is a dangerous trajectory.",
+    tag: "Research",
+    author: "Boundless Intuition Research",
+    date: "2026-08-06",
+    readingTime: "3 min read",
+    image: "/blog/thesis-hero.webp",
+    Content: TowardsVerifiedSupertechnology,
+  },
   {
     slug: "fluency-is-not-correctness",
     title: "Fluency Is Not Correctness",

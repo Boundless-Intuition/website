@@ -1,7 +1,7 @@
-//#region node_modules/.nitro/vite/services/ssr/assets/__23tanstack-start-server-fn-resolver-UKpMdhdU.js
+//#region node_modules/.nitro/vite/services/ssr/assets/__23tanstack-start-server-fn-resolver-CSaFtlX6.js
 var manifest = { "a09665e0a5ccb55e8be2ca52267403dc2b5094c9b6be00c64cbe098f9682d591": {
 	functionName: "subscribeToWaitlist_createServerFn_handler",
-	importer: () => import("./_ssr/waitlist-DtiBGbRk.mjs")
+	importer: () => import("./_ssr/waitlist-Dyvosonx.mjs")
 } };
 async function getServerFnById(id, access) {
 	const serverFnInfo = manifest[id];

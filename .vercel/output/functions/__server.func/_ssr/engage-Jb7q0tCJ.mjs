@@ -1,10 +1,10 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_jsx_runtime, r as require_react } from "../_libs/react+tanstack__react-query.mjs";
 import { s as track$1 } from "./theme-0hrIaw_O.mjs";
-import { n as TopBar, t as SiteFooter } from "./SiteFooter-Dr4S4eQG.mjs";
+import { n as TopBar, t as SiteFooter } from "./SiteFooter-Bc5x_INn.mjs";
 import { a as smoothstep, i as rng, n as mix, o as tone, r as oklcha, s as useDomainCanvas, t as field } from "./useDomainCanvas-wwM0K-cd.mjs";
 import { n as PipelineBackdrop, p as ruleLattice, r as asciiFlow, s as claimMorph } from "./MethodVisual-BAErQcRh.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/engage-iiIK9BSt.js
+//#region node_modules/.nitro/vite/services/ssr/assets/engage-Jb7q0tCJ.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
