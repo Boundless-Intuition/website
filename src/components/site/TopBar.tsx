@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ThemeToggle } from "./ThemeToggle";
+import { BrandMark } from "./BrandMark";
 import { track } from "@/lib/analytics";
+import { BOOKING_URL } from "@/lib/links";
+import { SECTIONS as PAGE_SECTIONS } from "@/lib/sections";
 
-const SECTIONS = [
-  { href: "/#doctrine", label: "Doctrine" },
-  { href: "/#method", label: "Method" },
-  { href: "/#domains", label: "Domains" },
-  { href: "/#value", label: "Value" },
-  { href: "/#lab", label: "Lab" },
-];
+// Mobile-drawer anchors, derived from the canonical home-page section list so
+// the two can never drift apart.
+const SECTIONS = PAGE_SECTIONS.map((s) => ({
+  href: `/#${s.id}`,
+  label: s.label,
+}));
 
 export function TopBar() {
   const [open, setOpen] = useState(false);
@@ -52,24 +54,13 @@ export function TopBar() {
         <div className="flex items-center gap-12">
           <Link
             to="/"
-            className="flex items-center gap-2.5 font-display text-[15px] tracking-tight text-foreground"
+            className="flex items-center gap-2.5 font-display text-[16px] tracking-tight text-foreground sm:gap-3 sm:text-[18px]"
           >
-            {/* Logo, masked so it takes the theme colour (light + dark) */}
-            <span
-              role="img"
-              aria-label="Boundless Intuition"
-              className="inline-block size-7 bg-foreground"
-              style={{
-                WebkitMaskImage: "url(/boundless_int_logo_white.png)",
-                maskImage: "url(/boundless_int_logo_white.png)",
-                WebkitMaskSize: "contain",
-                maskSize: "contain",
-                WebkitMaskRepeat: "no-repeat",
-                maskRepeat: "no-repeat",
-                WebkitMaskPosition: "center",
-                maskPosition: "center",
-              }}
-            />
+            {/* Mark and wordmark sit at the same optical weight: the mark runs
+                ~1.3x the font size, just clear of the cap height, rather than
+                towering over it. The bar stays h-16 regardless — the -mt-16 page
+                overlaps and the blog's top-16 filter bar both key off it. */}
+            <BrandMark className="h-5 sm:h-6" />
             <span>
               <span className="font-light">Boundless</span>{" "}
               <span className="font-semibold">Intuition</span>{" "}
@@ -98,13 +89,16 @@ export function TopBar() {
           </div>
         </div>
         <div className="flex items-center gap-5">
-          {/* Engage - styled as a soft CTA, not a loud button */}
-          <Link
-            to="/engage"
+          {/* Booking - styled as a soft CTA, not a loud button */}
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track("booking_opened", { from: "topbar" })}
             className="hidden items-center border border-foreground/25 px-4 py-1.5 font-display text-[12px] font-medium text-foreground transition-colors hover:border-foreground/60 hover:bg-foreground/5 sm:inline-flex"
           >
-            Engage
-          </Link>
+            Talk to the lab
+          </a>
           <ThemeToggle />
           <button
             type="button"
@@ -176,16 +170,21 @@ export function TopBar() {
                 ↗
               </span>
             </a>
-            <Link
-              to="/engage"
-              onClick={() => setOpen(false)}
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => {
+                setOpen(false);
+                track("booking_opened", { from: "topbar-mobile" });
+              }}
               className="flex items-center justify-between py-3 font-display text-[15px] font-medium text-foreground"
             >
-              Engage
+              Talk to the lab
               <span aria-hidden className="text-muted-foreground">
-                →
+                ↗
               </span>
-            </Link>
+            </a>
           </div>
         </div>
       </div>

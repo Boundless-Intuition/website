@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type RefObject } from "react";
 import {
   type Engine,
   type EngineFactory,
@@ -24,7 +24,16 @@ import {
  * and `pointerTargetRef` to the element whose hover/pointer should drive the
  * animation (usually the whole card).
  */
-export function useDomainCanvas(makeEngine: EngineFactory) {
+export function useDomainCanvas(
+  makeEngine: EngineFactory,
+  /**
+   * Optional element to read the pointer from, instead of the canvas wrapper.
+   * A full-bleed plate sits *behind* its section's copy, so the copy swallows
+   * every pointer event over the half of the band people actually read. Pass
+   * the section itself and the whole band drives the animation.
+   */
+  externalTarget?: RefObject<HTMLElement | null>,
+) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const pointerTargetRef = useRef<HTMLDivElement | null>(null);
 
@@ -154,7 +163,8 @@ export function useDomainCanvas(makeEngine: EngineFactory) {
     };
     document.addEventListener("visibilitychange", onVisibility);
 
-    const target: HTMLElement = pointerTargetRef.current ?? canvas;
+    const target: HTMLElement =
+      externalTarget?.current ?? pointerTargetRef.current ?? canvas;
     const onMove = (e: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
       pointer.x = (e.clientX - rect.left) / Math.max(1, rect.width);
@@ -207,7 +217,7 @@ export function useDomainCanvas(makeEngine: EngineFactory) {
       target.removeEventListener("pointerenter", onEnter);
       target.removeEventListener("pointerleave", onLeave);
     };
-  }, [makeEngine]);
+  }, [makeEngine, externalTarget]);
 
   return { canvasRef, pointerTargetRef };
 }

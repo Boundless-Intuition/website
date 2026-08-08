@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { BrandMark } from "@/components/site/BrandMark";
 
 // Post-subscribe landing. Not linked anywhere on the site; Buttondown redirects
 // here after a subscriber confirms (Settings, "redirect after confirmation").
@@ -40,21 +41,7 @@ function Wordmark() {
       to="/"
       className="inline-flex items-center gap-2.5 font-display text-[15px] tracking-tight text-foreground"
     >
-      <span
-        role="img"
-        aria-label="Boundless Intuition"
-        className="inline-block size-7 bg-foreground"
-        style={{
-          WebkitMaskImage: "url(/boundless_int_logo_white.png)",
-          maskImage: "url(/boundless_int_logo_white.png)",
-          WebkitMaskSize: "contain",
-          maskSize: "contain",
-          WebkitMaskRepeat: "no-repeat",
-          maskRepeat: "no-repeat",
-          WebkitMaskPosition: "center",
-          maskPosition: "center",
-        }}
-      />
+      <BrandMark className="h-5" />
       <span>
         <span className="font-light">Boundless</span>{" "}
         <span className="font-semibold">Intuition</span>
@@ -84,7 +71,7 @@ function SubscribedRoute() {
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-6 py-20 text-foreground">
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_36%,oklch(0.78_0.13_170/0.10),transparent)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_36%,oklch(0.82_0.13_82/0.10),transparent)]"
         aria-hidden
       />
 

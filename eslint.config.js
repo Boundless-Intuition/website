@@ -6,7 +6,23 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-  { ignores: ["dist", ".output", ".vinxi"] },
+  // Everything here is generated or vendored, and none of it is ours to lint.
+  // `.vercel` is where the Nitro vercel preset writes the build (`.output` is
+  // the old Cloudflare target, kept for stale working copies) and `.claude`
+  // holds agent worktrees — each a full second checkout with its own build.
+  // Without these, `eslint .` walks tens of thousands of generated files: it
+  // takes minutes and crashes outright if a build removes one mid-scan.
+  {
+    ignores: [
+      "dist",
+      ".output",
+      ".vercel",
+      ".vinxi",
+      ".claude",
+      "**/.vercel/**",
+      "**/dist/**",
+    ],
+  },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],

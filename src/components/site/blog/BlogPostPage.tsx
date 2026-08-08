@@ -7,6 +7,7 @@ import {
   type BlogPost,
 } from "@/lib/blog";
 import { Prose } from "./prose";
+import { BlogHeroBackdrop } from "@/components/site/domain-visuals/BlogVisual";
 import { TableOfContents } from "./TableOfContents";
 import { ListenToArticle, ShareButton } from "./PostActions";
 import { useReadProgress } from "@/lib/analytics";
@@ -37,7 +38,13 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
             <div className="absolute inset-x-0 bottom-0 h-[68%] bg-gradient-to-t from-background via-background/88 to-transparent" />
           </div>
         ) : (
-          <div className="blueprint-grid absolute inset-0" aria-hidden />
+          // No cover art: fall back to the house halftone plume, the same
+          // masthead the blog index runs (docs/visual-system.md §12).
+          <div aria-hidden className="absolute inset-0">
+            <BlogHeroBackdrop />
+            <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background via-background/65 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-[68%] bg-gradient-to-t from-background via-background/88 to-transparent" />
+          </div>
         )}
         <div className="relative mx-auto max-w-4xl px-6 pt-32 pb-24 text-center lg:pt-48">
           <div className="mb-8 flex items-center justify-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
@@ -50,9 +57,14 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
             <span className="text-muted-foreground/50">·</span>
             <span>{formatBlogDate(post.date)}</span>
             <span className="text-muted-foreground/50">·</span>
-            <span className="border border-border px-2 py-0.5 text-foreground/70">
-              {post.tag}
-            </span>
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="border border-border px-2 py-0.5 text-foreground/70"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
           <h1 className="mx-auto max-w-[42ch] font-display text-[2.3rem] font-light leading-[1.1] tracking-[-0.02em] text-foreground md:text-[3rem]">
             {post.title}
@@ -157,7 +169,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                     </div>
                   )}
                   <span className="relative font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                    {p.tag} · {formatBlogDate(p.date)}
+                    {p.tags.join(" · ")} · {formatBlogDate(p.date)}
                   </span>
                   <h3 className="relative font-display text-[19px] font-medium tracking-tight text-foreground transition-colors group-hover:text-accent">
                     {p.title}

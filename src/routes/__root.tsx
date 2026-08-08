@@ -1,7 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
-  Link,
   createRootRouteWithContext,
   useRouter,
   useLocation,
@@ -15,6 +14,7 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import appCss from "../styles.css?url";
 import { track, useVisitDigest } from "@/lib/analytics";
 import { applyTheme, themeForPath } from "@/lib/theme";
+import { NotFound } from "@/components/site/NotFound";
 
 function NotFoundComponent() {
   // Broken inbound links are worth knowing about; folded into the visit digest
@@ -25,27 +25,7 @@ function NotFoundComponent() {
     });
   }, []);
 
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">
-          Page not found
-        </h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
+  return <NotFound />;
 }
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
@@ -58,31 +38,43 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     track("render_error", { message: error.message.slice(0, 200) });
   }, [error]);
 
+  // No plate here, deliberately: this renders when something has already gone
+  // wrong, and it must not depend on an asset fetch to be readable.
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back
-          home.
+    <div className="flex min-h-screen items-center justify-center bg-background px-6">
+      <div className="w-full max-w-[46ch]">
+        <p className="mb-7 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
+          Error
         </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+        <h1 className="mb-6 font-display text-[2.2rem] font-light leading-[1.08] tracking-[-0.02em] text-foreground">
+          This page didn't load.
+        </h1>
+        <p className="text-[17px] leading-[1.7] text-foreground/85">
+          Something failed on our end. Trying again often clears it; if it
+          doesn't, the front door always works.
+        </p>
+        <div className="mt-10 flex flex-wrap items-center gap-3 font-display text-[13px] font-medium">
           <button
+            type="button"
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="group inline-flex items-center gap-2 border border-foreground bg-foreground px-6 py-3.5 text-background transition-all hover:bg-foreground/90"
           >
             Try again
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="group inline-flex items-center gap-2 border border-foreground/30 bg-foreground/5 px-6 py-3.5 text-foreground transition-all hover:border-foreground/60 hover:bg-foreground/10"
           >
-            Go home
+            Back to the site
+            <span
+              aria-hidden
+              className="transition-transform group-hover:translate-x-1"
+            >
+              →
+            </span>
           </a>
         </div>
       </div>
@@ -119,19 +111,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         { property: "og:type", content: "website" },
         {
           property: "og:image",
-          content: "https://www.boundlessintuition.com/og-image.jpg",
+          content: "https://www.boundlessintuition.com/og/site.jpg",
         },
         { property: "og:image:width", content: "1200" },
         { property: "og:image:height", content: "630" },
         {
           property: "og:image:alt",
           content:
-            '"Wandering the Immeasurable" at CERN, engraved equations on steel',
+            "A colossal bronze gear mechanism in marble ruins over still water, rings of light spreading from it toward a figure holding a lantern",
         },
         { name: "twitter:card", content: "summary_large_image" },
         {
           name: "twitter:image",
-          content: "https://www.boundlessintuition.com/og-image.jpg",
+          content: "https://www.boundlessintuition.com/og/site.jpg",
         },
       ],
       links: [

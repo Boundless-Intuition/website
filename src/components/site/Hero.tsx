@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { HeroFilm } from "./HeroFilm";
+import { track } from "@/lib/analytics";
+import { BOOKING_URL } from "@/lib/links";
 
 // The still and the film must crop identically or the cross-fade slides.
 // The plate's action — the basket and its pour — sits around 42% of the source
@@ -38,7 +40,7 @@ export function Hero() {
   return (
     <section
       id="doctrine"
-      className="relative -mt-16 overflow-hidden lg:min-h-[min(56.25vw,60rem)]"
+      className="relative -mt-16 overflow-hidden lg:flex lg:min-h-[min(56.25vw,60rem)] lg:flex-col lg:justify-end"
     >
       {/* Full-bleed plate — a measured pour beside a temple under scaffolding:
           the same water, drawn and returned, checked by lamplight. The still and
@@ -115,54 +117,76 @@ export function Hero() {
         className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background via-background/35 to-transparent md:h-48 lg:h-20 lg:via-background/10"
       />
 
-      <div className="relative mx-auto grid max-w-shell gap-16 px-6 lg:px-10 pt-24 pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:pt-32">
+      {/* From lg the section is a fixed 16:9 box (the min-h above), so the copy
+          no longer sets the height — it sits inside it. The block is anchored to
+          the bottom of that box rather than centred: the plate earns the whole
+          upper field, and the copy reads up from the water line. pb-28 is what
+          holds it off the floor, and it is load-bearing — it is roughly the
+          height of the flower band in the plate, so the last line clears the
+          silhouettes instead of sitting in them. The plate and the dissolve are
+          absolute, so only this div is in the flex flow. */}
+      <div className="relative mx-auto w-full max-w-shell grid gap-16 px-6 lg:px-10 pt-24 pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-20 lg:pt-32">
         {/* @container so the headline can be sized against this column rather
             than the viewport — see the clamp on the h1. */}
         <div className="@container">
+          {/* Category line above the headline. Mono rather than the display-face
+              eyebrow the blog and legal pages use: it brackets the hero against
+              the mono "get research updates" link at the foot of the same
+              column, and reads as a stamped label rather than as small copy. */}
+          <p className="mb-5 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground sm:text-[12px]">
+            Verified Intelligence Infrastructure
+          </p>
+
           {/* Two blocks rather than one wrapping line: the break is deliberate,
-              so "Verified Intelligence" holds its own line, both lines start on
-              the same left edge, and the phrase lands clear above the basket in
-              the plate. Paired with the 8% vertical crop above. Leading is a
-              touch looser than a single line would want, so the descender of
-              "layer" clears the cap-height of "Verified".
+              so "Verified Intelligence" holds its own line and both lines start
+              on the same left edge. Leading is a touch looser than a single line
+              would want, so the descender of "layer" clears the cap-height of
+              "Verified".
 
               From lg the size follows the column width instead of a fixed step.
               "Foundational layer for" measures 9.94em in this face at this
-              tracking, so 9.8cqw keeps it at ~97% of the column: it always fits
-              on one line and the deliberate break survives every desktop width
-              (a fixed 4.4rem orphaned "for" onto its own line at 1440). The
-              ceiling holds the size it had on a wide screen; text-balance is the
-              safety net below lg, where the column runs full width. */}
-          <h1 className="mb-10 text-balance font-display text-[3rem] font-light leading-[1.08] tracking-[-0.03em] text-foreground md:text-[3.6rem] lg:mb-16 lg:text-[clamp(2.6rem,9.8cqw,4.4rem)]">
+              tracking, so 7.2cqw sets it to ~72% of the column. That width is
+              the point of the number, not just the scale: at the old 9.8cqw the
+              line ran to ~97% of the column and pushed its last word into the
+              suspended basket in the plate. Holding it under three-quarters
+              keeps the whole headline in open water to the left of the pour, and
+              the shorter block also drops the headline clear of the basket
+              vertically, since the column is anchored to the bottom of the
+              section. text-balance is the safety net below lg, where the column
+              runs full width. */}
+          <h1 className="mb-8 text-balance font-display text-[2.5rem] font-light leading-[1.08] tracking-[-0.03em] text-foreground md:text-[3rem] lg:text-[clamp(2.4rem,7.2cqw,3.3rem)]">
             <span className="block">Foundational layer for</span>
             <span className="block">Verified Intelligence</span>
           </h1>
 
-          {/* The plate is 16:9 and the copy only needs the top of it, so from lg
-              there is height to spend below: the body takes a shorter measure
-              (42ch ≈ 61 characters, an easier line than the 76 it ran at) and
-              looser leading, which spends that height on the reading rhythm
-              instead of leaving a void under the CTAs. The shorter measure also
-              pulls the right edge clear of the suspended basket, which the 52ch
-              lines used to run into. */}
-          <div className="max-w-[52ch] space-y-5 text-[17px] leading-[1.6] text-foreground/85 lg:max-w-[42ch] lg:space-y-8 lg:text-[18px] lg:leading-[1.75]">
-            <p>
-              Modern AI is fluent, not correct. It has the confidence of an
-              expert with the accountability of a guess. In high-stakes domains,
-              that gap is a liability.
-            </p>
-            <p className="text-muted-foreground">
-              We formalize your domain rules into machine-checkable form and
-              prove every answer correct before it reaches production.
-            </p>
-          </div>
+          {/* One paragraph, not two stacked blocks: the diagnosis and what it
+              costs are a single thought, and splitting them put a 2rem gap where
+              a full stop belongs. Read as one run they land as premise and
+              consequence.
 
-          <div className="mt-14 flex flex-wrap items-center gap-4 font-display text-[12px] font-medium lg:mt-28">
+              Sized against the headline rather than as fine print — at 20px it
+              sits at ~0.29 of the h1 instead of 0.26. The measure moves with it:
+              40ch at 20px is the same physical width 42ch was at 18px, so the
+              right edge stays clear of the suspended basket in the plate, which
+              the old 52ch lines used to run into. */}
+          <p className="max-w-[52ch] text-[17px] leading-[1.6] text-foreground/85 lg:max-w-[40ch] lg:text-[20px] lg:leading-[1.7]">
+            The most fluent systems ever built still cannot tell you when they
+            are wrong. Scaling intelligence without scaling trust is a dangerous
+            trajectory.
+          </p>
+
+          {/* Two solid boxes of equal size rather than a box and a text link:
+              at this scale a bare link beside a button reads as an afterthought.
+              The thesis leads and carries the fill — it is the artifact the page
+              is built to hand over — with the booking link beside it as the
+              outlined second action. */}
+          <div className="mt-10 flex flex-wrap items-center gap-3 font-display text-[13px] font-medium">
             <Link
-              to="/engage"
-              className="group inline-flex items-center gap-2 border border-foreground/30 bg-foreground/5 px-5 py-3 text-foreground transition-all hover:border-foreground/60 hover:bg-foreground/10"
+              to="/blog/$slug"
+              params={{ slug: "towards-verified-superintelligence" }}
+              className="group inline-flex items-center gap-2 border border-foreground bg-foreground px-6 py-3.5 text-background transition-all hover:bg-foreground/90"
             >
-              Bring us your rules
+              Read the thesis
               <span
                 aria-hidden
                 className="transition-transform group-hover:translate-x-1"
@@ -171,10 +195,13 @@ export function Hero() {
               </span>
             </Link>
             <a
-              href="#method"
-              className="group inline-flex items-center gap-2 border-b border-foreground/40 pb-1 text-foreground transition-colors hover:border-foreground"
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => track("booking_opened", { from: "hero" })}
+              className="group inline-flex items-center gap-2 border border-foreground/30 bg-foreground/5 px-6 py-3.5 text-foreground transition-all hover:border-foreground/60 hover:bg-foreground/10"
             >
-              See the method
+              Talk to the lab
               <span
                 aria-hidden
                 className="transition-transform group-hover:translate-x-1"
@@ -183,24 +210,6 @@ export function Hero() {
               </span>
             </a>
           </div>
-
-          {/* Quiet tertiary link down to the research updates signup */}
-          <a
-            href="#signal"
-            className="group mt-6 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground lg:mt-14"
-          >
-            <span className="relative grid size-2 place-items-center">
-              <span className="wl-ping absolute inset-0 rounded-full bg-[oklch(0.48_0.11_170)] dark:bg-[oklch(0.78_0.13_170)]" />
-              <span className="size-1.5 rounded-full bg-[oklch(0.48_0.11_170)] dark:bg-[oklch(0.78_0.13_170)]" />
-            </span>
-            Get research updates
-            <span
-              aria-hidden
-              className="transition-transform group-hover:translate-y-0.5"
-            >
-              ↓
-            </span>
-          </a>
         </div>
 
         {/* Right column left empty on purpose: it reserves the open water and

@@ -19,7 +19,12 @@ export interface BlogPost {
   title: string;
   subtitle: string;
   description: string;
-  tag: BlogTag;
+  /**
+   * One or more tags, in BLOG_TAGS order. A post can belong to more than one:
+   * the thesis is both the lab's position and the announcement of it, and the
+   * filter bar matches on any of them.
+   */
+  tags: BlogTag[];
   author: string;
   date: string; // ISO yyyy-mm-dd
   readingTime: string;
@@ -36,7 +41,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Why the next breakthrough in AI is not bigger models, but verifiable intelligence.",
     description:
       "AI is becoming the operating system of the modern world, yet we have no reliable way to know whether an AI system is actually correct. Scaling intelligence without scaling trust is a dangerous trajectory.",
-    tag: "Research",
+    tags: ["Announcements", "Research"],
     author: "Boundless Intuition Research",
     date: "2026-08-06",
     readingTime: "3 min read",
@@ -50,7 +55,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Separating semantic parsing from deterministic execution in rule-governed reasoning.",
     description:
       "On RuleArena's airline domain, verification lifts two frontier Claude models from 54% and 61% to 100% while cutting cost roughly fourteenfold, and a verified budget model beats both unaided frontier models.",
-    tag: "Research",
+    tags: ["Research"],
     author: "Boundless Intuition Research",
     date: "2026-07-17",
     readingTime: "12 min read",
@@ -64,7 +69,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Formalizing the lupus classification criteria in Lean 4, and a 50-case benchmark against a frontier model.",
     description:
       "A frontier model gave five different diagnoses to the same patient, five times. We built a clinical classifier whose verdicts are proven in Lean 4, not sampled, and benchmarked it head-to-head.",
-    tag: "Research",
+    tags: ["Research"],
     author: "Boundless Intuition Research",
     date: "2026-06-19",
     readingTime: "15 min read",

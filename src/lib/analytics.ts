@@ -42,12 +42,13 @@ type Tier =
 // server-side from `./waitlist`, where it survives ad blockers and the visitor
 // closing the tab, and where the request's geo headers are available.
 const EVENT_TIER = {
-  engage_submitted: "alert",
+  booking_opened: "alert",
   contact_mailto: "alert",
 
   render_error: "normal",
 
   outbound_playground: "quiet",
+  outbound_social: "quiet",
   post_shared: "quiet",
   narration_play: "quiet",
 
@@ -287,7 +288,7 @@ export function useVisitDigest() {
 
 /**
  * Fires `section_viewed` once per section per visit. Observes exactly the
- * anchors the `SectionRail` highlights, via the shared list in `./sections`.
+ * anchors the TopBar and footer link to, via the shared list in `./sections`.
  */
 export function useSectionViews() {
   useEffect(() => {

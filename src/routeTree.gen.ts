@@ -15,7 +15,6 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as OverviewRouteImport } from './routes/overview'
 import { Route as LegalRouteImport } from './routes/legal'
-import { Route as EngageRouteImport } from './routes/engage'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
@@ -51,11 +50,6 @@ const LegalRoute = LegalRouteImport.update({
   path: '/legal',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EngageRoute = EngageRouteImport.update({
-  id: '/engage',
-  path: '/engage',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -79,7 +73,6 @@ const ApiSignalRoute = ApiSignalRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/engage': typeof EngageRoute
   '/legal': typeof LegalRoute
   '/overview': typeof OverviewRoute
   '/robots.txt': typeof RobotsDottxtRoute
@@ -92,7 +85,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/engage': typeof EngageRoute
   '/legal': typeof LegalRoute
   '/overview': typeof OverviewRoute
   '/robots.txt': typeof RobotsDottxtRoute
@@ -106,7 +98,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/engage': typeof EngageRoute
   '/legal': typeof LegalRoute
   '/overview': typeof OverviewRoute
   '/robots.txt': typeof RobotsDottxtRoute
@@ -121,7 +112,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/engage'
     | '/legal'
     | '/overview'
     | '/robots.txt'
@@ -134,7 +124,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/engage'
     | '/legal'
     | '/overview'
     | '/robots.txt'
@@ -147,7 +136,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/engage'
     | '/legal'
     | '/overview'
     | '/robots.txt'
@@ -161,7 +149,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  EngageRoute: typeof EngageRoute
   LegalRoute: typeof LegalRoute
   OverviewRoute: typeof OverviewRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
@@ -217,13 +204,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LegalRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/engage': {
-      id: '/engage'
-      path: '/engage'
-      fullPath: '/engage'
-      preLoaderRoute: typeof EngageRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -257,7 +237,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  EngageRoute: EngageRoute,
   LegalRoute: LegalRoute,
   OverviewRoute: OverviewRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,

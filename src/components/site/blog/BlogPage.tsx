@@ -17,7 +17,7 @@ export function BlogPage() {
     () =>
       filter === "All"
         ? BLOG_POSTS
-        : BLOG_POSTS.filter((p) => p.tag === filter),
+        : BLOG_POSTS.filter((p) => p.tags.includes(filter)),
     [filter],
   );
 
@@ -100,9 +100,14 @@ export function BlogPage() {
                   <div className="relative flex flex-col gap-3 md:flex-row md:items-baseline md:justify-between md:gap-8">
                     <div className="flex-1">
                       <div className="mb-3 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                        <span className="border border-border px-2 py-0.5 text-foreground/70">
-                          {post.tag}
-                        </span>
+                        {post.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="border border-border px-2 py-0.5 text-foreground/70"
+                          >
+                            {tag}
+                          </span>
+                        ))}
                         <span>{formatBlogDate(post.date)}</span>
                         <span className="text-muted-foreground/50">·</span>
                         <span>{post.readingTime}</span>

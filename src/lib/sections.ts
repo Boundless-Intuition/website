@@ -2,13 +2,10 @@
 // section anchors rendered by the components in `src/components/site/` (see the
 // hrefs the TopBar/footer point at).
 //
-// Shared by the scroll-spy rail (`SectionRail`) and the scroll-depth analytics
-// hook (`useSectionViews` in `./analytics`), so the two can never drift apart.
+// Shared by the scroll-depth analytics hook (`useSectionViews` in `./analytics`)
+// and the TopBar/footer link lists, so the three can never drift apart.
 export const SECTIONS = [
   { id: "doctrine", label: "Doctrine" },
-  { id: "method", label: "Method" },
-  { id: "domains", label: "Domains" },
-  { id: "value", label: "Value" },
   { id: "lab", label: "Lab" },
 ] as const;
 

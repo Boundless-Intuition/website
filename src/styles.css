@@ -42,10 +42,10 @@
   --card-foreground: oklch(0.2 0.03 250);
   --muted: oklch(0.88 0.015 90); /* #d9d4c3 secondary vellum */
   --muted-foreground: oklch(0.4 0.02 250);
-  --accent: oklch(0.47 0.115 170); /* warm sea-green accent */
+  --accent: oklch(0.52 0.13 74); /* lantern ochre — the one warm light */
   --accent-foreground: oklch(0.945 0.012 90);
   --border: oklch(0.22 0.03 250 / 0.2);
-  --ring: oklch(0.47 0.115 170);
+  --ring: oklch(0.52 0.13 74);
   --ink: oklch(0.12 0.02 250); /* graphite ink */
   --ink-foreground: oklch(0.94 0.012 90);
   --graphite: oklch(0.14 0.005 250);
@@ -59,591 +59,13 @@
   --card-foreground: oklch(0.94 0.012 90);
   --muted: oklch(0.1 0.01 250);
   --muted-foreground: oklch(0.72 0.02 90);
-  --accent: oklch(0.79 0.115 170);
+  --accent: oklch(0.82 0.13 82);
   --accent-foreground: oklch(0.12 0.012 250);
   --border: oklch(0.94 0.012 90 / 0.14);
-  --ring: oklch(0.79 0.115 170);
+  --ring: oklch(0.82 0.13 82);
   --ink: oklch(0.07 0.01 250);
   --ink-foreground: oklch(0.94 0.012 90);
   --graphite: oklch(0.04 0.005 250);
-}
-
-@keyframes slow-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@keyframes rev-spin {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-    transform: rotate(0deg);
-  }
-}
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* --- Proof seal stamp (C) --- */
-@keyframes stamp-in {
-  0% {
-    opacity: 0;
-    transform: scale(1.55) rotate(-11deg);
-  }
-  55% {
-    opacity: 1;
-  }
-  70% {
-    transform: scale(0.965) rotate(-3deg);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(-4deg);
-  }
-}
-.seal-stamp {
-  animation: stamp-in 0.62s cubic-bezier(0.2, 0.9, 0.25, 1) both;
-}
-
-/* --- Self-drawing proof lattice (A) --- */
-@keyframes pl-draw {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-@keyframes pl-fade {
-  to {
-    opacity: 1;
-  }
-}
-.pl-edge {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  animation: pl-draw 1.5s ease forwards;
-}
-.pl-node {
-  opacity: 0;
-  animation: pl-fade 0.7s ease forwards;
-}
-
-/* --- Living proof-lattice field (hero background) --- */
-/* Edges continuously "prove": draw in, hold, fade, repeat. */
-@keyframes pl-prove {
-  0% {
-    stroke-dashoffset: 1;
-    opacity: 0;
-  }
-  18% {
-    opacity: 1;
-  }
-  46% {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-  74% {
-    stroke-dashoffset: 0;
-    opacity: 1;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 0;
-  }
-}
-.pl-prove {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  opacity: 0;
-  animation: pl-prove 9s ease-in-out infinite;
-}
-@keyframes pl-twinkle {
-  0%,
-  100% {
-    opacity: 0.32;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-.pl-dot {
-  animation: pl-twinkle 6s ease-in-out infinite;
-}
-@keyframes pl-qed {
-  0%,
-  100% {
-    opacity: 0.18;
-    transform: scale(0.6);
-  }
-  50% {
-    opacity: 0.9;
-    transform: scale(1);
-  }
-}
-.pl-qed {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: pl-qed 7s ease-in-out infinite;
-}
-/* Two parallax layers drift gently in opposite directions. */
-@keyframes pl-drift-a {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(-24px, 16px);
-  }
-}
-@keyframes pl-drift-b {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(20px, -14px);
-  }
-}
-.pl-drift-a {
-  animation: pl-drift-a 34s ease-in-out infinite alternate;
-}
-.pl-drift-b {
-  animation: pl-drift-b 27s ease-in-out infinite alternate;
-}
-
-/* --- Value-box demonstration figures --- */
-/* 01 · a token racing the CI pipeline */
-@keyframes vg-travel {
-  0% {
-    transform: translateX(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(150px);
-    opacity: 0;
-  }
-}
-.vg-token {
-  animation: vg-travel 2.6s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-}
-@keyframes vg-pulse {
-  0%,
-  100% {
-    opacity: 0.25;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-.vg-pulse {
-  animation: vg-pulse 2.6s ease-in-out infinite;
-}
-/* 02 · cases filling with checks, forever */
-@keyframes vg-cell {
-  0% {
-    opacity: 0;
-  }
-  14% {
-    opacity: 1;
-  }
-  72% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-.vg-cell {
-  opacity: 0;
-  animation: vg-cell 4s ease-in-out infinite;
-}
-/* 03 · an audit bar that fills instantly */
-@keyframes vg-bar {
-  0% {
-    transform: scaleX(0);
-  }
-  38% {
-    transform: scaleX(1);
-  }
-  82% {
-    transform: scaleX(1);
-  }
-  100% {
-    transform: scaleX(0);
-  }
-}
-.vg-barfill {
-  transform-box: fill-box;
-  transform-origin: left center;
-  animation: vg-bar 3.2s ease-in-out infinite;
-}
-/* shared · a check/flag resolving */
-@keyframes vg-check {
-  0%,
-  34% {
-    opacity: 0;
-    transform: scale(0.6);
-  }
-  54% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  86% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-.vg-check {
-  transform-box: fill-box;
-  transform-origin: center;
-  opacity: 0;
-  animation: vg-check 3.2s ease-in-out infinite;
-}
-/* 04 · a risk gauge settling into the safe zone */
-@keyframes vg-needle {
-  0% {
-    transform: rotate(-70deg);
-  }
-  44% {
-    transform: rotate(52deg);
-  }
-  66% {
-    transform: rotate(46deg);
-  }
-  100% {
-    transform: rotate(-70deg);
-  }
-}
-.vg-needle {
-  transform-box: fill-box;
-  transform-origin: bottom center;
-  animation: vg-needle 3.6s ease-in-out infinite;
-}
-/* domains · bars rising under a limit */
-@keyframes vg-rise {
-  0% {
-    transform: scaleY(0);
-  }
-  40% {
-    transform: scaleY(1);
-  }
-  82% {
-    transform: scaleY(1);
-  }
-  100% {
-    transform: scaleY(0);
-  }
-}
-.vg-barrise {
-  transform-box: fill-box;
-  transform-origin: bottom;
-  animation: vg-rise 3.4s ease-in-out infinite;
-}
-/* domains · scales settling level */
-@keyframes vg-balance {
-  0% {
-    transform: rotate(0deg);
-  }
-  22% {
-    transform: rotate(11deg);
-  }
-  50% {
-    transform: rotate(-9deg);
-  }
-  74% {
-    transform: rotate(4deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
-.vg-balance {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: vg-balance 4.2s ease-in-out infinite;
-}
-
-/* --- Engage "how it works" process flow --- */
-@keyframes pf-travel {
-  0% {
-    transform: translateX(0);
-    opacity: 0;
-  }
-  6% {
-    opacity: 1;
-  }
-  92% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(720px);
-    opacity: 0;
-  }
-}
-.pf-packet {
-  animation: pf-travel 6.4s linear infinite;
-}
-@keyframes pf-flash {
-  0%,
-  100% {
-    opacity: 0.14;
-  }
-  6% {
-    opacity: 1;
-  }
-  24% {
-    opacity: 0.14;
-  }
-}
-.pf-flash {
-  opacity: 0.14;
-  animation: pf-flash 6.4s ease-in-out infinite;
-}
-.pf-glow {
-  filter: drop-shadow(0 0 5px oklch(0.72 0.09 170 / 0.65));
-}
-@media (prefers-reduced-motion: reduce) {
-  .pf-packet {
-    opacity: 0;
-    animation: none;
-  }
-  .pf-flash {
-    opacity: 0.7;
-    animation: none;
-  }
-}
-
-/* --- Method pipeline · the model answer flowing through --- */
-@keyframes mf-flow-x {
-  0% {
-    transform: translateX(0);
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(30px);
-    opacity: 0;
-  }
-}
-@keyframes mf-flow-y {
-  0% {
-    transform: translateY(0);
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(30px);
-    opacity: 0;
-  }
-}
-.mf-dot-x {
-  animation: mf-flow-x 2.6s ease-in-out infinite;
-}
-.mf-dot-y {
-  animation: mf-flow-y 2.6s ease-in-out infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .mf-dot-x,
-  .mf-dot-y {
-    opacity: 0;
-    animation: none;
-  }
-}
-
-/* --- Method step figures (01–05) --- */
-@keyframes mb-blink {
-  0%,
-  45% {
-    opacity: 1;
-  }
-  55%,
-  100% {
-    opacity: 0.15;
-  }
-}
-.mb-blink {
-  animation: mb-blink 1s steps(1) infinite;
-}
-@keyframes mb-pop {
-  0% {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-  30% {
-    opacity: 1;
-    transform: scale(1.09);
-  }
-  45% {
-    transform: scale(1);
-  }
-  82% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1);
-  }
-}
-.mb-pop {
-  transform-box: fill-box;
-  transform-origin: center;
-  opacity: 0;
-  animation: mb-pop 3.6s ease-in-out infinite;
-}
-@keyframes mb-ship {
-  0% {
-    transform: translateX(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(130px);
-    opacity: 0;
-  }
-}
-.mb-ship {
-  animation: mb-ship 3.2s ease-in-out infinite;
-}
-@keyframes mb-bounce {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  40% {
-    transform: translateX(46px);
-  }
-  55% {
-    transform: translateX(40px);
-  }
-}
-.mb-bounce {
-  animation: mb-bounce 3.2s ease-in-out infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .mb-blink {
-    opacity: 1;
-    animation: none;
-  }
-  .mb-pop {
-    opacity: 1;
-    transform: none;
-    animation: none;
-  }
-  .mb-ship {
-    opacity: 0;
-    animation: none;
-  }
-  .mb-bounce {
-    transform: none;
-    animation: none;
-  }
-}
-/* equalizer bars — the model "speaking" */
-@keyframes mb-eq {
-  0%,
-  100% {
-    transform: scaleY(0.3);
-  }
-  50% {
-    transform: scaleY(1);
-  }
-}
-.mb-eq {
-  transform-box: fill-box;
-  transform-origin: bottom;
-  animation: mb-eq 1.2s ease-in-out infinite;
-}
-/* concentric ripples radiating from a core */
-@keyframes mb-ripple {
-  0% {
-    transform: scale(0.35);
-    opacity: 0.6;
-  }
-  100% {
-    transform: scale(1.7);
-    opacity: 0;
-  }
-}
-.mb-ripple {
-  transform-box: fill-box;
-  transform-origin: center;
-  opacity: 0;
-  animation: mb-ripple 2.4s ease-out infinite;
-}
-/* a compile scanline sweeping across */
-@keyframes mb-scan {
-  0% {
-    transform: translateX(0);
-    opacity: 0;
-  }
-  8% {
-    opacity: 1;
-  }
-  88% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(120px);
-    opacity: 0;
-  }
-}
-.mb-scan {
-  animation: mb-scan 3.2s ease-in-out infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .mb-eq {
-    transform: scaleY(0.7);
-    animation: none;
-  }
-  .mb-ripple {
-    opacity: 0;
-    animation: none;
-  }
-  .mb-scan {
-    opacity: 0;
-    animation: none;
-  }
-}
-
-/* --- Paper grain / material texture (D) --- */
-@utility paper-grain {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.24;
-  mix-blend-mode: multiply;
-}
-.dark .paper-grain {
-  opacity: 0.3;
-  mix-blend-mode: screen;
 }
 
 /* Global film grain — a single fixed layer over the whole viewport so every
@@ -664,102 +86,8 @@ body::after {
   mix-blend-mode: screen;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .pl-edge {
-    stroke-dashoffset: 0;
-    animation: none;
-  }
-  .pl-node {
-    opacity: 1;
-    animation: none;
-  }
-  .seal-stamp {
-    animation: none;
-  }
-  .pl-prove {
-    stroke-dashoffset: 0;
-    opacity: 0.4;
-    animation: none;
-  }
-  .pl-dot {
-    opacity: 0.55;
-    animation: none;
-  }
-  .pl-qed {
-    opacity: 0.6;
-    transform: none;
-    animation: none;
-  }
-  .pl-drift-a,
-  .pl-drift-b {
-    animation: none;
-  }
-  .vg-token {
-    opacity: 0;
-    animation: none;
-  }
-  .vg-pulse {
-    opacity: 0.7;
-    animation: none;
-  }
-  .vg-cell {
-    opacity: 1;
-    animation: none;
-  }
-  .vg-barfill {
-    transform: scaleX(1);
-    animation: none;
-  }
-  .vg-check {
-    opacity: 1;
-    transform: none;
-    animation: none;
-  }
-  .vg-needle {
-    transform: rotate(48deg);
-    animation: none;
-  }
-  .vg-barrise {
-    transform: scaleY(1);
-    animation: none;
-  }
-  .vg-balance {
-    transform: rotate(0deg);
-    animation: none;
-  }
-}
-
-/* --- Antikythera gear train (hero centerpiece) --- */
-@keyframes gear-cw {
-  to {
-    transform: rotate(360deg);
-  }
-}
-@keyframes gear-ccw {
-  to {
-    transform: rotate(-360deg);
-  }
-}
-.gear-cw,
-.gear-ccw {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-.gear-cw {
-  animation: gear-cw var(--dur, 30s) linear infinite;
-}
-.gear-ccw {
-  animation: gear-ccw var(--dur, 30s) linear infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .gear-cw,
-  .gear-ccw {
-    animation: none;
-  }
-}
-
-/* --- Waitlist "signal" strip (footer) --- */
-/* Live "transmitting" dot — a ping ring expanding out of the core. */
+/* --- Live "transmitting" dot on the post-subscribe letter: a ping ring
+       expanding out of the core. All that survives of the signup band. --- */
 @keyframes wl-ping {
   0% {
     transform: scale(0.5);
@@ -773,23 +101,8 @@ body::after {
 .wl-ping {
   animation: wl-ping 1.9s ease-out infinite;
 }
-/* Waveform bars in the card header, staggered via inline delay. */
-@keyframes wl-bar {
-  0%,
-  100% {
-    transform: scaleY(0.28);
-  }
-  50% {
-    transform: scaleY(1);
-  }
-}
-.wl-bar {
-  transform-origin: bottom;
-  animation: wl-bar 1.1s ease-in-out infinite;
-}
 @media (prefers-reduced-motion: reduce) {
-  .wl-ping,
-  .wl-bar {
+  .wl-ping {
     animation: none;
   }
 }
@@ -812,9 +125,56 @@ body::after {
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background: oklch(0.47 0.115 170 / 0.85);
+    background: oklch(0.52 0.13 74 / 0.85);
     color: oklch(0.945 0.012 90);
   }
+}
+
+/* The lab plate: the same slow drift the blog covers run, but longer and
+   shallower. It is a full-bleed band rather than a card, so the same amplitude
+   would read as the page sliding; and the scale is kept low because the plate
+   is already cropped hard to fit a wide band. Cursor parallax rides on a
+   wrapper element, not here — two animations on one transform fight. */
+@keyframes plate-drift {
+  from {
+    transform: scale(1.05) translate3d(-1%, -0.6%, 0);
+  }
+  to {
+    transform: scale(1.11) translate3d(1%, 0.6%, 0);
+  }
+}
+.plate-drift {
+  animation: plate-drift 56s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .plate-drift {
+    animation: none;
+  }
+}
+
+/* Type set in grain rather than in ink, for the monument wordmark at the foot
+   of the page: the glyphs clip a dot lattice instead of being filled, so the
+   word matches the halftone mark at the top of the page. Same 6px pitch the
+   canvas engines draw on, and no canvas needed — `background-clip: text` does
+   all of it. Dots cover roughly a seventh of their cell, so the ink here runs
+   far higher than the flat 4% the solid version used, for the same weight. */
+.halftone-type {
+  color: transparent;
+  background-image: radial-gradient(
+    circle,
+    var(--halftone-ink) 1.25px,
+    transparent 1.4px
+  );
+  background-size: 6px 6px;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+:root {
+  --halftone-ink: oklch(0.2 0.03 250 / 0.22);
+}
+.dark {
+  --halftone-ink: oklch(0.94 0.012 90 / 0.26);
 }
 
 /* blog cover art: a slow Ken Burns drift; scale always exceeds the
@@ -833,26 +193,6 @@ body::after {
 }
 @media (prefers-reduced-motion: reduce) {
   .blog-cover-img {
-    animation: none;
-  }
-}
-
-/* coverage plate: a long lateral pan — slower and flatter than the blog
-   drift; scale always exceeds the translation so no edge ever shows */
-@keyframes coverage-pan {
-  from {
-    transform: scale(1.12) translate3d(-2%, 1%, 0);
-  }
-  to {
-    transform: scale(1.12) translate3d(2%, -1%, 0);
-  }
-}
-.coverage-pan {
-  animation: coverage-pan 70s ease-in-out infinite alternate;
-  will-change: transform;
-}
-@media (prefers-reduced-motion: reduce) {
-  .coverage-pan {
     animation: none;
   }
 }

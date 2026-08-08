@@ -2,7 +2,7 @@ import type { Tint } from "./engine";
 import { halftonePlume } from "./blogEngines";
 import { useDomainCanvas } from "./useDomainCanvas";
 
-// Same convention as DomainVisual: light values run darker + saturated so
+// House convention for canvas tints: light values run darker + saturated so
 // they read on pale vellum; dark values run bright.
 const t = (light: Tint["light"], dark: Tint["dark"]): Tint => ({ light, dark });
 

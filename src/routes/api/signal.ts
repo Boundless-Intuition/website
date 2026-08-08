@@ -30,10 +30,11 @@ const ATTRIBUTION = {
 // `waitlist_subscribed` is absent: that one is announced server-side from
 // `@/lib/waitlist` and never travels through this relay.
 const PUSHED_EVENTS = [
-  "engage_submitted",
+  "booking_opened",
   "contact_mailto",
   "render_error",
   "outbound_playground",
+  "outbound_social",
   "post_shared",
   "narration_play",
 ] as const;
@@ -41,12 +42,13 @@ const PUSHED_EVENTS = [
 type PushedEvent = (typeof PUSHED_EVENTS)[number];
 
 const ALERT_EVENTS: ReadonlySet<string> = new Set<PushedEvent>([
-  "engage_submitted",
+  "booking_opened",
   "contact_mailto",
 ]);
 
 const QUIET_EVENTS: ReadonlySet<string> = new Set<PushedEvent>([
   "outbound_playground",
+  "outbound_social",
   "post_shared",
   "narration_play",
 ]);
@@ -146,14 +148,16 @@ function attributionLines(data: Attribution): string[] {
 function describeEvent(data: z.infer<typeof EventPayload>): string {
   const { event, props } = data;
   switch (event) {
-    case "engage_submitted":
-      return "Engage form submitted - their mail client is open";
+    case "booking_opened":
+      return "Booking page opened - they are picking a slot";
     case "contact_mailto":
       return `Contact email opened (from ${props.from ?? "unknown"})`;
     case "render_error":
       return `Client render error: ${props.message ?? "unknown"}`;
     case "outbound_playground":
       return `Clicked through to the playground (from ${props.from ?? "unknown"})`;
+    case "outbound_social":
+      return `Clicked through to ${props.network ?? "a social profile"}`;
     case "post_shared":
       return `Shared "${props.slug}" (${props.method})`;
     case "narration_play":

@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { BrandMark } from "@/components/site/BrandMark";
 
 // Post-unsubscribe landing. Not linked anywhere on the site; Buttondown
 // redirects here after someone unsubscribes ("redirect after unsubscribe").
@@ -38,21 +39,7 @@ function Wordmark() {
       to="/"
       className="inline-flex items-center gap-2.5 font-display text-[15px] tracking-tight text-foreground"
     >
-      <span
-        role="img"
-        aria-label="Boundless Intuition"
-        className="inline-block size-7 bg-foreground"
-        style={{
-          WebkitMaskImage: "url(/boundless_int_logo_white.png)",
-          maskImage: "url(/boundless_int_logo_white.png)",
-          WebkitMaskSize: "contain",
-          maskSize: "contain",
-          WebkitMaskRepeat: "no-repeat",
-          maskRepeat: "no-repeat",
-          WebkitMaskPosition: "center",
-          maskPosition: "center",
-        }}
-      />
+      <BrandMark className="h-5" />
       <span>
         <span className="font-light">Boundless</span>{" "}
         <span className="font-semibold">Intuition</span>
@@ -80,9 +67,9 @@ function Signatures() {
 
 function UnsubscribedRoute() {
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-6 py-20 text-foreground [--sig:oklch(0.48_0.11_170)] dark:[--sig:oklch(0.78_0.13_170)]">
+    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background px-6 py-20 text-foreground">
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_36%,oklch(0.78_0.13_170/0.05),transparent)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_36%,oklch(0.82_0.13_82/0.05),transparent)]"
         aria-hidden
       />
 
@@ -134,19 +121,10 @@ function UnsubscribedRoute() {
           </div>
         </div>
 
+        {/* The "resubscribe" link is gone with the signup band it pointed at.
+            This page still has to work: Buttondown redirects here from the
+            unsubscribe link in every email already sent. */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-          <a
-            href="/#signal"
-            className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--sig)] transition-opacity hover:opacity-80"
-          >
-            Changed your mind? Resubscribe
-            <span
-              aria-hidden
-              className="transition-transform group-hover:translate-x-1"
-            >
-              →
-            </span>
-          </a>
           <Link
             to="/"
             className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground"

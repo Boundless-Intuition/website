@@ -1,5 +1,5 @@
 import { i as __toESM } from "../_runtime.mjs";
-import { r as require_react } from "./react+tanstack__react-query.mjs";
+import { n as require_react } from "./react+tanstack__react-query.mjs";
 //#region node_modules/@vercel/speed-insights/dist/react/index.mjs
 var import_react = /* @__PURE__ */ __toESM(require_react(), 1);
 var initQueue = () => {
