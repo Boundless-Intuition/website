@@ -72,11 +72,15 @@ export function ThesisBand() {
             </p>
           </div>
 
+          {/* Same destination as before, named for what is actually down
+              there: the overview's "Domains & Benchmarks" section. A belief
+              statement should hand off to the evidence for it, not to a table
+              of contents. */}
           <Link
             to="/overview"
             className="group mt-10 inline-flex items-center gap-3 border-b border-foreground/40 pb-1 font-display text-[13px] font-medium text-foreground transition-colors hover:border-foreground"
           >
-            Read the overview
+            See our benchmarks
             <span
               aria-hidden
               className="transition-transform group-hover:translate-x-1"

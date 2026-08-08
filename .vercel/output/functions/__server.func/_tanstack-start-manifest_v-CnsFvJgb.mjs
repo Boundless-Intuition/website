@@ -1,4 +1,4 @@
-//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-D2T53_jC.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-CnsFvJgb.js
 var tsrStartManifest = () => ({ routes: {
 	__root__: {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/__root.tsx",
@@ -14,31 +14,31 @@ var tsrStartManifest = () => ({ routes: {
 			"/blog/$slug",
 			"/blog/"
 		],
-		preloads: ["/assets/index-CtqP9KZt.js", "/assets/BrandMark-C11eDm_Y.js"],
+		preloads: ["/assets/index-BRnjqSbf.js", "/assets/BrandMark-C11eDm_Y.js"],
 		scripts: [{ attrs: {
 			type: "module",
 			async: !0,
-			src: "/assets/index-CtqP9KZt.js"
+			src: "/assets/index-BRnjqSbf.js"
 		} }]
 	},
 	"/": {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/index.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/routes-M9tBxRBM.js",
-			"/assets/SiteFooter-6-AilphZ.js",
+			"/assets/routes-Bxx_LHKC.js",
+			"/assets/SiteFooter-C87TPBRm.js",
 			"/assets/useDomainCanvas-CQlMPOR-.js"
 		]
 	},
 	"/legal": {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/legal.tsx",
 		children: void 0,
-		preloads: ["/assets/legal-9JwTLQ-Z.js", "/assets/SiteFooter-6-AilphZ.js"]
+		preloads: ["/assets/legal-DNuCZCFD.js", "/assets/SiteFooter-C87TPBRm.js"]
 	},
 	"/overview": {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/overview.tsx",
 		children: void 0,
-		preloads: ["/assets/overview-CYuCus-Z.js", "/assets/SiteFooter-6-AilphZ.js"]
+		preloads: ["/assets/overview-DMrgTaTa.js", "/assets/SiteFooter-C87TPBRm.js"]
 	},
 	"/subscribed": {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/subscribed.tsx",
@@ -54,8 +54,8 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/blog/$slug.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/_slug-CYnUOcw_.js",
-			"/assets/SiteFooter-6-AilphZ.js",
+			"/assets/_slug-CKy8gefa.js",
+			"/assets/SiteFooter-C87TPBRm.js",
 			"/assets/BlogVisual-Dg9bu5p8.js"
 		]
 	},
@@ -63,8 +63,8 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "/Users/karanjotsingh/boundless-int/Verification/Website/src/routes/blog/index.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/blog-DWLzkstA.js",
-			"/assets/SiteFooter-6-AilphZ.js",
+			"/assets/blog-BhTsAVkE.js",
+			"/assets/SiteFooter-C87TPBRm.js",
 			"/assets/BlogVisual-Dg9bu5p8.js"
 		]
 	}

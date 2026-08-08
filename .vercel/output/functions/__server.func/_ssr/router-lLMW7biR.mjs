@@ -9,7 +9,7 @@ import { t as PlateDrift } from "./PlateDrift-CxdTP5DY.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { t as SpeedInsights } from "../_libs/vercel__speed-insights.mjs";
 import { a as literalType, c as objectType, d as unionType, i as enumType, l as recordType, n as booleanType, o as nullType, r as discriminatedUnionType, s as numberType, t as arrayType, u as stringType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-BWC8-jtP.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-lLMW7biR.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var styles_default = "/assets/styles-X9nanTHh.css";
@@ -440,7 +440,7 @@ var Route$3 = createFileRoute("/legal")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-var $$splitComponentImporter$1 = () => import("./routes-DEO_7RxQ.mjs");
+var $$splitComponentImporter$1 = () => import("./routes-CewVbtRk.mjs");
 var Route$2 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
 var $$splitComponentImporter = () => import("./blog-dIlwcnNy.mjs");
 var Route$1 = createFileRoute("/blog/")({

@@ -5,7 +5,7 @@ import { i as track$1, o as useSectionViews, r as TopBar, t as BOOKING_URL } fro
 import { t as SiteFooter } from "./SiteFooter-D8FQLPjU.mjs";
 import { a as smoothstep, i as rng, o as tone, r as oklcha, s as useDomainCanvas } from "./useDomainCanvas-CNinD-23.mjs";
 import { t as PlateDrift } from "./PlateDrift-CxdTP5DY.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-DEO_7RxQ.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-CewVbtRk.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -561,7 +561,7 @@ function ThesisBand() {
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
 							to: "/overview",
 							className: "group mt-10 inline-flex items-center gap-3 border-b border-foreground/40 pb-1 font-display text-[13px] font-medium text-foreground transition-colors hover:border-foreground",
-							children: ["Read the overview", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							children: ["See our benchmarks", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 								"aria-hidden": true,
 								className: "transition-transform group-hover:translate-x-1",
 								children: "→"
