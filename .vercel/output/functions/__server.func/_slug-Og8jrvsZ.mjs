@@ -1,14 +1,14 @@
 import { i as __toESM } from "./_runtime.mjs";
 import { n as require_react, r as require_jsx_runtime } from "./_libs/react+tanstack__react-query.mjs";
-import { g as Link } from "./_libs/@tanstack/react-router+[...].mjs";
-import { o as track$1, r as TopBar, s as useReadProgress } from "./_ssr/TopBar-DCTQo05p.mjs";
-import { g as Prose } from "./_ssr/charts-C6lQQitl.mjs";
-import { a as getNarration, i as getBlogPost, r as formatBlogDate, t as BLOG_POSTS } from "./_ssr/blog-iG6aGCR5.mjs";
-import { t as Route } from "./_slug-_z3PO6DQ.mjs";
-import { t as SiteFooter } from "./_ssr/SiteFooter-Dt_ACPC3.mjs";
+import { h as Link } from "./_libs/@tanstack/react-router+[...].mjs";
+import { a as useReadProgress, i as track$1, r as TopBar } from "./_ssr/TopBar-CG-62kmp.mjs";
+import { g as Prose } from "./_ssr/charts-yyL3mW5m.mjs";
+import { a as getNarration, i as getBlogPost, r as formatBlogDate, t as BLOG_POSTS } from "./_ssr/blog-B-0C1v-U.mjs";
+import { t as Route } from "./_slug-D8QL_Ozo.mjs";
+import { t as SiteFooter } from "./_ssr/SiteFooter-D8FQLPjU.mjs";
 import { t as BlogHeroBackdrop } from "./_ssr/BlogVisual-eY5TGI-L.mjs";
 import { a as Link2, i as Pause, n as RotateCcw, o as Check, r as Play, t as RotateCw } from "./_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/_slug-C-b57Ocz.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_slug-Og8jrvsZ.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function TableOfContents({ containerRef }) {
@@ -468,7 +468,7 @@ function BlogPostPage({ post }) {
 				className: "relative mx-auto max-w-4xl px-6 pt-32 pb-24 text-center lg:pt-48",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "mb-8 flex items-center justify-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground",
+						className: "mb-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-3 font-display text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground sm:text-[11px] sm:tracking-[0.22em]",
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
 								to: "/blog",
@@ -481,13 +481,16 @@ function BlogPostPage({ post }) {
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: formatBlogDate(post.date) }),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "text-muted-foreground/50",
+								className: "hidden text-muted-foreground/50 sm:inline",
 								children: "·"
 							}),
-							post.tags.map((tag) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								className: "border border-border px-2 py-0.5 text-foreground/70",
-								children: tag
-							}, tag))
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "flex w-full flex-wrap justify-center gap-2.5 sm:w-auto sm:gap-3",
+								children: post.tags.map((tag) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "border border-border px-2 py-0.5 text-foreground/70",
+									children: tag
+								}, tag))
+							})
 						]
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {

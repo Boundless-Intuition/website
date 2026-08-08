@@ -35,37 +35,30 @@
 
 :root {
   --radius: 0.25rem;
-  /* Blueprint Vellum palette */
-  --background: oklch(0.94 0.012 90); /* #efece2 pale vellum */
-  --foreground: oklch(0.2 0.03 250); /* deep prussian navy */
-  --card: oklch(0.96 0.008 90);
-  --card-foreground: oklch(0.2 0.03 250);
-  --muted: oklch(0.88 0.015 90); /* #d9d4c3 secondary vellum */
-  --muted-foreground: oklch(0.4 0.02 250);
-  --accent: oklch(0.52 0.13 74); /* lantern ochre — the one warm light */
-  --accent-foreground: oklch(0.945 0.012 90);
-  --border: oklch(0.22 0.03 250 / 0.2);
-  --ring: oklch(0.52 0.13 74);
-  --ink: oklch(0.12 0.02 250); /* graphite ink */
-  --ink-foreground: oklch(0.94 0.012 90);
-  --graphite: oklch(0.14 0.005 250);
-}
+  /* Obsidian ink. The only palette — there is no light mode, and the pale
+     "Blueprint Vellum" set that used to live here has been removed rather than
+     left as an unreachable branch. Declared on :root, not on .dark, so the page
+     is correct before a single class is applied.
 
-.dark {
-  /* Obsidian ink - inversion of Blueprint Vellum */
+     `.dark` is still written onto <html> (see RootShell) because the `dark:`
+     variant compiles to `&:is(.dark *)`, and every `dark:` utility in the
+     codebase needs an ancestor carrying it. Those utilities now always win over
+     their base value, which is harmless: the pair simply resolves to the dark
+     half every time. */
   --background: oklch(0.045 0.006 250);
   --foreground: oklch(0.94 0.012 90);
   --card: oklch(0.075 0.008 250);
   --card-foreground: oklch(0.94 0.012 90);
   --muted: oklch(0.1 0.01 250);
   --muted-foreground: oklch(0.72 0.02 90);
-  --accent: oklch(0.82 0.13 82);
+  --accent: oklch(0.82 0.13 82); /* lantern ochre — the one warm light */
   --accent-foreground: oklch(0.12 0.012 250);
   --border: oklch(0.94 0.012 90 / 0.14);
   --ring: oklch(0.82 0.13 82);
   --ink: oklch(0.07 0.01 250);
   --ink-foreground: oklch(0.94 0.012 90);
   --graphite: oklch(0.04 0.005 250);
+  --halftone-ink: oklch(0.94 0.012 90 / 0.26);
 }
 
 /* Global film grain — a single fixed layer over the whole viewport so every
@@ -78,10 +71,6 @@ body::after {
   z-index: 40;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.06;
-  mix-blend-mode: multiply;
-}
-.dark body::after {
   opacity: 0.09;
   mix-blend-mode: screen;
 }
@@ -125,8 +114,8 @@ body::after {
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background: oklch(0.52 0.13 74 / 0.85);
-    color: oklch(0.945 0.012 90);
+    background: oklch(0.82 0.13 82 / 0.9);
+    color: oklch(0.12 0.012 250);
   }
 }
 
@@ -170,13 +159,6 @@ body::after {
   -webkit-background-clip: text;
   background-clip: text;
 }
-:root {
-  --halftone-ink: oklch(0.2 0.03 250 / 0.22);
-}
-.dark {
-  --halftone-ink: oklch(0.94 0.012 90 / 0.26);
-}
-
 /* blog cover art: a slow Ken Burns drift; scale always exceeds the
    translation so the frame never shows an edge */
 @keyframes blog-drift {

@@ -3,7 +3,6 @@ import {
   Outlet,
   createRootRouteWithContext,
   useRouter,
-  useLocation,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -13,7 +12,6 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import appCss from "../styles.css?url";
 import { track, useVisitDigest } from "@/lib/analytics";
-import { applyTheme, themeForPath } from "@/lib/theme";
 import { NotFound } from "@/components/site/NotFound";
 
 function NotFoundComponent() {
@@ -149,17 +147,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 );
 
 function RootShell({ children }: { children: ReactNode }) {
-  // Pre-paint theme: dark everywhere. The light palette only survives on the
-  // blog, and only when the reader explicitly asked for it. Must stay in step
-  // with `themeForPath` in `@/lib/theme`.
-  const themeScript = `(function(){try{var p=location.pathname;var blog=p==='/blog'||p.indexOf('/blog/')===0;var t=localStorage.getItem('bi-theme');if(!(blog&&t==='light'))document.documentElement.classList.add('dark');}catch(e){document.documentElement.classList.add('dark');}})();`;
+  // The site is dark, full stop. `dark` is written straight onto <html> in the
+  // server-rendered markup rather than added by a pre-paint script: there is no
+  // preference to read, so there is nothing to decide at runtime, and shipping
+  // it in the HTML means it cannot flash or depend on JavaScript at all.
+  //
+  // The class stays even though nothing toggles it — the `dark:` variant is
+  // `&:is(.dark *)`, so every `dark:` utility in the codebase needs an ancestor
+  // carrying it.
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <HeadContent />
       </head>
       <body>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         {children}
         <Analytics />
         <SpeedInsights />
@@ -171,16 +172,9 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const pathname = useLocation({ select: (l) => l.pathname });
 
   // Sends the end-of-visit summary when the tab goes away.
   useVisitDigest();
-
-  // Client-side navigation doesn't re-run the inline script above, so leaving
-  // the blog has to put dark back.
-  useEffect(() => {
-    applyTheme(themeForPath(pathname));
-  }, [pathname]);
 
   return (
     <QueryClientProvider client={queryClient}>

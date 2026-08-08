@@ -28,28 +28,37 @@ import {
   type ChartConfig,
 } from "@/components/ui/chart";
 
-// Shared theme-aware series colors. `theme` entries resolve to real light/dark
-// values via ui/chart's ChartStyle (a <style> block scoped to each chart's
-// data-chart id) so these stay in sync with the site's dark-mode toggle
-// without any extra plumbing here.
-const AMBER = { light: "oklch(0.58 0.16 40)", dark: "oklch(0.75 0.15 45)" };
-const NEUTRAL = { light: "oklch(0.55 0.02 250)", dark: "oklch(0.65 0.02 250)" };
+// Shared theme-aware series colours, drawn from the house four (see
+// docs/visual-system.md): saturated ultramarine, ivory, lantern ochre, warm
+// skin. `theme` entries resolve to real light/dark values via ui/chart's
+// ChartStyle (a <style> block scoped to each chart's data-chart id), so these
+// stay in sync with the site's dark-mode toggle without extra plumbing.
+//
+// The series are separated by lightness and by family rather than by scattering
+// hues around the wheel, and the assignment carries meaning: BONE is a result
+// nothing has been done to, ULTRA is the field it is measured against, and
+// LANTERN is the accent — reserved for the verified outcome, because on this
+// site the warm light is what falls on the thing that has been checked. Read a
+// chart and the brightest, warmest series is always the proved one.
 
-// Airline-post palette: one hue per model tier, held constant across every
-// figure so a reader can carry the colour from one chart to the next.
-const SALMON = { light: "oklch(0.6 0.17 38)", dark: "oklch(0.74 0.15 42)" };
-const PERIWINKLE = {
-  light: "oklch(0.5 0.15 266)",
-  dark: "oklch(0.73 0.13 268)",
-};
-const BLUSH = { light: "oklch(0.59 0.13 350)", dark: "oklch(0.8 0.1 350)" };
-const PALE_BLUE = {
-  light: "oklch(0.64 0.09 250)",
-  dark: "oklch(0.87 0.06 245)",
-};
-// The site accent, spelled out as a theme pair so it can sit beside the
-// airline hues in a shared ChartConfig.
-const SEA = { light: "oklch(0.47 0.115 170)", dark: "oklch(0.79 0.115 170)" };
+/** Unlit. Baselines, and the model on its own. */
+const BONE = { light: "oklch(0.56 0.03 90)", dark: "oklch(0.88 0.02 92)" };
+/** The field. Verified runs, and the kernel. */
+const ULTRA = { light: "oklch(0.45 0.16 266)", dark: "oklch(0.72 0.14 266)" };
+/** The lantern, and the site accent. Reserved for the best verified outcome. */
+const LANTERN = { light: "oklch(0.58 0.14 74)", dark: "oklch(0.82 0.13 82)" };
+/** Warm skin. A third peer category, where three must be told apart. */
+const SKIN = { light: "oklch(0.64 0.09 52)", dark: "oklch(0.82 0.08 56)" };
+/** Held back toward the page. Reference series and uncontested cases. */
+const DIM = { light: "oklch(0.7 0.015 250)", dark: "oklch(0.5 0.015 250)" };
+
+// Verdict red, deliberately outside the house four. A wrong answer has to read
+// as wrong, and it has to stay clearly apart from LANTERN — which now means
+// verified, so reaching for a warm tone here would say the opposite of what is
+// meant. One value, where two had drifted apart (0.55 and 0.58).
+const NEGATIVE = "oklch(0.57 0.18 25)";
+const NEGATIVE_LINE = "oklch(0.57 0.18 25 / 0.4)";
+const NEGATIVE_FILL = "oklch(0.57 0.18 25 / 0.08)";
 
 const tooltipCursor = { fill: "var(--muted)", opacity: 0.4 };
 
@@ -126,9 +135,9 @@ function DotLegend({ config, keys }: { config: ChartConfig; keys: string[] }) {
 /* ------------------------------------------------------------------ */
 
 const accuracyConfig: ChartConfig = {
-  baseline: { label: "Baseline", theme: SALMON },
-  verified: { label: "Verified", theme: PERIWINKLE },
-  loop: { label: "Verified + loop", theme: PALE_BLUE },
+  baseline: { label: "Baseline", theme: BONE },
+  verified: { label: "Verified", theme: ULTRA },
+  loop: { label: "Verified + loop", theme: LANTERN },
 };
 
 const accuracyData = [
@@ -198,9 +207,9 @@ export function AccuracyByArmChart() {
 /* ------------------------------------------------------------------ */
 
 const paretoConfig: ChartConfig = {
-  opus: { label: "Claude Opus 4.8", theme: SALMON },
-  fable: { label: "Claude Fable 5", theme: PERIWINKLE },
-  haiku: { label: "Claude Haiku 4.5", theme: BLUSH },
+  opus: { label: "Claude Opus 4.8", theme: BONE },
+  fable: { label: "Claude Fable 5", theme: ULTRA },
+  haiku: { label: "Claude Haiku 4.5", theme: SKIN },
 };
 
 // Ordered by cost so each tier's path reads left to right.
@@ -321,9 +330,9 @@ export function CostAccuracyParetoChart() {
 /* ------------------------------------------------------------------ */
 
 const taxConfig: ChartConfig = {
-  baseline: { label: "Baseline", theme: SALMON },
-  verified: { label: "Verified", theme: PERIWINKLE },
-  loop: { label: "Verified + loop", theme: SEA },
+  baseline: { label: "Baseline", theme: BONE },
+  verified: { label: "Verified", theme: ULTRA },
+  loop: { label: "Verified + loop", theme: LANTERN },
 };
 
 // Each point carries its own label offset and text anchor. The two frontier
@@ -553,8 +562,8 @@ export function TaxCostAccuracyChart() {
 /* ------------------------------------------------------------------ */
 
 const latencyConfig: ChartConfig = {
-  llm: { label: "Model", theme: SALMON },
-  kernel: { label: "Kernel", theme: PERIWINKLE },
+  llm: { label: "Model", theme: BONE },
+  kernel: { label: "Kernel", theme: ULTRA },
 };
 
 const latencyData = [
@@ -621,7 +630,7 @@ export function LatencyByArmChart() {
 /* ------------------------------------------------------------------ */
 
 const radarConfig: ChartConfig = {
-  baseline: { label: "Baseline (LLM only)", theme: AMBER },
+  baseline: { label: "Baseline (LLM only)", theme: BONE },
   verified: { label: "Verified (Lean)", color: "var(--accent)" },
 };
 
@@ -681,8 +690,8 @@ export function HeadlineMetricsRadar() {
 /* ------------------------------------------------------------------ */
 
 const categoryConfig: ChartConfig = {
-  clear: { label: "Structural / clear cases", theme: NEUTRAL },
-  mimic: { label: "Mimic cases", theme: AMBER },
+  clear: { label: "Structural / clear cases", theme: DIM },
+  mimic: { label: "Mimic cases", theme: SKIN },
 };
 
 const categoryData = [
@@ -782,9 +791,7 @@ function MatrixCell({
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className={`relative flex flex-1 flex-col items-center justify-center gap-1 border p-3 text-center transition-transform ${toneClasses} ${hover ? "scale-[1.03]" : ""}`}
-      style={
-        { "--chart-negative": "oklch(0.55 0.18 25)" } as React.CSSProperties
-      }
+      style={{ "--chart-negative": NEGATIVE } as React.CSSProperties}
     >
       <span className="font-display text-[22px] font-medium leading-none text-foreground">
         {value}
@@ -881,7 +888,7 @@ function CaseADot(props: any) {
       cx={cx}
       cy={cy}
       r={5}
-      fill={correct ? "var(--accent)" : "oklch(0.58 0.18 25)"}
+      fill={correct ? "var(--accent)" : NEGATIVE}
       stroke="var(--background)"
       strokeWidth={2}
     />
@@ -899,7 +906,7 @@ function CaseATooltip({ active, payload }: any) {
       </div>
       <div
         className={`mt-1 font-mono text-[11px] ${correct ? "text-accent" : ""}`}
-        style={!correct ? { color: "oklch(0.58 0.18 25)" } : undefined}
+        style={!correct ? { color: NEGATIVE } : undefined}
       >
         verdict: {p.verdict}{" "}
         {correct ? "(correct)" : "(wrong — this is genuine lupus)"}
@@ -985,8 +992,8 @@ export function RunVerdictFigure() {
               key={run}
               className="flex flex-col items-center gap-1.5 rounded-sm border p-2.5 text-center"
               style={{
-                borderColor: "oklch(0.58 0.18 25 / 0.4)",
-                background: "oklch(0.58 0.18 25 / 0.08)",
+                borderColor: NEGATIVE_LINE,
+                background: NEGATIVE_FILL,
               }}
             >
               <span className="font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted-foreground">
@@ -994,7 +1001,7 @@ export function RunVerdictFigure() {
               </span>
               <span
                 className="text-[12px] font-medium"
-                style={{ color: "oklch(0.58 0.18 25)" }}
+                style={{ color: NEGATIVE }}
               >
                 Negative
               </span>

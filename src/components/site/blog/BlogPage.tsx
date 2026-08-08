@@ -99,15 +99,20 @@ export function BlogPage() {
                   )}
                   <div className="relative flex flex-col gap-3 md:flex-row md:items-baseline md:justify-between md:gap-8">
                     <div className="flex-1">
-                      <div className="mb-3 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                        {post.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="border border-border px-2 py-0.5 text-foreground/70"
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                      {/* Same wrap as the post header: a two-tag card ran off
+                          a phone screen. Tags hold the first line, the date and
+                          reading time follow on the next. */}
+                      <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-2.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground sm:text-[11px] sm:tracking-[0.18em]">
+                        <div className="flex w-full flex-wrap gap-2.5 sm:w-auto sm:gap-3">
+                          {post.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="border border-border px-2 py-0.5 text-foreground/70"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                         <span>{formatBlogDate(post.date)}</span>
                         <span className="text-muted-foreground/50">·</span>
                         <span>{post.readingTime}</span>

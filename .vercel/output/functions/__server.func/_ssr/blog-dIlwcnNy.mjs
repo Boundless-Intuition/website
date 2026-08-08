@@ -1,11 +1,11 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_react, r as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
-import { g as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { r as TopBar } from "./TopBar-DCTQo05p.mjs";
-import { n as BLOG_TAGS, r as formatBlogDate, t as BLOG_POSTS } from "./blog-iG6aGCR5.mjs";
-import { t as SiteFooter } from "./SiteFooter-Dt_ACPC3.mjs";
+import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
+import { r as TopBar } from "./TopBar-CG-62kmp.mjs";
+import { n as BLOG_TAGS, r as formatBlogDate, t as BLOG_POSTS } from "./blog-B-0C1v-U.mjs";
+import { t as SiteFooter } from "./SiteFooter-D8FQLPjU.mjs";
 import { t as BlogHeroBackdrop } from "./BlogVisual-eY5TGI-L.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/blog-3J2bDtBR.js
+//#region node_modules/.nitro/vite/services/ssr/assets/blog-dIlwcnNy.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var FILTERS = ["All", ...BLOG_TAGS];
@@ -87,12 +87,15 @@ function BlogPage() {
 								className: "flex-1",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										className: "mb-3 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground",
+										className: "mb-3 flex flex-wrap items-center gap-x-3 gap-y-2.5 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground sm:text-[11px] sm:tracking-[0.18em]",
 										children: [
-											post.tags.map((tag) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												className: "border border-border px-2 py-0.5 text-foreground/70",
-												children: tag
-											}, tag)),
+											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+												className: "flex w-full flex-wrap gap-2.5 sm:w-auto sm:gap-3",
+												children: post.tags.map((tag) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+													className: "border border-border px-2 py-0.5 text-foreground/70",
+													children: tag
+												}, tag))
+											}),
 											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: formatBlogDate(post.date) }),
 											/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 												className: "text-muted-foreground/50",

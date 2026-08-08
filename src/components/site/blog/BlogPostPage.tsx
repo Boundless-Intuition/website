@@ -47,7 +47,12 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
           </div>
         )}
         <div className="relative mx-auto max-w-4xl px-6 pt-32 pb-24 text-center lg:pt-48">
-          <div className="mb-8 flex items-center justify-center gap-3 font-display text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
+          {/* Six items on one line is more than a phone has room for, and a
+              post with two tags ran off the edge. Below sm the tags take a line
+              of their own (w-full forces the wrap at a chosen point rather than
+              wherever it happens to run out), the separator before them goes,
+              and the tracking tightens. From sm it is a single row again. */}
+          <div className="mb-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-3 font-display text-[10px] font-medium uppercase tracking-[0.16em] text-muted-foreground sm:text-[11px] sm:tracking-[0.22em]">
             <Link
               to="/blog"
               className="text-foreground/70 transition-colors hover:text-foreground"
@@ -56,15 +61,17 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
             </Link>
             <span className="text-muted-foreground/50">·</span>
             <span>{formatBlogDate(post.date)}</span>
-            <span className="text-muted-foreground/50">·</span>
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="border border-border px-2 py-0.5 text-foreground/70"
-              >
-                {tag}
-              </span>
-            ))}
+            <span className="hidden text-muted-foreground/50 sm:inline">·</span>
+            <div className="flex w-full flex-wrap justify-center gap-2.5 sm:w-auto sm:gap-3">
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="border border-border px-2 py-0.5 text-foreground/70"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
           <h1 className="mx-auto max-w-[42ch] font-display text-[2.3rem] font-light leading-[1.1] tracking-[-0.02em] text-foreground md:text-[3rem]">
             {post.title}

@@ -1,18 +1,18 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_react, r as require_jsx_runtime, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
-import { _ as useRouter, c as HeadContent, d as createRouter, f as Outlet, g as Link, h as createRootRouteWithContext, l as useLocation, m as createFileRoute, p as lazyRouteComponent, s as Scripts } from "../_libs/@tanstack/react-router+[...].mjs";
+import { c as HeadContent, d as Outlet, f as lazyRouteComponent, g as useRouter, h as Link, m as createRootRouteWithContext, p as createFileRoute, s as Scripts, u as createRouter } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as Analytics } from "../_libs/vercel__analytics.mjs";
-import { a as themeForPath, i as applyTheme, l as useVisitDigest, o as track$1, r as TopBar } from "./TopBar-DCTQo05p.mjs";
-import { t as BLOG_POSTS } from "./blog-iG6aGCR5.mjs";
-import { t as Route$10 } from "../_slug-_z3PO6DQ.mjs";
+import { i as track$1, r as TopBar, s as useVisitDigest } from "./TopBar-CG-62kmp.mjs";
+import { t as BLOG_POSTS } from "./blog-B-0C1v-U.mjs";
+import { t as Route$10 } from "../_slug-D8QL_Ozo.mjs";
 import { t as PlateDrift } from "./PlateDrift-CxdTP5DY.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { t as SpeedInsights } from "../_libs/vercel__speed-insights.mjs";
 import { a as literalType, c as objectType, d as unionType, i as enumType, l as recordType, n as booleanType, o as nullType, r as discriminatedUnionType, s as numberType, t as arrayType, u as stringType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-DIUOmFrs.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-BBMU0hUV.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-zC9VxSd7.css";
+var styles_default = "/assets/styles-X9nanTHh.css";
 /**
 * The 404.
 *
@@ -231,8 +231,8 @@ var Route$9 = createRootRouteWithContext()({
 function RootShell({ children }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("html", {
 		lang: "en",
+		className: "dark",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("head", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HeadContent, {}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("body", { children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("script", { dangerouslySetInnerHTML: { __html: `(function(){try{var p=location.pathname;var blog=p==='/blog'||p.indexOf('/blog/')===0;var t=localStorage.getItem('bi-theme');if(!(blog&&t==='light'))document.documentElement.classList.add('dark');}catch(e){document.documentElement.classList.add('dark');}})();` } }),
 			children,
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Analytics, {}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SpeedInsights, {}),
@@ -242,11 +242,7 @@ function RootShell({ children }) {
 }
 function RootComponent() {
 	const { queryClient } = Route$9.useRouteContext();
-	const pathname = useLocation({ select: (l) => l.pathname });
 	useVisitDigest();
-	(0, import_react.useEffect)(() => {
-		applyTheme(themeForPath(pathname));
-	}, [pathname]);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(QueryClientProvider, {
 		client: queryClient,
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {})
@@ -333,7 +329,7 @@ var Route$5 = createFileRoute("/robots.txt")({ server: { handlers: { GET: () => 
 	"content-type": "text/plain; charset=utf-8",
 	"cache-control": "public, max-age=86400"
 } }) } } });
-var $$splitComponentImporter$3 = () => import("./overview-DfvrPM-6.mjs");
+var $$splitComponentImporter$3 = () => import("./overview-BzWN4P73.mjs");
 /**
 * /overview - the unlisted overview one-pager.
 *
@@ -373,7 +369,7 @@ var Route$4 = createFileRoute("/overview")({
 	] }),
 	component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-var $$splitComponentImporter$2 = () => import("./legal-Cvjzn0Hm.mjs");
+var $$splitComponentImporter$2 = () => import("./legal-C1rQW5-M.mjs");
 var Route$3 = createFileRoute("/legal")({
 	head: () => ({ meta: [{ title: "Legal · Boundless Intuition" }, {
 		name: "description",
@@ -381,9 +377,9 @@ var Route$3 = createFileRoute("/legal")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-var $$splitComponentImporter$1 = () => import("./routes-EgsliuFX.mjs");
+var $$splitComponentImporter$1 = () => import("./routes-DEO_7RxQ.mjs");
 var Route$2 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
-var $$splitComponentImporter = () => import("./blog-3J2bDtBR.mjs");
+var $$splitComponentImporter = () => import("./blog-dIlwcnNy.mjs");
 var Route$1 = createFileRoute("/blog/")({
 	head: () => ({ meta: [
 		{ title: "Blog · Boundless Intuition" },

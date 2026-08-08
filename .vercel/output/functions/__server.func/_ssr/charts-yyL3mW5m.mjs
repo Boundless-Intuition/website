@@ -3,7 +3,7 @@ import { n as require_react, r as require_jsx_runtime } from "../_libs/react+tan
 import { t as clsx } from "../_libs/clsx.mjs";
 import { _ as Cell, a as YAxis, b as Legend, c as ZAxis, d as ReferenceLine, f as Bar, g as PolarGrid, h as PolarRadiusAxis, i as LineChart, l as Line, m as PolarAngleAxis, n as RadarChart, o as XAxis, p as Radar, r as BarChart, s as Scatter, t as ScatterChart, u as CartesianGrid, v as ResponsiveContainer, y as Tooltip } from "../_libs/recharts+[...].mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/charts-C6lQQitl.js
+//#region node_modules/.nitro/vite/services/ssr/assets/charts-yyL3mW5m.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function Prose({ children }) {
@@ -237,34 +237,34 @@ function getPayloadConfigFromPayload(config, payload, key) {
 	else if (payloadPayload && key in payloadPayload && typeof payloadPayload[key] === "string") configLabelKey = payloadPayload[key];
 	return configLabelKey in config ? config[configLabelKey] : config[key];
 }
-var AMBER = {
-	light: "oklch(0.58 0.16 40)",
-	dark: "oklch(0.75 0.15 45)"
+/** Unlit. Baselines, and the model on its own. */
+var BONE = {
+	light: "oklch(0.56 0.03 90)",
+	dark: "oklch(0.88 0.02 92)"
 };
-var NEUTRAL = {
-	light: "oklch(0.55 0.02 250)",
-	dark: "oklch(0.65 0.02 250)"
+/** The field. Verified runs, and the kernel. */
+var ULTRA = {
+	light: "oklch(0.45 0.16 266)",
+	dark: "oklch(0.72 0.14 266)"
 };
-var SALMON = {
-	light: "oklch(0.6 0.17 38)",
-	dark: "oklch(0.74 0.15 42)"
+/** The lantern, and the site accent. Reserved for the best verified outcome. */
+var LANTERN = {
+	light: "oklch(0.58 0.14 74)",
+	dark: "oklch(0.82 0.13 82)"
 };
-var PERIWINKLE = {
-	light: "oklch(0.5 0.15 266)",
-	dark: "oklch(0.73 0.13 268)"
+/** Warm skin. A third peer category, where three must be told apart. */
+var SKIN = {
+	light: "oklch(0.64 0.09 52)",
+	dark: "oklch(0.82 0.08 56)"
 };
-var BLUSH = {
-	light: "oklch(0.59 0.13 350)",
-	dark: "oklch(0.8 0.1 350)"
+/** Held back toward the page. Reference series and uncontested cases. */
+var DIM = {
+	light: "oklch(0.7 0.015 250)",
+	dark: "oklch(0.5 0.015 250)"
 };
-var PALE_BLUE = {
-	light: "oklch(0.64 0.09 250)",
-	dark: "oklch(0.87 0.06 245)"
-};
-var SEA = {
-	light: "oklch(0.47 0.115 170)",
-	dark: "oklch(0.79 0.115 170)"
-};
+var NEGATIVE = "oklch(0.57 0.18 25)";
+var NEGATIVE_LINE = "oklch(0.57 0.18 25 / 0.4)";
+var NEGATIVE_FILL = "oklch(0.57 0.18 25 / 0.08)";
 var tooltipCursor = {
 	fill: "var(--muted)",
 	opacity: .4
@@ -323,15 +323,15 @@ function DotLegend({ config, keys }) {
 var accuracyConfig = {
 	baseline: {
 		label: "Baseline",
-		theme: SALMON
+		theme: BONE
 	},
 	verified: {
 		label: "Verified",
-		theme: PERIWINKLE
+		theme: ULTRA
 	},
 	loop: {
 		label: "Verified + loop",
-		theme: PALE_BLUE
+		theme: LANTERN
 	}
 };
 var accuracyData = [
@@ -442,15 +442,15 @@ function AccuracyByArmChart() {
 var paretoConfig = {
 	opus: {
 		label: "Claude Opus 4.8",
-		theme: SALMON
+		theme: BONE
 	},
 	fable: {
 		label: "Claude Fable 5",
-		theme: PERIWINKLE
+		theme: ULTRA
 	},
 	haiku: {
 		label: "Claude Haiku 4.5",
-		theme: BLUSH
+		theme: SKIN
 	}
 };
 var opusArms = [
@@ -634,15 +634,15 @@ function CostAccuracyParetoChart() {
 var taxConfig = {
 	baseline: {
 		label: "Baseline",
-		theme: SALMON
+		theme: BONE
 	},
 	verified: {
 		label: "Verified",
-		theme: PERIWINKLE
+		theme: ULTRA
 	},
 	loop: {
 		label: "Verified + loop",
-		theme: SEA
+		theme: LANTERN
 	}
 };
 var taxBaselineArms = [{
@@ -864,11 +864,11 @@ function TaxCostAccuracyChart() {
 var latencyConfig = {
 	llm: {
 		label: "Model",
-		theme: SALMON
+		theme: BONE
 	},
 	kernel: {
 		label: "Kernel",
-		theme: PERIWINKLE
+		theme: ULTRA
 	}
 };
 var latencyData = [
@@ -980,7 +980,7 @@ function LatencyByArmChart() {
 var radarConfig = {
 	baseline: {
 		label: "Baseline (LLM only)",
-		theme: AMBER
+		theme: BONE
 	},
 	verified: {
 		label: "Verified (Lean)",
@@ -1064,11 +1064,11 @@ function HeadlineMetricsRadar() {
 var categoryConfig = {
 	clear: {
 		label: "Structural / clear cases",
-		theme: NEUTRAL
+		theme: DIM
 	},
 	mimic: {
 		label: "Mimic cases",
-		theme: AMBER
+		theme: SKIN
 	}
 };
 var categoryData = [
@@ -1176,7 +1176,7 @@ function MatrixCell({ label, value, tone }) {
 		onMouseEnter: () => setHover(true),
 		onMouseLeave: () => setHover(false),
 		className: `relative flex flex-1 flex-col items-center justify-center gap-1 border p-3 text-center transition-transform ${tone === "bad" ? "border-[var(--chart-negative)]/50 bg-[var(--chart-negative)]/10" : tone === "good" ? "border-accent/40 bg-accent/10" : "border-border bg-muted/20"} ${hover ? "scale-[1.03]" : ""}`,
-		style: { "--chart-negative": "oklch(0.55 0.18 25)" },
+		style: { "--chart-negative": NEGATIVE },
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 			className: "font-display text-[22px] font-medium leading-none text-foreground",
 			children: value
@@ -1275,7 +1275,7 @@ function CaseADot(props) {
 		cx,
 		cy,
 		r: 5,
-		fill: payload.verdict === "positive" ? "var(--accent)" : "oklch(0.58 0.18 25)",
+		fill: payload.verdict === "positive" ? "var(--accent)" : NEGATIVE,
 		stroke: "var(--background)",
 		strokeWidth: 2
 	});
@@ -1295,7 +1295,7 @@ function CaseATooltip({ active, payload }) {
 			]
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 			className: `mt-1 font-mono text-[11px] ${correct ? "text-accent" : ""}`,
-			style: !correct ? { color: "oklch(0.58 0.18 25)" } : void 0,
+			style: !correct ? { color: NEGATIVE } : void 0,
 			children: [
 				"verdict: ",
 				p.verdict,
@@ -1394,15 +1394,15 @@ function RunVerdictFigure() {
 				].map((run) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "flex flex-col items-center gap-1.5 rounded-sm border p-2.5 text-center",
 					style: {
-						borderColor: "oklch(0.58 0.18 25 / 0.4)",
-						background: "oklch(0.58 0.18 25 / 0.08)"
+						borderColor: NEGATIVE_LINE,
+						background: NEGATIVE_FILL
 					},
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 						className: "font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted-foreground",
 						children: run
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 						className: "text-[12px] font-medium",
-						style: { color: "oklch(0.58 0.18 25)" },
+						style: { color: NEGATIVE },
 						children: "Negative"
 					})]
 				}, run))

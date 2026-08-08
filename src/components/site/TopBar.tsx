@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ThemeToggle } from "./ThemeToggle";
 import { BrandMark } from "./BrandMark";
 import { track } from "@/lib/analytics";
 import { BOOKING_URL } from "@/lib/links";
@@ -99,7 +98,6 @@ export function TopBar() {
           >
             Talk to the lab
           </a>
-          <ThemeToggle />
           <button
             type="button"
             aria-label={open ? "Close menu" : "Open menu"}

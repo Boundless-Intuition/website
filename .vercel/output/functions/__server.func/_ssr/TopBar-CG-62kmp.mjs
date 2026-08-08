@@ -1,9 +1,9 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_react, r as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { t as BrandMark } from "./BrandMark-BgoQf2Gt.mjs";
-import { g as Link, l as useLocation } from "../_libs/@tanstack/react-router+[...].mjs";
+import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as track } from "../_libs/vercel__analytics.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/TopBar-DCTQo05p.js
+//#region node_modules/.nitro/vite/services/ssr/assets/TopBar-CG-62kmp.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SECTIONS$1 = [{
@@ -234,66 +234,6 @@ function useReadProgress(slug, ref) {
 		return () => window.removeEventListener("scroll", onScroll);
 	}, [slug, ref]);
 }
-var THEME_KEY = "bi-theme";
-/** Whether a route is allowed to render in the light palette. */
-function allowsLight(pathname) {
-	return pathname === "/blog" || pathname.startsWith("/blog/");
-}
-function storedTheme() {
-	if (typeof window === "undefined") return null;
-	try {
-		const value = window.localStorage.getItem(THEME_KEY);
-		return value === "light" || value === "dark" ? value : null;
-	} catch {
-		return null;
-	}
-}
-function storeTheme(theme) {
-	if (typeof window === "undefined") return;
-	try {
-		window.localStorage.setItem(THEME_KEY, theme);
-	} catch {}
-}
-/** The theme a given path must render in. Dark unless the blog says otherwise. */
-function themeForPath(pathname) {
-	if (!allowsLight(pathname)) return "dark";
-	return storedTheme() ?? "dark";
-}
-function applyTheme(theme) {
-	if (typeof document === "undefined") return;
-	document.documentElement.classList.toggle("dark", theme === "dark");
-}
-/**
-* Only rendered on the blog — the rest of the site is dark-only, so there is
-* nothing to toggle there. See `@/lib/theme`.
-*/
-function ThemeToggle() {
-	const pathname = useLocation({ select: (l) => l.pathname });
-	const [theme, setTheme] = (0, import_react.useState)("dark");
-	const [mounted, setMounted] = (0, import_react.useState)(false);
-	(0, import_react.useEffect)(() => {
-		setTheme(themeForPath(pathname));
-		setMounted(true);
-	}, [pathname]);
-	if (!allowsLight(pathname)) return null;
-	const toggle = () => {
-		const next = theme === "dark" ? "light" : "dark";
-		setTheme(next);
-		applyTheme(next);
-		storeTheme(next);
-	};
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-		type: "button",
-		onClick: toggle,
-		"aria-label": `Switch to ${theme === "dark" ? "light" : "dark"} reading mode`,
-		className: "grid size-8 place-items-center rounded-sm border border-border text-foreground/70 transition-colors hover:border-foreground/60 hover:text-foreground",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-			className: "font-mono text-[13px]",
-			"aria-hidden": true,
-			children: mounted ? theme === "dark" ? "☾" : "☀" : "·"
-		})
-	});
-}
 /**
 * The booking page. This replaced the Engage route: rather than a form that
 * handed off to the visitor's mail client, high-intent visitors now put time in
@@ -368,32 +308,28 @@ function TopBar() {
 				})]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "flex items-center gap-5",
-				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-						href: BOOKING_URL,
-						target: "_blank",
-						rel: "noopener noreferrer",
-						onClick: () => track$1("booking_opened", { from: "topbar" }),
-						className: "hidden items-center border border-foreground/25 px-4 py-1.5 font-display text-[12px] font-medium text-foreground transition-colors hover:border-foreground/60 hover:bg-foreground/5 sm:inline-flex",
-						children: "Talk to the lab"
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ThemeToggle, {}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-						type: "button",
-						"aria-label": open ? "Close menu" : "Open menu",
-						"aria-expanded": open,
-						onClick: () => setOpen((v) => !v),
-						className: "grid size-9 place-items-center rounded-sm border border-border text-foreground transition-colors hover:bg-foreground/5 md:hidden",
-						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-							className: "relative block h-3 w-4",
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `absolute left-0 block h-[1.5px] w-4 bg-current transition-all duration-300 ${open ? "top-1.5 rotate-45" : "top-0"}` }),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `absolute left-0 top-1.5 block h-[1.5px] w-4 bg-current transition-opacity duration-300 ${open ? "opacity-0" : "opacity-100"}` }),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `absolute left-0 block h-[1.5px] w-4 bg-current transition-all duration-300 ${open ? "top-1.5 -rotate-45" : "top-3"}` })
-							]
-						})
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
+					href: BOOKING_URL,
+					target: "_blank",
+					rel: "noopener noreferrer",
+					onClick: () => track$1("booking_opened", { from: "topbar" }),
+					className: "hidden items-center border border-foreground/25 px-4 py-1.5 font-display text-[12px] font-medium text-foreground transition-colors hover:border-foreground/60 hover:bg-foreground/5 sm:inline-flex",
+					children: "Talk to the lab"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					"aria-label": open ? "Close menu" : "Open menu",
+					"aria-expanded": open,
+					onClick: () => setOpen((v) => !v),
+					className: "grid size-9 place-items-center rounded-sm border border-border text-foreground transition-colors hover:bg-foreground/5 md:hidden",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "relative block h-3 w-4",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `absolute left-0 block h-[1.5px] w-4 bg-current transition-all duration-300 ${open ? "top-1.5 rotate-45" : "top-0"}` }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `absolute left-0 top-1.5 block h-[1.5px] w-4 bg-current transition-opacity duration-300 ${open ? "opacity-0" : "opacity-100"}` }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `absolute left-0 block h-[1.5px] w-4 bg-current transition-all duration-300 ${open ? "top-1.5 -rotate-45" : "top-3"}` })
+						]
 					})
-				]
+				})]
 			})]
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 			className: `overflow-hidden transition-[max-height] duration-300 md:hidden ${open ? "max-h-96 border-t border-border bg-background/95 backdrop-blur-md" : "max-h-0"}`,
@@ -451,4 +387,4 @@ function TopBar() {
 	});
 }
 //#endregion
-export { themeForPath as a, useSectionViews as c, applyTheme as i, useVisitDigest as l, SECTIONS$1 as n, track$1 as o, TopBar as r, useReadProgress as s, BOOKING_URL as t };
+export { useReadProgress as a, track$1 as i, SECTIONS$1 as n, useSectionViews as o, TopBar as r, useVisitDigest as s, BOOKING_URL as t };
