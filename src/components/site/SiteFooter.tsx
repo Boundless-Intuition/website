@@ -95,7 +95,7 @@ export function SiteFooter() {
               </span>
             </div>
             <p className="mt-4 max-w-[34ch] text-[14.5px] leading-relaxed text-muted-foreground">
-              Foundational layer for Verified Intelligence
+              Foundational Infrastructure for Verified Intelligence
             </p>
             <a
               href="mailto:research@boundlessintuition.com"

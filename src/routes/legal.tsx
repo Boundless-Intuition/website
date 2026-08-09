@@ -10,7 +10,7 @@ export const Route = createFileRoute("/legal")({
       {
         name: "description",
         content:
-          "Terms of use and privacy notice for Boundless Intuition, the foundational layer for verified intelligence.",
+          "Terms of use and privacy notice for Boundless Intuition, the foundational infrastructure for verified intelligence.",
       },
     ],
   }),

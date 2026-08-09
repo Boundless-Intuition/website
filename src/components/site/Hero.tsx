@@ -138,25 +138,29 @@ export function Hero() {
           </p>
 
           {/* Two blocks rather than one wrapping line: the break is deliberate,
-              so "Verified Intelligence" holds its own line and both lines start
-              on the same left edge. Leading is a touch looser than a single line
-              would want, so the descender of "layer" clears the cap-height of
-              "Verified".
+              so both lines start on the same left edge. "for" rides with the
+              second line rather than trailing the first — "Foundational
+              Infrastructure" is already the longer of the two, and hanging "for"
+              off it pushes the line another 1.5em into the pour. Leading is a
+              touch looser than a single line would want, so the descender of
+              "g" in "Intelligence" has room under it.
 
               From lg the size follows the column width instead of a fixed step.
-              "Foundational layer for" measures 9.94em in this face at this
-              tracking, so 7.2cqw sets it to ~72% of the column. That width is
-              the point of the number, not just the scale: at the old 9.8cqw the
-              line ran to ~97% of the column and pushed its last word into the
-              suspended basket in the plate. Holding it under three-quarters
-              keeps the whole headline in open water to the left of the pour, and
-              the shorter block also drops the headline clear of the basket
-              vertically, since the column is anchored to the bottom of the
-              section. text-balance is the safety net below lg, where the column
-              runs full width. */}
-          <h1 className="mb-8 text-balance font-display text-[2.5rem] font-light leading-[1.08] tracking-[-0.03em] text-foreground md:text-[3rem] lg:text-[clamp(2.4rem,7.2cqw,3.3rem)]">
-            <span className="block">Foundational layer for</span>
-            <span className="block">Verified Intelligence</span>
+              "Foundational Infrastructure" measures ~12.4em in this face at this
+              tracking, so 5.8cqw sets it to ~72% of the column. That width is
+              the point of the number, not just the scale: past ~97% of the
+              column the last word lands in the suspended basket in the plate.
+              Holding it under three-quarters keeps the whole headline in open
+              water to the left of the pour, and the shorter block also drops the
+              headline clear of the basket vertically, since the column is
+              anchored to the bottom of the section. The clamp floor is 1.95rem
+              rather than 2.4rem for the same reason: at lg the column is only
+              ~442px, and a 2.4rem floor would run this longer line past the
+              column edge. text-balance is the safety net below lg, where the
+              column runs full width. */}
+          <h1 className="mb-8 text-balance font-display text-[2.5rem] font-light leading-[1.08] tracking-[-0.03em] text-foreground md:text-[3rem] lg:text-[clamp(1.95rem,5.8cqw,2.7rem)]">
+            <span className="block">Foundational Infrastructure</span>
+            <span className="block">for Verified Intelligence</span>
           </h1>
 
           {/* One paragraph, not two stacked blocks: the diagnosis and what it

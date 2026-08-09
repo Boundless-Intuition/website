@@ -4,15 +4,15 @@ import { c as HeadContent, d as Outlet, f as lazyRouteComponent, g as useRouter,
 import { t as Analytics } from "../_libs/vercel__analytics.mjs";
 import { i as track$1, r as TopBar, s as useVisitDigest, t as BOOKING_URL } from "./TopBar-CG-62kmp.mjs";
 import { t as BLOG_POSTS } from "./blog-B-0C1v-U.mjs";
-import { t as Route$10 } from "../_slug-D8QL_Ozo.mjs";
+import { t as Route$10 } from "../_slug-DyDWpFwB.mjs";
 import { t as PlateDrift } from "./PlateDrift-CxdTP5DY.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { t as SpeedInsights } from "../_libs/vercel__speed-insights.mjs";
 import { a as literalType, c as objectType, d as unionType, i as enumType, l as recordType, n as booleanType, o as nullType, r as discriminatedUnionType, s as numberType, t as arrayType, u as stringType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-lLMW7biR.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-Da0jAC9m.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-X9nanTHh.css";
+var styles_default = "/assets/styles-M0SwPFOn.css";
 /**
 * The 404.
 *
@@ -146,7 +146,7 @@ function ErrorComponent({ error, reset }) {
 }
 var SITE_URL = "https://www.boundlessintuition.com";
 var SITE_NAME = "Boundless Intuition";
-var SITE_TITLE = `${SITE_NAME} · Foundational layer for Verified Intelligence`;
+var SITE_TITLE = `${SITE_NAME} · Foundational Infrastructure for Verified Intelligence`;
 var SITE_DESCRIPTION = "The most fluent systems ever built still cannot tell you when they are wrong. Scaling intelligence without scaling trust is a dangerous trajectory.";
 var STRUCTURED_DATA = {
 	"@context": "https://schema.org",
@@ -392,7 +392,7 @@ var Route$5 = createFileRoute("/robots.txt")({ server: { handlers: { GET: () => 
 	"content-type": "text/plain; charset=utf-8",
 	"cache-control": "public, max-age=86400"
 } }) } } });
-var $$splitComponentImporter$3 = () => import("./overview-BzWN4P73.mjs");
+var $$splitComponentImporter$3 = () => import("./overview-BTp-iLJb.mjs");
 /**
 * /overview - the unlisted overview one-pager.
 *
@@ -407,7 +407,7 @@ var Route$4 = createFileRoute("/overview")({
 		{ title: "Boundless Intuition · Overview" },
 		{
 			name: "description",
-			content: "Boundless Intuition builds the foundational layer for verified intelligence: domains, benchmarks, and results."
+			content: "Boundless Intuition builds the foundational infrastructure for verified intelligence: domains, benchmarks, and results."
 		},
 		{
 			name: "robots",
@@ -423,7 +423,7 @@ var Route$4 = createFileRoute("/overview")({
 		},
 		{
 			property: "og:description",
-			content: "The verification layer for AI: domains, benchmarks, and results."
+			content: "The verification infrastructure for AI: domains, benchmarks, and results."
 		},
 		{
 			property: "og:type",
@@ -432,17 +432,17 @@ var Route$4 = createFileRoute("/overview")({
 	] }),
 	component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-var $$splitComponentImporter$2 = () => import("./legal-C1rQW5-M.mjs");
+var $$splitComponentImporter$2 = () => import("./legal-DPVXMtvC.mjs");
 var Route$3 = createFileRoute("/legal")({
 	head: () => ({ meta: [{ title: "Legal · Boundless Intuition" }, {
 		name: "description",
-		content: "Terms of use and privacy notice for Boundless Intuition, the foundational layer for verified intelligence."
+		content: "Terms of use and privacy notice for Boundless Intuition, the foundational infrastructure for verified intelligence."
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-var $$splitComponentImporter$1 = () => import("./routes-CewVbtRk.mjs");
+var $$splitComponentImporter$1 = () => import("./routes-BMP7nRXL.mjs");
 var Route$2 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
-var $$splitComponentImporter = () => import("./blog-dIlwcnNy.mjs");
+var $$splitComponentImporter = () => import("./blog-DV8GGaP3.mjs");
 var Route$1 = createFileRoute("/blog/")({
 	head: () => ({ meta: [
 		{ title: "Blog · Boundless Intuition" },

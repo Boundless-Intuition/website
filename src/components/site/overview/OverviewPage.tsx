@@ -246,10 +246,10 @@ export function OverviewPage() {
         <section className="mx-auto max-w-3xl px-6">
           <div className="max-w-[68ch]">
             <Lead>
-              Boundless Intuition builds the verification layer for AI. We turn
-              a company's policies, regulations, and domain's expert knowledge
-              into machine-checkable logic, then verify every high-stakes AI
-              action/output before it is trusted or executed.
+              Boundless Intuition builds the verification infrastructure for AI.
+              We turn a company's policies, regulations, and domain's expert
+              knowledge into machine-checkable logic, then verify every
+              high-stakes AI action/output before it is trusted or executed.
             </Lead>
             <P>
               When an AI agent tries to perform a consequential action, such as
@@ -264,8 +264,9 @@ export function OverviewPage() {
               are correct, auditable, and compliant.
             </P>
             <P>
-              Our long-term vision is to become the foundational layer for
-              verified intelligence in high-stakes / mission-critical domains.
+              Our long-term vision is to become the foundational infrastructure
+              for verified intelligence in high-stakes / mission-critical
+              domains.
             </P>
           </div>
 

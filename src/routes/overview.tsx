@@ -17,7 +17,7 @@ export const Route = createFileRoute("/overview")({
       {
         name: "description",
         content:
-          "Boundless Intuition builds the foundational layer for verified intelligence: domains, benchmarks, and results.",
+          "Boundless Intuition builds the foundational infrastructure for verified intelligence: domains, benchmarks, and results.",
       },
       { name: "robots", content: "noindex, nofollow, noarchive" },
       { name: "googlebot", content: "noindex, nofollow" },
@@ -25,7 +25,7 @@ export const Route = createFileRoute("/overview")({
       {
         property: "og:description",
         content:
-          "The verification layer for AI: domains, benchmarks, and results.",
+          "The verification infrastructure for AI: domains, benchmarks, and results.",
       },
       { property: "og:type", content: "article" },
     ],

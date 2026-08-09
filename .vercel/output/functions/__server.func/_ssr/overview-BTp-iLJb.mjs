@@ -2,8 +2,8 @@ import { r as require_jsx_runtime } from "../_libs/react+tanstack__react-query.m
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { r as TopBar } from "./TopBar-CG-62kmp.mjs";
 import { h as P, m as Lead, t as AccuracyByArmChart, u as HeadlineMetricsRadar, y as TaxCostAccuracyChart } from "./charts-yyL3mW5m.mjs";
-import { t as SiteFooter } from "./SiteFooter-D8FQLPjU.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/overview-BzWN4P73.js
+import { t as SiteFooter } from "./SiteFooter-BhGwgGMx.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/overview-BTp-iLJb.js
 var import_jsx_runtime = require_jsx_runtime();
 /**
 * The shareable overview - an unlisted one-pager carrying the same content as
@@ -193,10 +193,10 @@ function OverviewPage() {
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "max-w-[68ch]",
 						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Lead, { children: "Boundless Intuition builds the verification layer for AI. We turn a company's policies, regulations, and domain's expert knowledge into machine-checkable logic, then verify every high-stakes AI action/output before it is trusted or executed." }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Lead, { children: "Boundless Intuition builds the verification infrastructure for AI. We turn a company's policies, regulations, and domain's expert knowledge into machine-checkable logic, then verify every high-stakes AI action/output before it is trusted or executed." }),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "When an AI agent tries to perform a consequential action, such as approving a tax filing, calculating a clinical dosage, authorizing a payment, or changing a firewall rule." }),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Our formal verification engine either produces a mathematical proof that the action satisfies the required rules or blocks it. Instead of asking companies to trust AI because it sounds confident, we give them machine-checkable proof that its decisions are correct, auditable, and compliant." }),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Our long-term vision is to become the foundational layer for verified intelligence in high-stakes / mission-critical domains." })
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(P, { children: "Our long-term vision is to become the foundational infrastructure for verified intelligence in high-stakes / mission-critical domains." })
 						]
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "mt-12 grid grid-cols-2 gap-x-8 gap-y-9 md:grid-cols-4 md:gap-x-10",

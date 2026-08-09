@@ -82,7 +82,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
 const SITE_URL = "https://www.boundlessintuition.com";
 const SITE_NAME = "Boundless Intuition";
-const SITE_TITLE = `${SITE_NAME} · Foundational layer for Verified Intelligence`;
+const SITE_TITLE = `${SITE_NAME} · Foundational Infrastructure for Verified Intelligence`;
 
 // The search snippet and the share preview both quote the hero paragraph word
 // for word: the link, the result, and the page it opens should read as one

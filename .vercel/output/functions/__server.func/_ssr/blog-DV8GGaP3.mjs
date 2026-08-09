@@ -3,9 +3,9 @@ import { n as require_react, r as require_jsx_runtime } from "../_libs/react+tan
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { r as TopBar } from "./TopBar-CG-62kmp.mjs";
 import { n as BLOG_TAGS, r as formatBlogDate, t as BLOG_POSTS } from "./blog-B-0C1v-U.mjs";
-import { t as SiteFooter } from "./SiteFooter-D8FQLPjU.mjs";
+import { t as SiteFooter } from "./SiteFooter-BhGwgGMx.mjs";
 import { t as BlogHeroBackdrop } from "./BlogVisual-eY5TGI-L.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/blog-dIlwcnNy.js
+//#region node_modules/.nitro/vite/services/ssr/assets/blog-DV8GGaP3.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var FILTERS = ["All", ...BLOG_TAGS];

@@ -4,11 +4,11 @@ import { h as Link } from "./_libs/@tanstack/react-router+[...].mjs";
 import { a as useReadProgress, i as track$1, r as TopBar } from "./_ssr/TopBar-CG-62kmp.mjs";
 import { g as Prose } from "./_ssr/charts-yyL3mW5m.mjs";
 import { a as getNarration, i as getBlogPost, r as formatBlogDate, t as BLOG_POSTS } from "./_ssr/blog-B-0C1v-U.mjs";
-import { t as Route } from "./_slug-D8QL_Ozo.mjs";
-import { t as SiteFooter } from "./_ssr/SiteFooter-D8FQLPjU.mjs";
+import { t as Route } from "./_slug-DyDWpFwB.mjs";
+import { t as SiteFooter } from "./_ssr/SiteFooter-BhGwgGMx.mjs";
 import { t as BlogHeroBackdrop } from "./_ssr/BlogVisual-eY5TGI-L.mjs";
 import { a as Link2, i as Pause, n as RotateCcw, o as Check, r as Play, t as RotateCw } from "./_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/_slug-Og8jrvsZ.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_slug-CzyI4Fk6.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function TableOfContents({ containerRef }) {

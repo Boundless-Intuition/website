@@ -2,10 +2,10 @@ import { i as __toESM } from "../_runtime.mjs";
 import { n as require_react, r as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { i as track$1, o as useSectionViews, r as TopBar, t as BOOKING_URL } from "./TopBar-CG-62kmp.mjs";
-import { t as SiteFooter } from "./SiteFooter-D8FQLPjU.mjs";
+import { t as SiteFooter } from "./SiteFooter-BhGwgGMx.mjs";
 import { a as smoothstep, i as rng, o as tone, r as oklcha, s as useDomainCanvas } from "./useDomainCanvas-CNinD-23.mjs";
 import { t as PlateDrift } from "./PlateDrift-CxdTP5DY.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-CewVbtRk.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-BMP7nRXL.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -114,13 +114,13 @@ function Hero() {
 							children: "Verified Intelligence Infrastructure"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
-							className: "mb-8 text-balance font-display text-[2.5rem] font-light leading-[1.08] tracking-[-0.03em] text-foreground md:text-[3rem] lg:text-[clamp(2.4rem,7.2cqw,3.3rem)]",
+							className: "mb-8 text-balance font-display text-[2.5rem] font-light leading-[1.08] tracking-[-0.03em] text-foreground md:text-[3rem] lg:text-[clamp(1.95rem,5.8cqw,2.7rem)]",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 								className: "block",
-								children: "Foundational layer for"
+								children: "Foundational Infrastructure"
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 								className: "block",
-								children: "Verified Intelligence"
+								children: "for Verified Intelligence"
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {

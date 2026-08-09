@@ -2,7 +2,7 @@ import { r as require_jsx_runtime } from "../_libs/react+tanstack__react-query.m
 import { t as BrandMark } from "./BrandMark-BgoQf2Gt.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { i as track$1, n as SECTIONS$1, t as BOOKING_URL } from "./TopBar-CG-62kmp.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-D8FQLPjU.js
+//#region node_modules/.nitro/vite/services/ssr/assets/SiteFooter-BhGwgGMx.js
 var import_jsx_runtime = require_jsx_runtime();
 /**
 * The Swiss flag, in its own red. It is a national mark rather than a piece of
@@ -109,7 +109,7 @@ function SiteFooter() {
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "mt-4 max-w-[34ch] text-[14.5px] leading-relaxed text-muted-foreground",
-							children: "Foundational layer for Verified Intelligence"
+							children: "Foundational Infrastructure for Verified Intelligence"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
 							href: "mailto:research@boundlessintuition.com",
