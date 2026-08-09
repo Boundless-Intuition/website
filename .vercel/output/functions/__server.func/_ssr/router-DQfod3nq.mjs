@@ -5,11 +5,11 @@ import { t as Analytics } from "../_libs/vercel__analytics.mjs";
 import { i as track$1, r as TopBar, s as useVisitDigest, t as BOOKING_URL } from "./TopBar-CG-62kmp.mjs";
 import { t as BLOG_POSTS } from "./blog-B-0C1v-U.mjs";
 import { t as Route$10 } from "../_slug-DyDWpFwB.mjs";
-import { t as PlateDrift } from "./PlateDrift-CxdTP5DY.mjs";
+import { t as PlateDrift } from "./PlateDrift--xvGAf8G.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { t as SpeedInsights } from "../_libs/vercel__speed-insights.mjs";
 import { a as literalType, c as objectType, d as unionType, i as enumType, l as recordType, n as booleanType, o as nullType, r as discriminatedUnionType, s as numberType, t as arrayType, u as stringType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-Da0jAC9m.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-DQfod3nq.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var styles_default = "/assets/styles-M0SwPFOn.css";
@@ -432,7 +432,7 @@ var Route$4 = createFileRoute("/overview")({
 	] }),
 	component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-var $$splitComponentImporter$2 = () => import("./legal-DPVXMtvC.mjs");
+var $$splitComponentImporter$2 = () => import("./legal-2e7zX-EA.mjs");
 var Route$3 = createFileRoute("/legal")({
 	head: () => ({ meta: [{ title: "Legal · Boundless Intuition" }, {
 		name: "description",
@@ -440,7 +440,7 @@ var Route$3 = createFileRoute("/legal")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-var $$splitComponentImporter$1 = () => import("./routes-BMP7nRXL.mjs");
+var $$splitComponentImporter$1 = () => import("./routes-Bmx40qhd.mjs");
 var Route$2 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
 var $$splitComponentImporter = () => import("./blog-DV8GGaP3.mjs");
 var Route$1 = createFileRoute("/blog/")({

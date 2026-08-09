@@ -12,10 +12,18 @@
  * timer. Under prefers-reduced-motion `useDomainCanvas` draws a single still
  * frame, which leaves a complete, motionless figure rather than an empty one.
  *
- * Positions are given in SOURCE-IMAGE coordinates and mapped through the same
- * cover-fit crop used to draw the plate, so the drawn element stays locked to
- * the painted one at every box aspect ratio. That mapping is what makes the
- * animation belong to the image instead of floating over it.
+ * Neither engine draws the picture. Both plates are CSS `object-cover` layers
+ * (a still with a film cross-faded over it — see PlateDrift), so that they can
+ * drift and parallax and so the film stays on the compositor instead of being
+ * re-uploaded through a canvas every frame. These only lay grain on top.
+ *
+ * That means each engine has to REPRODUCE the plate's crop rather than own it.
+ * Positions are given in SOURCE-IMAGE coordinates and mapped through `coverMap`,
+ * which is `object-fit: cover` written out in normalized terms: feed it the
+ * plate's natural aspect and its `object-position` and the drawn element stays
+ * locked to the painted one at every box aspect ratio. That mapping is what
+ * makes the animation belong to the image instead of floating over it — feed it
+ * the wrong aspect or focus and the grain slides off what it is leaving.
  */
 import {
   type Engine,
@@ -31,33 +39,38 @@ import {
 const LATTICE = 3;
 const snap = (v: number) => Math.round(v / LATTICE) * LATTICE;
 
-type Crop = { sx: number; sy: number; sw: number; sh: number };
-
 /**
- * The crop `drawImage` uses to cover a box — and the basis for the mapping.
+ * `object-fit: cover` as a coordinate mapping: source-image space (0..1 on each
+ * axis of the whole painting) to canvas pixels.
  *
- * `focus` anchors what survives the crop, 0..1 on each axis, centred by
- * default. A 3:2 plate in a wide band loses a third of its height, and centring
- * that loss takes the top off the subject; the anchor is how a plate keeps the
- * thing it is a picture of.
+ * `focus` is the plate's `object-position`, 0..1 on each axis, centred by
+ * default — it anchors what survives the crop. A 3:2 plate in a wide band loses
+ * a third of its height, and centring that loss takes the top off the subject;
+ * the anchor is how a plate keeps the thing it is a picture of.
  */
-function coverFit(
-  el: HTMLImageElement,
+function coverMap(
+  sourceAspect: number,
+  focusX: number,
+  focusY: number,
   w: number,
   h: number,
-  focusX = 0.5,
-  focusY = 0.5,
-): Crop {
-  const ia = el.naturalWidth / el.naturalHeight;
+) {
   const ba = w / h;
-  if (ia > ba) {
-    const sh = el.naturalHeight;
-    const sw = sh * ba;
-    return { sx: (el.naturalWidth - sw) * focusX, sy: 0, sw, sh };
+  if (sourceAspect > ba) {
+    // wider than the box: height is fully visible, width is cropped
+    const vis = ba / sourceAspect;
+    const off = (1 - vis) * focusX;
+    return {
+      toX: (n: number) => ((n - off) / vis) * w,
+      toY: (n: number) => n * h,
+    };
   }
-  const sw = el.naturalWidth;
-  const sh = sw / ba;
-  return { sx: 0, sy: (el.naturalHeight - sh) * focusY, sw, sh };
+  const vis = sourceAspect / ba;
+  const off = (1 - vis) * focusY;
+  return {
+    toX: (n: number) => n * w,
+    toY: (n: number) => ((n - off) / vis) * h,
+  };
 }
 
 type Drop = {
@@ -76,9 +89,15 @@ type Drop = {
  * separate grains as it travels" — falling from a spout to the waterline and
  * mirrored beneath it, since the plate paints a still surface and the fall owes
  * it a reflection.
+ *
+ * Drawn *over* the plate, which something else renders; see the note at the top
+ * of this file for why, and for what `sourceAspect` and `focus` are doing.
  */
 export function platePour(opts: {
-  src: string;
+  /** natural aspect (w / h) of the plate this sits over */
+  sourceAspect: number;
+  /** the plate's object-position, 0..1 on each axis */
+  focus?: { x?: number; y?: number };
   grain: Tint;
   glint: Tint;
   /** where the water leaves the stone, in source-image coords (0..1) */
@@ -93,13 +112,10 @@ export function platePour(opts: {
   const spread = opts.spread ?? 0.012;
   const count = opts.count ?? 260;
   const speed = opts.speed ?? 1;
+  const focusX = opts.focus?.x ?? 0.5;
+  const focusY = opts.focus?.y ?? 0.5;
 
   return (): Engine => {
-    let W = 0;
-    let H = 0;
-    let img: HTMLImageElement | null = null;
-    let crop: Crop = { sx: 0, sy: 0, sw: 0, sh: 0 };
-
     const r = rng(9137);
     const drops: Drop[] = [];
     for (let i = 0; i < count; i++) {
@@ -113,33 +129,14 @@ export function platePour(opts: {
       });
     }
 
-    if (typeof Image !== "undefined") {
-      const el = new Image();
-      el.decoding = "async";
-      el.onload = () => {
-        img = el;
-        if (W > 0) crop = coverFit(el, W, H);
-      };
-      el.src = opts.src;
-    }
-
     return {
-      resize(w, h) {
-        W = w;
-        H = h;
-        if (img) crop = coverFit(img, w, h);
-      },
+      resize() {},
 
       frame(ctx, env) {
         const { t, dt, w, h, palette, pointer, still } = env;
-        const { sx, sy, sw, sh } = crop;
-        if (img) ctx.drawImage(img, sx, sy, sw, sh, 0, 0, w, h);
-        if (!img || sw === 0) return;
+        if (w === 0 || h === 0) return;
 
-        const iw = img.naturalWidth;
-        const ih = img.naturalHeight;
-        const toX = (nx: number) => ((nx * iw - sx) / sw) * w;
-        const toY = (ny: number) => ((ny * ih - sy) / sh) * h;
+        const { toX, toY } = coverMap(opts.sourceAspect, focusX, focusY, w, h);
 
         const grain = tone(palette, opts.grain);
         const warm = tone(palette, opts.glint);
@@ -236,14 +233,7 @@ type Mote = {
 };
 
 /**
- * Emission drawn *over* a plate that something else is rendering.
- *
- * Unlike the engine above, this never draws the picture — the lab plate is a
- * CSS `object-cover` image so that it can drift and parallax, and this only
- * lays grain on top of it. It therefore has to reproduce that crop rather than
- * own it: given the plate's natural aspect and its `object-position`, the same
- * mapping falls out. Feed it the wrong aspect or focus and the emission stops
- * lining up with the instrument it is supposed to be leaving.
+ * Rings leaving an instrument, on the lab plate.
  *
  * Grain is born at the instrument's own edge and travels straight out, in
  * periodic wavefronts — §4's Rings, "spreading outward and thinning", carried
@@ -304,22 +294,8 @@ export function plateEmission(opts: {
         const { t, w, h, palette, pointer, still } = env;
         if (w === 0 || h === 0) return;
 
-        // The same crop `object-fit: cover` performs, in normalized terms.
         const ia = opts.sourceAspect;
-        const ba = w / h;
-        let toX: (n: number) => number;
-        let toY: (n: number) => number;
-        if (ia > ba) {
-          const vis = ba / ia;
-          const off = (1 - vis) * focusX;
-          toX = (n) => ((n - off) / vis) * w;
-          toY = (n) => n * h;
-        } else {
-          const vis = ia / ba;
-          const off = (1 - vis) * focusY;
-          toX = (n) => n * w;
-          toY = (n) => ((n - off) / vis) * h;
-        }
+        const { toX, toY } = coverMap(ia, focusX, focusY, w, h);
 
         const pale = tone(palette, opts.grain);
         const warm = tone(palette, opts.glint);

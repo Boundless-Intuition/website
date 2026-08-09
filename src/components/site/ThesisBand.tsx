@@ -1,6 +1,5 @@
-import { useRef } from "react";
 import { Link } from "@tanstack/react-router";
-import { PlatePourVisual } from "./domain-visuals/PlateVisual";
+import { PlateDrift } from "./PlateDrift";
 
 /**
  * The thesis band between the hero and the lab.
@@ -17,21 +16,31 @@ import { PlatePourVisual } from "./domain-visuals/PlateVisual";
  * laid it, caught unfinished — which is the copy's "the future we are building
  * toward" without illustrating the words.
  *
- * The painting is left whole. The only live element is the water itself, drawn
- * as a halftone plume falling from the spout and mirrored under the surface —
- * the plate's own motion continued rather than an effect laid over it. The
- * arcade runs in from the right and the rest is open water, which is where the
- * statement goes.
+ * The painting is left whole and nothing is drawn on top of it. The plate is a
+ * film rather than a still, so the fall the painting depicts actually falls —
+ * that is the whole of the motion in this band. An earlier version laid a live
+ * halftone plume over the spout as well (platePour / PlatePourOverlay, both
+ * still in domain-visuals if it is ever wanted back); with a film underneath
+ * that was a second, coarser stream over a painted one that already moves.
+ *
+ * Nothing about the picture responds to the cursor here either: no drift, no
+ * parallax, no lantern. The band is a statement and the plate is the ground it
+ * is set on. The arcade runs in from the right and the rest is open water,
+ * which is where the statement goes.
  */
 export function ThesisBand() {
-  // The pointer is read from the section, not the canvas: the canvas sits
-  // behind the copy, so anywhere you would actually be reading would otherwise
-  // be dead to it.
-  const bandRef = useRef<HTMLElement | null>(null);
-
   return (
-    <section ref={bandRef} className="relative overflow-hidden bg-background">
-      <PlatePourVisual pointerTarget={bandRef} />
+    <section className="relative overflow-hidden bg-background">
+      <PlateDrift
+        // the film's own first frame — not /plates/aqueduct-procession.webp,
+        // which is the same painting at a slightly different framing and would
+        // show as a jump when the film takes over.
+        src="/thesis-plate-poster.webp"
+        mobileSrc="/thesis-plate-poster-mobile.webp"
+        film="/thesis-plate"
+        // held still: see the note above, and `drift` on PlateDrift.
+        drift={false}
+      />
 
       {/* Reading scrim: heavy at the left edge where the copy sits, gone by the
           time it reaches the sphere so the plate keeps its own contrast. */}

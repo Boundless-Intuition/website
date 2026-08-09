@@ -17,8 +17,12 @@ const GLINT = t([0.6, 0.14, 74], [0.85, 0.13, 82]); // the single warm light
 // midpoint. Source-image coordinates, not canvas ones — the engine maps them
 // through the cover crop so the stream stays on the painted spout whatever the
 // section's aspect ratio turns out to be.
+//
+// 2200/940 is the film's raster; the still poster (1800x770) and the original
+// plate are the same framing to within a thousandth, so one aspect covers all
+// three. As with the lab below, this MUST match what ThesisBand renders.
 const pourMake = platePour({
-  src: "/plates/aqueduct-procession.webp",
+  sourceAspect: 2200 / 940,
   grain: GRAIN,
   glint: GLINT,
   source: { x: 0.512, y: 0.262 },
@@ -28,9 +32,10 @@ const pourMake = platePour({
   speed: 1,
 });
 
-// Laid over the lab plate, which is a CSS object-cover image so it can drift.
-// The aspect and focus here MUST match what Origin renders, or the plume slides
-// off the sphere it is supposed to be leaving.
+// Laid over the lab plate, which is a CSS object-cover still with an object-cover
+// film over it so the pair can drift together. The aspect and focus here MUST
+// match what Origin renders, or the plume slides off the sphere it is supposed
+// to be leaving — 3:2 covers the still, the film and the source painting alike.
 const labPlumeMake = plateEmission({
   sourceAspect: 1536 / 1024,
   focus: { x: 0.5, y: 0.34 },
@@ -56,16 +61,20 @@ type Props = {
   pointerTarget?: RefObject<HTMLElement | null>;
 };
 
-/** The aqueduct, with its own falling water drawn live — see platePour. */
-export function PlatePourVisual({ pointerTarget }: Props) {
-  const { canvasRef, pointerTargetRef } = useDomainCanvas(
-    pourMake,
-    pointerTarget,
-  );
+/**
+ * The live pour over the aqueduct plate — see platePour.
+ *
+ * Currently unused: the thesis band's plate became a film, which paints its own
+ * falling water, and a drawn stream over a moving painted one was one stream too
+ * many. Kept because re-adding it is a single line in ThesisBand, and because it
+ * is the only place §12's lantern reads on that plate. Pointer-transparent for
+ * the same reason LabPlumeOverlay is: the statement over it has a link in it.
+ */
+export function PlatePourOverlay({ pointerTarget }: Props) {
+  const { canvasRef } = useDomainCanvas(pourMake, pointerTarget);
   return (
     <div
-      ref={pointerTargetRef}
-      className="pointer-events-auto absolute inset-0 overflow-hidden"
+      className="pointer-events-none absolute inset-0 overflow-hidden"
       aria-hidden
     >
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />

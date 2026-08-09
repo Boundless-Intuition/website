@@ -4,8 +4,8 @@ import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { i as track$1, o as useSectionViews, r as TopBar, t as BOOKING_URL } from "./TopBar-CG-62kmp.mjs";
 import { t as SiteFooter } from "./SiteFooter-BhGwgGMx.mjs";
 import { a as smoothstep, i as rng, o as tone, r as oklcha, s as useDomainCanvas } from "./useDomainCanvas-CNinD-23.mjs";
-import { t as PlateDrift } from "./PlateDrift-CxdTP5DY.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-BMP7nRXL.js
+import { t as PlateDrift } from "./PlateDrift--xvGAf8G.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-Bmx40qhd.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -161,6 +161,83 @@ function Hero() {
 	});
 }
 /**
+* The thesis band between the hero and the lab.
+*
+* Full-bleed rather than a figure in a box: the statement is the lab's position
+* on what the work is for, and a hairline frame around it would read as an
+* exhibit. The plate runs edge to edge and dissolves into the page at the top
+* and bottom, so the band has no seam — it is a stretch of the page that
+* happens to be painted.
+*
+* The plate is an aqueduct that stops mid-air, with a procession walking the
+* top toward the unbuilt end behind a single lantern, and measured water
+* falling from the broken edge. Infrastructure meant to outlast the people who
+* laid it, caught unfinished — which is the copy's "the future we are building
+* toward" without illustrating the words.
+*
+* The painting is left whole and nothing is drawn on top of it. The plate is a
+* film rather than a still, so the fall the painting depicts actually falls —
+* that is the whole of the motion in this band. An earlier version laid a live
+* halftone plume over the spout as well (platePour / PlatePourOverlay, both
+* still in domain-visuals if it is ever wanted back); with a film underneath
+* that was a second, coarser stream over a painted one that already moves.
+*
+* Nothing about the picture responds to the cursor here either: no drift, no
+* parallax, no lantern. The band is a statement and the plate is the ground it
+* is set on. The arcade runs in from the right and the rest is open water,
+* which is where the statement goes.
+*/
+function ThesisBand() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		className: "relative overflow-hidden bg-background",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(PlateDrift, {
+				src: "/thesis-plate-poster.webp",
+				mobileSrc: "/thesis-plate-poster-mobile.webp",
+				film: "/thesis-plate",
+				drift: false
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				"aria-hidden": true,
+				className: "pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/85 to-transparent lg:via-background/55"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				"aria-hidden": true,
+				className: "pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-background to-transparent"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				"aria-hidden": true,
+				className: "pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "relative mx-auto max-w-shell px-6 lg:px-10 py-20 lg:py-28",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "max-w-[30ch] lg:max-w-[44ch]",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mb-7 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground",
+							children: "What we believe"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "space-y-6 font-display text-[1.2rem] font-light leading-[1.55] tracking-[-0.01em] text-foreground/90 lg:text-[1.5rem]",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "We believe a world where advanced AI is safe to deploy is a world where consequential decisions can be verified before they are trusted. It is a world where correctness matters as much as capability, and where trust is earned through evidence rather than confidence." }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "That is the future we are building toward. It is the foundation of trustworthy AI, and the path towards verified superintelligence." })]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+							to: "/overview",
+							className: "group mt-10 inline-flex items-center gap-3 border-b border-foreground/40 pb-1 font-display text-[13px] font-medium text-foreground transition-colors hover:border-foreground",
+							children: ["See our benchmarks", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								"aria-hidden": true,
+								className: "transition-transform group-hover:translate-x-1",
+								children: "→"
+							})]
+						})
+					]
+				})
+			})
+		]
+	});
+}
+/**
 * Live halftone drawn onto a painted plate.
 *
 * The rule both engines follow: the painting is never taken apart. An earlier
@@ -174,42 +251,46 @@ function Hero() {
 * timer. Under prefers-reduced-motion `useDomainCanvas` draws a single still
 * frame, which leaves a complete, motionless figure rather than an empty one.
 *
-* Positions are given in SOURCE-IMAGE coordinates and mapped through the same
-* cover-fit crop used to draw the plate, so the drawn element stays locked to
-* the painted one at every box aspect ratio. That mapping is what makes the
-* animation belong to the image instead of floating over it.
+* Neither engine draws the picture. Both plates are CSS `object-cover` layers
+* (a still with a film cross-faded over it — see PlateDrift), so that they can
+* drift and parallax and so the film stays on the compositor instead of being
+* re-uploaded through a canvas every frame. These only lay grain on top.
+*
+* That means each engine has to REPRODUCE the plate's crop rather than own it.
+* Positions are given in SOURCE-IMAGE coordinates and mapped through `coverMap`,
+* which is `object-fit: cover` written out in normalized terms: feed it the
+* plate's natural aspect and its `object-position` and the drawn element stays
+* locked to the painted one at every box aspect ratio. That mapping is what
+* makes the animation belong to the image instead of floating over it — feed it
+* the wrong aspect or focus and the grain slides off what it is leaving.
 */
 /** §10: grains snap to a fixed lattice so the halftone stays 1-bit, not soft. */
 var LATTICE = 3;
 var snap = (v) => Math.round(v / LATTICE) * LATTICE;
 /**
-* The crop `drawImage` uses to cover a box — and the basis for the mapping.
+* `object-fit: cover` as a coordinate mapping: source-image space (0..1 on each
+* axis of the whole painting) to canvas pixels.
 *
-* `focus` anchors what survives the crop, 0..1 on each axis, centred by
-* default. A 3:2 plate in a wide band loses a third of its height, and centring
-* that loss takes the top off the subject; the anchor is how a plate keeps the
-* thing it is a picture of.
+* `focus` is the plate's `object-position`, 0..1 on each axis, centred by
+* default — it anchors what survives the crop. A 3:2 plate in a wide band loses
+* a third of its height, and centring that loss takes the top off the subject;
+* the anchor is how a plate keeps the thing it is a picture of.
 */
-function coverFit(el, w, h, focusX = .5, focusY = .5) {
-	const ia = el.naturalWidth / el.naturalHeight;
+function coverMap(sourceAspect, focusX, focusY, w, h) {
 	const ba = w / h;
-	if (ia > ba) {
-		const sh = el.naturalHeight;
-		const sw = sh * ba;
+	if (sourceAspect > ba) {
+		const vis = ba / sourceAspect;
+		const off = (1 - vis) * focusX;
 		return {
-			sx: (el.naturalWidth - sw) * focusX,
-			sy: 0,
-			sw,
-			sh
+			toX: (n) => (n - off) / vis * w,
+			toY: (n) => n * h
 		};
 	}
-	const sw = el.naturalWidth;
-	const sh = sw / ba;
+	const vis = sourceAspect / ba;
+	const off = (1 - vis) * focusY;
 	return {
-		sx: 0,
-		sy: (el.naturalHeight - sh) * focusY,
-		sw,
-		sh
+		toX: (n) => n * w,
+		toY: (n) => (n - off) / vis * h
 	};
 }
 /**
@@ -217,21 +298,17 @@ function coverFit(el, w, h, focusX = .5, focusY = .5) {
 * separate grains as it travels" — falling from a spout to the waterline and
 * mirrored beneath it, since the plate paints a still surface and the fall owes
 * it a reflection.
+*
+* Drawn *over* the plate, which something else renders; see the note at the top
+* of this file for why, and for what `sourceAspect` and `focus` are doing.
 */
 function platePour(opts) {
 	const spread = opts.spread ?? .012;
 	const count = opts.count ?? 260;
 	const speed = opts.speed ?? 1;
+	const focusX = opts.focus?.x ?? .5;
+	const focusY = opts.focus?.y ?? .5;
 	return () => {
-		let W = 0;
-		let H = 0;
-		let img = null;
-		let crop = {
-			sx: 0,
-			sy: 0,
-			sw: 0,
-			sh: 0
-		};
 		const r = rng(9137);
 		const drops = [];
 		for (let i = 0; i < count; i++) drops.push({
@@ -241,30 +318,12 @@ function platePour(opts) {
 			size: r() < .62 ? 2 : 3,
 			glints: r() < .08
 		});
-		if (typeof Image !== "undefined") {
-			const el = new Image();
-			el.decoding = "async";
-			el.onload = () => {
-				img = el;
-				if (W > 0) crop = coverFit(el, W, H);
-			};
-			el.src = opts.src;
-		}
 		return {
-			resize(w, h) {
-				W = w;
-				H = h;
-				if (img) crop = coverFit(img, w, h);
-			},
+			resize() {},
 			frame(ctx, env) {
 				const { t, dt, w, h, palette, pointer, still } = env;
-				const { sx, sy, sw, sh } = crop;
-				if (img) ctx.drawImage(img, sx, sy, sw, sh, 0, 0, w, h);
-				if (!img || sw === 0) return;
-				const iw = img.naturalWidth;
-				const ih = img.naturalHeight;
-				const toX = (nx) => (nx * iw - sx) / sw * w;
-				const toY = (ny) => (ny * ih - sy) / sh * h;
+				if (w === 0 || h === 0) return;
+				const { toX, toY } = coverMap(opts.sourceAspect, focusX, focusY, w, h);
 				const grain = tone(palette, opts.grain);
 				const warm = tone(palette, opts.glint);
 				const fall = opts.waterline - opts.source.y;
@@ -328,14 +387,7 @@ function platePour(opts) {
 	};
 }
 /**
-* Emission drawn *over* a plate that something else is rendering.
-*
-* Unlike the engine above, this never draws the picture — the lab plate is a
-* CSS `object-cover` image so that it can drift and parallax, and this only
-* lays grain on top of it. It therefore has to reproduce that crop rather than
-* own it: given the plate's natural aspect and its `object-position`, the same
-* mapping falls out. Feed it the wrong aspect or focus and the emission stops
-* lining up with the instrument it is supposed to be leaving.
+* Rings leaving an instrument, on the lab plate.
 *
 * Grain is born at the instrument's own edge and travels straight out, in
 * periodic wavefronts — §4's Rings, "spreading outward and thinning", carried
@@ -371,20 +423,7 @@ function plateEmission(opts) {
 				const { t, w, h, palette, pointer, still } = env;
 				if (w === 0 || h === 0) return;
 				const ia = opts.sourceAspect;
-				const ba = w / h;
-				let toX;
-				let toY;
-				if (ia > ba) {
-					const vis = ba / ia;
-					const off = (1 - vis) * focusX;
-					toX = (n) => (n - off) / vis * w;
-					toY = (n) => n * h;
-				} else {
-					const vis = ia / ba;
-					const off = (1 - vis) * focusY;
-					toX = (n) => n * w;
-					toY = (n) => (n - off) / vis * h;
-				}
+				const { toX, toY } = coverMap(ia, focusX, focusY, w, h);
 				const pale = tone(palette, opts.grain);
 				const warm = tone(palette, opts.glint);
 				const lit = pointer.active && !still;
@@ -440,8 +479,8 @@ var GLINT = t([
 	.13,
 	82
 ]);
-var pourMake = platePour({
-	src: "/plates/aqueduct-procession.webp",
+platePour({
+	sourceAspect: 2200 / 940,
 	grain: GRAIN,
 	glint: GLINT,
 	source: {
@@ -476,19 +515,6 @@ var labPlumeMake = plateEmission({
 	speed: 1,
 	intensity: .85
 });
-/** The aqueduct, with its own falling water drawn live — see platePour. */
-function PlatePourVisual({ pointerTarget }) {
-	const { canvasRef, pointerTargetRef } = useDomainCanvas(pourMake, pointerTarget);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		ref: pointerTargetRef,
-		className: "pointer-events-auto absolute inset-0 overflow-hidden",
-		"aria-hidden": true,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("canvas", {
-			ref: canvasRef,
-			className: "absolute inset-0 h-full w-full"
-		})
-	});
-}
 /**
 * The emission over the lab plate — see plateEmission. Pointer-transparent,
 * because the plate beneath it drifts on the same section's pointer and the
@@ -506,74 +532,6 @@ function LabPlumeOverlay({ pointerTarget }) {
 	});
 }
 /**
-* The thesis band between the hero and the lab.
-*
-* Full-bleed rather than a figure in a box: the statement is the lab's position
-* on what the work is for, and a hairline frame around it would read as an
-* exhibit. The plate runs edge to edge and dissolves into the page at the top
-* and bottom, so the band has no seam — it is a stretch of the page that
-* happens to be painted.
-*
-* The plate is an aqueduct that stops mid-air, with a procession walking the
-* top toward the unbuilt end behind a single lantern, and measured water
-* falling from the broken edge. Infrastructure meant to outlast the people who
-* laid it, caught unfinished — which is the copy's "the future we are building
-* toward" without illustrating the words.
-*
-* The painting is left whole. The only live element is the water itself, drawn
-* as a halftone plume falling from the spout and mirrored under the surface —
-* the plate's own motion continued rather than an effect laid over it. The
-* arcade runs in from the right and the rest is open water, which is where the
-* statement goes.
-*/
-function ThesisBand() {
-	const bandRef = (0, import_react.useRef)(null);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
-		ref: bandRef,
-		className: "relative overflow-hidden bg-background",
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(PlatePourVisual, { pointerTarget: bandRef }),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				"aria-hidden": true,
-				className: "pointer-events-none absolute inset-0 bg-gradient-to-r from-background via-background/85 to-transparent lg:via-background/55"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				"aria-hidden": true,
-				className: "pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-background to-transparent"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				"aria-hidden": true,
-				className: "pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "relative mx-auto max-w-shell px-6 lg:px-10 py-20 lg:py-28",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "max-w-[30ch] lg:max-w-[44ch]",
-					children: [
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "mb-7 font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground",
-							children: "What we believe"
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "space-y-6 font-display text-[1.2rem] font-light leading-[1.55] tracking-[-0.01em] text-foreground/90 lg:text-[1.5rem]",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "We believe a world where advanced AI is safe to deploy is a world where consequential decisions can be verified before they are trusted. It is a world where correctness matters as much as capability, and where trust is earned through evidence rather than confidence." }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: "That is the future we are building toward. It is the foundation of trustworthy AI, and the path towards verified superintelligence." })]
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-							to: "/overview",
-							className: "group mt-10 inline-flex items-center gap-3 border-b border-foreground/40 pb-1 font-display text-[13px] font-medium text-foreground transition-colors hover:border-foreground",
-							children: ["See our benchmarks", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								"aria-hidden": true,
-								className: "transition-transform group-hover:translate-x-1",
-								children: "→"
-							})]
-						})
-					]
-				})
-			})
-		]
-	});
-}
-/**
 * The lab.
 *
 * Immersive, on the same pattern as the thesis band: one plate edge to edge,
@@ -587,14 +545,24 @@ function ThesisBand() {
 * polishing the graduated ring, one adjusting a theodolite, one steadying the
 * sphere — so the words only have to say who and where.
 *
-* Two live elements. The plate itself drifts on a very slow cycle and leans
-* away from the cursor; over it, grain leaves the sphere's own edge in slow
-* wavefronts and spends itself across the open sky. It emits from the
+* Three live elements, in layers. The picture is a film rather than a still —
+* the concentric wavefronts are painted moving and the polished ring catches
+* its own light — and it drifts on a very slow cycle and leans away from the
+* cursor. Over it, LabPlumeOverlay throws loose grain off the sphere's edge in
+* slow wavefronts that spend themselves across the open sky. It emits from the
 * instrument because that is the only place on this plate anything could —
 * a stream starting out in open sky read as arriving from nowhere.
 *
-* The cursor sets the plume's ink: ivory in the open field, struck to lantern
-* ochre where it is held.
+* The plume and the film are painting the same idea in two registers on
+* purpose: the film's rings are in oil and stay inside the picture, the plume's
+* are loose halftone dots that carry it out over the reading side of the band,
+* where the film has nothing. The plume is also the only one of the two that
+* answers the cursor — it sets the plume's ink: ivory in the open field, struck
+* to lantern ochre where it is held.
+*
+* On a metered connection, or for anyone who has asked for less motion, the
+* film never loads and the still holds the section on its own; the plume stops
+* itself on the same signal (see useDomainCanvas).
 */
 function Origin() {
 	const bandRef = (0, import_react.useRef)(null);
@@ -604,7 +572,9 @@ function Origin() {
 		className: "relative overflow-hidden bg-background",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(PlateDrift, {
-				src: "/plates/armillary-sphere-polishing.webp",
+				src: "/lab-plate-poster.webp",
+				mobileSrc: "/lab-plate-poster-mobile.webp",
+				film: "/lab-plate",
 				focus: "50% 34%",
 				pointerTarget: bandRef
 			}),

@@ -17,14 +17,24 @@ import { LabPlumeOverlay } from "./domain-visuals/PlateVisual";
  * polishing the graduated ring, one adjusting a theodolite, one steadying the
  * sphere — so the words only have to say who and where.
  *
- * Two live elements. The plate itself drifts on a very slow cycle and leans
- * away from the cursor; over it, grain leaves the sphere's own edge in slow
- * wavefronts and spends itself across the open sky. It emits from the
+ * Three live elements, in layers. The picture is a film rather than a still —
+ * the concentric wavefronts are painted moving and the polished ring catches
+ * its own light — and it drifts on a very slow cycle and leans away from the
+ * cursor. Over it, LabPlumeOverlay throws loose grain off the sphere's edge in
+ * slow wavefronts that spend themselves across the open sky. It emits from the
  * instrument because that is the only place on this plate anything could —
  * a stream starting out in open sky read as arriving from nowhere.
  *
- * The cursor sets the plume's ink: ivory in the open field, struck to lantern
- * ochre where it is held.
+ * The plume and the film are painting the same idea in two registers on
+ * purpose: the film's rings are in oil and stay inside the picture, the plume's
+ * are loose halftone dots that carry it out over the reading side of the band,
+ * where the film has nothing. The plume is also the only one of the two that
+ * answers the cursor — it sets the plume's ink: ivory in the open field, struck
+ * to lantern ochre where it is held.
+ *
+ * On a metered connection, or for anyone who has asked for less motion, the
+ * film never loads and the still holds the section on its own; the plume stops
+ * itself on the same signal (see useDomainCanvas).
  */
 export function Origin() {
   // The pointer is read from the section, not the canvas: the canvas sits
@@ -39,7 +49,12 @@ export function Origin() {
       className="relative overflow-hidden bg-background"
     >
       <PlateDrift
-        src="/plates/armillary-sphere-polishing.webp"
+        // the film's own first frame, so the dissolve from still to film is
+        // invisible — not /plates/armillary-sphere-polishing.webp, which is the
+        // same painting on a different grade and would show as a lift.
+        src="/lab-plate-poster.webp"
+        mobileSrc="/lab-plate-poster-mobile.webp"
+        film="/lab-plate"
         // keeps the sphere and the standing figures; spends the crop on the
         // marble base instead. LabPlumeOverlay reproduces this exact crop —
         // change one and change the other, or the plume leaves the wrong spot.
