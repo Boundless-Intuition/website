@@ -3,7 +3,7 @@ import { n as require_react, r as require_jsx_runtime } from "../_libs/react+tan
 import { t as BrandMark } from "./BrandMark-BgoQf2Gt.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as track } from "../_libs/vercel__analytics.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/TopBar-CG-62kmp.js
+//#region node_modules/.nitro/vite/services/ssr/assets/TopBar-CWfn6P43.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SECTIONS$1 = [{
@@ -17,6 +17,7 @@ var EVENT_TIER = {
 	booking_opened: "alert",
 	contact_mailto: "alert",
 	render_error: "normal",
+	announcement_clicked: "quiet",
 	outbound_playground: "quiet",
 	outbound_social: "quiet",
 	post_shared: "quiet",

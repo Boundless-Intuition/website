@@ -1,7 +1,7 @@
 import type { ComponentType } from "react";
 import { FluencyIsNotCorrectness } from "@/components/site/blog/content/FluencyIsNotCorrectness";
-import { ADiagnosisShouldBeAProof } from "@/components/site/blog/content/ADiagnosisShouldBeAProof";
 import { TowardsVerifiedSupertechnology } from "@/components/site/blog/content/TowardsVerifiedSupertechnology";
+import { APerfectScoreOnIMO2026 } from "@/components/site/blog/content/APerfectScoreOnIMO2026";
 import narrationManifest from "@/content/blog/narration.json";
 
 export type BlogTag = "Announcements" | "Partnerships" | "Research";
@@ -35,6 +35,20 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: "dirac-perfect-score-imo-2026",
+    title: "Dirac Achieves a Perfect 6/6 on IMO 2026 at Record Speed",
+    subtitle:
+      "Our autonomous prover produced machine-checked proofs of every problem at this year's International Mathematical Olympiad.",
+    description:
+      "We ran Dirac, our autonomous proving agent, on the publicly released formalizations of all six IMO 2026 problems. It produced a machine-checked proof of every one, in 7h 18m of total proving time at a cost of $176.58.",
+    tags: ["Announcements", "Research"],
+    author: "Boundless Intuition Research",
+    date: "2026-08-11",
+    readingTime: "5 min read",
+    image: "/blog/imo-hero.webp",
+    Content: APerfectScoreOnIMO2026,
+  },
+  {
     slug: "towards-verified-superintelligence",
     title: "Towards Verified Superintelligence",
     subtitle:
@@ -62,21 +76,16 @@ export const BLOG_POSTS: BlogPost[] = [
     image: "/blog/fluent-hero.webp",
     Content: FluencyIsNotCorrectness,
   },
-  {
-    slug: "a-diagnosis-should-be-a-proof-not-a-probability",
-    title: "A Diagnosis Should Be a Proof, Not a Probability",
-    subtitle:
-      "Formalizing the lupus classification criteria in Lean 4, and a 50-case benchmark against a frontier model.",
-    description:
-      "A frontier model gave five different diagnoses to the same patient, five times. We built a clinical classifier whose verdicts are proven in Lean 4, not sampled, and benchmarked it head-to-head.",
-    tags: ["Research"],
-    author: "Boundless Intuition Research",
-    date: "2026-06-19",
-    readingTime: "15 min read",
-    image: "/blog/diagnosis-hero.webp",
-    Content: ADiagnosisShouldBeAProof,
-  },
 ];
+
+// Unpublished: "A Diagnosis Should Be a Proof, Not a Probability"
+// (a-diagnosis-should-be-a-proof-not-a-probability), pulled 2026-08-11. Removing
+// the entry is the whole of it — the index, the sitemap and /blog/$slug all read
+// this list, so the post drops off the site and its URL now 404s. Nothing else
+// was deleted: the body still lives at
+// `src/components/site/blog/content/ADiagnosisShouldBeAProof.tsx` and its cover
+// at `public/blog/diagnosis-hero.webp`, so republishing is re-adding the entry
+// and its import.
 
 export function getBlogPost(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((p) => p.slug === slug);

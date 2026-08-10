@@ -1,11 +1,11 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_react, r as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { r as TopBar } from "./TopBar-CG-62kmp.mjs";
-import { n as BLOG_TAGS, r as formatBlogDate, t as BLOG_POSTS } from "./blog-B-0C1v-U.mjs";
-import { t as SiteFooter } from "./SiteFooter-BhGwgGMx.mjs";
-import { t as BlogHeroBackdrop } from "./BlogVisual-eY5TGI-L.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/blog-DV8GGaP3.js
+import { n as BLOG_TAGS, r as formatBlogDate, t as BLOG_POSTS } from "./blog-CF6Txbv7.mjs";
+import { n as SiteChrome, t as CHROME_PULL } from "./useDomainCanvas-M9puoThv.mjs";
+import { t as SiteFooter } from "./SiteFooter-DrfFC7g4.mjs";
+import { t as BlogHeroBackdrop } from "./BlogVisual-CFWClhkq.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/blog-D28djzKD.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var FILTERS = ["All", ...BLOG_TAGS];
@@ -132,8 +132,11 @@ function BlogIndexRoute() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "min-h-screen bg-background text-foreground",
 		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TopBar, {}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("main", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BlogPage, {}) }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SiteChrome, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("main", {
+				className: `flow-root ${CHROME_PULL}`,
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BlogPage, {})
+			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SiteFooter, {})
 		]
 	});

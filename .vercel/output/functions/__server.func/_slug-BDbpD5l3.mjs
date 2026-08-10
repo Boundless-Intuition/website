@@ -1,14 +1,15 @@
 import { i as __toESM } from "./_runtime.mjs";
 import { n as require_react, r as require_jsx_runtime } from "./_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "./_libs/@tanstack/react-router+[...].mjs";
-import { a as useReadProgress, i as track$1, r as TopBar } from "./_ssr/TopBar-CG-62kmp.mjs";
-import { g as Prose } from "./_ssr/charts-yyL3mW5m.mjs";
-import { a as getNarration, i as getBlogPost, r as formatBlogDate, t as BLOG_POSTS } from "./_ssr/blog-B-0C1v-U.mjs";
-import { t as Route } from "./_slug-DyDWpFwB.mjs";
-import { t as SiteFooter } from "./_ssr/SiteFooter-BhGwgGMx.mjs";
-import { t as BlogHeroBackdrop } from "./_ssr/BlogVisual-eY5TGI-L.mjs";
+import { a as useReadProgress, i as track$1 } from "./_ssr/TopBar-CWfn6P43.mjs";
+import { g as Prose } from "./_ssr/charts-DaMzx0Id.mjs";
+import { a as getNarration, i as getBlogPost, r as formatBlogDate, t as BLOG_POSTS } from "./_ssr/blog-CF6Txbv7.mjs";
+import { t as Route } from "./_slug-C0ie5SDW.mjs";
+import { n as SiteChrome, t as CHROME_PULL } from "./_ssr/useDomainCanvas-M9puoThv.mjs";
+import { t as SiteFooter } from "./_ssr/SiteFooter-DrfFC7g4.mjs";
+import { t as BlogHeroBackdrop } from "./_ssr/BlogVisual-CFWClhkq.mjs";
 import { a as Link2, i as Pause, n as RotateCcw, o as Check, r as Play, t as RotateCw } from "./_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/_slug-CzyI4Fk6.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_slug-BDbpD5l3.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function TableOfContents({ containerRef }) {
@@ -619,8 +620,11 @@ function BlogPostRoute() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "min-h-screen bg-background text-foreground",
 		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TopBar, {}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("main", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BlogPostPage, { post }) }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SiteChrome, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("main", {
+				className: `flow-root ${CHROME_PULL}`,
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BlogPostPage, { post })
+			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SiteFooter, {})
 		]
 	});

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { TopBar } from "@/components/site/TopBar";
+import { SiteChrome, CHROME_PULL } from "@/components/site/SiteChrome";
 import { Hero } from "@/components/site/Hero";
 import { ThesisBand } from "@/components/site/ThesisBand";
 import { Origin } from "@/components/site/Origin";
@@ -17,8 +17,12 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <TopBar />
-      <main>
+      <SiteChrome />
+      {/* The hero's own -mt-16 clears the top bar; CHROME_PULL clears the strip
+          above it, so the plate starts at the top of the viewport and runs up
+          behind the whole pinned stack. See SiteChrome for why flow-root is
+          load-bearing. */}
+      <main className={`flow-root ${CHROME_PULL}`}>
         <Hero />
         <ThesisBand />
         <Origin />

@@ -1,7 +1,88 @@
 import { i as __toESM } from "../_runtime.mjs";
-import { n as require_react } from "../_libs/react+tanstack__react-query.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/useDomainCanvas-CNinD-23.js
+import { n as require_react, r as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
+import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
+import { i as track$1, r as TopBar } from "./TopBar-CWfn6P43.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/useDomainCanvas-M9puoThv.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
+var import_jsx_runtime = require_jsx_runtime();
+/**
+* The one announcement strip. Rendered by SiteChrome, which pins it above the
+* top bar; see that file for the height arithmetic every page keys off.
+*
+* One line of type and an arrow, and nothing else — no rule, no chip, no
+* accent, and no fill beyond the fall from page black to nothing. The plate
+* runs up behind it, so it reads as part of the screen rather than a band
+* bolted above it.
+*
+* Sentence-case mono rather than the wide uppercase the rest of the chrome
+* uses: at this length the tracked caps run past half the viewport and stop
+* scanning as a single line.
+*
+* Curated, not derived from BLOG_POSTS: the newest post is not automatically
+* the one worth stopping a visitor for. To retire the strip, drop it from
+* `SiteChrome`; to repoint it, edit the three constants below.
+*/
+var SLUG = "dirac-perfect-score-imo-2026";
+var HEADLINE = "Boundless Intuition’s prover Dirac proves 6/6 on IMO 2026 at record speed";
+var HEADLINE_SHORT = "Dirac proves 6/6 on IMO 2026";
+/** Feeds CHROME_HEIGHT in SiteChrome — change the two together. */
+var ANNOUNCEMENT_HEIGHT = "h-10";
+function AnnouncementBar() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+		to: "/blog/$slug",
+		params: { slug: SLUG },
+		onClick: () => track$1("announcement_clicked", { slug: SLUG }),
+		"aria-label": `${HEADLINE} — read the result`,
+		className: "group relative z-50 block bg-gradient-to-b from-background/85 via-background/55 to-transparent",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			"aria-hidden": true,
+			className: `mx-auto flex ${ANNOUNCEMENT_HEIGHT} max-w-shell items-center justify-center gap-2 px-6 md:hidden`,
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "font-mono text-[11.5px] text-foreground/75",
+				children: HEADLINE_SHORT
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "text-[11px] text-foreground/50 transition-[color,transform] duration-300 group-hover:translate-x-0.5 group-hover:text-foreground/80",
+				children: "→"
+			})]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			"aria-hidden": true,
+			className: `mx-auto hidden ${ANNOUNCEMENT_HEIGHT} max-w-shell items-center justify-center gap-2.5 px-6 md:flex lg:px-10`,
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "font-mono text-[13px] text-foreground/75 transition-colors group-hover:text-foreground",
+				children: HEADLINE
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+				className: "text-[12px] text-foreground/50 transition-[color,transform] duration-300 group-hover:translate-x-0.5 group-hover:text-foreground/80",
+				children: "→"
+			})]
+		})]
+	});
+}
+/**
+* The page chrome: the announcement strip with the top bar under it. Pages that
+* want the strip render this instead of a bare <TopBar />, which is also the one
+* place to add or retire it across every route at once.
+*
+* The strip is *not* pinned. It sits in the flow at the top of the page and
+* scrolls away for good; only the top bar sticks, exactly as it did before the
+* strip existed. So nothing that sticks below the chrome needs re-keying — the
+* blog's filter bar and the post table of contents still offset against the
+* bar's own 4rem.
+*
+* What the page does owe the strip is CHROME_PULL. The strip is transparent, so
+* it only reads as part of the screen if the plate behind it is the screen: a
+* page whose first section already carries the site's `-mt-16` (pulling it under
+* the transparent bar) additionally pulls its <main> up by the strip's 40px, and
+* the art then starts at the very top of the viewport.
+*
+* That pull goes on <main> together with `flow-root`, and the pairing is
+* load-bearing: without a block formatting context, <main>'s top margin
+* collapses with its first child's into the single most-negative of the two, and
+* only one of the two pulls survives.
+*/
+var CHROME_PULL = "-mt-10";
+function SiteChrome() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(AnnouncementBar, {}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TopBar, {})] });
+}
 var LIGHT = {
 	isDark: false,
 	bg: [
@@ -272,4 +353,4 @@ function useDomainCanvas(makeEngine, externalTarget) {
 	};
 }
 //#endregion
-export { smoothstep as a, rng as i, mix as n, tone as o, oklcha as r, useDomainCanvas as s, field as t };
+export { oklcha as a, tone as c, mix as i, useDomainCanvas as l, SiteChrome as n, rng as o, field as r, smoothstep as s, CHROME_PULL as t };

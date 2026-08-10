@@ -1,5 +1,5 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { TopBar } from "@/components/site/TopBar";
+import { SiteChrome, CHROME_PULL } from "@/components/site/SiteChrome";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { BlogPostPage } from "@/components/site/blog/BlogPostPage";
 import { getBlogPost } from "@/lib/blog";
@@ -33,8 +33,8 @@ function BlogPostRoute() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <TopBar />
-      <main>
+      <SiteChrome />
+      <main className={`flow-root ${CHROME_PULL}`}>
         <BlogPostPage post={post} />
       </main>
       <SiteFooter />

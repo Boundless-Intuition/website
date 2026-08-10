@@ -1,11 +1,11 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_react, r as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
-import { i as track$1, o as useSectionViews, r as TopBar, t as BOOKING_URL } from "./TopBar-CG-62kmp.mjs";
-import { t as SiteFooter } from "./SiteFooter-BhGwgGMx.mjs";
-import { a as smoothstep, i as rng, o as tone, r as oklcha, s as useDomainCanvas } from "./useDomainCanvas-CNinD-23.mjs";
+import { i as track$1, o as useSectionViews, t as BOOKING_URL } from "./TopBar-CWfn6P43.mjs";
+import { a as oklcha, c as tone, l as useDomainCanvas, n as SiteChrome, o as rng, s as smoothstep, t as CHROME_PULL } from "./useDomainCanvas-M9puoThv.mjs";
+import { t as SiteFooter } from "./SiteFooter-DrfFC7g4.mjs";
 import { t as PlateDrift } from "./PlateDrift--xvGAf8G.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/routes-Bmx40qhd.js
+//#region node_modules/.nitro/vite/services/ssr/assets/routes-B_XqKXS9.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 /**
@@ -629,12 +629,15 @@ function Index() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "min-h-screen bg-background text-foreground",
 		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TopBar, {}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", { children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hero, {}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ThesisBand, {}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Origin, {})
-			] }),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SiteChrome, {}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
+				className: `flow-root ${CHROME_PULL}`,
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Hero, {}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ThesisBand, {}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Origin, {})
+				]
+			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SiteFooter, {})
 		]
 	});

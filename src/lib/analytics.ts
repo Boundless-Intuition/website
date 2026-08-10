@@ -47,6 +47,7 @@ const EVENT_TIER = {
 
   render_error: "normal",
 
+  announcement_clicked: "quiet",
   outbound_playground: "quiet",
   outbound_social: "quiet",
   post_shared: "quiet",

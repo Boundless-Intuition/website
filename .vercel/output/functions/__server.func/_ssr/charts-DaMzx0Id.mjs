@@ -1,9 +1,9 @@
 import { i as __toESM } from "../_runtime.mjs";
 import { n as require_react, r as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
 import { t as clsx } from "../_libs/clsx.mjs";
-import { _ as Cell, a as YAxis, b as Legend, c as ZAxis, d as ReferenceLine, f as Bar, g as PolarGrid, h as PolarRadiusAxis, i as LineChart, l as Line, m as PolarAngleAxis, n as RadarChart, o as XAxis, p as Radar, r as BarChart, s as Scatter, t as ScatterChart, u as CartesianGrid, v as ResponsiveContainer, y as Tooltip } from "../_libs/recharts+[...].mjs";
+import { a as XAxis, c as Bar, d as PolarRadiusAxis, f as PolarGrid, g as Legend, h as Tooltip, i as YAxis, l as Radar, m as ResponsiveContainer, n as RadarChart, o as Scatter, p as Cell, r as BarChart, s as ZAxis, t as ScatterChart, u as PolarAngleAxis } from "../_libs/recharts+[...].mjs";
 import { t as twMerge } from "../_libs/tailwind-merge.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/charts-yyL3mW5m.js
+//#region node_modules/.nitro/vite/services/ssr/assets/charts-DaMzx0Id.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function Prose({ children }) {
@@ -35,6 +35,12 @@ function H3({ id, children }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
 		id,
 		className: "mb-3 mt-9 scroll-mt-24 font-display text-[18.5px] font-medium tracking-tight text-foreground",
+		children
+	});
+}
+function UL({ children }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+		className: "mb-5 list-disc space-y-2 pl-5 text-[16px] leading-[1.7] text-foreground/85",
 		children
 	});
 }
@@ -91,12 +97,6 @@ function Figure({ n, caption, children }) {
 }
 function Hr() {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("hr", { className: "my-12 border-border" });
-}
-function References({ children }) {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ol", {
-		className: "mb-5 list-decimal space-y-3 pl-5 text-[14px] leading-relaxed text-muted-foreground",
-		children
-	});
 }
 function cn(...inputs) {
 	return twMerge(clsx(inputs));
@@ -257,14 +257,6 @@ var SKIN = {
 	light: "oklch(0.64 0.09 52)",
 	dark: "oklch(0.82 0.08 56)"
 };
-/** Held back toward the page. Reference series and uncontested cases. */
-var DIM = {
-	light: "oklch(0.7 0.015 250)",
-	dark: "oklch(0.5 0.015 250)"
-};
-var NEGATIVE = "oklch(0.57 0.18 25)";
-var NEGATIVE_LINE = "oklch(0.57 0.18 25 / 0.4)";
-var NEGATIVE_FILL = "oklch(0.57 0.18 25 / 0.08)";
 var tooltipCursor = {
 	fill: "var(--muted)",
 	opacity: .4
@@ -1061,358 +1053,234 @@ function HeadlineMetricsRadar() {
 		})
 	});
 }
-var categoryConfig = {
-	clear: {
-		label: "Structural / clear cases",
-		theme: DIM
-	},
-	mimic: {
-		label: "Mimic cases",
-		theme: SKIN
-	}
-};
-var categoryData = [
+var imoTotalConfig = { total: {
+	label: "Total proving time",
+	theme: LANTERN
+} };
+var imoTotalData = [
 	{
-		label: "Clear SLE",
-		n: 10,
-		acc: 100,
-		kind: "clear"
+		label: "Dirac (ours)",
+		total: 7.302,
+		display: "7h 18m",
+		ours: true
 	},
 	{
-		label: "Sub-threshold",
-		n: 7,
-		acc: 100,
-		kind: "clear"
+		label: "Pramaana Hardy",
+		total: 8.95,
+		display: "8h 57m",
+		ours: false
 	},
 	{
-		label: "ANA-negative",
-		n: 6,
-		acc: 100,
-		kind: "clear"
-	},
-	{
-		label: "Boundary / arithmetic",
-		n: 11,
-		acc: 100,
-		kind: "clear"
-	},
-	{
-		label: "Drug-induced mimic",
-		n: 8,
-		acc: 92.5,
-		kind: "mimic"
-	},
-	{
-		label: "Infection mimic",
-		n: 8,
-		acc: 87.5,
-		kind: "mimic"
+		label: "Axiom AxiomProver",
+		total: 24.933,
+		display: "24h 56m",
+		ours: false
 	}
 ];
-function CategoryAccuracyChart() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartContainer, {
-		config: categoryConfig,
-		className: "aspect-[16/12] w-full",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(BarChart, {
-			data: categoryData,
-			margin: {
-				top: 8,
-				right: 8,
-				left: 0,
-				bottom: 0
-			},
-			children: [
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CartesianGrid, { vertical: false }),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(XAxis, {
-					dataKey: "label",
-					tickLine: false,
-					axisLine: false,
-					fontSize: 10.5,
-					interval: 0
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(YAxis, {
-					tickLine: false,
-					axisLine: false,
-					domain: [80, 100],
-					tickFormatter: (v) => `${v}%`,
-					width: 46,
-					fontSize: 12
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ReferenceLine, {
-					y: 100,
-					stroke: "var(--accent)",
-					strokeDasharray: "4 4",
-					label: {
-						value: "Verified · 100% across all categories",
-						position: "insideTopLeft",
-						fontSize: 10.5,
-						fill: "var(--accent)"
-					}
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltip, {
-					cursor: tooltipCursor,
-					content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltipContent, {
-						hideIndicator: true,
-						formatter: (value, _name, item) => tooltipRow("Baseline accuracy", `${value}% (n=${item.payload.n})`)
+function ImoTotalTimeChart() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartFrame, {
+		title: "Total proving time",
+		unit: "Hours to prove all six problems",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartContainer, {
+			config: imoTotalConfig,
+			className: "aspect-[16/9] w-full",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(BarChart, {
+				data: imoTotalData,
+				layout: "vertical",
+				barCategoryGap: "26%",
+				maxBarSize: 34,
+				margin: {
+					top: 4,
+					right: 20,
+					left: 8,
+					bottom: 0
+				},
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(XAxis, {
+						...AXIS,
+						type: "number",
+						domain: [0, 25],
+						ticks: [
+							0,
+							5,
+							10,
+							15,
+							20,
+							25
+						],
+						tickFormatter: (v) => `${v}h`
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(YAxis, {
+						...AXIS,
+						type: "category",
+						dataKey: "label",
+						width: 150
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltip, {
+						cursor: tooltipCursor,
+						content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltipContent, { formatter: (_value, name, item) => tooltipRow(name, item.payload.display) })
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
+						dataKey: "total",
+						radius: [
+							0,
+							2,
+							2,
+							0
+						],
+						children: imoTotalData.map((d) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Cell, {
+							fill: d.ours ? "var(--color-total)" : "var(--muted-foreground)",
+							fillOpacity: d.ours ? 1 : .45
+						}, d.label))
 					})
-				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
-					dataKey: "acc",
-					radius: [
-						3,
-						3,
-						0,
-						0
-					],
-					children: categoryData.map((d) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Cell, { fill: d.kind === "mimic" ? "var(--color-mimic)" : "var(--color-clear)" }, d.label))
-				})
-			]
+				]
+			})
 		})
 	});
 }
-function MatrixCell({ label, value, tone }) {
-	const [hover, setHover] = (0, import_react.useState)(false);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		onMouseEnter: () => setHover(true),
-		onMouseLeave: () => setHover(false),
-		className: `relative flex flex-1 flex-col items-center justify-center gap-1 border p-3 text-center transition-transform ${tone === "bad" ? "border-[var(--chart-negative)]/50 bg-[var(--chart-negative)]/10" : tone === "good" ? "border-accent/40 bg-accent/10" : "border-border bg-muted/20"} ${hover ? "scale-[1.03]" : ""}`,
-		style: { "--chart-negative": NEGATIVE },
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-			className: "font-display text-[22px] font-medium leading-none text-foreground",
-			children: value
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-			className: "font-mono text-[9.5px] uppercase tracking-[0.12em] text-muted-foreground",
-			children: label
-		})]
-	});
-}
-function ConfusionMatrix({ title, tp, fn, fp, tn }) {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "flex-1",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "mb-2 text-center font-display text-[13px] font-medium text-foreground",
-			children: title
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "flex flex-col gap-px overflow-hidden rounded-sm border border-border bg-border",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "flex gap-px",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MatrixCell, {
-					label: "True positive",
-					value: tp,
-					tone: "good"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MatrixCell, {
-					label: "False negative",
-					value: fn,
-					tone: fn > 0 ? "bad" : "neutral"
-				})]
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "flex gap-px",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MatrixCell, {
-					label: "False positive",
-					value: fp,
-					tone: fp > 0 ? "bad" : "neutral"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MatrixCell, {
-					label: "True negative",
-					value: tn,
-					tone: "good"
-				})]
-			})]
-		})]
-	});
-}
-function ConfusionMatrixFigure() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "flex flex-col gap-8 sm:flex-row sm:gap-6",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ConfusionMatrix, {
-			title: "Baseline (LLM only)",
-			tp: 18,
-			fn: 2,
-			fp: 0,
-			tn: 30
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ConfusionMatrix, {
-			title: "Verified (autoformalization + Lean)",
-			tp: 20,
-			fn: 0,
-			fp: 0,
-			tn: 30
-		})]
-	});
-}
-var runScoreConfig = { score: {
-	label: "Baseline score",
-	color: "var(--muted-foreground)"
-} };
-var caseAData = [
+var imoProblemConfig = {
+	dirac: {
+		label: "Dirac (ours)",
+		theme: LANTERN
+	},
+	hardy: {
+		label: "Pramaana Hardy",
+		theme: ULTRA
+	},
+	axiom: {
+		label: "Axiom AxiomProver",
+		theme: BONE
+	}
+};
+var imoProblemData = [
 	{
-		run: "Run 1",
-		score: 10,
-		verdict: "negative"
+		label: "Q1",
+		dirac: .485,
+		hardy: .341,
+		axiom: .4
 	},
 	{
-		run: "Run 2",
-		score: 16,
-		verdict: "positive"
+		label: "Q2",
+		dirac: 1.338,
+		hardy: 2.883,
+		axiom: 6
 	},
 	{
-		run: "Run 3",
-		score: 16,
-		verdict: "positive"
+		label: "Q3",
+		dirac: 2.174,
+		hardy: 3.067,
+		axiom: 14.483
 	},
 	{
-		run: "Run 4",
-		score: 10,
-		verdict: "negative"
+		label: "Q4",
+		dirac: .266,
+		hardy: .272,
+		axiom: .65
 	},
 	{
-		run: "Run 5",
-		score: 10,
-		verdict: "negative"
+		label: "Q5",
+		dirac: .303,
+		hardy: .519,
+		axiom: 1.083
+	},
+	{
+		label: "Q6",
+		dirac: 2.735,
+		hardy: 1.867,
+		axiom: 2.317
 	}
 ];
-function CaseADot(props) {
-	const { cx, cy, payload } = props;
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("circle", {
-		cx,
-		cy,
-		r: 5,
-		fill: payload.verdict === "positive" ? "var(--accent)" : NEGATIVE,
-		stroke: "var(--background)",
-		strokeWidth: 2
-	});
+function formatHours(value) {
+	const totalMinutes = Math.round(value * 60);
+	const h = Math.floor(totalMinutes / 60);
+	const m = totalMinutes % 60;
+	return h === 0 ? `${m}m` : `${h}h ${m.toString().padStart(2, "0")}m`;
 }
-function CaseATooltip({ active, payload }) {
-	if (!active || !payload?.length) return null;
-	const p = payload[0].payload;
-	const correct = p.verdict === "positive";
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "rounded-sm border border-border bg-background px-3 py-2 text-xs shadow-lg",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "font-medium text-foreground",
-			children: [
-				p.run,
-				" · score ",
-				p.score
-			]
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: `mt-1 font-mono text-[11px] ${correct ? "text-accent" : ""}`,
-			style: !correct ? { color: NEGATIVE } : void 0,
-			children: [
-				"verdict: ",
-				p.verdict,
-				" ",
-				correct ? "(correct)" : "(wrong — this is genuine lupus)"
-			]
-		})]
-	});
-}
-function RunVerdictFigure() {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "flex flex-col gap-8",
-		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			className: "mb-2 flex items-center justify-between",
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-				className: "font-display text-[13px] font-medium text-foreground",
-				children: "Case A · hydralazine + anti-dsDNA (genuine lupus)"
-			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-				className: "font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground",
-				children: "Verified: positive, all 5 runs"
-			})]
-		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartContainer, {
-			config: runScoreConfig,
-			className: "aspect-[16/7] w-full",
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(LineChart, {
-				data: caseAData,
+function ImoTimeByProblemChart() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartFrame, {
+		title: "Proving time by problem",
+		unit: "Hours per problem",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartContainer, {
+			config: imoProblemConfig,
+			className: "aspect-[16/10] w-full",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(BarChart, {
+				data: imoProblemData,
+				barCategoryGap: "28%",
+				maxBarSize: 30,
 				margin: {
-					top: 8,
-					right: 16,
+					top: 4,
+					right: 8,
 					left: 0,
 					bottom: 0
 				},
 				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CartesianGrid, { vertical: false }),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(XAxis, {
-						dataKey: "run",
-						tickLine: false,
-						axisLine: false,
-						fontSize: 11,
-						padding: {
-							left: 16,
-							right: 16
-						}
+						dataKey: "label",
+						...AXIS
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(YAxis, {
-						domain: [0, 20],
-						tickLine: false,
-						axisLine: false,
-						width: 28,
-						fontSize: 11
-					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ReferenceLine, {
-						y: 10,
-						stroke: "var(--muted-foreground)",
-						strokeDasharray: "4 4",
-						label: {
-							value: "classification threshold",
-							position: "insideTopRight",
-							fontSize: 10,
-							fill: "var(--muted-foreground)"
-						}
+						...AXIS,
+						domain: [0, 15],
+						ticks: [
+							0,
+							3,
+							6,
+							9,
+							12,
+							15
+						],
+						tickFormatter: (v) => `${v}h`,
+						width: 40
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltip, {
-						content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CaseATooltip, {}),
-						cursor: { strokeDasharray: "3 3" }
+						cursor: tooltipCursor,
+						content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartTooltipContent, { formatter: (value, name) => tooltipRow(name, formatHours(Number(value))) })
 					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Line, {
-						dataKey: "score",
-						stroke: "var(--muted-foreground)",
-						strokeWidth: 1.5,
-						isAnimationActive: false,
-						dot: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CaseADot, {}),
-						activeDot: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(CaseADot, {})
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartLegend, {
+						verticalAlign: "top",
+						content: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DotLegend, {
+							config: imoProblemConfig,
+							keys: [
+								"dirac",
+								"hardy",
+								"axiom"
+							]
+						})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
+						dataKey: "dirac",
+						fill: "var(--color-dirac)",
+						radius: [
+							2,
+							2,
+							0,
+							0
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
+						dataKey: "hardy",
+						fill: "var(--color-hardy)",
+						radius: [
+							2,
+							2,
+							0,
+							0
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bar, {
+						dataKey: "axiom",
+						fill: "var(--color-axiom)",
+						radius: [
+							2,
+							2,
+							0,
+							0
+						]
 					})
 				]
 			})
-		})] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "mb-2 flex items-center justify-between",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-					className: "font-display text-[13px] font-medium text-foreground",
-					children: "Case B · treated HIV + anti-dsDNA (genuine lupus)"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-					className: "font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground",
-					children: "Verified: positive, all 5 runs"
-				})]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-				className: "grid grid-cols-5 gap-2",
-				children: [
-					"Run 1",
-					"Run 2",
-					"Run 3",
-					"Run 4",
-					"Run 5"
-				].map((run) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "flex flex-col items-center gap-1.5 rounded-sm border p-2.5 text-center",
-					style: {
-						borderColor: NEGATIVE_LINE,
-						background: NEGATIVE_FILL
-					},
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-						className: "font-mono text-[9.5px] uppercase tracking-[0.1em] text-muted-foreground",
-						children: run
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-						className: "text-[12px] font-medium",
-						style: { color: NEGATIVE },
-						children: "Negative"
-					})]
-				}, run))
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-				className: "mt-2 text-[12px] text-muted-foreground",
-				children: "Consistent this time, and consistently wrong — a stable derivation, not a drifting one."
-			})
-		] })]
+		})
 	});
 }
 //#endregion
-export { References as _, CostAccuracyParetoChart as a, H2 as c, Hr as d, InlineCode as f, Prose as g, P as h, ConfusionMatrixFigure as i, H3 as l, Lead as m, CategoryAccuracyChart as n, DataTable as o, LatencyByArmChart as p, CodeBlock as r, Figure as s, AccuracyByArmChart as t, HeadlineMetricsRadar as u, RunVerdictFigure as v, TaxCostAccuracyChart as y };
+export { TaxCostAccuracyChart as _, Figure as a, HeadlineMetricsRadar as c, ImoTotalTimeChart as d, InlineCode as f, Prose as g, P as h, DataTable as i, Hr as l, Lead as m, CodeBlock as n, H2 as o, LatencyByArmChart as p, CostAccuracyParetoChart as r, H3 as s, AccuracyByArmChart as t, ImoTimeByProblemChart as u, UL as v };

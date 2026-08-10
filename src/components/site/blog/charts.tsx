@@ -1016,3 +1016,165 @@ export function RunVerdictFigure() {
     </div>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/* Fig 1 (IMO 2026) — total proving time across all six problems       */
+/* ------------------------------------------------------------------ */
+
+// All three systems cleared the same six formalizations, so the only thing
+// separating them is how long it took. LANTERN stays on our own run, per the
+// series note at the top of this file.
+const imoTotalConfig: ChartConfig = {
+  total: { label: "Total proving time", theme: LANTERN },
+};
+
+// Hours, so the axis reads in the same unit the post quotes.
+const imoTotalData = [
+  { label: "Dirac (ours)", total: 7.302, display: "7h 18m", ours: true },
+  { label: "Pramaana Hardy", total: 8.95, display: "8h 57m", ours: false },
+  {
+    label: "Axiom AxiomProver",
+    total: 24.933,
+    display: "24h 56m",
+    ours: false,
+  },
+];
+
+export function ImoTotalTimeChart() {
+  return (
+    <ChartFrame
+      title="Total proving time"
+      unit="Hours to prove all six problems"
+    >
+      <ChartContainer config={imoTotalConfig} className="aspect-[16/9] w-full">
+        <BarChart
+          data={imoTotalData}
+          layout="vertical"
+          barCategoryGap="26%"
+          maxBarSize={34}
+          margin={{ top: 4, right: 20, left: 8, bottom: 0 }}
+        >
+          <XAxis
+            {...AXIS}
+            type="number"
+            domain={[0, 25]}
+            ticks={[0, 5, 10, 15, 20, 25]}
+            tickFormatter={(v) => `${v}h`}
+          />
+          <YAxis {...AXIS} type="category" dataKey="label" width={150} />
+          <ChartTooltip
+            cursor={tooltipCursor}
+            content={
+              <ChartTooltipContent
+                formatter={(_value, name, item) =>
+                  tooltipRow(name, item.payload.display)
+                }
+              />
+            }
+          />
+          <Bar dataKey="total" radius={[0, 2, 2, 0]}>
+            {imoTotalData.map((d) => (
+              <Cell
+                key={d.label}
+                fill={d.ours ? "var(--color-total)" : "var(--muted-foreground)"}
+                fillOpacity={d.ours ? 1 : 0.45}
+              />
+            ))}
+          </Bar>
+        </BarChart>
+      </ChartContainer>
+    </ChartFrame>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Fig 2 (IMO 2026) — proving time per problem, all three systems      */
+/* ------------------------------------------------------------------ */
+
+const imoProblemConfig: ChartConfig = {
+  dirac: { label: "Dirac (ours)", theme: LANTERN },
+  hardy: { label: "Pramaana Hardy", theme: ULTRA },
+  axiom: { label: "Axiom AxiomProver", theme: BONE },
+};
+
+// Hours again. The axis is linear on purpose: Q1/Q4/Q5 really are slivers next
+// to Q3, and flattening that onto a log scale would hide the whole point -
+// the margin lives at the hard end of the paper, not across it evenly.
+const imoProblemData = [
+  { label: "Q1", dirac: 0.485, hardy: 0.341, axiom: 0.4 },
+  { label: "Q2", dirac: 1.338, hardy: 2.883, axiom: 6 },
+  { label: "Q3", dirac: 2.174, hardy: 3.067, axiom: 14.483 },
+  { label: "Q4", dirac: 0.266, hardy: 0.272, axiom: 0.65 },
+  { label: "Q5", dirac: 0.303, hardy: 0.519, axiom: 1.083 },
+  { label: "Q6", dirac: 2.735, hardy: 1.867, axiom: 2.317 },
+];
+
+// 2.174 -> "2h 10m". Minutes alone read badly past an hour, and the source
+// tables quote mixed units.
+function formatHours(value: number): string {
+  const totalMinutes = Math.round(value * 60);
+  const h = Math.floor(totalMinutes / 60);
+  const m = totalMinutes % 60;
+  return h === 0 ? `${m}m` : `${h}h ${m.toString().padStart(2, "0")}m`;
+}
+
+export function ImoTimeByProblemChart() {
+  return (
+    <ChartFrame title="Proving time by problem" unit="Hours per problem">
+      <ChartContainer
+        config={imoProblemConfig}
+        className="aspect-[16/10] w-full"
+      >
+        <BarChart
+          data={imoProblemData}
+          barCategoryGap="28%"
+          maxBarSize={30}
+          margin={{ top: 4, right: 8, left: 0, bottom: 0 }}
+        >
+          <XAxis dataKey="label" {...AXIS} />
+          <YAxis
+            {...AXIS}
+            domain={[0, 15]}
+            ticks={[0, 3, 6, 9, 12, 15]}
+            tickFormatter={(v) => `${v}h`}
+            width={40}
+          />
+          <ChartTooltip
+            cursor={tooltipCursor}
+            content={
+              <ChartTooltipContent
+                formatter={(value, name) =>
+                  tooltipRow(name, formatHours(Number(value)))
+                }
+              />
+            }
+          />
+          <ChartLegend
+            verticalAlign="top"
+            content={
+              <DotLegend
+                config={imoProblemConfig}
+                keys={["dirac", "hardy", "axiom"]}
+              />
+            }
+          />
+          <Bar
+            dataKey="dirac"
+            fill="var(--color-dirac)"
+            radius={[2, 2, 0, 0]}
+          />
+          <Bar
+            dataKey="hardy"
+            fill="var(--color-hardy)"
+            radius={[2, 2, 0, 0]}
+          />
+          <Bar
+            dataKey="axiom"
+            fill="var(--color-axiom)"
+            radius={[2, 2, 0, 0]}
+          />
+        </BarChart>
+      </ChartContainer>
+    </ChartFrame>
+  );
+}
