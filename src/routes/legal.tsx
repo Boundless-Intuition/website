@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { TopBar } from "@/components/site/TopBar";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { PlateDrift } from "@/components/site/PlateDrift";
+import { clearIdentity } from "@/lib/persistence";
 
 export const Route = createFileRoute("/legal")({
   head: () => ({

@@ -174,10 +174,14 @@ async function notifyVisit(request, env) {
 	const url = new URL(request.url);
 	const { place, timezone, client } = visitorContext(request);
 	const referrer = request.headers.get("referer") ?? "direct";
+	const { networkContext } = await import("./network.server-Dx2p6qNs.mjs");
+	const net = networkContext(request);
 	const body = [
 		`**Landed on** \`${url.pathname}\``,
 		`**From** ${place}${timezone ? ` (${timezone})` : ""}`,
+		`**IP** ${net.ip}${net.asOrg ? ` · ${net.asOrg}` : ""}`,
 		`**Referrer** ${referrer}`,
+		`**Agent** ${net.agent.browser} ${net.agent.browserVersion} · ${net.agent.os} ${net.agent.osVersion}${net.agent.device !== "unknown" ? ` · ${net.agent.device}` : ""}`,
 		`**Client** ${client}`
 	].join("\n");
 	await sendNtfy({
@@ -190,7 +194,7 @@ async function notifyVisit(request, env) {
 }
 var serverEntryPromise;
 async function getServerEntry() {
-	if (!serverEntryPromise) serverEntryPromise = import("./server-BSzLi23B.mjs").then((m) => m.default ?? m);
+	if (!serverEntryPromise) serverEntryPromise = import("./server-BMnae6Fb.mjs").then((m) => m.default ?? m);
 	return serverEntryPromise;
 }
 async function normalizeCatastrophicSsrResponse(response) {

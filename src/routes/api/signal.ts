@@ -63,8 +63,59 @@ const EventPayload = z.object({
   ...ATTRIBUTION,
 });
 
+// ── Profile / behaviour blocks ───────────────────────────────────────────────
+// Mirrors `VisitorProfile` in `@/lib/analytics`, `BehaviorSummary` and
+// `BehaviorTrace` in `@/lib/behavior`. All optional: the fingerprint probes are
+// async and a fast bounce can flush the digest before they resolve.
+
+const STORE = z.enum(["cookie", "localStorage", "sessionStorage", "indexedDB"]);
+
+const ProfileSchema = z.object({
+  id: z.string().max(64),
+  source: z.string().max(20),
+  stability: z.string().max(10),
+  found: z.array(STORE).max(4),
+  restored: z.array(STORE).max(4),
+  traits: z.record(z.union([z.string().max(4000), z.number(), z.boolean()])),
+});
+
+const BehaviorSchema = z.record(z.number());
+
+// Tuples are [x, y, t] / [velocity, accel, t] / [dwell, flight, class].
+const Triple = z.tuple([z.number(), z.number(), z.number()]);
+
+const TraceSchema = z.object({
+  pointer: z.array(Triple).max(600),
+  scroll: z.array(Triple).max(300),
+  keys: z.array(Triple).max(400),
+  clicks: z
+    .array(
+      z.object({
+        x: z.number(),
+        y: z.number(),
+        t: z.number(),
+        target: z.string().max(80),
+        trusted: z.boolean(),
+        inert: z.boolean(),
+      }),
+    )
+    .max(120),
+  timeline: z
+    .array(
+      z.object({
+        t: z.number(),
+        kind: z.enum(["route", "visible", "hidden", "focus", "blur"]),
+        detail: z.string().max(200),
+      }),
+    )
+    .max(100),
+});
+
 const DigestPayload = z.object({
   kind: z.literal("digest"),
+  profile: ProfileSchema.optional(),
+  behavior: BehaviorSchema.optional(),
+  trace: TraceSchema.optional(),
   entryPath: STR,
   exitPath: STR,
   dwellSeconds: z.number().int().min(0).max(86_400),
@@ -167,6 +218,88 @@ function describeEvent(data: z.infer<typeof EventPayload>): string {
   }
 }
 
+// ── Visit classification ─────────────────────────────────────────────────────
+
+type VisitLevel = "automation" | "returning" | "ordinary";
+
+interface Verdict {
+  level: VisitLevel;
+  priority: 1 | 2 | 3 | 4 | 5;
+  tags: string[];
+  reasons: string[];
+}
+
+/**
+ * Decide how loudly a visit should arrive.
+ *
+ * Two independent strong signals are required before calling something
+ * automation, because each one alone has a real false-positive story: an
+ * accessibility tool dispatches untrusted events, and a very short pointer
+ * path is straight by arithmetic rather than by intent.
+ *
+ * Deliberately not used here: the sub-pixel ratio. Touch events carry integer
+ * coordinates natively, so every phone would score as synthetic. It is recorded
+ * and shown in the body, but it must not drive an alert without a
+ * `touchPoints === 0` gate.
+ */
+function classifyVisit(
+  flags: string[],
+  behavior: Record<string, number> | undefined,
+  recognised: boolean,
+): Verdict {
+  const strong: string[] = [];
+  const weak: string[] = [];
+
+  if (behavior) {
+    if (behavior.untrustedEvents > 0 || behavior.untrustedClicks > 0)
+      strong.push("synthetic input events");
+
+    // A programmatic move from A to B travels the direct distance, so the ratio
+    // sits at 1.00. Anything below 1.05 over a path long enough to have wandered
+    // is not a hand on a mouse.
+    if (
+      behavior.pointerSamples >= 10 &&
+      behavior.pointerStraightness > 0 &&
+      behavior.pointerStraightness < 1.05
+    )
+      strong.push(`pointer path straightness ${behavior.pointerStraightness}`);
+
+    // Real fingers vary. A zero standard deviation across more than a handful
+    // of keystrokes means the intervals were generated, not typed.
+    if (behavior.keyCount > 5 && behavior.dwellStdev === 0)
+      strong.push("zero variance in keystroke timing");
+  }
+
+  for (const flag of flags) {
+    if (flag.includes("mismatch")) weak.push(flag);
+  }
+
+  if (strong.length >= 2 || (strong.length === 1 && weak.length >= 1)) {
+    return {
+      level: "automation",
+      priority: 4,
+      tags: ["robot"],
+      reasons: [...strong, ...weak],
+    };
+  }
+
+  if (recognised) {
+    return {
+      level: "returning",
+      priority: 3,
+      tags: ["repeat"],
+      reasons: strong.length > 0 ? strong : [],
+    };
+  }
+
+  return {
+    level: "ordinary",
+    priority: 2,
+    tags: ["footprints"],
+    reasons: strong,
+  };
+}
+
 // ── Handler ──────────────────────────────────────────────────────────────────
 
 async function handle(request: Request): Promise<Response> {
@@ -222,6 +355,16 @@ async function handle(request: Request): Promise<Response> {
     }
 
     // ── Digest ──
+    const { networkContext, networkAnomalies } =
+      await import("@/lib/network.server");
+    const net = networkContext(request);
+    const anomalies = networkAnomalies(
+      net,
+      typeof data.profile?.traits.timezone === "string"
+        ? data.profile.traits.timezone
+        : undefined,
+    );
+
     const lines: string[] = [];
     const path =
       data.entryPath === data.exitPath
@@ -247,15 +390,138 @@ async function handle(request: Request): Promise<Response> {
     if (data.notFound.length > 0)
       lines.push(`**404s** ${data.notFound.join(", ")}`);
 
+    // ── Identity ──
+    if (data.profile) {
+      const p = data.profile;
+      const returning = p.found.length > 0;
+      lines.push(
+        `**Visitor** \`${p.id}\` (${returning ? "returning" : "new"}, ${p.source}, ${p.stability} confidence)`,
+      );
+      if (p.restored.length > 0)
+        lines.push(`**Re-seeded** ${p.restored.join(", ")}`);
+      const t = p.traits;
+      lines.push(
+        `**Device** ${t.screen} @${t.dpr}x · ${t.cores}c/${t.memory}gb · ${t.webgl}`,
+      );
+    }
+
+    // ── Behaviour ──
+    if (data.behavior) {
+      const b = data.behavior;
+      lines.push(
+        `**Behaviour** ${b.pointerSamples} pointer samples, straightness ${b.pointerStraightness}, sub-pixel ${b.subPixelRatio}`,
+      );
+      if (b.keyCount > 0)
+        lines.push(
+          `**Typing** ${b.keyCount} keys · dwell ${b.dwellMean}±${b.dwellStdev}ms · flight ${b.flightMean}±${b.flightStdev}ms`,
+        );
+      if (b.clickCount > 0)
+        lines.push(
+          `**Clicks** ${b.clickCount} (${b.inertClicks} on non-interactive)`,
+        );
+    }
+
+    // ── Network ──
+    lines.push(`**IP** ${net.ip} (via ${net.ipSource})`);
+    if (net.asOrg) lines.push(`**Network** ${net.asOrg} (AS${net.asn ?? "?"})`);
+    if (net.geo.latitude && net.geo.longitude)
+      lines.push(`**Coords** ${net.geo.latitude}, ${net.geo.longitude}`);
+    lines.push(
+      `**Agent** ${net.agent.browser} ${net.agent.browserVersion} · ${net.agent.os} ${net.agent.osVersion} · ${net.agent.device}`,
+    );
+
+    const flags = [
+      anomalies.timezoneMismatch && "timezone/geo mismatch (VPN?)",
+      anomalies.proxied && `proxied (${net.forwardedChain.length} hops)`,
+      anomalies.platformMismatch && "UA/client-hint platform mismatch",
+      anomalies.formMismatch && "UA/client-hint form mismatch",
+      data.behavior?.untrustedEvents ? "synthetic pointer events" : undefined,
+      data.behavior?.untrustedClicks ? "synthetic clicks" : undefined,
+    ].filter(Boolean) as string[];
+    if (flags.length > 0) lines.push(`**Flags** ${flags.join(" · ")}`);
+
+    // ── Persistence ──
+    // Hoisted out of the block below so the notification routing can see it.
+    let recognised = false;
+    // Server-side matching runs before the notification is composed so the
+    // push can say "returning" on the strength of the fuzzy match rather than
+    // just the client's own storage, which a cleared browser would have lost.
+    if (data.profile) {
+      const { resolveDevice, recordVisit } =
+        await import("@/lib/identity-store.server");
+      const t = data.profile.traits;
+      const vector = {
+        ua: String(t.ua ?? ""),
+        platform: String(t.platform ?? ""),
+        languages: String(t.languages ?? ""),
+        timezone: String(t.timezone ?? ""),
+        cores: Number(t.cores ?? 0),
+        memory: Number(t.memory ?? 0),
+        touchPoints: Number(t.touchPoints ?? 0),
+        colorDepth: Number(t.colorDepth ?? 0),
+        screen: String(t.screen ?? ""),
+        canvas: String(t.canvas ?? ""),
+        webgl: String(t.webgl ?? ""),
+        webglParams: String(t.webglParams ?? ""),
+        audio: String(t.audio ?? ""),
+        fonts: String(t.fonts ?? ""),
+        mediaDevices: String(t.mediaDevices ?? ""),
+      };
+
+      const match = await resolveDevice(
+        vector,
+        data.profile.id,
+        data.profile.stability,
+      );
+
+      if (match?.matched) {
+        recognised = true;
+        lines.push(
+          `**Recognised** device seen before at ${Math.round(match.confidence * 100)}% component agreement`,
+        );
+      }
+
+      await recordVisit({
+        deviceId: match?.deviceId,
+        visitorId: match?.visitorId ?? data.profile.id,
+        entryPath: data.entryPath,
+        exitPath: data.exitPath,
+        dwellSeconds: data.dwellSeconds,
+        ip: net.ip,
+        country: net.geo.country,
+        city: net.geo.city,
+        asn: net.asn,
+        asOrg: net.asOrg,
+        behavior: data.behavior,
+        flags,
+        trace: data.trace,
+      });
+    }
+
     lines.push(`**Client** ${client}`);
+
+    // ── Routing ──
+    // Without this every visit lands on the firehose at priority 2 and the
+    // interesting ones are indistinguishable from the rest. Automation is the
+    // thing worth an alert tone; a recognised returning device is worth reading
+    // now; everything else stays quiet.
+    const verdict = classifyVisit(flags, data.behavior, recognised);
 
     await sendNtfy(
       {
-        title: `Visit · ${place} · ${formatDwell(data.dwellSeconds)}`,
-        body: lines.join("\n"),
-        priority: 2,
-        tags: ["footprints"],
-        firehose: true,
+        title:
+          verdict.level === "automation"
+            ? `Automation · ${place}`
+            : verdict.level === "returning"
+              ? `Return visit · ${place} · ${formatDwell(data.dwellSeconds)}`
+              : `Visit · ${place} · ${formatDwell(data.dwellSeconds)}`,
+        body:
+          verdict.reasons.length > 0
+            ? [`**Why** ${verdict.reasons.join(" · ")}`, ...lines].join("\n")
+            : lines.join("\n"),
+        priority: verdict.priority,
+        tags: verdict.tags,
+        firehose: verdict.level === "ordinary",
       },
       undefined,
     );

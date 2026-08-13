@@ -2,6 +2,15 @@ import { track as vercelTrack } from "@vercel/analytics";
 import { useEffect } from "react";
 
 import { SECTIONS, type SectionId } from "./sections";
+import {
+  startBehaviorCapture,
+  summarize,
+  trace,
+  type BehaviorSummary,
+  type BehaviorTrace,
+} from "./behavior";
+import { resolveIdentity, type DeviceTraits } from "./fingerprint";
+import { persistIdentity } from "./persistence";
 
 // ── Analytics ────────────────────────────────────────────────────────────────
 // One place for every event name the site emits. Components import `track()`
@@ -13,10 +22,17 @@ import { SECTIONS, type SectionId } from "./sections";
 //   2. ntfy.sh - push, via the `/api/signal` route (the topic and token stay
 //      server-side there, exactly like the Buttondown key in `./waitlist`).
 //
-// Nothing here reads or writes cookies, localStorage or sessionStorage. The
-// visit accumulator below lives in module scope, so it survives client-side
-// route changes and dies on reload. That keeps the site's "no consent banner"
-// posture honest - see the privacy section of `/legal`.
+// This module DOES read and write client storage. `./persistence` keeps a
+// durable visitor id across cookie, localStorage, sessionStorage and IndexedDB,
+// `./fingerprint` derives a device hash that stands in when those are cleared,
+// and `./behavior` records pointer, scroll and keystroke-timing traces. All
+// three ride along on the end-of-visit digest.
+//
+// That is a material change from anonymous aggregate measurement, so the
+// measurement section of `/legal` describes it in those terms. If you add a
+// signal here, update that section in the same commit - a privacy notice that
+// disagrees with this file is a liability on its own, independent of whether
+// the collection was lawful.
 
 // ── Event vocabulary ─────────────────────────────────────────────────────────
 
@@ -96,6 +112,70 @@ export function getAttribution(): Attribution {
     utm_campaign: params.get("utm_campaign") ?? undefined,
   };
   return attribution;
+}
+
+// ── Visitor profile ──────────────────────────────────────────────────────────
+
+export interface VisitorProfile {
+  id: string;
+  /** "stored" when a client store had it, "computed" when derived from traits. */
+  source: string;
+  /** "low" for browsers that randomise fingerprint surfaces - id is per-session. */
+  stability: string;
+  /** Stores that already held the id. Empty on a first visit. */
+  found: string[];
+  /** Stores that had lost it and were re-seeded from the survivors. */
+  restored: string[];
+  traits: DeviceTraits;
+}
+
+let profile: VisitorProfile | undefined;
+let profilePromise: Promise<VisitorProfile | undefined> | undefined;
+
+/**
+ * Resolve the durable identity once per page load.
+ *
+ * Deliberately not awaited on the critical path: canvas, WebGL, audio and font
+ * probing together cost tens of milliseconds, and none of it is worth delaying
+ * paint for. Kicked off from `useVisitDigest` and read again at flush time,
+ * which is seconds later at minimum.
+ */
+function resolveProfile(): Promise<VisitorProfile | undefined> {
+  if (profilePromise) return profilePromise;
+
+  profilePromise = (async () => {
+    const identity = await resolveIdentity();
+    if (!identity) return undefined;
+
+    const persisted = await persistIdentity(identity.id);
+
+    profile = {
+      id: persisted?.id ?? identity.id,
+      source: identity.source,
+      stability: identity.stability,
+      found: persisted?.found ?? [],
+      restored: persisted?.restored ?? [],
+      traits: identity.traits,
+    };
+
+    // Dev-only inspection hatch. `bun run dev`, then in the console:
+    //   __biProfile          what this browser is fingerprinted as
+    //   __biBehavior()       the live behavioural summary
+    //   __biTrace()          the raw pointer / key / click buffers
+    // Guarded by import.meta.env.DEV, so Vite strips the whole block from the
+    // production bundle - there is no debug surface on the live site.
+    if (import.meta.env.DEV) {
+      Object.assign(window, {
+        __biProfile: profile,
+        __biBehavior: summarize,
+        __biTrace: trace,
+      });
+    }
+
+    return profile;
+  })().catch(() => undefined);
+
+  return profilePromise;
 }
 
 // ── Visit accumulator ────────────────────────────────────────────────────────
@@ -258,6 +338,12 @@ export function flushDigest() {
       narrated: v.narrated,
       shared: v.shared,
       notFound: v.notFound,
+      // `profile` rather than `resolveProfile()`: this runs inside a pagehide
+      // handler, where there is no opportunity to await anything. If the probes
+      // have not finished by now the digest simply goes without them.
+      profile,
+      behavior: summarize(),
+      trace: trace(),
       ...getAttribution(),
     },
     true,
@@ -272,6 +358,8 @@ export function useVisitDigest() {
   useEffect(() => {
     getAttribution();
     getVisit();
+    void resolveProfile();
+    const stopBehavior = startBehaviorCapture();
 
     const onHide = () => {
       if (document.visibilityState === "hidden") flushDigest();
@@ -281,6 +369,7 @@ export function useVisitDigest() {
     return () => {
       document.removeEventListener("visibilitychange", onHide);
       window.removeEventListener("pagehide", flushDigest);
+      stopBehavior();
     };
   }, []);
 }

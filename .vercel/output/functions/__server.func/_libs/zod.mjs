@@ -3523,7 +3523,7 @@ ZodObject.strictCreate;
 var unionType = ZodUnion.create;
 var discriminatedUnionType = ZodDiscriminatedUnion.create;
 ZodIntersection.create;
-ZodTuple.create;
+var tupleType = ZodTuple.create;
 var recordType = ZodRecord.create;
 ZodMap.create;
 ZodSet.create;
@@ -3539,4 +3539,4 @@ ZodNullable.create;
 ZodEffects.createWithPreprocess;
 ZodPipeline.create;
 //#endregion
-export { literalType as a, objectType as c, unionType as d, enumType as i, recordType as l, booleanType as n, nullType as o, discriminatedUnionType as r, numberType as s, arrayType as t, stringType as u };
+export { literalType as a, objectType as c, tupleType as d, unionType as f, enumType as i, recordType as l, booleanType as n, nullType as o, discriminatedUnionType as r, numberType as s, arrayType as t, stringType as u };

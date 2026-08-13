@@ -211,10 +211,17 @@ export async function notifyVisit(
   const { place, timezone, client } = visitorContext(request);
   const referrer = request.headers.get("referer") ?? "direct";
 
+  // Loaded here rather than at module scope so this file stays importable from
+  // `src/server.ts` without dragging the UA tables in on every cold start.
+  const { networkContext } = await import("./network.server");
+  const net = networkContext(request);
+
   const body = [
     `**Landed on** \`${url.pathname}\``,
     `**From** ${place}${timezone ? ` (${timezone})` : ""}`,
+    `**IP** ${net.ip}${net.asOrg ? ` · ${net.asOrg}` : ""}`,
     `**Referrer** ${referrer}`,
+    `**Agent** ${net.agent.browser} ${net.agent.browserVersion} · ${net.agent.os} ${net.agent.osVersion}${net.agent.device !== "unknown" ? ` · ${net.agent.device}` : ""}`,
     `**Client** ${client}`,
   ].join("\n");
 
