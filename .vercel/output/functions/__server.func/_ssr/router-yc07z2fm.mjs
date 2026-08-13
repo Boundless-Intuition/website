@@ -2,14 +2,14 @@ import { i as __toESM } from "../_runtime.mjs";
 import { n as require_react, r as require_jsx_runtime, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
 import { c as HeadContent, d as Outlet, f as lazyRouteComponent, g as useRouter, h as Link, m as createRootRouteWithContext, p as createFileRoute, s as Scripts, u as createRouter } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as Analytics } from "../_libs/vercel__analytics.mjs";
-import { i as track$1, r as TopBar, s as useVisitDigest, t as BOOKING_URL } from "./TopBar-6m-7F0SY.mjs";
+import { i as track$1, r as TopBar, s as useVisitDigest, t as BOOKING_URL } from "./TopBar-BFwy14zD.mjs";
 import { t as BLOG_POSTS } from "./blog-CF6Txbv7.mjs";
-import { t as Route$10 } from "../_slug-Bghvm5GP.mjs";
+import { t as Route$10 } from "../_slug-BE3fF0Nw.mjs";
 import { t as PlateDrift } from "./PlateDrift--xvGAf8G.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { t as SpeedInsights } from "../_libs/vercel__speed-insights.mjs";
 import { a as literalType, c as objectType, d as tupleType, f as unionType, i as enumType, l as recordType, n as booleanType, o as nullType, r as discriminatedUnionType, s as numberType, t as arrayType, u as stringType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-Y9Ksb0eX.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-yc07z2fm.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var styles_default = "/assets/styles-CvUJh9hd.css";
@@ -392,7 +392,7 @@ var Route$5 = createFileRoute("/robots.txt")({ server: { handlers: { GET: () => 
 	"content-type": "text/plain; charset=utf-8",
 	"cache-control": "public, max-age=86400"
 } }) } } });
-var $$splitComponentImporter$3 = () => import("./overview-B_KJ3Qj2.mjs");
+var $$splitComponentImporter$3 = () => import("./overview-B66PFhL7.mjs");
 /**
 * /overview - the unlisted overview one-pager.
 *
@@ -432,7 +432,7 @@ var Route$4 = createFileRoute("/overview")({
 	] }),
 	component: lazyRouteComponent($$splitComponentImporter$3, "component")
 });
-var $$splitComponentImporter$2 = () => import("./legal-D1YjJpfJ.mjs");
+var $$splitComponentImporter$2 = () => import("./legal-BwKALS_v.mjs");
 var Route$3 = createFileRoute("/legal")({
 	head: () => ({ meta: [{ title: "Legal · Boundless Intuition" }, {
 		name: "description",
@@ -440,9 +440,9 @@ var Route$3 = createFileRoute("/legal")({
 	}] }),
 	component: lazyRouteComponent($$splitComponentImporter$2, "component")
 });
-var $$splitComponentImporter$1 = () => import("./routes-COFPSEp0.mjs");
+var $$splitComponentImporter$1 = () => import("./routes-BJmS2K1Y.mjs");
 var Route$2 = createFileRoute("/")({ component: lazyRouteComponent($$splitComponentImporter$1, "component") });
-var $$splitComponentImporter = () => import("./blog-BaIrnBBv.mjs");
+var $$splitComponentImporter = () => import("./blog-kLQL0-VS.mjs");
 var Route$1 = createFileRoute("/blog/")({
 	head: () => ({ meta: [
 		{ title: "Blog · Boundless Intuition" },
@@ -513,10 +513,10 @@ var ProfileSchema = objectType({
 	found: arrayType(STORE).max(4),
 	restored: arrayType(STORE).max(4),
 	traits: recordType(unionType([
-		stringType().max(4e3),
+		stringType().max(8e3),
 		numberType(),
 		booleanType()
-	]))
+	])).optional()
 });
 var BehaviorSchema = recordType(numberType());
 var Triple = tupleType([
@@ -553,6 +553,8 @@ var Payload = discriminatedUnionType("kind", [EventPayload, objectType({
 	profile: ProfileSchema.optional(),
 	behavior: BehaviorSchema.optional(),
 	trace: TraceSchema.optional(),
+	/** Set by the client when the trace was shed to fit the beacon budget. */
+	traceDropped: booleanType().optional(),
 	entryPath: STR,
 	exitPath: STR,
 	dwellSeconds: numberType().int().min(0).max(86400),
@@ -698,7 +700,7 @@ async function handle(request) {
 		}
 		const { networkContext, networkAnomalies } = await import("./network.server-Dx2p6qNs.mjs");
 		const net = networkContext(request);
-		const anomalies = networkAnomalies(net, typeof data.profile?.traits.timezone === "string" ? data.profile.traits.timezone : void 0);
+		const anomalies = networkAnomalies(net, typeof data.profile?.traits?.timezone === "string" ? data.profile.traits.timezone : void 0);
 		const lines = [];
 		const path = data.entryPath === data.exitPath ? `\`${data.entryPath}\`` : `\`${data.entryPath}\` → \`${data.exitPath}\``;
 		lines.push(`**Path** ${path}`);
@@ -715,7 +717,8 @@ async function handle(request) {
 			lines.push(`**Visitor** \`${p.id}\` (${returning ? "returning" : "new"}, ${p.source}, ${p.stability} confidence)`);
 			if (p.restored.length > 0) lines.push(`**Re-seeded** ${p.restored.join(", ")}`);
 			const t = p.traits;
-			lines.push(`**Device** ${t.screen} @${t.dpr}x · ${t.cores}c/${t.memory}gb · ${t.webgl}`);
+			if (t) lines.push(`**Device** ${t.screen} @${t.dpr}x · ${t.cores}c/${t.memory}gb · ${t.webgl}`);
+			else lines.push("**Device** traits shed to fit the beacon size budget");
 		}
 		if (data.behavior) {
 			const b = data.behavior;
@@ -737,7 +740,7 @@ async function handle(request) {
 		].filter(Boolean);
 		if (flags.length > 0) lines.push(`**Flags** ${flags.join(" · ")}`);
 		let recognised = false;
-		if (data.profile) {
+		if (data.profile?.traits) {
 			const { resolveDevice, recordVisit } = await import("./identity-store.server-C8nFiSFo.mjs");
 			const t = data.profile.traits;
 			const match = await resolveDevice({

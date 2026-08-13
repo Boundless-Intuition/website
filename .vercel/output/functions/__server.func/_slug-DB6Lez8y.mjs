@@ -1,15 +1,15 @@
 import { i as __toESM } from "./_runtime.mjs";
 import { n as require_react, r as require_jsx_runtime } from "./_libs/react+tanstack__react-query.mjs";
 import { h as Link } from "./_libs/@tanstack/react-router+[...].mjs";
-import { a as useReadProgress, i as track$1 } from "./_ssr/TopBar-6m-7F0SY.mjs";
+import { a as useReadProgress, i as track$1 } from "./_ssr/TopBar-BFwy14zD.mjs";
 import { g as Prose } from "./_ssr/charts-DaMzx0Id.mjs";
 import { a as getNarration, i as getBlogPost, r as formatBlogDate, t as BLOG_POSTS } from "./_ssr/blog-CF6Txbv7.mjs";
-import { t as Route } from "./_slug-Bghvm5GP.mjs";
-import { n as SiteChrome, t as CHROME_PULL } from "./_ssr/useDomainCanvas-B2gSGwZX.mjs";
-import { t as SiteFooter } from "./_ssr/SiteFooter-Czo5uKK6.mjs";
-import { t as BlogHeroBackdrop } from "./_ssr/BlogVisual-Dq-WQyV1.mjs";
+import { t as Route } from "./_slug-BE3fF0Nw.mjs";
+import { n as SiteChrome, t as CHROME_PULL } from "./_ssr/useDomainCanvas-CymLBECu.mjs";
+import { t as SiteFooter } from "./_ssr/SiteFooter-lXpN5stu.mjs";
+import { t as BlogHeroBackdrop } from "./_ssr/BlogVisual-C0BHjq1o.mjs";
 import { a as Link2, i as Pause, n as RotateCcw, o as Check, r as Play, t as RotateCw } from "./_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/_slug-lf7RkDDZ.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_slug-DB6Lez8y.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function TableOfContents({ containerRef }) {

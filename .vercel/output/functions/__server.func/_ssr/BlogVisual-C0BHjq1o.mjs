@@ -1,6 +1,6 @@
 import { r as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
-import { a as oklcha, c as tone, i as mix, l as useDomainCanvas, r as field, s as smoothstep } from "./useDomainCanvas-B2gSGwZX.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/BlogVisual-Dq-WQyV1.js
+import { a as oklcha, c as tone, i as mix, l as useDomainCanvas, r as field, s as smoothstep } from "./useDomainCanvas-CymLBECu.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/BlogVisual-C0BHjq1o.js
 var import_jsx_runtime = require_jsx_runtime();
 /**
 * Blog engines — the masthead field for the blog index, drawn in the house

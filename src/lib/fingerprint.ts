@@ -91,7 +91,16 @@ function canvasTrait(): string {
     };
     const a = draw();
     if (!a) return "none";
-    return a === draw() ? a : "unstable";
+    if (a !== draw()) return "unstable";
+    // Hashed before it leaves the browser. The raw data URL is a base64 PNG
+    // running to several thousand characters - it blew past the payload schema
+    // cap and helped push the digest over the 64KB `sendBeacon` limit, so the
+    // whole thing was being dropped silently.
+    //
+    // Nothing is lost: this value is only ever compared for equality, both in
+    // the identity hash and in the fuzzy match, and a hash compares identically.
+    // It also means the rendered image itself is never transmitted or stored.
+    return hash(a);
   }, "error");
 }
 

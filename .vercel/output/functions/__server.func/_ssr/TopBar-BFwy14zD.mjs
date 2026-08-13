@@ -3,7 +3,7 @@ import { n as require_react, r as require_jsx_runtime } from "../_libs/react+tan
 import { t as BrandMark } from "./BrandMark-BgoQf2Gt.mjs";
 import { h as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as track } from "../_libs/vercel__analytics.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/TopBar-6m-7F0SY.js
+//#region node_modules/.nitro/vite/services/ssr/assets/TopBar-BFwy14zD.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var SECTIONS$1 = [{
@@ -296,7 +296,8 @@ function canvasTrait() {
 		};
 		const a = draw();
 		if (!a) return "none";
-		return a === draw() ? a : "unstable";
+		if (a !== draw()) return "unstable";
+		return hash(a);
 	}, "error");
 }
 /** GPU vendor/renderer. Software renderers here are a strong headless tell. */
@@ -727,7 +728,9 @@ function resolveProfile() {
 			traits: identity.traits
 		};
 		return profile;
-	})().catch(() => void 0);
+	})().catch((error) => {
+		console.warn("visitor profile failed to resolve", error);
+	});
 	return profilePromise;
 }
 var visit;
@@ -785,9 +788,39 @@ function noteInDigest(event, props) {
 * navigation that terminal events (mailto:, outbound links) trigger straight
 * after. Failures are swallowed: analytics must never break the page.
 */
+/**
+* Both transports available during pagehide are capped at 64KB: `sendBeacon`
+* refuses a larger blob outright, and `fetch` with `keepalive` is subject to
+* the same limit. Over that, the digest silently never arrives.
+*
+* So budget below the cap and shed the optional payload rather than lose the
+* whole message. The trace is the expendable part; the profile and the
+* behavioural summary are the point of the digest and always stay.
+*/
+var MAX_BEACON_BYTES = 6e4;
+function withinBudget(payload) {
+	let body = JSON.stringify(payload);
+	if (body.length <= MAX_BEACON_BYTES) return body;
+	body = JSON.stringify({
+		...payload,
+		trace: void 0,
+		traceDropped: true
+	});
+	if (body.length <= MAX_BEACON_BYTES) return body;
+	const profile = payload.profile;
+	return JSON.stringify({
+		...payload,
+		trace: void 0,
+		traceDropped: true,
+		profile: profile ? {
+			...profile,
+			traits: void 0
+		} : void 0
+	});
+}
 function post(payload, useBeacon = false) {
 	if (typeof window === "undefined") return;
-	const body = JSON.stringify(payload);
+	const body = useBeacon && payload && typeof payload === "object" ? withinBudget(payload) : JSON.stringify(payload);
 	if (useBeacon && typeof navigator.sendBeacon === "function") try {
 		const blob = new Blob([body], { type: "application/json" });
 		if (navigator.sendBeacon(SIGNAL_ENDPOINT, blob)) return;

@@ -76,7 +76,13 @@ const ProfileSchema = z.object({
   stability: z.string().max(10),
   found: z.array(STORE).max(4),
   restored: z.array(STORE).max(4),
-  traits: z.record(z.union([z.string().max(4000), z.number(), z.boolean()])),
+  // Optional: the client sheds this first when a digest would exceed the 64KB
+  // beacon budget. A rejected payload here costs the WHOLE digest, not just the
+  // profile, so these bounds are deliberately generous - the canvas is hashed
+  // client-side now, but the font list and WebGL extension list are still long.
+  traits: z
+    .record(z.union([z.string().max(8000), z.number(), z.boolean()]))
+    .optional(),
 });
 
 const BehaviorSchema = z.record(z.number());
@@ -116,6 +122,8 @@ const DigestPayload = z.object({
   profile: ProfileSchema.optional(),
   behavior: BehaviorSchema.optional(),
   trace: TraceSchema.optional(),
+  /** Set by the client when the trace was shed to fit the beacon budget. */
+  traceDropped: z.boolean().optional(),
   entryPath: STR,
   exitPath: STR,
   dwellSeconds: z.number().int().min(0).max(86_400),
@@ -360,7 +368,7 @@ async function handle(request: Request): Promise<Response> {
     const net = networkContext(request);
     const anomalies = networkAnomalies(
       net,
-      typeof data.profile?.traits.timezone === "string"
+      typeof data.profile?.traits?.timezone === "string"
         ? data.profile.traits.timezone
         : undefined,
     );
@@ -400,9 +408,13 @@ async function handle(request: Request): Promise<Response> {
       if (p.restored.length > 0)
         lines.push(`**Re-seeded** ${p.restored.join(", ")}`);
       const t = p.traits;
-      lines.push(
-        `**Device** ${t.screen} @${t.dpr}x · ${t.cores}c/${t.memory}gb · ${t.webgl}`,
-      );
+      if (t) {
+        lines.push(
+          `**Device** ${t.screen} @${t.dpr}x · ${t.cores}c/${t.memory}gb · ${t.webgl}`,
+        );
+      } else {
+        lines.push("**Device** traits shed to fit the beacon size budget");
+      }
     }
 
     // ── Behaviour ──
@@ -446,7 +458,9 @@ async function handle(request: Request): Promise<Response> {
     // Server-side matching runs before the notification is composed so the
     // push can say "returning" on the strength of the fuzzy match rather than
     // just the client's own storage, which a cleared browser would have lost.
-    if (data.profile) {
+    // Needs the component vector: without traits there is nothing to match on,
+    // so a trait-shed digest is reported but not stored as a device.
+    if (data.profile?.traits) {
       const { resolveDevice, recordVisit } =
         await import("@/lib/identity-store.server");
       const t = data.profile.traits;

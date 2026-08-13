@@ -173,7 +173,14 @@ function resolveProfile(): Promise<VisitorProfile | undefined> {
     }
 
     return profile;
-  })().catch(() => undefined);
+  })().catch((error: unknown) => {
+    // Was `.catch(() => undefined)`, which swallowed any failure in canvas,
+    // WebGL, audio rendering, font probing or IndexedDB and left `profile`
+    // undefined with nothing to go on. The digest then arrives looking merely
+    // incomplete rather than broken, which is a bad thing to debug twice.
+    console.warn("visitor profile failed to resolve", error);
+    return undefined;
+  });
 
   return profilePromise;
 }
@@ -256,9 +263,41 @@ function noteInDigest(event: BiEvent, props: EventProps) {
  * navigation that terminal events (mailto:, outbound links) trigger straight
  * after. Failures are swallowed: analytics must never break the page.
  */
+/**
+ * Both transports available during pagehide are capped at 64KB: `sendBeacon`
+ * refuses a larger blob outright, and `fetch` with `keepalive` is subject to
+ * the same limit. Over that, the digest silently never arrives.
+ *
+ * So budget below the cap and shed the optional payload rather than lose the
+ * whole message. The trace is the expendable part; the profile and the
+ * behavioural summary are the point of the digest and always stay.
+ */
+const MAX_BEACON_BYTES = 60_000;
+
+function withinBudget(payload: Record<string, unknown>): string {
+  let body = JSON.stringify(payload);
+  if (body.length <= MAX_BEACON_BYTES) return body;
+
+  body = JSON.stringify({ ...payload, trace: undefined, traceDropped: true });
+  if (body.length <= MAX_BEACON_BYTES) return body;
+
+  // Still too big without the trace: drop the raw component vector too, keeping
+  // the id and the verdict, which is what the server actually needs to match on.
+  const profile = payload.profile as Record<string, unknown> | undefined;
+  return JSON.stringify({
+    ...payload,
+    trace: undefined,
+    traceDropped: true,
+    profile: profile ? { ...profile, traits: undefined } : undefined,
+  });
+}
+
 function post(payload: unknown, useBeacon = false) {
   if (typeof window === "undefined") return;
-  const body = JSON.stringify(payload);
+  const body =
+    useBeacon && payload && typeof payload === "object"
+      ? withinBudget(payload as Record<string, unknown>)
+      : JSON.stringify(payload);
 
   if (useBeacon && typeof navigator.sendBeacon === "function") {
     try {

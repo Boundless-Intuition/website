@@ -1,8 +1,8 @@
 import { r as require_jsx_runtime } from "../_libs/react+tanstack__react-query.mjs";
-import { r as TopBar } from "./TopBar-6m-7F0SY.mjs";
-import { t as SiteFooter } from "./SiteFooter-Czo5uKK6.mjs";
+import { r as TopBar } from "./TopBar-BFwy14zD.mjs";
+import { t as SiteFooter } from "./SiteFooter-lXpN5stu.mjs";
 import { t as PlateDrift } from "./PlateDrift--xvGAf8G.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/legal-D1YjJpfJ.js
+//#region node_modules/.nitro/vite/services/ssr/assets/legal-BwKALS_v.js
 var import_jsx_runtime = require_jsx_runtime();
 var SECTIONS = [
 	{
