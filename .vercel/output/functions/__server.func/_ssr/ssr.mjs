@@ -67,6 +67,7 @@ var visit_notify_server_exports = /* @__PURE__ */ __exportAll({
 	isFirstDocumentVisit: () => isFirstDocumentVisit,
 	notifyVisit: () => notifyVisit,
 	sendNtfy: () => sendNtfy,
+	sendNtfyFile: () => sendNtfyFile,
 	visitorContext: () => visitorContext,
 	withSeenCookie: () => withSeenCookie
 });
@@ -151,6 +152,53 @@ async function sendNtfy(message, env) {
 		console.warn("ntfy notification failed", error);
 	}
 }
+/**
+* Publish a payload too large for a notification body, as an attachment.
+*
+* `sendNtfy` above uses ntfy's JSON format, which cannot carry a file body. The
+* only route to an attachment is a PUT whose body IS the file, with the
+* metadata in headers - and ntfy turns any body over 4096 bytes into an
+* attachment automatically, which is exactly what a full digest is.
+*
+* That means going back to header-based metadata, which is why every value here
+* runs through `asciiHeader`. HTTP header values are ByteStrings: a raw "Zürich"
+* in X-Title mangles, and an em dash throws outright. The pretty, Unicode-safe
+* title still goes out on the companion JSON message; this one is deliberately
+* plain.
+*
+* Note for the reader wondering where the archive is: ntfy.sh expires
+* attachments after 3 hours. This is a live look at one visit, not storage. The
+* durable copy is the `visit` row written by `@/lib/identity-store.server`.
+*/
+async function sendNtfyFile(file, env) {
+	const main = getEnv(env, "NTFY_TOPIC");
+	if (!main) return;
+	const topic = file.firehose ? getEnv(env, "NTFY_TOPIC_FIREHOSE") ?? main : main;
+	const server = getEnv(env, "NTFY_SERVER") ?? "https://ntfy.sh";
+	const token = getEnv(env, "NTFY_TOKEN");
+	const headers = {
+		"Content-Type": "application/json",
+		"X-Filename": asciiHeader(file.filename),
+		"X-Title": asciiHeader(file.title),
+		"X-Priority": String(file.priority ?? 2)
+	};
+	if (file.tags?.length) headers["X-Tags"] = asciiHeader(file.tags.join(","));
+	if (token) headers.Authorization = `Bearer ${token}`;
+	try {
+		await fetch(`${server}/${topic}`, {
+			method: "PUT",
+			headers,
+			body: file.body,
+			signal: AbortSignal.timeout(4e3)
+		});
+	} catch (error) {
+		console.warn("ntfy attachment failed", error);
+	}
+}
+/** Strips anything a ByteString header cannot carry. */
+function asciiHeader(value) {
+	return value.replace(/[^\x20-\x7E]/g, "").slice(0, 200);
+}
 /** True for a real person's first full-page visit: GET for HTML, non-bot UA, no seen-cookie. */
 function isFirstDocumentVisit(request) {
 	if (request.method !== "GET") return false;
@@ -194,7 +242,7 @@ async function notifyVisit(request, env) {
 }
 var serverEntryPromise;
 async function getServerEntry() {
-	if (!serverEntryPromise) serverEntryPromise = import("./server-BMnae6Fb.mjs").then((m) => m.default ?? m);
+	if (!serverEntryPromise) serverEntryPromise = import("./server-CR3asoWM.mjs").then((m) => m.default ?? m);
 	return serverEntryPromise;
 }
 async function normalizeCatastrophicSsrResponse(response) {

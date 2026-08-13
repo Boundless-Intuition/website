@@ -9,7 +9,7 @@ import { t as PlateDrift } from "./PlateDrift--xvGAf8G.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { t as SpeedInsights } from "../_libs/vercel__speed-insights.mjs";
 import { a as literalType, c as objectType, d as tupleType, f as unionType, i as enumType, l as recordType, n as booleanType, o as nullType, r as discriminatedUnionType, s as numberType, t as arrayType, u as stringType } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-BSad_o5X.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-Y9Ksb0eX.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 var styles_default = "/assets/styles-CvUJh9hd.css";
@@ -668,7 +668,7 @@ async function handle(request) {
 	const ok = new Response(null, { status: 204 });
 	try {
 		if (!isSameOrigin(request)) return ok;
-		const { isBotRequest, sendNtfy, visitorContext } = await import("./ssr.mjs").then((n) => n.t);
+		const { isBotRequest, sendNtfy, sendNtfyFile, visitorContext } = await import("./ssr.mjs").then((n) => n.t);
 		if (isBotRequest(request)) return ok;
 		if (rateLimited(request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown")) return ok;
 		const raw = await request.json();
@@ -786,6 +786,47 @@ async function handle(request) {
 			tags: verdict.tags,
 			firehose: verdict.level === "ordinary"
 		}, void 0);
+		if (process.env.NTFY_FULL_DIGEST) {
+			const record = {
+				recordedAt: (/* @__PURE__ */ new Date()).toISOString(),
+				verdict: verdict.level,
+				reasons: verdict.reasons,
+				flags,
+				visit: {
+					entryPath: data.entryPath,
+					exitPath: data.exitPath,
+					dwellSeconds: data.dwellSeconds,
+					sections: data.sections,
+					postProgress: data.postProgress,
+					notFound: data.notFound,
+					referrer: data.referrer,
+					utm_source: data.utm_source,
+					utm_medium: data.utm_medium,
+					utm_campaign: data.utm_campaign
+				},
+				profile: data.profile,
+				behavior: data.behavior,
+				network: {
+					ip: net.ip,
+					ipSource: net.ipSource,
+					forwardedChain: net.forwardedChain,
+					geo: net.geo,
+					asn: net.asn,
+					asOrg: net.asOrg,
+					agent: net.agent,
+					anomalies
+				},
+				trace: data.trace
+			};
+			await sendNtfyFile({
+				filename: `digest-${data.profile?.id ?? "anon"}.json`,
+				title: `Full record ${data.profile?.id ?? "anon"}`,
+				body: JSON.stringify(record, null, 2),
+				priority: 1,
+				tags: ["card_index"],
+				firehose: verdict.level === "ordinary"
+			}, void 0);
+		}
 		return ok;
 	} catch (error) {
 		console.warn("signal relay failed", error);

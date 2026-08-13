@@ -310,7 +310,7 @@ async function handle(request: Request): Promise<Response> {
     if (!isSameOrigin(request)) return ok;
 
     // Loaded lazily so this server-only module never enters the client graph.
-    const { isBotRequest, sendNtfy, visitorContext } =
+    const { isBotRequest, sendNtfy, sendNtfyFile, visitorContext } =
       await import("@/lib/visit-notify.server");
 
     if (isBotRequest(request)) return ok;
@@ -525,6 +525,62 @@ async function handle(request: Request): Promise<Response> {
       },
       undefined,
     );
+
+    // ── Full record ──
+    // The summary above is capped at 3500 bytes, so it carries a GPU string but
+    // not the canvas hash, the font list or the trace. This sends the complete
+    // record as an attachment on the same topic.
+    //
+    // Opt-in via NTFY_FULL_DIGEST because it is a fair amount of data per
+    // visit, and because ntfy.sh counts attachments against a 100MB per-visitor
+    // budget that these would otherwise consume quickly.
+    if (process.env.NTFY_FULL_DIGEST) {
+      const record = {
+        recordedAt: new Date().toISOString(),
+        verdict: verdict.level,
+        reasons: verdict.reasons,
+        flags,
+        visit: {
+          entryPath: data.entryPath,
+          exitPath: data.exitPath,
+          dwellSeconds: data.dwellSeconds,
+          sections: data.sections,
+          postProgress: data.postProgress,
+          notFound: data.notFound,
+          referrer: data.referrer,
+          utm_source: data.utm_source,
+          utm_medium: data.utm_medium,
+          utm_campaign: data.utm_campaign,
+        },
+        // The full component vector, uncut - canvas hash, webglParams, the
+        // whole font list, the audio signature.
+        profile: data.profile,
+        behavior: data.behavior,
+        network: {
+          ip: net.ip,
+          ipSource: net.ipSource,
+          forwardedChain: net.forwardedChain,
+          geo: net.geo,
+          asn: net.asn,
+          asOrg: net.asOrg,
+          agent: net.agent,
+          anomalies,
+        },
+        trace: data.trace,
+      };
+
+      await sendNtfyFile(
+        {
+          filename: `digest-${data.profile?.id ?? "anon"}.json`,
+          title: `Full record ${data.profile?.id ?? "anon"}`,
+          body: JSON.stringify(record, null, 2),
+          priority: 1,
+          tags: ["card_index"],
+          firehose: verdict.level === "ordinary",
+        },
+        undefined,
+      );
+    }
 
     return ok;
   } catch (error) {
